@@ -1,0 +1,11 @@
+:root {
+  --white: #ffffff;
+  --light-gray: #f0eff4;
+  --light-green: #9be1a0;
+  --light-green-hover: #87d28d;
+  --dark-blue: #323f47;
+  --dark-blue-translucent: rgba(50, 63, 71, 0.4);
+  --black: #2f2f2f;
+  --black-semi: #2f2f2f80;
+  --error: #ef5050;
+}
