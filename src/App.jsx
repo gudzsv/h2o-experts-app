@@ -1,8 +1,8 @@
-import { PrivateRoute } from 'components/PrivateRoute.jsx';
-import { RestrictedRoute } from 'components/RestrictedRoute.jsx';
+// import { PrivateRoute } from 'components/PrivateRoute.jsx';
+// import { RestrictedRoute } from 'components/RestrictedRoute.jsx';
 import SharedLayout from 'components/SharedLayout/SharedLayout.jsx';
 import { lazy } from 'react';
-import { Route, Routes } from 'react-router';
+import { Routes, Route } from 'react-router';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
 const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
@@ -20,19 +20,22 @@ function App() {
         <Route
           path="/signup"
           element={
-            <RestrictedRoute redirectTo="/tracker" component={<SignUpPage />} />
+            <SignUpPage />
+            // <RestrictedRoute redirectTo="/tracker" component={<SignUpPage />} />
           }
         />
         <Route
           path="/signin"
           element={
-            <RestrictedRoute redirectTo="/tracker" component={<SignInPage />} />
+            <SignInPage />
+            // <RestrictedRoute redirectTo="/tracker" component={<SignInPage />} />
           }
         />
         <Route
           path="/tracker"
           element={
-            <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
+            <TrackerPage />
+            // <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
           }
         />
         <Route path="*" element={<NotFoundPage />} />
