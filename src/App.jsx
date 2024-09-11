@@ -1,26 +1,43 @@
-import IconSvg from 'components/IconSvg/IconSvg.jsx';
-import { ToastContainer } from 'react-toastify';
-import imgSrc from './assets/img/woman_aqua_track/woman_aqua_track_desktop_1x.webp';
+import { PrivateRoute } from 'components/PrivateRoute.jsx';
+import { RestrictedRoute } from 'components/RestrictedRoute.jsx';
+import SharedLayout from 'components/SharedLayout/SharedLayout.jsx';
+import { lazy } from 'react';
+import { Route, Routes } from 'react-router';
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
+const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
+const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage.jsx'));
+const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage.jsx'));
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFoundPage/NotFoundPage.jsx')
+);
 
 function App() {
   return (
-    <>
-      <div></div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button>count is</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <IconSvg width="22" height="22" iconName="icon-eye-off" />
-
-        <img src={imgSrc} />
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <ToastContainer />
-    </>
+    <SharedLayout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/signup"
+          element={
+            <RestrictedRoute redirectTo="/tracker" component={<SignUpPage />} />
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <RestrictedRoute redirectTo="/tracker" component={<SignInPage />} />
+          }
+        />
+        <Route
+          path="/tracker"
+          element={
+            <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </SharedLayout>
   );
 }
 
