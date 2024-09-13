@@ -1,8 +1,30 @@
 .calender_pag_div,
 .pag_element {
   display: flex;
+  align-items: center;
 }
 
 .calender_pag_div {
   justify-content: space-between;
+
+  height: 32px;
+  border: 2px solid black;
+}
+
+.icon_arrow_calendar_left {
+  transform: rotate(90deg);
+  fill: #323f47;
+  stroke: #323f47;
+}
+
+.icon_arrow_calendar_right {
+  transform: rotate(-90deg);
+  fill: #323f47;
+  stroke: #323f47;
+}
+
+.button_back_month,
+.button_next_month {
+  border: none;
+  background: red;
 }
