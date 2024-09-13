@@ -1,4 +1,10 @@
+import CalendarPagination from 'components/CalendarPagination/CalendarPagination';
+
 const TrackerPage = () => {
-  return <div>TrackerPage</div>;
+  return (
+    <div>
+      <CalendarPagination />
+    </div>
+  );
 };
 export default TrackerPage;

@@ -1,0 +1,8 @@
+.calender_pag_div,
+.pag_element {
+  display: flex;
+}
+
+.calender_pag_div {
+  justify-content: space-between;
+}
