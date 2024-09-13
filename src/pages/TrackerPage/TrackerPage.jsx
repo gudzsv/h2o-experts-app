@@ -1,3 +1,4 @@
+import Calendar from 'components/Calendar/Calendar';
 import CalendarPagination from 'components/CalendarPagination/CalendarPagination';
 import { useState } from 'react';
 
@@ -5,6 +6,12 @@ const TrackerPage = () => {
   const [dateForCalendar, setDateForCalendar] = useState(() => {
     return new Date();
   });
+
+  function getDaysInMonth(date) {
+    console.log(new Date(date.getYear(), date.getMonth() + 1, 0).getDate());
+
+    return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
+  }
 
   const handlePreviousMonth = () => {
     setDateForCalendar(prevDate => {
@@ -30,6 +37,10 @@ const TrackerPage = () => {
         dateForCalendar={dateForCalendar}
         handlePreviousMonth={handlePreviousMonth}
         handleNextMonth={handleNextMonth}
+      />
+      <Calendar
+        dateForCalendar={dateForCalendar}
+        getDaysInMonth={getDaysInMonth}
       />
     </div>
   );

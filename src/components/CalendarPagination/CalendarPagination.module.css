@@ -26,7 +26,7 @@
 .button_back_month,
 .button_next_month {
   border: none;
-  background: red;
+  background: none;
 }
 
 .current_month_year {
