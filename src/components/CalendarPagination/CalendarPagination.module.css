@@ -6,9 +6,11 @@
 
 .calender_pag_div {
   justify-content: space-between;
+  margin-bottom: 24px;
+}
 
-  height: 32px;
-  border: 2px solid black;
+.word_month {
+  margin: 0;
 }
 
 .icon_arrow_calendar_left {

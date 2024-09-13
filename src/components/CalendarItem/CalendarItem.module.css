@@ -1,0 +1,27 @@
+.calendar_items {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 6px;
+}
+
+.button_day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+}
+
+.proc_number {
+  display: block;
+  height: 10px;
+
+  margin: 0;
+}

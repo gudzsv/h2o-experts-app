@@ -5,17 +5,8 @@
   row-gap: 20px;
 }
 
-.button_day {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 28px;
-  height: 28px;
-
-  border-radius: 50%;
-}
-
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }

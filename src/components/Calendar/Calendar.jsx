@@ -1,3 +1,4 @@
+import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
 const Calendar = ({ dateForCalendar, getDaysInMonth }) => {
@@ -7,7 +8,7 @@ const Calendar = ({ dateForCalendar, getDaysInMonth }) => {
     <ul className={css.calendar}>
       {Array.from({ length: amountOfDays }, (_, i) => (
         <li key={i}>
-          <button className={css.button_day}>{i + 1}</button>
+          <CalendarItem day={i} procNumberForBeauty={100} />
         </li>
       ))}
     </ul>
