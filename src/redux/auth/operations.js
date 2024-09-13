@@ -52,7 +52,7 @@ export const currentUser = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
     try {
-      const response = await API.get('/users/current');
+      const response = await API.get('/users/');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
