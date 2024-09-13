@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logOut, refreshUser, register } from './operations';
+import {
+  currentUser,
+  login,
+  logOut,
+  refreshUser,
+  register,
+} from './operations';
+import toast from 'react-hot-toast';
 
 const initialState = {
   user: {
+    id: null,
     name: null,
     email: null,
   },
@@ -18,7 +26,7 @@ const handlePending = state => {
 
 const handleError = payload => {
   // Add selection of errors
-  toast.error('Error');
+  toast.error(payload);
 };
 
 const authSlice = createSlice({
@@ -30,7 +38,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.user = payload.data.user;
-        state.token = payload.data.token;
+        state.token = payload.data.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(register.rejected, (state, { payload }) => {
@@ -41,30 +49,46 @@ const authSlice = createSlice({
       .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, (state, { payload }) => {
         state.user = payload.data.user;
-        state.token = payload.data.token;
+        state.token = payload.data.accessToken;
         state.isLoggedIn = true;
       })
-      // .addCase(login.rejected, (state, action) => {})
-
-      // .addCase(logOut.pending, (state, action) => {})
+      .addCase(login.rejected, (state, { payload }) => {
+        state.isLoggedIn = false;
+        handleError(payload);
+      })
       .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
+        state.user = {
+          name: null,
+          email: null,
+        };
         state.token = null;
         state.isLoggedIn = false;
       })
-      // .addCase(logOut.rejected, (state, action) => {})
-
+      .addCase(logOut.rejected, (state, { payload }) => {
+        state.isLoggedIn = false;
+        handleError(payload);
+      })
+      .addCase(currentUser.pending, handlePending)
+      .addCase(currentUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.user = payload.data.user;
+      })
+      .addCase(currentUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        handleError(payload);
+      })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.token = payload.data.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, state => {
+      .addCase(refreshUser.rejected, (state, { payload }) => {
         state.isRefreshing = false;
         state.token = null;
+        handleError(payload);
       });
   },
 });

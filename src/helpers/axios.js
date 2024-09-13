@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { currentUser, refreshUser } from 'redux/auth/operations';
 import { store } from 'redux/store';
 
 export const API = axios.create({
@@ -13,9 +14,16 @@ API.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await API.get('/users/current');
-        store.dispatch;
-      } catch (error) {}
+        store.dispatch(refreshUser());
+        store.dispatch(currentUser());
+      } catch (refreshError) {
+        // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
+        console.error('Token refresh failed:', refreshError);
+        API.defaults.headers.common.Authorization = '';
+        window.location.href = '/signin';
+        return Promise.reject(refreshError);
+      }
     }
+    return Promise.reject(error);
   }
 );
