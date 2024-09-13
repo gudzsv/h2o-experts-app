@@ -28,3 +28,8 @@
   border: none;
   background: red;
 }
+
+.current_month_year {
+  text-align: center;
+  width: 120px;
+}

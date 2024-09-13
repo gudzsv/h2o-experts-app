@@ -6,9 +6,33 @@ const TrackerPage = () => {
     return new Date();
   });
 
+  const handlePreviousMonth = () => {
+    setDateForCalendar(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() - 1);
+      console.log('-');
+
+      return newDate;
+    });
+  };
+
+  const handleNextMonth = () => {
+    setDateForCalendar(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() + 1);
+      console.log('+');
+
+      return newDate;
+    });
+  };
+
   return (
     <div>
-      <CalendarPagination dateForCalendar={dateForCalendar} />
+      <CalendarPagination
+        dateForCalendar={dateForCalendar}
+        handlePreviousMonth={handlePreviousMonth}
+        handleNextMonth={handleNextMonth}
+      />
     </div>
   );
 };
