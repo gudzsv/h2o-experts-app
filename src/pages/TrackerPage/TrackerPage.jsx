@@ -10,7 +10,6 @@ const TrackerPage = () => {
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1);
-      console.log('-');
 
       return newDate;
     });
@@ -20,7 +19,6 @@ const TrackerPage = () => {
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1);
-      console.log('+');
 
       return newDate;
     });
