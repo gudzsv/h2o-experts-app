@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
 import { API } from 'helpers/axios';
-
-axios.defaults.baseURL = 'https://connections-api.goit.global';
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -16,9 +14,9 @@ export const register = createAsyncThunk(
   'auth/register',
   async (registerData, thunkAPI) => {
     try {
+      await API.post('/users/signup', registerData);
       const response = await API.post('/users/signup', registerData);
       setAuthHeader(response.data.token);
-
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -41,7 +39,7 @@ export const login = createAsyncThunk(
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  console.log('thunkAPI: ', thunkAPI);
+  // console.log('thunkAPI: ', thunkAPI);
   try {
     const response = await API.post('/users/logout');
     clearAuthHeader();
@@ -63,7 +61,7 @@ export const refreshUser = createAsyncThunk(
     // }
     try {
       setAuthHeader(persistedToken);
-      const response = await axios.get('/users/current');
+      const response = await API.get('/users/current');
       setAuthHeader(response.data.token);
 
       return response.data;

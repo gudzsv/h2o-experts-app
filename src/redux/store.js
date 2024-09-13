@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { authReducer } from './auth/slice';
 
 // Заглушка для ред'юсерів
 const placeholderReducer = (state = {}, action) => {
@@ -9,8 +10,8 @@ const placeholderReducer = (state = {}, action) => {
 export const store = configureStore({
   reducer: {
     // Додаємо заглушки для всіх ред'юсерів
-    auth: placeholderReducer,
-    user: placeholderReducer,
+    auth: authReducer,
+    // user: placeholderReducer,
     water: placeholderReducer,
   },
 });
