@@ -32,10 +32,10 @@
 			<path fill="none" stroke="#9be1a0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M18.667 3.733c0-.369 0-.554.082-.704a.713.713 0 0 1 .324-.293c.157-.067.324-.05.659-.016a10.67 10.67 0 0 1 9.549 9.549c.033.334.05.502-.016.659a.704.704 0 0 1-.293.324c-.15.082-.334.082-.704.082h-8.533c-.373 0-.56 0-.703-.073a.67.67 0 0 1-.291-.291c-.073-.143-.073-.329-.073-.703V3.734z" style="stroke:var(--color2, #9be1a0)"/>
 		</symbol>
 		<symbol id="icon-chevron-down" viewBox="0 0 32 32">
-			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2" d="m8 12 8 8 8-8" style="stroke:var(--color3, #fff)"/>
+			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2" d="m8 12 8 8 8-8" />
 		</symbol>
 		<symbol id="icon-chevron-up" viewBox="0 0 32 32">
-			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2" d="m8 20 8-8 8 8" style="stroke:var(--color3, #fff)"/>
+			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2" d="m8 20 8-8 8 8" />
 		</symbol>
 		<symbol id="icon-minus-btn" viewBox="0 0 32 32">
 			<path stroke-width="1.116" d="M16 .558C24.528.558 31.442 7.472 31.442 16S24.528 31.442 16 31.442.558 24.528.558 16 7.472.558 16 .558z"/>
@@ -46,7 +46,7 @@
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.339" d="M16 10.286v11.429M10.286 16h11.429"/>
 		</symbol>
 		<symbol id="icon-plus" viewBox="0 0 32 32">
-			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M16 6.667v18.667M6.667 16h18.667" style="stroke:var(--color3, #fff)"/>
+			<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M16 6.667v18.667M6.667 16h18.667" />
 		</symbol>
 		<symbol id="icon-water-glass-fill" viewBox="0 0 31 32">
 			<path fill="#9be1a0" d="M26.955 5.226c-.095-.321-.254-.616-.468-.868s-.477-.452-.772-.589a2.087 2.087 0 0 0-.937-.21H6.562a1.83 1.83 0 0 0-.937.197c-.301.139-.57.345-.785.604a2.36 2.36 0 0 0-.468.866 2.392 2.392 0 0 0-.089.984l2.076 18.377a5.202 5.202 0 0 0 1.633 3.255 4.78 4.78 0 0 0 3.253 1.313h8.861a4.804 4.804 0 0 0 3.266-1.313 5.316 5.316 0 0 0 1.62-3.255l1.127-10.331v-.158l.873-7.876a2.724 2.724 0 0 0-.038-.998zM14.17 25.375h-1.266a3.573 3.573 0 0 1-2.215-.945 3.744 3.744 0 0 1-1.139-2.192l-.304-2.258c-.039-.344.053-.691.258-.965s.504-.455.835-.503.667.04.936.246.45.512.503.854l.304 2.232c.034.244.151.467.329.63a1 1 0 0 0 .646.276h1.266c.336 0 .658.138.895.384s.371.58.371.928-.133.682-.371.928a1.242 1.242 0 0 1-.895.384h-.152zm10.127-12.116c-2.671.538-4.949.643-7.367-1.313-3-2.455-6.633-1.667-10.127-.381L6.17 5.999a.41.41 0 0 1 0-.171.337.337 0 0 1 .089-.144.257.257 0 0 1 .127-.105.262.262 0 0 1 .152 0h18.38a.53.53 0 0 1 .127.105.314.314 0 0 1 .076.144.304.304 0 0 1 0 .184l-.823 7.246z" style="fill:var(--color2, #9be1a0)"/>
