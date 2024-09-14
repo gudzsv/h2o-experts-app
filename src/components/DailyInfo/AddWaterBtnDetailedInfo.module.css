@@ -1,0 +1,31 @@
+.button {
+  display: flex;
+
+  border: none;
+  background-color: inherit;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--main);
+}
+
+.icon {
+  stroke: black;
+  fill: #9be1a0;
+  transition: 250ms;
+}
+
+.icon:hover {
+  fill: #323f47;
+  stroke: rgb(253, 253, 253);
+  transition: 250ms;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

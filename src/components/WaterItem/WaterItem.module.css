@@ -1,0 +1,69 @@
+/* .wrapper {
+  display: flex;
+  gap: 10px;
+} */
+.water_item_actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.water_amount {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--main);
+  margin-bottom: 6px;
+}
+
+.water_time {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.water_item_content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.water_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  border-radius: 15px;
+  padding: 19px 14px;
+  width: 149px;
+  height: 74px;
+}
+
+.glass {
+  white-space: nowrap;
+}
+
+.delete_btn {
+  border: none;
+  background-color: inherit;
+}
+
+.edit_btn {
+  border: none;
+  background-color: inherit;
+}
+
+.pencil {
+  fill: white;
+  stroke: black;
+}
+
+.trash {
+  fill: white;
+  stroke: black;
+}
