@@ -20,7 +20,6 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
-// Конфігурація store
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
