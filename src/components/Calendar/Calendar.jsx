@@ -1,27 +1,17 @@
-const Calendar = ({ selectedDate, onDateChange }) => {
-  // Массив дней для простоты
-  const daysInMonth = Array.from({ length: 30 }, (_, index) => index + 1);
+import CalendarItem from 'components/CalendarItem/CalendarItem';
+import css from './Calendar.module.css';
 
-  const handleClick = day => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(day);
-    onDateChange(newDate); // Передаем новую дату родителю
-  };
+const Calendar = ({ dateForCalendar, getDaysInMonth }) => {
+  const amountOfDays = getDaysInMonth(dateForCalendar);
 
   return (
-    <div className="calendar">
-      {daysInMonth.map(day => (
-        <button
-          key={day}
-          className={`calendar-day ${
-            selectedDate.getDate() === day ? 'selected' : ''
-          }`}
-          onClick={() => handleClick(day)}
-        >
-          {day}
-        </button>
+    <ul className={css.calendar}>
+      {Array.from({ length: amountOfDays }, (_, i) => (
+        <li key={i}>
+          <CalendarItem day={i} procNumberForBeauty={100} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
