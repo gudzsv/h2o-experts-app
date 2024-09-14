@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { currentUser, refreshUser } from 'redux/auth/operations';
-import { store } from 'redux/store';
+import { currentUser, refreshUser } from '../redux/auth/operations';
+import { store } from '../redux/store.js';
 
 export const API = axios.create({
-  baseURL: '',
+  baseURL: 'https://h2o-experts-server.onrender.com',
   withCredentials: true,
 });
 
@@ -14,8 +14,8 @@ API.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        store.dispatch(refreshUser());
-        store.dispatch(currentUser());
+        await store.dispatch(refreshUser());
+        await store.dispatch(currentUser());
       } catch (refreshError) {
         // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
         console.error('Token refresh failed:', refreshError);

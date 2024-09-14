@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  register,
   currentUser,
   login,
   logOut,
   refreshUser,
-  register,
-} from './operations';
+  editUser,
+} from './operations.js';
 import toast from 'react-hot-toast';
 
 const initialState = {
@@ -82,6 +83,15 @@ const authSlice = createSlice({
         state.isLoading = false;
         handleError(payload);
       })
+      .addCase(editUser.pending, handlePending)
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.user = action.payload.data.user;
+      })
+      .addCase(editUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        handleError(payload);
+      })
+
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })

@@ -5,8 +5,8 @@ import SharedLayout from 'components/SharedLayout/SharedLayout.jsx';
 import { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router';
-import { refreshUser } from 'redux/auth/operations.js';
-import { selectIsRefreshing } from 'redux/auth/selectors.js';
+import { refreshUser } from './redux/auth/operations.js';
+import { selectIsRefreshing } from './redux/auth/selectors.js';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
 const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
@@ -27,21 +27,19 @@ function App() {
   return isRefreshing ? (
     <Loader />
   ) : (
-    <>
-      <SharedLayout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route element={<RestrictedRoute />}>
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/signin" element={<SignInPage />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path="/tracker" element={<TrackerPage />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </SharedLayout>
-    </>
+    <SharedLayout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route element={<RestrictedRoute />}>
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/tracker" element={<TrackerPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </SharedLayout>
   );
 }
 
