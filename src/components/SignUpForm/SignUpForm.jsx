@@ -5,6 +5,7 @@ import { useId } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from './SignUpForm.module.css';
+import sprite from '../../assets/icons/sprite.svg';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Must be a valid email').required('Required'),
@@ -18,6 +19,7 @@ const validationSchema = Yup.object().shape({
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const emailId = useId();
   const passwordId = useId();
@@ -28,7 +30,7 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onTouched',
     defaultValues: {
       email: '',
       password: '',
@@ -44,45 +46,87 @@ const SignUpForm = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor={emailId} className={styles.label}>
-        Email
-      </label>
-      <input
-        id={emailId}
-        {...register('email')}
-        type="email"
-        placeholder="Enter your email"
-        className={styles.input}
-      />
-      {errors.email && (
-        <div className={styles.error}>{errors.email.message}</div>
-      )}
-      <label htmlFor={passwordId} className={styles.label}>
-        Password
-      </label>
-      <input
-        id={passwordId}
-        {...register('password')}
-        type={showPassword ? 'text' : 'password'}
-        placeholder="Enter your password"
-        className={styles.input}
-      />
-      {errors.password && (
-        <div className={styles.error}>{errors.password.message}</div>
-      )}
-      <label htmlFor={repeatPasswordId} className={styles.label}>
-        Repeat password
-      </label>
-      <input
-        id={repeatPasswordId}
-        {...register('repeatPassword')}
-        type={showPassword ? 'text' : 'password'}
-        placeholder="Repeat password"
-        className={styles.input}
-      />
-      {errors.repeatPassword && (
-        <div className={styles.error}>{errors.repeatPassword.message}</div>
-      )}
+      <div className={styles.wrapperContent}>
+        <div className={styles.wrapperInpt}>
+          <label htmlFor={emailId} className={styles.label}>
+            Email
+          </label>
+          <input
+            id={emailId}
+            {...register('email')}
+            type="email"
+            placeholder="Enter your email"
+            className={`${styles.input} ${
+              errors.email ? styles.errorInpt : ''
+            }`}
+          />
+          {errors.email && (
+            <div className={styles.error}>{errors.email.message}</div>
+          )}
+        </div>
+        <div className={styles.wrapperInpt}>
+          <label htmlFor={passwordId} className={styles.label}>
+            Password
+          </label>
+          <div className={styles.inputWrapper}>
+            <input
+              id={passwordId}
+              {...register('password')}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              className={`${styles.input} ${
+                errors.password ? styles.errorInpt : ''
+              }`}
+            />
+            <svg
+              className={styles.icon}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <use
+                width={20}
+                height={20}
+                xlinkHref={`${sprite}${
+                  showPassword ? '#icon-eye' : '#icon-eye-off'
+                }`}
+              ></use>
+            </svg>
+          </div>
+          {errors.password && (
+            <div className={styles.error}>{errors.password.message}</div>
+          )}
+        </div>
+        <div className={styles.wrapperInpt}>
+          <label htmlFor={repeatPasswordId} className={styles.label}>
+            Repeat password
+          </label>
+          <div className={styles.inputWrapper}>
+            <input
+              id={repeatPasswordId}
+              {...register('repeatPassword')}
+              type={showRepeatPassword ? 'text' : 'password'}
+              placeholder="Repeat password"
+              className={`${styles.input} ${
+                errors.repeatPassword ? styles.errorInpt : ''
+              }`}
+            />
+            <svg
+              className={styles.icon}
+              onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+            >
+              <use
+                width={20}
+                height={20}
+                xlinkHref={`${sprite}${
+                  showRepeatPassword ? '#icon-eye' : '#icon-eye-off'
+                }`}
+              ></use>
+            </svg>
+          </div>
+          {errors.repeatPassword && (
+            <div className={styles.error}>{errors.repeatPassword.message}</div>
+          )}
+        </div>
+      </div>
       <button type="submit" className={styles.btn}>
         Sign Up
       </button>
