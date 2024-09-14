@@ -12,16 +12,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  background: #ffffff;
 
   width: 28px;
   height: 28px;
 
   border-radius: 50%;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .proc_number {
   display: block;
   height: 10px;
+  font-size: 10px;
+  font-weight: 400;
 
   margin: 0;
+
+  color: #2f2f2f99;
 }
