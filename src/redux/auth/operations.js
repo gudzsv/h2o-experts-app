@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../helpers/axios';
+import { persistor } from '../store';
 
 const setAuthHeader = token => {
   API.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -40,6 +41,7 @@ export const login = createAsyncThunk(
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     const { data } = await API.post('/user/logout');
+    await persistor.purge();
     clearAuthHeader();
 
     return data;
