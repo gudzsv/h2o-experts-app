@@ -5,31 +5,66 @@
 }
 
 .calender_pag_div {
-  justify-content: space-between;
+  margin-bottom: 24px;
+  margin: 0 16px;
+  padding: 0 20px 24px 20px;
+  background: #f0eff4;
 
-  height: 32px;
-  border: 2px solid black;
+  justify-content: space-between;
+}
+
+.word_month {
+  margin: 0;
+
+  height: 24px;
+  font-weight: 800;
+  font-size: 20px;
 }
 
 .icon_arrow_calendar_left {
   transform: rotate(90deg);
-  fill: #323f47;
-  stroke: #323f47;
 }
 
 .icon_arrow_calendar_right {
   transform: rotate(-90deg);
+}
+
+.icon_arrow_calendar_right,
+.icon_arrow_calendar_left {
   fill: #323f47;
   stroke: #323f47;
+  padding: 0;
+  margin: 0;
 }
 
 .button_back_month,
 .button_next_month {
   border: none;
-  background: red;
+  background: none;
+  padding: 0;
+  width: 21px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .current_month_year {
-  text-align: center;
-  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+
+  height: 18px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.show_info_button {
+  border: none;
+  background: none;
+
+  padding: 0;
+
+  margin-left: 16px;
 }

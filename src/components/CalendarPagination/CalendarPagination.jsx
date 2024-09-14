@@ -4,26 +4,38 @@ const CalendarPagination = ({
   handlePreviousMonth,
   handleNextMonth,
 }) => {
-  const formattedDate = new Date(dateForCalendar).toLocaleString('en-US', {
+  const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
+  });
+
+  const formattedYear = new Date(dateForCalendar).toLocaleString('en-US', {
     year: 'numeric',
   });
 
   return (
-    <div className={css.calender_pag_div}>
+    <div className={[css.calender_pag_div]}>
       <h2 className={css.word_month}>Month</h2>
+
       <div className={css.pag_element}>
         <button className={css.button_back_month} onClick={handlePreviousMonth}>
-          <svg className={css.icon_arrow_calendar_left} width="16" height="16">
+          <svg className={css.icon_arrow_calendar_left} width="40" height="20">
             <use href="/src/assets/icons/sprite.svg#icon-chevron-down" />
           </svg>
         </button>
 
-        <span className={css.current_month_year}>{formattedDate}</span>
+        <span className={css.current_month_year}>
+          {formattedMonth}, {formattedYear}
+        </span>
 
         <button className={css.button_next_month} onClick={handleNextMonth}>
-          <svg className={css.icon_arrow_calendar_right} width="16" height="16">
+          <svg className={css.icon_arrow_calendar_right} width="40" height="20">
             <use href="/src/assets/icons/sprite.svg#icon-chevron-down" />
+          </svg>
+        </button>
+
+        <button className={css.show_info_button}>
+          <svg className={css.icon_pie_chart} width="20" height="20">
+            <use href="/src/assets/icons/sprite.svg#icon-pie-chart" />
           </svg>
         </button>
       </div>
