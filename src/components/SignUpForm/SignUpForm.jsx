@@ -81,6 +81,8 @@ const SignUpForm = () => {
             <svg
               className={styles.icon}
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              role="button"
             >
               <use
                 width={20}
@@ -112,6 +114,8 @@ const SignUpForm = () => {
             <svg
               className={styles.icon}
               onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              role="button"
             >
               <use
                 width={20}
@@ -127,7 +131,11 @@ const SignUpForm = () => {
           )}
         </div>
       </div>
-      <button type="submit" className={styles.btn}>
+      <button
+        type="submit"
+        className={styles.btn}
+        aria-label="Sign up button for an account"
+      >
         Sign Up
       </button>
     </form>

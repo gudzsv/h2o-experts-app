@@ -10,23 +10,27 @@ const SignUpPage = () => {
   // const { isDesktop } = useMedia();
 
   return (
-    <>
+    <div className={styles.container}>
+      <section className={styles.formSection}>
+        <Logo />
+        <h2 className={styles.title} aria-label="Sign Up for an account">
+          Sign Up
+        </h2>
+        <SignUpForm />
+        <p className={styles.wrapperText}>
+          <span className={styles.text}>Already have account?</span>
+          <Link
+            to="/signin"
+            className={styles.link}
+            aria-label="Go to sign in page"
+          >
+            Sign In
+          </Link>
+        </p>
+      </section>
+      {/* {isDesktop && <AdvantagesSection />} */}
       <Toaster />
-      <div className={styles.container}>
-        <section className={styles.formSection}>
-          <Logo />
-          <h2 className={styles.title}>Sign Up</h2>
-          <SignUpForm />
-          <p className={styles.wrapperText}>
-            <span className={styles.text}>Already have account?</span>
-            <Link to="/signin" className={styles.link}>
-              Sign In
-            </Link>
-          </p>
-        </section>
-        {/* {isDesktop && <AdvantagesSection />} */}
-      </div>
-    </>
+    </div>
   );
 };
 export default SignUpPage;
