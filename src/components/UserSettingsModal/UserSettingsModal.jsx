@@ -3,7 +3,7 @@ import css from './UserSettingsModal.module.css';
 const UserSettingsModal = () => {
   return (
     <div className={css.wrapper}>
-      <h1 className={css.title}>Setting</h1>
+      <h2 className={css.title}>Setting</h2>
       <UserSettingsForm />
     </div>
   );
