@@ -31,6 +31,9 @@ const UserSettingsForm = () => {
   const handleImageChange = event => {
     const file = event.target.files[0];
     if (file) {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
       setImagePreview(URL.createObjectURL(file));
     }
   };
@@ -61,8 +64,11 @@ const UserSettingsForm = () => {
               : '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp, /src/assets/img/settings_avatar/settings_avatar_mob_2x.webp'
           }
           alt="User photo"
+          aria-label="Upload a photo"
           className={css.userPhoto}
           loading="lazy"
+          width="75"
+          height="75"
         />
         <label htmlFor="userImage" className={css.uploadButton}>
           <svg>
