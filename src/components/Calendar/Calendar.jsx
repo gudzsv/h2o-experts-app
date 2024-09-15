@@ -1,8 +1,8 @@
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
-const Calendar = ({ dateForCalendar, getDaysInMonth }) => {
-  const amountOfDays = getDaysInMonth(dateForCalendar);
+const Calendar = ({ calendarDate, getDaysInMonth }) => {
+  const amountOfDays = getDaysInMonth(calendarDate);
 
   return (
     <ul className={css.calendar}>
