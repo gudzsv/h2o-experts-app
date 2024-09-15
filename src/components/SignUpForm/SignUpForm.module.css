@@ -9,6 +9,12 @@
   padding-bottom: 32px;
 }
 
+@media screen and (min-width: 768px) {
+  .wrapperContent {
+    gap: 20px;
+  }
+}
+
 .wrapperInpt {
   display: flex;
   flex-direction: column;
@@ -21,6 +27,14 @@
   font-weight: 700;
   line-height: 1.28;
   letter-spacing: -0.14px;
+}
+
+@media screen and (min-width: 768px) {
+  .label {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
 }
 
 .input {
@@ -101,8 +115,11 @@
   background-color: var(--light-green-hover);
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 768px) {
   .btn {
-    width: 311px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+    padding: 18px;
   }
 }
