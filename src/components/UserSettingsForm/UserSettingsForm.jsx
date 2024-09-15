@@ -7,11 +7,14 @@ import { useState } from 'react';
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
   gender: Yup.string().required('Please select your gender'),
-  userName: Yup.string().required('Name is required'),
-  userEmail: Yup.string().email(),
-  userWeight: Yup.number().min(1),
-  userTime: Yup.number().min(0),
-  UserWaterNorma: Yup.number().min(0),
+  userName: Yup.string()
+    .min(3, 'The minimum number of characters is 3')
+    .max(50, 'The maximum number of characters is 50')
+    .required('Name is required'),
+  userEmail: Yup.string().email('Invalid email format'),
+  userWeight: Yup.number(),
+  userTime: Yup.number(),
+  UserWaterNorma: Yup.number(),
 });
 
 const UserSettingsForm = () => {
