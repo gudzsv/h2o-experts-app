@@ -6,6 +6,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { register as signUp } from '../../redux/auth/operations';
+import { useDispatch } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Must be a valid email').required('Required'),
@@ -18,6 +20,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
@@ -28,6 +32,7 @@ const SignUpForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     mode: 'onTouched',
@@ -40,8 +45,10 @@ const SignUpForm = () => {
   });
 
   const onSubmit = data => {
-    console.log(data);
+    const { email, password } = data;
+    dispatch(signUp({ email, password }));
     toast.success('Registration successful 🤗');
+    reset();
   };
 
   return (
@@ -114,7 +121,9 @@ const SignUpForm = () => {
             <svg
               className={styles.icon}
               onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-label={
+                showRepeatPassword ? 'Hide password' : 'Show password'
+              }
               role="button"
             >
               <use
