@@ -1,7 +1,5 @@
-import WaterForm from './WaterForm/WaterForm.jsx';
-import styles from './WaterModal.module.css';
-
-const WaterModal = ({ add, edit }) => {
+import styles from './WaterForm.module.css';
+const WaterForm = ({ edit, add }) => {
   return (
     <>
       {edit ? (
@@ -14,9 +12,8 @@ const WaterModal = ({ add, edit }) => {
           Default text if neither add nor edit is true
         </h1>
       )}
-      <WaterForm add={add} edit={edit}></WaterForm>
     </>
   );
 };
 
-export default WaterModal;
+export default WaterForm;
