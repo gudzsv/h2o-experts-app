@@ -1,0 +1,50 @@
+.content {
+  position: absolute;
+  max-height: 80vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0px 4px 50px 0px rgba(213, 204, 204, 0.1);
+  overflow: auto;
+  padding: 40px 20px;
+}
+.content:focus {
+  outline: none;
+}
+
+@media (min-width: 767.99px) {
+  .content {
+    padding: 40px;
+  }
+}
+
+.overlay {
+  background: rgba(47, 47, 47, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.icon,
+.iconSettings {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  cursor: pointer;
+  stroke: #2f2f2f;
+}
+@media (min-width: 767.99px) {
+  .icon {
+    top: 20px;
+    right: 20px;
+  }
+  .iconSettings {
+    top: 40px;
+    right: 40px;
+  }
+}
