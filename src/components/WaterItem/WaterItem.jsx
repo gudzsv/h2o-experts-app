@@ -12,12 +12,12 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
       </div>
       <div className={css.water_item_actions}>
         <button className={css.edit_btn} onClick={onEdit}>
-          <svg width="12" height="12" className={css.pencil}>
+          <svg width="14" height="14" className={css.pencil}>
             <use href="/src/assets/icons/sprite.svg#icon-edit"></use>
           </svg>
         </button>
         <button className={css.delete_btn} onClick={onDelete}>
-          <svg width="12" height="12" className={css.trash}>
+          <svg width="14" height="14" className={css.trash}>
             <use href="/src/assets/icons/sprite.svg#icon-trash"></use>
           </svg>
         </button>

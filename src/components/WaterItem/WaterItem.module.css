@@ -1,7 +1,3 @@
-/* .wrapper {
-  display: flex;
-  gap: 10px;
-} */
 .water_item_actions {
   display: flex;
   flex-direction: column;
@@ -12,7 +8,7 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
-  color: var(--main);
+  color: #323f47;
   margin-bottom: 6px;
 }
 
@@ -27,7 +23,8 @@
 .water_item_content {
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .water_item {
@@ -35,8 +32,6 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
   border-radius: 15px;
   padding: 19px 14px;
@@ -60,10 +55,29 @@
 
 .pencil {
   fill: white;
-  stroke: black;
+  stroke: #323f47;
 }
 
 .trash {
   fill: white;
-  stroke: black;
+  stroke: #323f47;
+}
+
+@media screen and (min-width: 703px) {
+  .water_item {
+    width: 192px;
+    height: 86px;
+  }
+  .glass {
+    width: 44px;
+    height: 45px;
+  }
+  .pencil {
+    width: 16px;
+    height: 16px;
+  }
+  .trash {
+    width: 16px;
+    height: 16px;
+  }
 }

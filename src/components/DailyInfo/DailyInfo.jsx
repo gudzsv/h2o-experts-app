@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react';
-// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import ChooseDate from 'components/ChooseDate/ChooseDate';
+import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-import Calendar from 'components/Calendar/Calendar';
-import css from './AddWaterBtnDetailedInfo.module.css';
 
-const DailyInfo = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Текущая дата по умолчанию
-  const [waterData, setWaterData] = useState([]); // Данные по воде
+import styles from './DailyInfo.module.css';
+import css from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo.module.css';
 
-  // // Асинхронный thunk для получения данных с бэкенда
-  //   export const fetchWaterData = createAsyncThunk('water/fetchWaterData', async (date) => {
-  //   const response = await fetch(`/api/water-data?date=${date}`);
-  //   const data = await response.json();
-  //   return data; // Возвращаем полученные данные
-  // });
+const DailyInfo = ({ dateForCalendar }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [waterData, setWaterData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [editItem, setEditItem] = useState(null);
 
-  // Мок данных по дням, формат ключей "YYYY-MM-DD"
+  // Для функції з базою данних
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+
+  // Тестові данні, формат ключів "YYYY-MM-DD"
   const waterHistory = {
     '2024-09-01': [
       { id: 1, amount: 250, time: '07:00 AM' },
@@ -29,128 +27,118 @@ const DailyInfo = () => {
       { id: 4, amount: 250, time: '09:00 AM' },
       { id: 5, amount: 250, time: '07:00 AM' },
     ],
-
     '2024-09-04': [
       { id: 6, amount: 250, time: '11:00 AM' },
       { id: 7, amount: 250, time: '11:00 AM' },
       { id: 8, amount: 250, time: '11:00 AM' },
       { id: 9, amount: 250, time: '07:00 AM' },
     ],
-    '2024-09-14': [
+    '2024-09-15': [
       { id: 10, amount: 250, time: '11:00 AM' },
       { id: 11, amount: 250, time: '11:00 AM' },
       { id: 12, amount: 250, time: '11:00 AM' },
       { id: 13, amount: 250, time: '07:00 AM' },
+      { id: 14, amount: 250, time: '11:00 AM' },
+      { id: 15, amount: 250, time: '11:00 AM' },
+      { id: 16, amount: 250, time: '11:00 AM' },
+      { id: 17, amount: 250, time: '07:00 AM' },
     ],
   };
 
-  // Форматируем дату в строку "YYYY-MM-DD"  +
-  const formatDateKey = date => {
-    return date.toISOString().split('T')[0];
+  const getFormattedDate = () => {
+    const year = dateForCalendar.getFullYear();
+    const month = String(dateForCalendar.getMonth() + 1).padStart(2, '0');
+    const day = String(dateForCalendar.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   };
 
-  // Загружаем данные за текущий день при первой загрузке страницы +
+  // Функція для отримання данних з бази данних/ поки працюємо з тестовими данними
+  // const fetchWaterDataForDate = async formattedDate => {
+  //   setLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const response = await fetch(`/api/water-data?date=${formattedDate}`); // Пример API запроса
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch water data');
+  //     }
+  //     const data = await response.json();
+  //     setWaterData(data); // Установка полученных данных в состояние
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const fetchWaterDataForDate = formattedDate => {
+    setWaterData(waterHistory[formattedDate] || []);
+  };
+
   useEffect(() => {
-    fetchWaterDataForDate(new Date());
-  }, []); // Этот эффект выполнится только один раз при загрузке компонента
+    const formattedDate = getFormattedDate();
+    fetchWaterDataForDate(formattedDate);
+  }, [dateForCalendar]);
 
-  // Функция для получения данных по выбранной дате +
-  const fetchWaterDataForDate = date => {
-    const formattedDate = formatDateKey(date); // Форматируем дату
-    setWaterData(waterHistory[formattedDate] || []); // Устанавливаем данные за выбранный день
+  const handleEdit = item => {
+    setEditItem(item);
+    setIsModalOpen(true);
   };
 
-  // Функция для обновления выбранной даты +
-  const handleDateChange = date => {
-    setSelectedDate(date); // Обновляем выбранную дату
-    fetchWaterDataForDate(date); // Получаем данные за выбранную дату
-  };
-
-  // Функция для сброса на текущую дату после перезагрузки
-  const resetToToday = () => {
-    const today = new Date();
-    setSelectedDate(today);
-    const storedHistory =
-      JSON.parse(localStorage.getItem('waterHistory')) || {};
-    setWaterData(storedHistory[formatDateKey(today)] || []);
-  };
-
-  // Сбрасываем выбранную дату на сегодняшнюю при перезагрузке страницы
-  useEffect(() => {
-    resetToToday();
-  }, []);
-
-  // Функция для форматирования заголовка
-  const formatDate = date => {
-    const today = new Date();
-    if (date.toDateString() === today.toDateString()) {
-      return 'Today';
-    }
-    return date.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
-
-  // // Обновление данных при изменении выбранной даты --------------- закоментил
-  // useEffect(() => {
-  //   const dateKey = formatDateKey(selectedDate);
-  //   console.log('Selected Date Key:', dateKey);
-  //   console.log('Water History Data:', waterHistory[dateKey]);
-  //   setWaterData(waterHistory[dateKey] || []); // Получаем данные за выбранный день
-  // }, [selectedDate]);
-
-  // Удаление элемента
   const handleDelete = id => {
-    setWaterData(prevData => prevData.filter(item => item.id !== id));
+    const updatedData = waterData.filter(item => item.id !== id);
+    setWaterData(updatedData);
   };
 
-  // Редактирование элемента
-  const openEditModal = item => {
-    // Открытие модального окна для редактирования (добавьте логику)
-    console.log('Edit item', item);
+  const openAddWaterModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleAddWater = newWaterData => {
+    // Обработка добавления новой порции воды
+    setWaterData([...waterData, newWaterData]);
+    setIsModalOpen(false); // Закрытие модального окна после добавления
   };
 
   return (
-    <div className="daily-info">
-      {/* Динамический заголовок, меняется в зависимости от выбранной даты */}
-      <h3>{formatDate(selectedDate)}</h3>
+    <div className={styles.dailyInfo}>
+      <div className={styles.wrapper}>
+        <div className={styles.today_and_addBtn_container}>
+          <ChooseDate
+            selectedDate={dateForCalendar}
+            setSelectedDate={setSelectedDate}
+          />
 
-      {/* Кнопка Add Water */}
-      <button onClick={() => setModalOpen(true)} className={css.button}>
-        <div className={css.wrapper}>
-          <svg width="30" height="30" className={css.icon}>
-            <use href="/src/assets/icons/sprite.svg#icon-plus-btn"></use>
-          </svg>
-          {'Add Water'}
+          <button onClick={openAddWaterModal} className={css.add_button}>
+            <div className={css.wrapper}>
+              <svg width="30" height="30" className={css.icon}>
+                <use href="/src/assets/icons/sprite.svg#icon-plus-btn"></use>
+              </svg>
+              <p>Add Water</p>
+            </div>
+          </button>
         </div>
-      </button>
 
-      {/* Список воды за выбранную дату */}
-      <WaterList
-        waterData={waterData}
-        onEdit={openEditModal}
-        onDelete={handleDelete}
-      />
+        {isModalOpen && (
+          <WaterModal
+            closeModal={() => setIsModalOpen(false)}
+            onAddWater={handleAddWater}
+            editItem={editItem}
+          />
+        )}
 
-      {/* Модальное окно для добавления воды */}
-      {modalOpen && <WaterModal closeModal={() => setModalOpen(false)} />}
-
-      {/* Календарь для выбора даты */}
-      <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
+        <div className={styles.water_list_wrapper}>
+          <WaterList
+            className={styles.water_list}
+            waterData={waterData}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </div>
+      </div>
     </div>
   );
 };
-export default DailyInfo;
 
-// return (
-//   <div>
-//     <ChooseDate />
-//     <AddWaterBtnDetailedInfo />
-//     <WaterList />
-//     <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
-//   </div>
-// );
-// };
-// export default DailyInfo;
+export default DailyInfo;

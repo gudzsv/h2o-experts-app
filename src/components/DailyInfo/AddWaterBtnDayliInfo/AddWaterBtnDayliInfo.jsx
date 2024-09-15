@@ -1,8 +1,8 @@
 import WaterModal from 'components/WaterModal/WaterModal';
 import { useState } from 'react';
-import css from './AddWaterBtnDetailedInfo.module.css';
+import css from './AddWaterBtnDayliInfo.module.css';
 
-const AddWaterBtnDetailedInfo = () => {
+const AddWaterBtnDayliInfo = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -19,4 +19,4 @@ const AddWaterBtnDetailedInfo = () => {
     </div>
   );
 };
-export default AddWaterBtnDetailedInfo;
+export default AddWaterBtnDayliInfo;
