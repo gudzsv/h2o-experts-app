@@ -21,12 +21,21 @@
 }
 
 .horizontal_scroll_container {
-  display: flex;
-  height: max-content;
-  overflow-y: hidden;
-  position: relative;
   width: 100%;
   margin-bottom: 40px;
+}
+
+.horizontal_scroll_container::-webkit-scrollbar {
+  height: 8px;
+  background-color: #f0eff4;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.horizontal_scroll_container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: black;
+  padding-left: 20px;
 }
 
 .no_water_text {

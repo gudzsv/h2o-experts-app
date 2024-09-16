@@ -1,14 +1,14 @@
 import css from './CalendarPagination.module.css';
 const CalendarPagination = ({
-  calendarDate,
+  dateForCalendar,
   handlePreviousMonth,
   handleNextMonth,
 }) => {
-  const formattedMonth = new Date(calendarDate).toLocaleString('en-US', {
+  const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
   });
 
-  const formattedYear = new Date(calendarDate).toLocaleString('en-US', {
+  const formattedYear = new Date(dateForCalendar).toLocaleString('en-US', {
     year: 'numeric',
   });
 
