@@ -4,6 +4,7 @@ import { selectUser } from '../../redux/auth/selectors';
 import { selectDate, selectWaterDate } from '../../redux/water/selectors';
 import css from './WaterProgressBar.module.css';
 import { useSelector } from 'react-redux';
+import { DEFAULT_DAILY_NORMA } from 'constatnts/constants.js';
 
 export default function WaterProgressBar() {
   // Отримання даних користувача src/redux/auth/selectors.js за допомогою селектора selectUser
@@ -15,11 +16,13 @@ export default function WaterProgressBar() {
   const normaValidation = number().min(0).max(5).required();
 
   try {
-    normaValidation.validateSync(waterDailyNormaBar?.dailyNorma || 1.5);
-    waterDailyNorma = waterDailyNormaBar?.dailyNorma || 1.5;
+    normaValidation.validateSync(
+      waterDailyNormaBar?.dailyNorma || DEFAULT_DAILY_NORMA
+    );
+    waterDailyNorma = waterDailyNormaBar?.dailyNorma || DEFAULT_DAILY_NORMA;
   } catch (error) {
     console.error('Validation error:', error);
-    waterDailyNorma = 1.5;
+    waterDailyNorma = DEFAULT_DAILY_NORMA;
   }
 
   let amount = 0;
@@ -86,6 +89,10 @@ export default function WaterProgressBar() {
           style={{
             width: `${percentDaily}%`,
           }}
+          role="progressbar"
+          aria-valuenow={percentDaily}
+          aria-valuemin="0"
+          aria-valuemax="100"
         >
           <div className={css.frontBarCircle} style={{ right: circleRightMod }}>
             <div

@@ -26,6 +26,8 @@ export default function AddWaterBtn({ mainColor, colorText, colorIcon }) {
         style={{ backgroundColor: mainColor }}
         onClick={openModal}
         disabled={!isTodayData}
+        aria-disabled={!isTodayData}
+        aria-label="Add water button"
       >
         <div
           className={
@@ -34,7 +36,6 @@ export default function AddWaterBtn({ mainColor, colorText, colorIcon }) {
           style={{ color: colorText }}
         >
           <svg className={css.icon} stroke={colorIcon}>
-            {' '}
             <use href={Icons + '#icon-x'}></use>
           </svg>
           <span className={css.text}>Add water</span>
