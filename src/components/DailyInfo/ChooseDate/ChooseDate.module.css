@@ -1,0 +1,16 @@
+.daily_info {
+  color: #323f47;
+  height: 24px;
+
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.2em;
+  letter-spacing: -0.2px;
+  padding-left: 20px;
+}
+
+@media screen and (min-width: 703px) {
+  .daily_info {
+    padding-left: 32px;
+  }
+}

@@ -1,0 +1,55 @@
+.water_item {
+  display: flex;
+  min-width: 149px;
+  margin-right: 15px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.water_list_container {
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.water_list {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+  margin-bottom: 24px;
+}
+
+.horizontal_scroll_container {
+  display: flex;
+  height: max-content;
+  overflow-y: hidden;
+  position: relative;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.no_water_text {
+  align-items: center;
+}
+
+@media screen and (min-width: 343px) {
+  .wrapper {
+    min-width: 343px;
+    max-width: 703px;
+    margin: 0 16px;
+  }
+}
+
+@media screen and (min-width: 703px) {
+  .wrapper {
+    gap: 10px;
+    padding: 0 24px;
+    margin-bottom: 24px;
+  }
+  .water_list {
+    gap: 32px;
+    padding: 0 32px;
+    margin-bottom: 24px;
+  }
+}
