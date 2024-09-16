@@ -1,0 +1,37 @@
+.add_button {
+  float: right;
+  border: none;
+  background-color: inherit;
+  font-family: var(--font-family);
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  padding-right: 20px;
+}
+
+.icon {
+  fill: #9be1a0;
+  stroke: #323f47;
+  transition: 250ms;
+}
+
+.icon:hover {
+  fill: #323f47;
+  stroke: rgb(253, 253, 253);
+  transition: 250ms;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (min-width: 703px) {
+  .add_button {
+    padding-right: 32px;
+  }
+}
