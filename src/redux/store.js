@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import persistStore from 'redux-persist/es/persistStore';
+import { waterReducer } from './water/slice';
 
 const persistConfig = {
   key: 'root',
@@ -24,7 +25,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     // user: placeholderReducer,
-    // water: placeholderReducer,
+    water: waterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -12,6 +12,8 @@ const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
 const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage.jsx'));
 const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage.jsx'));
+const OAuthPage = lazy(() => import('./pages/OAuthPage/OAuthPage.jsx'));
+
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage/NotFoundPage.jsx')
 );
@@ -33,6 +35,7 @@ function App() {
         <Route element={<RestrictedRoute />}>
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/oauth-redirect" element={<OAuthPage />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/tracker" element={<TrackerPage />} />

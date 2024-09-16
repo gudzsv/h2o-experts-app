@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import css from './WaterDailyNorma.module.css';
 import { selectUser } from '../../redux/auth/selectors';
-import { DEFAULT_DAILY_NORMA } from 'constatnts/constants.js';
+import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterDailyNorma() {
   // Отримання даних користувача з src/redux/water/selectors.js за допомогою селектора selectUser
