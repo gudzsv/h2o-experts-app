@@ -1,9 +1,5 @@
 .dailyInfo {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .today_and_addBtn_container {
@@ -17,8 +13,6 @@
 }
 
 .wrapper {
-  min-width: 320px;
-  max-width: 343px;
   margin: 0 16px;
   background-color: #f0eff4;
   box-sizing: border-box;
@@ -26,15 +20,6 @@
 
 @media screen and (min-width: 703px) {
   .wrapper {
-    min-width: 343px;
-    max-width: 703px;
-    margin: 0 16px;
-  }
-}
-
-@media screen and (min-width: 1376px) {
-  .wrapper {
-    min-width: 672px;
     margin: 0 16px;
   }
 }
