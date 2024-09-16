@@ -11,7 +11,9 @@ import {
   loginOAuth,
 } from './operations.js';
 import toast from 'react-hot-toast';
-import { SUCCESS, ERROR } from '../../helpers/messages.js';
+import { MESSAGES } from '../../constants/constants.js';
+
+const { SUCCESS, ERROR } = MESSAGES;
 
 const initialState = {
   user: {

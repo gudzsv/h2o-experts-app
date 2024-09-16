@@ -7,7 +7,9 @@ import {
   getMonthWater,
 } from './operations';
 import toast from 'react-hot-toast';
-import { SUCCESS, ERROR } from '../../helpers/messages';
+import { MESSAGES } from '../../constants/constants.js';
+
+const { SUCCESS, ERROR } = MESSAGES;
 
 const initialState = {
   dayWater: [],

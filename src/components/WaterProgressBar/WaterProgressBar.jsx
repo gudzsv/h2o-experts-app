@@ -4,7 +4,7 @@ import { selectUser } from '../../redux/auth/selectors';
 import { selectDate, selectWaterDate } from '../../redux/water/selectors';
 import css from './WaterProgressBar.module.css';
 import { useSelector } from 'react-redux';
-import { DEFAULT_DAILY_NORMA } from 'constatnts/constants.js';
+import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterProgressBar() {
   // Отримання даних користувача src/redux/auth/selectors.js за допомогою селектора selectUser
