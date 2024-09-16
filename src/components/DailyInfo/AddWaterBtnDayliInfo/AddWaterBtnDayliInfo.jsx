@@ -1,4 +1,5 @@
 import css from './AddWaterBtnDayliInfo.module.css';
+import sprite from '../../../assets/icons/sprite.svg';
 
 const AddWaterBtnDayliInfo = ({ openModal }) => {
   return (
@@ -6,7 +7,7 @@ const AddWaterBtnDayliInfo = ({ openModal }) => {
       <button onClick={openModal} className={css.add_button}>
         <div className={css.wrapper}>
           <svg width="30" height="30" className={css.icon}>
-            <use href="/src/assets/icons/sprite.svg#icon-plus-btn"></use>
+            <use href={`${sprite}#icon-plus-btn`}></use>
           </svg>
           <p>Add Water</p>
         </div>

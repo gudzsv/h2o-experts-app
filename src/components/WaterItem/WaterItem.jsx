@@ -1,4 +1,5 @@
 import css from './WaterItem.module.css';
+import sprite from '../../assets/icons/sprite.svg';
 
 const WaterItem = ({ item, onEdit, onDelete }) => {
   return (
@@ -17,7 +18,8 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
           aria-label="Edit water entry"
         >
           <svg width="14" height="14" className={css.pencil}>
-            <use href="/src/assets/icons/sprite.svg#icon-edit"></use>
+            <use href={`${sprite}#icon-edit`}></use>
+            {/* <use href="/src/assets/icons/sprite.svg#icon-edit"></use> */}
           </svg>
         </button>
         <button
@@ -26,7 +28,8 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
           aria-label="Delete water entry"
         >
           <svg width="14" height="14" className={css.trash}>
-            <use href="/src/assets/icons/sprite.svg#icon-trash"></use>
+            <use href={`${sprite}#icon-trash`}></use>
+            {/* <use href="/src/assets/icons/sprite.svg#icon-trash"></use> */}
           </svg>
         </button>
       </div>
