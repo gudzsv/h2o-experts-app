@@ -13,6 +13,7 @@
 }
 
 .wrapper {
+  height: 209px;
   margin: 0 16px;
   background-color: #f0eff4;
   box-sizing: border-box;

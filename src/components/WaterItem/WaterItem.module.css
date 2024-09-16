@@ -4,7 +4,6 @@
 }
 
 .water_amount {
-  font-family: var(--font-family);
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
@@ -13,7 +12,6 @@
 }
 
 .water_time {
-  font-family: var(--font-family);
   font-weight: 400;
   font-size: 12px;
   line-height: 100%;
