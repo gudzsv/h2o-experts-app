@@ -16,7 +16,7 @@ const TrackerPage = () => {
   });
 
   const handlePreviousMonth = () => {
-    setCalendarDate(prevDate => {
+    setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1);
       setCurrentMonth(newDate.getMonth());
@@ -25,7 +25,7 @@ const TrackerPage = () => {
   };
 
   const handleNextMonth = () => {
-    setCalendarDate(prevDate => {
+    setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1);
       setCurrentMonth(newDate.getMonth());
