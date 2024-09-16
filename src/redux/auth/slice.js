@@ -6,8 +6,12 @@ import {
   logOut,
   refreshUser,
   editUser,
+  getCounter,
+  getOAuthURL,
+  loginOAuth,
 } from './operations.js';
 import toast from 'react-hot-toast';
+import { SUCCESS, ERROR } from '../../helpers/messages.js';
 
 const initialState = {
   user: {
@@ -24,15 +28,20 @@ const initialState = {
   isLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
+  counter: null,
+  OAuthURL: null,
 };
 
 const handlePending = state => {
   state.isLoading = true;
 };
 
-const handleError = payload => {
-  // Add selection of errors
-  toast.error(payload);
+const handleMessage = message => {
+  toast.success(message);
+};
+
+const handleError = message => {
+  toast.error(message);
 };
 
 const authSlice = createSlice({
@@ -46,10 +55,11 @@ const authSlice = createSlice({
         state.user = payload.data.user;
         state.token = payload.data.accessToken;
         state.isLoggedIn = true;
+        handleMessage(SUCCESS.REGISTER);
       })
-      .addCase(register.rejected, (state, { payload }) => {
+      .addCase(register.rejected, state => {
         state.isLoggedIn = false;
-        handleError(payload);
+        handleError(ERROR.REGISTER);
       })
 
       .addCase(login.pending, handlePending)
@@ -57,36 +67,39 @@ const authSlice = createSlice({
         state.user = payload.data.user;
         state.token = payload.data.accessToken;
         state.isLoggedIn = true;
+        handleMessage(SUCCESS.LOGIN);
       })
-      .addCase(login.rejected, (state, { payload }) => {
+      .addCase(login.rejected, state => {
         state.isLoggedIn = false;
-        handleError(payload);
+        handleError(ERROR.LOGIN);
       })
       .addCase(logOut.fulfilled, state => {
         state.user = initialState.user;
         state.token = null;
         state.isLoggedIn = false;
+        handleMessage(SUCCESS.LOGOUT);
       })
-      .addCase(logOut.rejected, (state, { payload }) => {
+      .addCase(logOut.rejected, state => {
         state.isLoggedIn = false;
-        handleError(payload);
+        handleError(ERROR.LOGOUT);
       })
       .addCase(currentUser.pending, handlePending)
       .addCase(currentUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.user = payload.data.user;
       })
-      .addCase(currentUser.rejected, (state, { payload }) => {
+      .addCase(currentUser.rejected, state => {
         state.isLoading = false;
-        handleError(payload);
+        handleError(ERROR.USER_DATA);
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
+        handleMessage(SUCCESS.EDIT_USER);
       })
-      .addCase(editUser.rejected, (state, { payload }) => {
+      .addCase(editUser.rejected, state => {
         state.isLoading = false;
-        handleError(payload);
+        handleError(ERROR.EDIT_USER);
       })
 
       .addCase(refreshUser.pending, state => {
@@ -97,10 +110,36 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, (state, { payload }) => {
+      .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
         state.token = null;
-        handleError(payload);
+        handleError(ERROR.REFRESH);
+      })
+      .addCase(getCounter.fulfilled, (state, { payload }) => {
+        state.counter = payload.data.usersCount;
+      })
+
+      .addCase(getOAuthURL.pending, handlePending)
+      .addCase(getOAuthURL.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.OAuthURL = payload.data.url;
+      })
+      .addCase(getOAuthURL.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.GET_OAUTH_URL);
+      })
+      .addCase(loginOAuth.pending, handlePending)
+      .addCase(loginOAuth.fulfilled, (state, { payload }) => {
+        state.OAuthURL = '';
+        state.isLoading = false;
+        state.isLoggedIn = true;
+        state.token = payload.data.token;
+        handleMessage();
+      })
+      .addCase(loginOAuth.rejected, state => {
+        state.OAuthURL = '';
+        state.isLoading = false;
+        handleError(ERROR.LOGIN_OAUTH);
       });
   },
 });

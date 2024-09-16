@@ -95,3 +95,42 @@ export const refreshUser = createAsyncThunk(
     },
   }
 );
+
+export const getCounter = createAsyncThunk(
+  'auth/count',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await API.get('/users/count');
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getOAuthURL = createAsyncThunk(
+  'auth/getOAuthURL',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await API.get('/users/get-oauth-url');
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const loginOAuth = createAsyncThunk(
+  'auth/loginOAuth',
+  async (confirmCode, thunkAPI) => {
+    try {
+      const { data } = await API.post('/users/confirm-oauth', {
+        code: confirmCode,
+      });
+      setAuthHeader(data.data.token);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
