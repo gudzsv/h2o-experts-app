@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-
+import AddWaterBtnDayliInfo from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo';
 import styles from './DailyInfo.module.css';
-import css from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo.module.css';
 
 const DailyInfo = ({ dateForCalendar }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,18 +52,18 @@ const DailyInfo = ({ dateForCalendar }) => {
     return `${year}-${month}-${day}`;
   };
 
-  // Функція для отримання данних з бази данних/ поки працюємо з тестовими данними
+  // Функція для отримання данних з бази данних / поки працюємо з тестовими данними
   // const fetchWaterDataForDate = async formattedDate => {
   //   setLoading(true);
   //   setError(null);
 
   //   try {
-  //     const response = await fetch(`/api/water-data?date=${formattedDate}`); // Пример API запроса
+  //     const response = await fetch(`/api/water-data?date=${formattedDate}`);
   //     if (!response.ok) {
   //       throw new Error('Failed to fetch water data');
   //     }
   //     const data = await response.json();
-  //     setWaterData(data); // Установка полученных данных в состояние
+  //     setWaterData(data);
   //   } catch (error) {
   //     setError(error.message);
   //   } finally {
@@ -96,9 +95,8 @@ const DailyInfo = ({ dateForCalendar }) => {
   };
 
   const handleAddWater = newWaterData => {
-    // Обработка добавления новой порции воды
     setWaterData([...waterData, newWaterData]);
-    setIsModalOpen(false); // Закрытие модального окна после добавления
+    setIsModalOpen(false);
   };
 
   return (
@@ -109,15 +107,7 @@ const DailyInfo = ({ dateForCalendar }) => {
             selectedDate={dateForCalendar}
             setSelectedDate={setSelectedDate}
           />
-
-          <button onClick={openAddWaterModal} className={css.add_button}>
-            <div className={css.wrapper}>
-              <svg width="30" height="30" className={css.icon}>
-                <use href="/src/assets/icons/sprite.svg#icon-plus-btn"></use>
-              </svg>
-              <p>Add Water</p>
-            </div>
-          </button>
+          <AddWaterBtnDayliInfo openModal={openAddWaterModal} />
         </div>
 
         {isModalOpen && (
