@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
+    "date-fns": "^4.0.0",
     "i18next": "^23.15.1",
     "i18next-browser-languagedetector": "^8.0.0",
     "modern-normalize": "^3.0.1",
@@ -35,6 +36,7 @@
     "recharts": "^2.12.7",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "reselect": "^5.1.1",
     "sharp": "^0.33.5",
     "yup": "^1.4.0"
   },
