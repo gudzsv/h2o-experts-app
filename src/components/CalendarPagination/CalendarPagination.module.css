@@ -5,12 +5,9 @@
 }
 
 .calender_pag_div {
-  margin-bottom: 24px;
-  margin: 0 16px;
-  padding: 0 20px 24px 20px;
-  background: #f0eff4;
-
   justify-content: space-between;
+
+  margin-bottom: 24px;
 }
 
 .word_month {
@@ -35,6 +32,9 @@
   stroke: #323f47;
   padding: 0;
   margin: 0;
+
+  width: 40px;
+  height: 20px;
 }
 
 .button_back_month,
@@ -67,4 +67,34 @@
   padding: 0;
 
   margin-left: 16px;
+}
+
+.icon_pie_chart {
+  width: 20px;
+  height: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .word_month {
+    height: 32px;
+    font-weight: 800;
+    font-size: 28px;
+  }
+
+  .current_month_year {
+    width: 150px;
+
+    height: 24px;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .show_info_button {
+    margin-left: 20px;
+  }
+
+  .icon_pie_chart {
+    width: 24px;
+    height: 24px;
+  }
 }

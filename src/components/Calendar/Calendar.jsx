@@ -1,6 +1,7 @@
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
+
 const Calendar = ({ dateForCalendar, getDaysInMonth, setDateForCalendar }) => {
   const amountOfDays = getDaysInMonth(dateForCalendar);
 

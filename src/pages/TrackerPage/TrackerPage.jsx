@@ -2,10 +2,9 @@ import Calendar from 'components/Calendar/Calendar';
 import CalendarPagination from 'components/CalendarPagination/CalendarPagination';
 import DailyInfo from 'components/DailyInfo/DailyInfo';
 import { useState } from 'react';
+import css from './TrackerPage.module.css';
 
-export function getDaysInMonth(date) {
-  return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
-}
+
 
 const TrackerPage = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
@@ -15,7 +14,7 @@ const TrackerPage = () => {
   });
 
   const handlePreviousMonth = () => {
-    setDateForCalendar(prevDate => {
+    setCalendarDate(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1);
       setCurrentMonth(newDate.getMonth());
@@ -24,7 +23,7 @@ const TrackerPage = () => {
   };
 
   const handleNextMonth = () => {
-    setDateForCalendar(prevDate => {
+    setCalendarDate(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1);
       setCurrentMonth(newDate.getMonth());
@@ -44,14 +43,14 @@ const TrackerPage = () => {
   };
 
   return (
-    <div>
+    <div className={css.div_for_calendar_things}>
       <DailyInfo dateForCalendar={dateForCalendar} />
       <CalendarPagination
-        dateForCalendar={dateForCalendar}
+        calendarDate={calendarDate}
         handlePreviousMonth={handlePreviousMonth}
         handleNextMonth={handleNextMonth}
       />
-      <Calendar
+      <Calendar calendarDate={calendarDate} getDaysInMonth={getDaysInMonth} />
         setDateForCalendar={handleCalendarChange}
         dateForCalendar={dateForCalendar}
         getDaysInMonth={getDaysInMonth}
