@@ -1,33 +1,29 @@
-import React from 'react';
-import { useState } from 'react';
-
 import css from './AdvantagesSection.module.css';
 
 const AdvantagesSection = () => {
   return (
-    <div className={css.advantagessection}>
-      <button className={css.customersbutton}>
-        <div className={css.customercontainer}>
-          <div className={css.customericons}>
-            <span className={css.icon1}></span>
-            <span className={css.icon2}></span>
-            <span className={css.icon3}></span>
-          </div>
-          <div className={css.customertext}>
+    <section className={css.advantagesSection}>
+      <button className={css.customersButton}>
+        <div className={css.customerContainer}>
+          <ul className={css.customerIcons}>
+            <li className={css.icon1}></li>
+            <li className={css.icon2}></li>
+            <li className={css.icon3}></li>
+          </ul>
+          <p className={css.customerText}>
             Our <span className={css.accent}>happy</span> customers
-          </div>
+          </p>
         </div>
       </button>
-      <div className={css.advantages}>
-        <button className={css.habitdrive}>
+      <ul className={css.advantages}>
+        <li className={css.habitDrive}>
           <div className={css.circle}></div>
           Habit drive
-        </button>
-
-        <button className={css.viewstatistic}>View statistics</button>
-        <button className={css.pesonalsetting}>Personal rate setting</button>
-      </div>
-    </div>
+        </li>
+        <li className={css.viewStatistic}>View statistics</li>
+        <li className={css.personalSetting}>Personal rate setting</li>
+      </ul>
+    </section>
   );
 };
 

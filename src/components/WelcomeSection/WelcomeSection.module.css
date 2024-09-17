@@ -1,12 +1,12 @@
-.welcomesection {
+.welcomeSection {
   padding: 24px 16px;
   min-width: 370px;
   min-height: 411px;
-  background: #f0eff4;
+  background: var(--light-gray);
   border-radius: 30px;
 }
 @media screen and (min-width: 768px) {
-  .welcomesection {
+  .welcomeSection {
     padding: 32px;
 
     min-width: 704px;
@@ -14,7 +14,7 @@
   }
 }
 @media screen and (min-width: 1440px) {
-  .welcomesection {
+  .welcomeSection {
     min-width: 672px;
     min-height: 736px;
   }
@@ -44,16 +44,16 @@ h1 {
   }
 }
 
-.welcomecontainer {
+.welcomeContainer {
   margin-left: 0;
 }
 @media screen and (min-width: 768px) {
-  .welcomecontainer {
+  .welcomeContainer {
     margin-left: 32px;
   }
 }
 
-h2 {
+p {
   margin-top: 74px;
   margin-bottom: 16px;
   font-family: 'Poppins', sans-serif;
@@ -63,14 +63,14 @@ h2 {
   text-align: left;
 }
 @media screen and (min-width: 768px) {
-  h2 {
+  p {
     margin-top: 50px;
     font-size: 16px;
     line-height: 1.5em;
   }
 }
 @media screen and (min-width: 1440px) {
-  h2 {
+  p {
     margin-top: 132px;
   }
 }
@@ -84,33 +84,33 @@ h2 {
     gap: 16px;
   }
 }
-.linksignup {
+.linkSignUp {
   padding: 14px 19px;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 700;
   line-height: 1.3em;
-  color: #323f47;
+  color: var(--dark-blue);
   text-align: center;
   text-decoration: none;
-  background: #9be1a0;
+  background: var(--light-green);
   border-radius: 30px;
 }
-.linksignin {
+.linkSignIn {
   padding: 13px 20px;
-  color: #323f47;
+  color: var(--dark-blue);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
   text-decoration: none;
   border-radius: 30px;
-  border: 1px solid #323f47;
+  border: 1px solid var(--dark-blue);
 }
 
 @media screen and (min-width: 768px) {
-  .linksignup,
-  .linksignin {
+  .linkSignUp,
+  .linkSignIn {
     min-width: 135px;
     padding: 18px 40px;
     font-size: 16px;

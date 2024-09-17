@@ -1,4 +1,4 @@
-.advantagessection {
+.advantagesSection {
   position: relative;
   display: flex;
   padding: 0;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .advantagessection {
+  .advantagesSection {
     padding: 32px;
     min-width: 704px;
     min-height: 446px;
@@ -20,7 +20,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .advantagessection {
+  .advantagesSection {
     padding: 64px 32px;
     min-width: 672px;
     min-height: 736px;
@@ -54,9 +54,9 @@
     bottom: 64px;
   }
 }
-.habitdrive,
-.viewstatistic,
-.pesonalsetting {
+.habitDrive,
+.viewStatistic,
+.personalSetting {
   padding: 9px 12px;
   font-family: 'Poppins', sans-serif;
   font-size: 8px;
@@ -65,102 +65,114 @@
   text-align: center;
   border-radius: 30px;
   border: none;
+  cursor: default;
 }
 @media screen and (min-width: 768px) {
-  .habitdrive,
-  .viewstatistic,
-  .pesonalsetting {
+  .habitDrive,
+  .viewStatistic,
+  .personalSetting {
     padding: 11px 16px;
     font-size: 12px;
   }
 }
 
-.habitdrive {
+.habitDrive {
   display: flex;
+  align-items: center;
   gap: 4px;
   width: 81px;
-  color: #ffffff;
-  background: #323f47;
+  color: var(--white);
+  background: var(--dark-blue);
 }
 @media screen and (min-width: 768px) {
-  .habitdrive {
+  .habitDrive {
     width: 111px;
   }
 }
 .circle {
   width: 8px;
   height: 8px;
-  background-color: #9be1a0;
+  background-color: var(--light-green);
   border-radius: 50%;
 }
 
-.viewstatistic {
+.viewStatistic {
   width: 83px;
-  color: #323f47;
-  background: #9be1a0;
+  color: var(--dark-blue);
+  background: var(--light-green);
 }
 @media screen and (min-width: 768px) {
-  .viewstatistic {
+  .viewStatistic {
     width: 121px;
   }
 }
-.pesonalsetting {
+.personalSetting {
   width: 108px;
-  color: #323f47;
-  background: #ffffff;
+  color: var(--dark-blue);
+  background: var(--white);
 }
 @media screen and (min-width: 768px) {
-  .pesonalsetting {
+  .personalSetting {
     width: 158px;
   }
 }
 
-.customersbutton {
+.customersButton {
   position: absolute;
   left: 16px;
   bottom: 96px;
   padding: 10px 14px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.2em;
   border: none;
   border-radius: 30px;
-  cursor: pointer;
+  cursor: default;
   width: 160px;
 }
 
 @media screen and (min-width: 768px) {
-  .customersbutton {
+  .customersButton {
     left: 16px;
     padding: 10px 20px;
     width: 237px;
     height: 67px;
-    font-size: 15px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .customersbutton {
+  .customersButton {
     left: 32px;
     bottom: 132px;
   }
 }
+
+.customerText {
+  color: var(--dark-blue);
+  margin-top: 0;
+  width: 66px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2em;
+}
+
+@media screen and (min-width: 768px) {
+  .customerText {
+    font-size: 15px;
+    width: 90px;
+    line-height: 1.4em;
+  }
+}
+
 .accent {
-  color: #9be1a0;
+  color: var(--light-green);
 }
 
-.customertext {
-  width: 77px;
-}
-
-.customericons {
+.customerIcons {
   display: flex;
 
   align-items: center;
   margin-right: 10px;
 }
-.customercontainer {
+.customerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
