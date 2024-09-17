@@ -1,0 +1,67 @@
+.languageSwitcher {
+  position: relative;
+  display: inline-block;
+}
+
+.languageSelect {
+  padding: 8px 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+.languageSelect img {
+  cursor: pointer;
+}
+
+.languageIcon {
+  margin-right: 8px;
+}
+
+.languageDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: transparent;
+  border-radius: 4px;
+  margin-top: 4px;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+  width: 100%;
+}
+
+.languageDropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.languageOption {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  background-color: transparent;
+}
+
+.languageOption:hover {
+  background-color: transparent;
+}
+
+.languageOption img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
+}

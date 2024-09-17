@@ -25,7 +25,7 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       react(),
-      FullReload(['./src/**/*.{jsx,tsx,css}']),
+      FullReload(['./src/**/*.{js,jsx,tsx,css,json,svg,webp}']),
       ViteImageOptimizer({
         exclude: /^sprite.svg$/,
         png: {

@@ -1,0 +1,55 @@
+.calendar_items {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 6px;
+}
+
+.button_day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: #ffffff;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.proc_number {
+  display: block;
+  height: 10px;
+  font-size: 10px;
+  font-weight: 400;
+
+  margin: 0;
+
+  color: #2f2f2f99;
+}
+
+@media only screen and (min-width: 768px) {
+  .calendar_items {
+    gap: 4px;
+  }
+
+  .button_day {
+    width: 38px;
+    height: 38px;
+
+    font-size: 16px;
+  }
+
+  .proc_number {
+    height: 23px;
+    font-size: 12px;
+  }
+}

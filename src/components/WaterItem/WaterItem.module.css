@@ -1,0 +1,81 @@
+.water_item_actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.water_amount {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  color: #323f47;
+  margin-bottom: 6px;
+}
+
+.water_time {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.water_item_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.water_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  white-space: nowrap;
+  border-radius: 15px;
+  padding: 19px 14px;
+  width: 149px;
+  height: 74px;
+}
+
+.glass {
+  white-space: nowrap;
+}
+
+.delete_btn {
+  border: none;
+  background-color: inherit;
+}
+
+.edit_btn {
+  border: none;
+  background-color: inherit;
+}
+
+.pencil {
+  fill: white;
+  stroke: #323f47;
+}
+
+.trash {
+  fill: white;
+  stroke: #323f47;
+}
+
+@media screen and (min-width: 703px) {
+  .water_item {
+    width: 192px;
+    height: 86px;
+  }
+  .glass {
+    width: 44px;
+    height: 45px;
+  }
+  .pencil {
+    width: 16px;
+    height: 16px;
+  }
+  .trash {
+    width: 16px;
+    height: 16px;
+  }
+}

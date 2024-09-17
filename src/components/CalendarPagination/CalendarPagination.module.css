@@ -1,0 +1,100 @@
+.calender_pag_div,
+.pag_element {
+  display: flex;
+  align-items: center;
+}
+
+.calender_pag_div {
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.word_month {
+  margin: 0;
+
+  height: 24px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.icon_arrow_calendar_left {
+  transform: rotate(90deg);
+}
+
+.icon_arrow_calendar_right {
+  transform: rotate(-90deg);
+}
+
+.icon_arrow_calendar_right,
+.icon_arrow_calendar_left {
+  fill: #323f47;
+  stroke: #323f47;
+  padding: 0;
+  margin: 0;
+
+  width: 40px;
+  height: 20px;
+}
+
+.button_back_month,
+.button_next_month {
+  border: none;
+  background: none;
+  padding: 0;
+  width: 21px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.current_month_year {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+
+  height: 18px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.show_info_button {
+  border: none;
+  background: none;
+
+  padding: 0;
+
+  margin-left: 16px;
+}
+
+.icon_pie_chart {
+  width: 20px;
+  height: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .word_month {
+    height: 32px;
+    font-weight: 800;
+    font-size: 28px;
+  }
+
+  .current_month_year {
+    width: 150px;
+
+    height: 24px;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .show_info_button {
+    margin-left: 20px;
+  }
+
+  .icon_pie_chart {
+    width: 24px;
+    height: 24px;
+  }
+}
