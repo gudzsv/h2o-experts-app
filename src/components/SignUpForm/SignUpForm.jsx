@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { register as signUp } from '../../redux/auth/operations';
@@ -47,7 +46,6 @@ const SignUpForm = () => {
   const onSubmit = data => {
     const { email, password } = data;
     dispatch(signUp({ email, password }));
-    toast.success('Registration successful 🤗');
     reset();
   };
 

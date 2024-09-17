@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import styles from './SignInForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { useDispatch } from 'react-redux';
@@ -40,7 +39,6 @@ const SignInForm = () => {
 
   const onSubmit = data => {
     dispatch(login(data));
-    toast.success('You have successfully logged in 🤗');
     reset();
   };
 
