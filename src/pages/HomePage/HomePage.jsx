@@ -1,13 +1,12 @@
-import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
+import WelcomeSection from 'components/WelcomeSection/WelcomeSection';
+import AdvantagesSection from 'components/AdvantagesSection/AdvantagesSection';
+import css from './HomePage.module.css';
 
 const HomePage = () => {
-  const { t } = useTranslation();
   return (
-    <div>
-      <LanguageSwitcher />
-      <br />
-      {t('homePage.title')}
+    <div className={css.homesection}>
+      <WelcomeSection />
+      <AdvantagesSection />
     </div>
   );
 };

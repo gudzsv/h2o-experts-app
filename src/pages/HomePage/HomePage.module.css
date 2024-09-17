@@ -1,0 +1,14 @@
+.homesection {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+@media screen and (min-width: 1440px) {
+  .homesection {
+    padding: 32px;
+    flex-direction: row;
+    gap: 32px;
+  }
+}
