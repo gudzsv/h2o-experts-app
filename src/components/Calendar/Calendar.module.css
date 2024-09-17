@@ -32,3 +32,13 @@ ul {
     width: 640px;
   }
 }
+
+@media only screen and (min-width: 1440px) {
+  .calendar {
+    column-gap: 43px;
+  }
+
+  ul {
+    width: 608px;
+  }
+}
