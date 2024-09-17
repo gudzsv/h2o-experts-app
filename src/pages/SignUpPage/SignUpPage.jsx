@@ -1,6 +1,5 @@
 import Logo from 'components/Logo/Logo';
 import SignUpForm from 'components/SignUpForm/SignUpForm';
-import { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import styles from './SignUpPage.module.css';
 import useMedia from '../../hooks/useMedia';
@@ -31,7 +30,6 @@ const SignUpPage = () => {
         </div>
       </section>
       {isDesktop && <AdvantagesSection />}
-      <Toaster />
     </div>
   );
 };

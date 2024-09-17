@@ -22,6 +22,8 @@ h2 {
   background: var(--light-gray);
   padding: 24px 16px;
   height: 780px;
+  max-width: 704px;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 768px) {

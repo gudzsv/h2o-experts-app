@@ -1,6 +1,5 @@
 import Logo from 'components/Logo/Logo';
 import SignInForm from 'components/SignInForm/SignInForm';
-import { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import styles from './SignInPage.module.css';
 import useMedia from '../../hooks/useMedia';
@@ -14,7 +13,7 @@ const SignInPage = () => {
       <section className={styles.formSection}>
         <Logo />
         <div className={styles.formWrapper}>
-          <h2 className={styles.title} aria-label="Sign Up for an account">
+          <h2 className={styles.title} aria-label="Sign In for an account">
             Sign In
           </h2>
           <SignInForm />
@@ -31,7 +30,6 @@ const SignInPage = () => {
         </div>
       </section>
       {isDesktop && <AdvantagesSection />}
-      <Toaster />
     </div>
   );
 };
