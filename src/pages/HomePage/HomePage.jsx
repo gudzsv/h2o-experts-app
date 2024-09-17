@@ -1,5 +1,15 @@
+import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  const { t } = useTranslation();
+  return (
+    <div>
+      <LanguageSwitcher />
+      <br />
+      {t('homePage.title')}
+    </div>
+  );
 };
 
 export default HomePage;
