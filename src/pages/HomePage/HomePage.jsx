@@ -1,13 +1,22 @@
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
+import Container from 'components/Container/Container.jsx';
+import PageContent from 'components/PageContent/PageContent.jsx';
 import WelcomeSection from 'components/WelcomeSection/WelcomeSection';
 import AdvantagesSection from 'components/AdvantagesSection/AdvantagesSection';
-import css from './HomePage.module.css';
 
 const HomePage = () => {
+  const { t } = useTranslation();
   return (
-    <div className={css.homesection}>
-      <WelcomeSection />
-      <AdvantagesSection />
-    </div>
+    <Container>
+      <Helmet>
+        <title>{t('pages.home')}</title>
+      </Helmet>
+      <PageContent>
+        <WelcomeSection />
+        <AdvantagesSection />
+      </PageContent>
+    </Container>
   );
 };
 

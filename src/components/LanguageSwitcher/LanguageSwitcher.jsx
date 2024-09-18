@@ -65,8 +65,8 @@ const LanguageSwitcher = () => {
           className={css.languageIcon}
           src={language === 'en' ? en : uk}
           alt={language === 'en' ? 'English' : 'Українська'}
-          width="16"
-          height="16"
+          width="18"
+          height="18"
         />
       </button>
       <ul
@@ -84,8 +84,8 @@ const LanguageSwitcher = () => {
             className={css.languageIcon}
             src={en}
             alt="English"
-            width="16"
-            height="16"
+            width="18"
+            height="18"
           />
         </li>
         <li
@@ -98,8 +98,8 @@ const LanguageSwitcher = () => {
             className={css.languageIcon}
             src={uk}
             alt="Українська"
-            width="16"
-            height="16"
+            width="18"
+            height="18"
           />
         </li>
       </ul>

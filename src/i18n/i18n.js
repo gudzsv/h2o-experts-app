@@ -1,10 +1,10 @@
-import { use } from 'i18next';
+import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import uk from './locales/uk/translation.json';
 import en from './locales/en/translation.json';
 
-const i18n = use(initReactI18next).init({
+i18n.use(initReactI18next).init({
   fallbackLng: 'en',
   debug: false,
   resources: {
@@ -15,6 +15,7 @@ const i18n = use(initReactI18next).init({
       translation: uk,
     },
   },
+  lng: 'uk',
   ns: ['translation'],
   defaultNS: 'translation',
 });

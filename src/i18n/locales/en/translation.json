@@ -6,8 +6,8 @@
   "pages": {
     "home": "AquaTrack",
     "notFound": "Page not found",
-    "signin": "SignIn",
-    "signup": "SignUp",
+    "signIn": "SignIn",
+    "signUp": "SignUp",
     "tracker": "Your Tracker",
     "forgot": "Forgot Password",
     "renew": "Renew",
@@ -17,7 +17,20 @@
   "logo": {
     "logo": "Aquatrack"
   },
-  "homePage": {
-    "title": "Home Page"
+
+  "homepage": {
+    "welcome": {
+      "text": "Record daily water intake and track",
+      "title": "Water consumption tracker",
+      "tryBtn": "Try tracker",
+      "signInBtn": "Sign In"
+    },
+
+    "advantages": {
+      "customers": "Our <1>happy</1> customers",
+      "habitDrive": "Habit drive",
+      "viewStatistic": "View statistics",
+      "personalSetting": "Personal rate setting"
+    }
   }
 }

@@ -4,7 +4,6 @@
 }
 
 .languageSelect {
-  padding: 8px 12px;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -16,10 +15,6 @@
 
 .languageSelect img {
   cursor: pointer;
-}
-
-.languageIcon {
-  margin-right: 8px;
 }
 
 .languageDropdown {
@@ -45,7 +40,7 @@
 }
 
 .languageOption {
-  padding: 4px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,10 +53,17 @@
   background-color: transparent;
 }
 
-.languageOption img {
-  width: 16px;
-  height: 16px;
+.languageIcon {
+  width: 18px;
+  height: 18px;
   object-fit: contain;
   display: block;
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .languageIcon {
+    width: 24px;
+    height: 24px;
+  }
 }
