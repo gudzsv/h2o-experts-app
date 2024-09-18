@@ -8,14 +8,16 @@ const Calendar = ({ dateForCalendar, setDateForCalendar, currentMonth }) => {
 
   const amountOfDays = getDaysInMonth(dateForCalendar);
 
-  function getFormattedDate(day, monthNumber) {
-    const year = new Date().getFullYear();
-    const date = new Date(year, monthNumber, day);
+  function getFormattedDate(day) {
+    const year = dateForCalendar.getFullYear();
+    const month = dateForCalendar.getMonth();
+    const date = new Date(year, month, day);
+
     return date;
   }
 
   const handleCalendarChange = number => {
-    const selectedDate = getFormattedDate(number, currentMonth);
+    const selectedDate = getFormattedDate(number);
     setDateForCalendar(selectedDate);
   };
 
