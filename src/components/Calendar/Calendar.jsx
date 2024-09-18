@@ -10,7 +10,7 @@ const Calendar = ({ dateForCalendar, setDateForCalendar, currentMonth }) => {
 
   function getFormattedDate(day, monthNumber) {
     const year = new Date().getFullYear();
-    const date = new Date(year, monthNumber - 1, day);
+    const date = new Date(year, monthNumber, day);
     return date;
   }
 
