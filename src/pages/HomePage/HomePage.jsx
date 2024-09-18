@@ -1,19 +1,13 @@
-import { ModalTemplate } from 'components/Modal/Modal.jsx';
-import { useModal } from 'components/Modal/UseModal.jsx';
-import WaterModal from 'components/WaterModal/WaterModal.jsx';
+import WelcomeSection from 'components/WelcomeSection/WelcomeSection';
+import AdvantagesSection from 'components/AdvantagesSection/AdvantagesSection';
+import css from './HomePage.module.css';
 
 const HomePage = () => {
-  const { modalIsOpen, openModal, closeModal, modalProps } = useModal();
-
   return (
-    <>
-      <button onClick={() => openModal({ add: true })}>add</button>
-      <button onClick={() => openModal({ edit: true })}>edit</button>
-
-      <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
-        <WaterModal {...modalProps} />
-      </ModalTemplate>
-    </>
+    <div className={css.homesection}>
+      <WelcomeSection />
+      <AdvantagesSection />
+    </div>
   );
 };
 

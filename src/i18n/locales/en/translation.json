@@ -1,0 +1,23 @@
+{
+  "lang": {
+    "choose": "Choose Language"
+  },
+
+  "pages": {
+    "home": "AquaTrack",
+    "notFound": "Page not found",
+    "signin": "SignIn",
+    "signup": "SignUp",
+    "tracker": "Your Tracker",
+    "forgot": "Forgot Password",
+    "renew": "Renew",
+    "error": "Error"
+  },
+
+  "logo": {
+    "logo": "Aquatrack"
+  },
+  "homePage": {
+    "title": "Home Page"
+  }
+}
