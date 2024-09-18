@@ -1,9 +1,5 @@
 import css from './CalendarPagination.module.css';
-const CalendarPagination = ({
-  dateForCalendar,
-  setCurrentMonth,
-  setDateForCalendar,
-}) => {
+const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
   const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
   });
@@ -16,7 +12,6 @@ const CalendarPagination = ({
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1);
-      setCurrentMonth(newDate.getMonth());
       return newDate;
     });
   };
@@ -25,7 +20,6 @@ const CalendarPagination = ({
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1);
-      setCurrentMonth(newDate.getMonth());
       return newDate;
     });
   };
