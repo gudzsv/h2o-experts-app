@@ -63,8 +63,8 @@
         d="M10.286 16h11.429" />
     </symbol>
     <symbol id="icon-plus-btn" viewBox="0 0 32 32">
-      <path stroke-width="0"
-        d="M16 .558C24.528.558 31.442 7.472 31.442 16S24.528 31.442 16 31.442.558 24.528.558 16 7.472.558 16 .558z" />
+        <path stroke-width="1.116"
+    d="M16 .558C24.528.558 31.442 7.472 31.442 16S24.528 31.442 16 31.442.558 24.528.558 16 7.472.558 16 .558z" />
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.339"
         d="M16 10.286v11.429M10.286 16h11.429" />
     </symbol>
