@@ -7,7 +7,7 @@ import styles from './WaterForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 import toast from 'react-hot-toast';
-import { selectDayWater } from 'redux/water/selectors.js';
+import { selectDayWater } from '../../../redux/water/selectors.js';
 
 const validationSchema = Yup.object().shape({
   recordingTime: Yup.string().required('Recording time is required'),
