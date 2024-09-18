@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addWater } from '../../../redux/water/operations.js';
 
 const validationSchema = Yup.object().shape({
   recordingTime: Yup.string().required('Recording time is required'),
@@ -22,6 +24,7 @@ const WaterForm = ({ edit, add, value = 50 }) => {
     const minutes = String((i % 12) * 5).padStart(2, '0');
     return `${hours}:${minutes}`;
   });
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -76,6 +79,7 @@ const WaterForm = ({ edit, add, value = 50 }) => {
   };
 
   const onSubmit = data => {
+    dispatch(addWater(data));
     console.log(data);
   };
 

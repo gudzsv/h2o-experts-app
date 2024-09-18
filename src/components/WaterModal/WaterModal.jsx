@@ -9,10 +9,7 @@ const WaterModal = ({ add, edit }) => {
       ) : add ? (
         <h1 className={styles.title}> Add water</h1>
       ) : (
-        <h1 className={styles.title}>
-          {' '}
-          Default text if neither add nor edit is true
-        </h1>
+        <h1 className={styles.title}>...</h1>
       )}
       <WaterForm add={add} edit={edit}></WaterForm>
     </div>
