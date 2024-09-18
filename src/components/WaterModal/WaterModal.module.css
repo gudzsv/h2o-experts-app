@@ -6,11 +6,21 @@
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0;
+  max-width: 248px;
 }
 
 @media only screen and (min-width: 768px) {
   .title {
     font-size: 28px;
     line-height: 1.14;
+  }
+}
+
+.wrapper {
+  width: 303px;
+}
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    width: 438px;
   }
 }
