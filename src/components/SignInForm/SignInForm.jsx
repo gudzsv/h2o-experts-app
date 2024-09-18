@@ -85,7 +85,7 @@ const SignInForm = () => {
               <use
                 width={20}
                 height={20}
-                xlinkHref={`${sprite}${
+                href={`${sprite}${
                   showPassword ? '#icon-eye' : '#icon-eye-off'
                 }`}
               ></use>
