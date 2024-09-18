@@ -14,8 +14,8 @@ export const register = createAsyncThunk(
   'auth/register',
   async (registerData, thunkAPI) => {
     try {
-      await API.post('/user/signup', registerData);
-      const { data } = await API.post('/user/signin', registerData);
+      await API.post('/users/register', registerData);
+      const { data } = await API.post('/users/login', registerData);
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (loginData, thunkAPI) => {
     try {
-      const { data } = await API.post('/user/login', loginData);
+      const { data } = await API.post('/users/login', loginData);
       setAuthHeader(data.data.accessToken);
 
       return data;
@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const { data } = await API.post('/user/logout');
+    const { data } = await API.post('/users/logout');
     await persistor.purge();
     clearAuthHeader();
 
@@ -54,7 +54,7 @@ export const currentUser = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
     try {
-      const response = await API.get('/user/');
+      const response = await API.get('/users');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -66,7 +66,7 @@ export const editUser = createAsyncThunk(
   'auth/edit',
   async (editData, thunkAPI) => {
     try {
-      const { data } = await API.patch('/user/', editData);
+      const { data } = await API.patch('/users', editData);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -78,7 +78,7 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/user/refresh');
+      const { data } = await API.get('/users/refresh');
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -93,5 +93,44 @@ export const refreshUser = createAsyncThunk(
         return false;
       }
     },
+  }
+);
+
+export const getCounter = createAsyncThunk(
+  'auth/count',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await API.get('/users/count');
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getOAuthURL = createAsyncThunk(
+  'auth/getOAuthURL',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await API.get('/users/get-oauth-url');
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const loginOAuth = createAsyncThunk(
+  'auth/loginOAuth',
+  async (confirmCode, thunkAPI) => {
+    try {
+      const { data } = await API.post('/users/confirm-oauth', {
+        code: confirmCode,
+      });
+      setAuthHeader(data.data.token);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );

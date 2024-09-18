@@ -1,0 +1,16 @@
+.div_for_calendar_things {
+  background: #f0eff4;
+
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+  margin: 0 16px 16px 16px;
+  padding: 0 20px 40px 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .div_for_calendar_things {
+    margin: 0 32px 32px 32px;
+    padding: 0 32px 32px 32px;
+  }
+}

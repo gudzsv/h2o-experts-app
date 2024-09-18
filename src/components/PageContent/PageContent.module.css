@@ -1,0 +1,22 @@
+.pageContentWrapper {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .pageContentWrapper {
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .pageContentWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+  }
+}

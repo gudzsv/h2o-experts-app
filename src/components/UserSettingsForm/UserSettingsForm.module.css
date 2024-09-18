@@ -1,0 +1,414 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.fileImage {
+  display: none;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--black);
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.uploadButton svg {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  stroke-width: 1.5;
+  stroke: currentColor;
+  fill: none;
+}
+
+.userPhoto {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.labelGender {
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.16px;
+  line-height: 1.25;
+}
+.label {
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.16px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.radioWrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.radioContainer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.radio {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--light-green);
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.radio:checked {
+  border-color: var(--light-green);
+}
+.radio:checked::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--light-green);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hiddenLabel {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  color: var(--black);
+}
+
+.retreatBottom {
+  margin-top: 14px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.userInput {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 15px;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  align-items: stretch;
+  color: var(--black);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.gap {
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+.userInput:focus,
+.userInput:hover {
+  border-color: var(--light-green);
+  box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.3);
+}
+.userInput::placeholder {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.14px;
+  font-style: normal;
+}
+.error {
+  color: var(--error);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.14px;
+  margin-bottom: 0;
+}
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  line-height: 1.25;
+  letter-spacing: -0.016px;
+  margin: 0 0 14px;
+  font-style: normal;
+}
+
+.text {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  line-height: 1.2;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+.textAccent {
+  display: inline-block;
+  color: var(--light-green);
+  font-weight: 700;
+}
+.wrapperText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.textDescription {
+  padding: 16px;
+  border-radius: 15px;
+  border: 1px solid var(--light-gray);
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.14px;
+  margin: 0;
+  color: rgba(47, 47, 47, 0.6);
+  display: flex;
+  align-self: stretch;
+}
+.textActiveTime {
+  font-size: 14px;
+  color: #2f2f2f;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: -0.14px;
+  margin-bottom: 24px;
+}
+
+.mark {
+  color: var(--light-green);
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: 4px;
+}
+.retreat {
+  margin-bottom: 14px;
+}
+
+.labelRegularly {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+.wrapperInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.accent {
+  color: var(--light-green);
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 14px;
+}
+.wrapperWaterAmount {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.labelRegularlyWaterAmount {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  margin-top: 24px;
+}
+.labelWaterNorma {
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.16px;
+}
+.subButton {
+  background-color: var(--light-green);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  margin-top: 40px;
+  width: 115px;
+  padding: 14px 40px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.14px;
+  color: var(--dark-blue);
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+}
+.subButton:hover,
+.subButton:focus,
+.subButton:active {
+  background-color: var(--light-green-hover);
+}
+
+@media only screen and (min-width: 768px) {
+  .userInput::placeholder {
+    font-size: 16px;
+  }
+  .userInput {
+    padding: 16px;
+  }
+  .uploadContainer {
+    margin-bottom: 40px;
+  }
+  .userPhoto {
+    width: 100px;
+    height: 100px;
+  }
+  .uploadButton {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .uploadButton svg {
+    width: 20px;
+    height: 20px;
+  }
+  .label {
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: -0.18px;
+  }
+  .subtitle {
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: -0.18px;
+  }
+  .wrapperText {
+    flex-direction: row;
+    gap: 28px;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  .textDescription {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .textActiveTime {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .labelRegularly {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .labelRegularlyWaterAmount {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+    margin-top: 0;
+  }
+  .wrapperWaterAmount {
+    flex-direction: row;
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+  .accent {
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+  .labelWaterNorma {
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: -0.18px;
+  }
+  .subButton {
+    width: 141px;
+    padding: 16px 50px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  .hiddenLabel {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+}
+/* Desktop */
+@media only screen and (min-width: 1440px) {
+  .wrapperDesktopFlex {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+  .wrapperFrame {
+    width: 400px;
+  }
+  .wrapperFrameTwo {
+    width: 400px;
+    margin-top: 80px;
+  }
+  .textActiveTime {
+    margin-bottom: 0;
+  }
+}

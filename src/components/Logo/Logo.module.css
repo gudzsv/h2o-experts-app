@@ -16,3 +16,9 @@
     letter-spacing: -0.24px;
   }
 }
+
+.logoLanguageWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

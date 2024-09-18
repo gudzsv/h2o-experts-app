@@ -18,7 +18,7 @@ const CalendarPagination = ({
 
       <div className={css.pag_element}>
         <button className={css.button_back_month} onClick={handlePreviousMonth}>
-          <svg className={css.icon_arrow_calendar_left} width="40" height="20">
+          <svg className={css.icon_arrow_calendar_left}>
             <use href="/src/assets/icons/sprite.svg#icon-chevron-down" />
           </svg>
         </button>
@@ -28,13 +28,13 @@ const CalendarPagination = ({
         </span>
 
         <button className={css.button_next_month} onClick={handleNextMonth}>
-          <svg className={css.icon_arrow_calendar_right} width="40" height="20">
+          <svg className={css.icon_arrow_calendar_right}>
             <use href="/src/assets/icons/sprite.svg#icon-chevron-down" />
           </svg>
         </button>
 
         <button className={css.show_info_button}>
-          <svg className={css.icon_pie_chart} width="20" height="20">
+          <svg className={css.icon_pie_chart}>
             <use href="/src/assets/icons/sprite.svg#icon-pie-chart" />
           </svg>
         </button>

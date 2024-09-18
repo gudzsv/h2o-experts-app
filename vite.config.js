@@ -17,15 +17,20 @@ export default defineConfig(({ command }) => {
               return 'vendor';
             }
           },
-          entryFileNames: '[name].[hash].js', // Унікальні імена для точок входу
-          chunkFileNames: '[name].[hash].js', // Унікальні імена для чанків
+          entryFileNames: '[name].[hash].js',
+          chunkFileNames: '[name].[hash].js',
         },
       },
       outDir: 'dist',
     },
+    css: {
+      modules: {
+        scopeBehaviour: 'local',
+      },
+    },
     plugins: [
       react(),
-      FullReload(['./src/**/*.{jsx,tsx,css}']),
+      FullReload(['./src/**/*.{js,jsx,tsx,css,json,svg,webp}']),
       ViteImageOptimizer({
         exclude: /^sprite.svg$/,
         png: {

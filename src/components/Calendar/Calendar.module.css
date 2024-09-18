@@ -4,9 +4,6 @@
 
   column-gap: 17px;
   row-gap: 20px;
-
-  padding: 0 20px 40px 20px;
-  margin: 0 16px;
 }
 
 ul {
@@ -14,8 +11,34 @@ ul {
   margin: 0;
   padding: 0;
 
-  background: #f0eff4;
+  width: 295px;
 
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 360px) {
+  ul {
+    width: 300px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .calendar {
+    column-gap: 48px;
+    row-gap: 15px;
+  }
+
+  ul {
+    width: 640px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .calendar {
+    column-gap: 43px;
+  }
+
+  ul {
+    width: 608px;
+  }
 }

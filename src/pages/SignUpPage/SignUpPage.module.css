@@ -5,7 +5,15 @@ h2 {
 }
 
 .container {
+  margin: 0 auto;
+  max-width: 1440px;
   padding: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 32px;
+  }
 }
 
 .formSection {
@@ -13,7 +21,32 @@ h2 {
   border-radius: 30px;
   background: var(--light-gray);
   padding: 24px 16px;
-  min-height: 780px;
+  height: 780px;
+  max-width: 704px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .formSection {
+    padding: 32px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1440px) {
+  .formSection {
+    height: 960px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .formSection {
+    height: 100%;
+  }
+}
+
+.formWrapper {
+  max-width: 436px;
+  margin: 0 auto;
 }
 
 .title {
@@ -23,6 +56,21 @@ h2 {
   line-height: 1;
   letter-spacing: -0.32px;
   padding-top: 126px;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -0.36px;
+    padding-top: 171px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .title {
+    padding-top: 74px;
+  }
 }
 
 .wrapperText {
@@ -41,6 +89,14 @@ h2 {
   letter-spacing: -0.14px;
 }
 
+@media screen and (min-width: 768px) {
+  .text {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+}
+
 .link {
   color: var(--black);
   font-family: inherit;
@@ -49,4 +105,24 @@ h2 {
   line-height: 1.28;
   letter-spacing: -0.14px;
   text-decoration-line: underline;
+}
+
+@media screen and (min-width: 768px) {
+  .link {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    display: flex;
+    gap: 32px;
+    height: 800px;
+  }
+
+  .formSection {
+    min-width: 672px;
+  }
 }

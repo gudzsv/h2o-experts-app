@@ -1,0 +1,26 @@
+.dailyInfo {
+  width: 100%;
+}
+
+.today_and_addBtn_container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  height: 30px;
+}
+
+.wrapper {
+  height: 209px;
+  margin: 0 16px;
+  background-color: #f0eff4;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 703px) {
+  .wrapper {
+    margin: 0 16px;
+  }
+}
