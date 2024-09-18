@@ -5,7 +5,8 @@ import * as Yup from 'yup';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addWater } from '../../../redux/water/operations.js';
+import { addWater, editWater } from '../../../redux/water/operations.js';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
   recordingTime: Yup.string().required('Recording time is required'),
@@ -79,7 +80,15 @@ const WaterForm = ({ edit, add, value = 50 }) => {
   };
 
   const onSubmit = data => {
-    dispatch(addWater(data));
+    if (add) {
+      dispatch(addWater(data));
+      toast.success('Water added successfully!');
+    } else if (edit) {
+      dispatch(editWater(data));
+      toast.success('Water updated successfully!');
+    } else {
+      toast.error('No action was specified. Please try again.');
+    }
     console.log(data);
   };
 
