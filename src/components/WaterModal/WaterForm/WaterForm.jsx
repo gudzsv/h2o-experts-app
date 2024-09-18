@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 import toast from 'react-hot-toast';
+import { selectDayWater } from 'redux/water/selectors.js';
 
 const validationSchema = Yup.object().shape({
   recordingTime: Yup.string().required('Recording time is required'),
@@ -17,7 +18,7 @@ const validationSchema = Yup.object().shape({
     .required(),
 });
 
-const WaterForm = ({ edit, add, value = 50 }) => {
+const WaterForm = ({ edit, add, waterId, value = 50 }) => {
   const waterUsed = useId();
   const selectorTime = useId();
   const timeOptions = Array.from({ length: 24 * 12 }, (_, i) => {
@@ -26,6 +27,8 @@ const WaterForm = ({ edit, add, value = 50 }) => {
     return `${hours}:${minutes}`;
   });
   const dispatch = useDispatch();
+  const waterDaily = useSelector(selectDayWater);
+  const waterById = waterDaily.find(contact => contact.id === waterId);
 
   const {
     register,
@@ -42,6 +45,16 @@ const WaterForm = ({ edit, add, value = 50 }) => {
     time: '00:00',
     water: value,
   });
+  useEffect(() => {
+    if (edit && waterById) {
+      setValue('recordingTime', waterById.drinkingTime.split(' ')[1]);
+      setValue('waterMl', waterById.usedWater);
+      setWaterForm({
+        time: waterById.drinkingTime.split(' ')[1],
+        water: waterById.usedWater,
+      });
+    }
+  }, [edit, waterById, setValue]);
 
   const plusWater = () => {
     setWaterForm(prevState => {
@@ -84,7 +97,7 @@ const WaterForm = ({ edit, add, value = 50 }) => {
       dispatch(addWater(data));
       toast.success('Water added successfully!');
     } else if (edit) {
-      dispatch(editWater(data));
+      dispatch(editWater({ waterId, ...data }));
       toast.success('Water updated successfully!');
     } else {
       toast.error('No action was specified. Please try again.');

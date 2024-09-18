@@ -1,7 +1,7 @@
 import WaterForm from './WaterForm/WaterForm.jsx';
 import styles from './WaterModal.module.css';
 
-const WaterModal = ({ add, edit }) => {
+const WaterModal = ({ add, edit, waterId }) => {
   return (
     <div className={styles.wrapper}>
       {edit ? (
@@ -11,7 +11,7 @@ const WaterModal = ({ add, edit }) => {
       ) : (
         <h1 className={styles.title}>...</h1>
       )}
-      <WaterForm add={add} edit={edit}></WaterForm>
+      <WaterForm add={add} edit={edit} waterId={waterId}></WaterForm>
     </div>
   );
 };
