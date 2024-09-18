@@ -39,25 +39,35 @@
   position: absolute;
   right: 16px;
   bottom: 32px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   gap: 4px;
-  max-width: 168px;
+  display: grid;
+  grid-template-rows: 26px 1fr;
+  min-width: 168px;
 }
 
 @media screen and (min-width: 768px) {
   .advantages {
     right: 32px;
     bottom: 32px;
-    max-width: 242px;
     gap: 10px;
+    min-width: 242px;
+    grid-template-rows: 34px 1fr;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .advantages {
     bottom: 64px;
+  }
+}
+.advantages li:first-child > ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+@media screen and (min-width: 768px) {
+  .advantages li:first-child > ul {
+    gap: 10px;
   }
 }
 
@@ -108,6 +118,8 @@
 .personalSetting {
   color: var(--dark-blue);
   background: var(--white);
+  width: 70%;
+  display: inline-block;
 }
 
 .customersButton {
@@ -118,14 +130,14 @@
   border: none;
   border-radius: 30px;
   cursor: default;
-  width: 160px;
+  min-width: 160px;
 }
 
 @media screen and (min-width: 768px) {
   .customersButton {
     left: 32px;
     padding: 10px 20px;
-    width: 237px;
+    min-width: 237px;
     height: 67px;
   }
 }
@@ -138,7 +150,6 @@
 
 .customerText {
   color: var(--dark-blue);
-  width: 66px;
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
   font-style: normal;
@@ -149,7 +160,6 @@
 @media screen and (min-width: 768px) {
   .customerText {
     font-size: 15px;
-    width: 90px;
     line-height: 1.49;
   }
 }
@@ -160,15 +170,17 @@
 
 .customerIcons {
   display: flex;
-
+  /* position: relative; */
   align-items: center;
   margin-right: 10px;
+  width: 50%;
 }
 
 .customerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 10px;
 }
 
 .icon1 {
@@ -189,7 +201,7 @@
       url(../../assets/img/customers/customer_1_tab_desk_1x.webp) 1x,
       url(../../assets/img/customers/customer_1_tab_desk_2x.webp) 2x
     );
-    left: 20px;
+    left: 12px;
   }
 }
 
@@ -211,7 +223,7 @@
       url(../../assets/img/customers/customer_2_tab_desk_1x.webp) 1x,
       url(../../assets/img/customers/customer_2_tab_desk_2x.webp) 2x
     );
-    left: 48px;
+    left: 40px;
   }
 }
 
@@ -235,7 +247,7 @@
       url(../../assets/img/customers/customer_3_tab_desk_1x.webp) 1x,
       url(../../assets/img/customers/customer_3_tab_desk_2x.webp) 2x
     );
-    left: 76px;
+    left: 68px;
   }
 }
 

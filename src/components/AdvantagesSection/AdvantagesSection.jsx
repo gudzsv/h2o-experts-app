@@ -21,12 +21,16 @@ const AdvantagesSection = () => {
         </div>
       </button>
       <ul className={styles.advantages}>
-        <li className={styles.habitDrive}>
-          <div className={styles.circle}></div>
-          <Trans i18nKey="homepage.advantages.habitDrive" />
-        </li>
-        <li className={styles.viewStatistic}>
-          <Trans i18nKey="homepage.advantages.viewStatistic" />
+        <li>
+          <ul>
+            <li className={styles.habitDrive}>
+              <div className={styles.circle}></div>
+              <Trans i18nKey="homepage.advantages.habitDrive" />
+            </li>
+            <li className={styles.viewStatistic}>
+              <Trans i18nKey="homepage.advantages.viewStatistic" />
+            </li>
+          </ul>
         </li>
         <li className={styles.personalSetting}>
           <Trans i18nKey="homepage.advantages.personalSetting" />
