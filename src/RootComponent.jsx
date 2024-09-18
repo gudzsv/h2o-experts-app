@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 //import { persistor, store } from './redux/store.js';
-import 'assets/styles/styles.css';
 import App from './App.jsx';
 import { PersistGate } from 'redux-persist/integration/react';
 
