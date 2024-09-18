@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { currentUser, refreshUser } from '../redux/auth/operations';
+import { refreshUser } from '../redux/auth/operations';
 import { store } from '../redux/store.js';
 
 export const API = axios.create({
@@ -15,7 +15,7 @@ API.interceptors.response.use(
       originalRequest._retry = true;
       try {
         await store.dispatch(refreshUser());
-        await store.dispatch(currentUser());
+        // await store.dispatch(currentUser());
       } catch (refreshError) {
         // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
         // console.error('Token refresh failed:', refreshError);

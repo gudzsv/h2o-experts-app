@@ -54,7 +54,7 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/users/refresh');
+      const { data } = await API.get('/auth/refresh');
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -86,15 +86,25 @@ export const editUser = createAsyncThunk(
 
 export const currentUser = createAsyncThunk(
   'auth/current',
-  async (_, thunkAPI) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
+      const state = getState();
+
+      setAuthHeader(state.auth.token);
       const response = await API.get('/users');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const token = getState().auth.token;
+      return Boolean(token);
+    },
   }
 );
+
 export const getCounter = createAsyncThunk(
   'auth/count',
   async (_, thunkAPI) => {
