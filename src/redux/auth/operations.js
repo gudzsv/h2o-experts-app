@@ -15,7 +15,7 @@ export const register = createAsyncThunk(
   async (registerData, thunkAPI) => {
     try {
       await API.post('/users/register', registerData);
-      const { data } = await API.post('/users/login', registerData);
+      const { data } = await API.post('/auth/login', registerData);
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (loginData, thunkAPI) => {
     try {
-      const { data } = await API.post('/users/login', loginData);
+      const { data } = await API.post('/auth/login', loginData);
       setAuthHeader(data.data.accessToken);
 
       return data;
@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const { data } = await API.post('/users/logout');
+    const { data } = await API.post('/auth/logout');
     await persistor.purge();
     clearAuthHeader();
 
@@ -49,30 +49,6 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-
-export const currentUser = createAsyncThunk(
-  'auth/current',
-  async (_, thunkAPI) => {
-    try {
-      const response = await API.get('/users');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const editUser = createAsyncThunk(
-  'auth/edit',
-  async (editData, thunkAPI) => {
-    try {
-      const { data } = await API.patch('/users', editData);
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
@@ -96,6 +72,29 @@ export const refreshUser = createAsyncThunk(
   }
 );
 
+export const editUser = createAsyncThunk(
+  'auth/edit',
+  async (editData, thunkAPI) => {
+    try {
+      const { data } = await API.patch('/users', editData);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const currentUser = createAsyncThunk(
+  'auth/current',
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.get('/users');
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 export const getCounter = createAsyncThunk(
   'auth/count',
   async (_, thunkAPI) => {
