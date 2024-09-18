@@ -1,16 +1,23 @@
 import { useDispatch } from 'react-redux';
 import { deleteWater } from '../../redux/water/operations';
+import toast from 'react-hot-toast';
 import css from './DeleteWaterModal.module.css';
 
 export const DeleteWaterModal = ({ id, onClose }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
-
+    try {
       const response = await dispatch(deleteWater(id));
       if (response.meta.requestStatus === 'fulfilled') {
         onClose();
-      } 
+      } else {
+        throw new Error('Failed to delete');
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      toast.error('Не удалось удалить запись. Попробуйте снова.');
+    }
   };
 
   return (

@@ -1,13 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { logOut } from '../redux/auth/operations';
+import { useNavigate } from 'react-router-dom';
 import css from './LogOutModal.module.css';
 
 export const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogOut = async () => {
       const response = await dispatch(logOut()); 
-    if (response.meta.requestStatus === 'fulfilled'){
+    if (response.meta.requestStatus === 'fulfilled') {
+      localStorage.clear();
+      navigate('/');
       onClose();
   }
       
