@@ -1,8 +1,8 @@
 import css from './CalendarPagination.module.css';
 const CalendarPagination = ({
   dateForCalendar,
-  handlePreviousMonth,
-  handleNextMonth,
+  setCurrentMonth,
+  setDateForCalendar,
 }) => {
   const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
@@ -11,6 +11,24 @@ const CalendarPagination = ({
   const formattedYear = new Date(dateForCalendar).toLocaleString('en-US', {
     year: 'numeric',
   });
+
+  const handlePreviousMonth = () => {
+    setDateForCalendar(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() - 1);
+      setCurrentMonth(newDate.getMonth());
+      return newDate;
+    });
+  };
+
+  const handleNextMonth = () => {
+    setDateForCalendar(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() + 1);
+      setCurrentMonth(newDate.getMonth());
+      return newDate;
+    });
+  };
 
   return (
     <div className={[css.calender_pag_div]}>
