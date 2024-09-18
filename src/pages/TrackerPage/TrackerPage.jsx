@@ -1,6 +1,7 @@
+import DailyInfo from 'components/DailyInfo/DailyInfo';
 import Calendar from 'components/Calendar/Calendar';
 import CalendarPagination from 'components/CalendarPagination/CalendarPagination';
-import DailyInfo from 'components/DailyInfo/DailyInfo';
+
 import { useState } from 'react';
 import css from './TrackerPage.module.css';
 
