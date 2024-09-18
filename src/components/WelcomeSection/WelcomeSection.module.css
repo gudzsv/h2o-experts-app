@@ -3,6 +3,7 @@
   min-height: 411px;
   background: var(--light-gray);
   border-radius: 30px;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
