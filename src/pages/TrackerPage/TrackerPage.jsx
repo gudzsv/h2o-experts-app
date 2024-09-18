@@ -6,8 +6,6 @@ import { useState } from 'react';
 import css from './TrackerPage.module.css';
 
 const TrackerPage = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
-
   const [dateForCalendar, setDateForCalendar] = useState(() => {
     return new Date();
   });
@@ -17,12 +15,10 @@ const TrackerPage = () => {
       <DailyInfo dateForCalendar={dateForCalendar} />
       <CalendarPagination
         dateForCalendar={dateForCalendar}
-        setCurrentMonth={setCurrentMonth}
         setDateForCalendar={setDateForCalendar}
       />
       <Calendar
         dateForCalendar={dateForCalendar}
-        currentMonth={currentMonth}
         setDateForCalendar={setDateForCalendar}
       />
     </div>
