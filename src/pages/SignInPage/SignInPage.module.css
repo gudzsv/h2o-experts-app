@@ -123,6 +123,6 @@ h2 {
   }
 
   .formSection {
-    flex-basis: calc(50% - 16px);
+    min-width: 672px;
   }
 }

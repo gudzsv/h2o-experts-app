@@ -107,7 +107,7 @@
   line-height: 1.28;
   letter-spacing: -0.14px;
   padding: 16px;
-  transition: var(--Animation_cubic);
+  transition: background-color var(--Animation_cubic);
   width: 100%;
 }
 
