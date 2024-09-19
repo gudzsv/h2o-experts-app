@@ -66,12 +66,18 @@
 
   padding: 0;
 
-  margin-left: 16px;
+  margin-left: 0px;
 }
 
 .icon_pie_chart {
   width: 20px;
   height: 20px;
+}
+
+@media only screen and (min-width: 360px) {
+  .show_info_button {
+    margin-left: 16px;
+  }
 }
 
 @media only screen and (min-width: 768px) {
