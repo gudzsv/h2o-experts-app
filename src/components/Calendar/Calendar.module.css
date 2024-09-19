@@ -9,36 +9,37 @@
 ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 5px;
 
-  width: 295px;
+  width: 270px;
 
   margin: 0 auto;
 }
 
 @media only screen and (min-width: 360px) {
   ul {
-    width: 300px;
+    width: 310px;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .calendar {
-    column-gap: 48px;
+    column-gap: 42px;
     row-gap: 15px;
   }
 
   ul {
-    width: 640px;
+    width: 620px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .calendar {
-    column-gap: 43px;
+    column-gap: 42px;
   }
 
   ul {
-    width: 608px;
+    width: 620px;
+    padding: 0;
   }
 }

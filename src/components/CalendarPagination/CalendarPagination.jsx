@@ -1,5 +1,7 @@
 import css from './CalendarPagination.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { useDispatch } from 'react-redux';
+import { getMonthWater } from '../../redux/water/operations.js';
 const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
   const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
@@ -9,10 +11,21 @@ const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
     year: 'numeric',
   });
 
+  const dispatch = useDispatch();
+
   const handlePreviousMonth = () => {
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1);
+
+      const YEAR = newDate.getFullYear();
+      let MONTH = newDate.getMonth() + 1;
+      if (MONTH < 10) {
+        MONTH = `0${MONTH}`;
+      }
+
+      dispatch(getMonthWater(`${YEAR}-${MONTH}`));
+
       return newDate;
     });
   };
@@ -21,6 +34,15 @@ const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
     setDateForCalendar(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1);
+
+      const YEAR = newDate.getFullYear();
+      let MONTH = newDate.getMonth() + 1;
+      if (MONTH < 10) {
+        MONTH = `0${MONTH}`;
+      }
+
+      dispatch(getMonthWater(`${YEAR}-${MONTH}`));
+
       return newDate;
     });
   };
