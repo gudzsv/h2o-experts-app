@@ -1,31 +1,23 @@
-import DailyInfo from 'components/DailyInfo/DailyInfo';
-import Calendar from 'components/Calendar/Calendar';
-import CalendarPagination from 'components/CalendarPagination/CalendarPagination';
-
-import { useState } from 'react';
-import css from './TrackerPage.module.css';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
+import Container from 'components/Container/Container.jsx';
+import PageContent from 'components/PageContent/PageContent.jsx';
+import WaterMainInfo from 'components/WaterMainInfo/WaterMainInfo.jsx';
+import WaterDetailedInfo from 'components/WaterDetailedInfo/WaterDetailedInfo.jsx';
 
 const TrackerPage = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
-
-  const [dateForCalendar, setDateForCalendar] = useState(() => {
-    return new Date();
-  });
+  const { t } = useTranslation();
 
   return (
-    <div className={css.div_for_calendar_things}>
-      <DailyInfo dateForCalendar={dateForCalendar} />
-      <CalendarPagination
-        dateForCalendar={dateForCalendar}
-        setCurrentMonth={setCurrentMonth}
-        setDateForCalendar={setDateForCalendar}
-      />
-      <Calendar
-        dateForCalendar={dateForCalendar}
-        currentMonth={currentMonth}
-        setDateForCalendar={setDateForCalendar}
-      />
-    </div>
+    <Container>
+      <Helmet>
+        <title>{t('pages.tracker')}</title>
+      </Helmet>
+      <PageContent>
+        <WaterMainInfo />
+        <WaterDetailedInfo />
+      </PageContent>
+    </Container>
   );
 };
 export default TrackerPage;

@@ -3,34 +3,30 @@
   border-radius: 15px;
   background-color: var(--white);
   padding: 12px;
-  box-shadow: 0px 4px 50px 0px #0000001a;
+  box-shadow: 0px 4px 50px 0px var(--border-shadow);
   width: 102px;
   height: 54px;
   top: 122px;
-  left: 25px;
+  left: 16px;
 }
 
 .norma {
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 700;
   line-height: 1;
-  margin-top: 0;
   margin-bottom: 6px;
 }
 
 .text {
+  color: var(--placeholder);
+  font-family: 'Poppins', sans-serif;
   font-size: 10px;
-  color: var(--black);
-  opacity: 60%;
-  line-height: 10px;
-  margin: 0;
-}
-
-@media screen and (min-width: 375px) {
-  .container {
-    width: 102px;
-    height: 54px;
-  }
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
 }
 
 @media screen and (min-width: 768px) {

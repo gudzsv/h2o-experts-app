@@ -1,21 +1,23 @@
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
-const Calendar = ({ dateForCalendar, setDateForCalendar, currentMonth }) => {
+const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   function getDaysInMonth(date) {
     return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
   }
 
   const amountOfDays = getDaysInMonth(dateForCalendar);
 
-  function getFormattedDate(day, monthNumber) {
-    const year = new Date().getFullYear();
-    const date = new Date(year, monthNumber - 1, day);
+  function getFormattedDate(day) {
+    const year = dateForCalendar.getFullYear();
+    const month = dateForCalendar.getMonth();
+    const date = new Date(year, month, day);
+
     return date;
   }
 
   const handleCalendarChange = number => {
-    const selectedDate = getFormattedDate(number, currentMonth);
+    const selectedDate = getFormattedDate(number);
     setDateForCalendar(selectedDate);
   };
 

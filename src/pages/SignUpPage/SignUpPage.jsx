@@ -1,36 +1,25 @@
-import Logo from 'components/Logo/Logo';
-import SignUpForm from 'components/SignUpForm/SignUpForm';
-import { Link } from 'react-router-dom';
-import styles from './SignUpPage.module.css';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import useMedia from '../../hooks/useMedia';
+import Container from 'components/Container/Container';
+import PageContent from 'components/PageContent/PageContent';
+import SignUpSection from 'components/SignUpSection/SignUpSection';
 import AdvantagesSection from 'components/AdvantagesSection/AdvantagesSection';
 
 const SignUpPage = () => {
   const { isDesktop } = useMedia();
+  const { t } = useTranslation();
 
   return (
-    <div className={styles.container}>
-      <section className={styles.formSection}>
-        <Logo />
-        <div className={styles.formWrapper}>
-          <h2 className={styles.title} aria-label="Sign Up for an account">
-            Sign Up
-          </h2>
-          <SignUpForm />
-          <p className={styles.wrapperText}>
-            <span className={styles.text}>Already have account?</span>
-            <Link
-              to="/signin"
-              className={styles.link}
-              aria-label="Go to sign in page"
-            >
-              Sign In
-            </Link>
-          </p>
-        </div>
-      </section>
-      {isDesktop && <AdvantagesSection />}
-    </div>
+    <Container>
+      <Helmet>
+        <title>{t('pages.signUp')}</title>
+      </Helmet>
+      <PageContent>
+        <SignUpSection />
+        {isDesktop && <AdvantagesSection />}
+      </PageContent>
+    </Container>
   );
 };
 

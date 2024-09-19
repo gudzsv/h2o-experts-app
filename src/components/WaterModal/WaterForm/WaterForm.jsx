@@ -18,7 +18,7 @@ const validationSchema = Yup.object().shape({
     .required(),
 });
 
-const WaterForm = ({ edit, add, waterId, value = 50 }) => {
+const WaterForm = ({ actionType, waterId, value = 50 }) => {
   const waterUsed = useId();
   const selectorTime = useId();
   const timeOptions = Array.from({ length: 24 * 12 }, (_, i) => {
@@ -46,7 +46,7 @@ const WaterForm = ({ edit, add, waterId, value = 50 }) => {
     water: value,
   });
   useEffect(() => {
-    if (edit && waterById) {
+    if (actionType === 'edit' && waterById) {
       setValue('recordingTime', waterById.drinkingTime.split(' ')[1]);
       setValue('waterMl', waterById.usedWater);
       setWaterForm({
@@ -54,7 +54,7 @@ const WaterForm = ({ edit, add, waterId, value = 50 }) => {
         water: waterById.usedWater,
       });
     }
-  }, [edit, waterById, setValue]);
+  }, [actionType, waterById, setValue]);
 
   const plusWater = () => {
     setWaterForm(prevState => {
@@ -93,10 +93,10 @@ const WaterForm = ({ edit, add, waterId, value = 50 }) => {
   };
 
   const onSubmit = data => {
-    if (add) {
+    if (actionType === 'add') {
       dispatch(addWater(data));
       toast.success('Water added successfully!');
-    } else if (edit) {
+    } else if (actionType === 'edit') {
       dispatch(editWater({ waterId, ...data }));
       toast.success('Water updated successfully!');
     } else {
@@ -107,11 +107,11 @@ const WaterForm = ({ edit, add, waterId, value = 50 }) => {
 
   return (
     <>
-      {edit ? (
+      {actionType === 'edit' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
           Correct entered data:
         </h2>
-      ) : add ? (
+      ) : actionType === 'add' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
           Choose a value:
         </h2>
