@@ -14,8 +14,9 @@
   margin: 0;
 
   height: 24px;
-  font-weight: 800;
   font-size: 20px;
+
+  font-weight: 400;
 }
 
 .icon_arrow_calendar_left {
@@ -53,11 +54,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 130px;
+  width: 110px;
 
   height: 18px;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 12px;
 }
 
 .show_info_button {
@@ -77,6 +77,16 @@
 @media only screen and (min-width: 360px) {
   .show_info_button {
     margin-left: 16px;
+  }
+
+  .word_month {
+    font-weight: 800;
+  }
+
+  .current_month_year {
+    width: 130px;
+    font-size: 14px;
+    font-weight: 800;
   }
 }
 
