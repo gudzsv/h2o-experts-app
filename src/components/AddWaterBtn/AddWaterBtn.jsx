@@ -1,22 +1,17 @@
-import { useState, memo } from 'react';
+import { memo } from 'react';
 import clsx from 'clsx';
 import css from './AddWaterBtn.module.css';
-import Icons from '../../assets/icons/sprite.svg';
-import WaterModal from '../WaterModal/WaterModal';
+import sprite from '../../assets/icons/sprite.svg';
 
 const getClassName = (prefixClass, element, css) =>
   css[`${prefixClass}${element}`];
 
 const AddWaterBtn = memo(function AddWaterBtn({
-  type = 'primary',
+  btnType = 'primary',
   isAbsolute = false,
+  onOpenModel,
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const prefixClass = type === 'primary' ? 'primary' : 'secondary';
+  const prefixClass = btnType === 'primary' ? 'primary' : 'secondary';
 
   const buttonClassName = clsx(css[`${prefixClass}Button`], {
     [css.absolute]: isAbsolute,
@@ -26,7 +21,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
     <>
       <button
         className={buttonClassName}
-        onClick={openModal}
+        onClick={onOpenModel}
         aria-label="Add water"
         aria-haspopup="dialog"
       >
@@ -36,14 +31,12 @@ const AddWaterBtn = memo(function AddWaterBtn({
           height={16}
           aria-hidden="true"
         >
-          <use href={`${Icons}#icon-plus`}></use>
+          <use href={`${sprite}#icon-plus`}></use>
         </svg>
         <span className={getClassName(prefixClass, 'ButtonText', css)}>
           Add water
         </span>
       </button>
-
-      {isModalOpen && <WaterModal actionType="add" onClose={closeModal} />}
     </>
   );
 });

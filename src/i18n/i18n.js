@@ -15,7 +15,7 @@ i18n.use(initReactI18next).init({
       translation: uk,
     },
   },
-  lng: 'uk',
+  lng: 'en',
   ns: ['translation'],
   defaultNS: 'translation',
 });
