@@ -13,7 +13,7 @@ export default function UserPanel() {
     if (name) {
       return name;
     }
-    const emailLocalPart = email.split('@')[0];
+    const emailLocalPart = email?.split('@')[0];
     return emailLocalPart;
   };
 
@@ -22,7 +22,7 @@ export default function UserPanel() {
       <h2 className={css.salutation}>
         Hello,{' '}
         <span className={css.userName}>
-          {getFirstName(userName, userInfo.email)}
+          {getFirstName(userName, userInfo?.email)}
         </span>
         !
       </h2>

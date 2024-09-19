@@ -1,44 +1,57 @@
-.container {
+.trackerSection {
   position: relative;
   background-color: var(--light-green);
-  max-width: 100%;
+  min-height: 415px;
   border-radius: 30px;
-  padding-top: 50px;
+  background-image: image-set(
+    url(../../assets/img/bottle_for_water/bottle_for_water_mob_1x.webp) 1x,
+    url(../../assets/img/bottle_for_water/bottle_for_water_mob_2x.webp) 2x
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 262px 335px;
+  padding: 24px 16px;
 }
 
-.trackerImage {
+/* .trackerImage {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
-.trackerLogo {
+/* .trackerLogo {
   display: inline-block;
   position: absolute;
   top: 24px;
   left: 16px;
-}
+} */
 
-.btn {
+.addWaterBtn {
   position: absolute;
-  top: 337px;
+  bottom: 32px;
   right: 16px;
-  display: block;
+  /* display: block; */
 }
-
-@media screen and (max-width: 767px) {
-  .container {
-    max-width: 343px;
-    height: 415px;
+/* @media screen and (min-width: 768px) { */
+@media screen and (min-width: 767px) {
+  .trackerSection {
+    min-width: 704px;
+    min-height: 578px;
+    background-image: image-set(
+      url(../../assets/img/bottle_for_water/bottle_for_water_tablet_1x.webp) 1x,
+      url(../../assets/img/bottle_for_water/bottle_for_water_tablet_2x.webp) 2x
+    );
+    background-size: 374px 477px;
+    padding: 32px;
   }
-  .trackerImage {
+  /* .trackerImage {
     width: 262px;
     height: 335px;
-  }
+  } */
 }
 
-@media screen and (min-width: 768px) {
-  .container {
+/* @media screen and (min-width: 768px) {
+  .trackerSection {
     display: inline-block;
     width: 704px;
     height: 578px;
@@ -57,19 +70,23 @@
     top: 454px;
     left: 494px;
   }
-}
+} */
 
 @media screen and (min-width: 1440px) {
-  .container {
-    width: 672px;
-    height: 736px;
-    padding-top: 92px;
+  .sectionWrapper {
+    min-width: 672px;
+    min-height: 736px;
+    background-image: image-set(
+      url(../../assets/img/bottle_for_water/bottle_for_water_desktop_1x.webp) 1x,
+      url(../../assets/img/bottle_for_water/bottle_for_water_desktop_2x.webp) 2x
+    );
+    background-size: 472px 604px;
   }
-  .trackerImage {
+  /* .trackerImage {
     width: 472px;
     height: 604px;
-  }
-  .btn {
+  } */
+  .addWaterBtn {
     top: 612px;
     left: 462px;
   }

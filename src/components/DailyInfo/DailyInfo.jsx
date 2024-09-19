@@ -5,7 +5,11 @@ import WaterModal from 'components/WaterModal/WaterModal';
 import AddWaterBtnDayliInfo from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo';
 import styles from './DailyInfo.module.css';
 
-const DailyInfo = ({ dateForCalendar }) => {
+const DailyInfo = () => {
+  const [dateForCalendar, setDateForCalendar] = useState(() => {
+    return new Date();
+  });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterData, setWaterData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());

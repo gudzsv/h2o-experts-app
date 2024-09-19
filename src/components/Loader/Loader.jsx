@@ -5,8 +5,8 @@ const Loader = () => {
     <div>
       <Puff
         visible={true}
-        height="160"
-        width="160"
+        height="50"
+        width="50"
         color="#87d28d"
         ariaLabel="puff-loading"
         wrapperStyle={{}}
