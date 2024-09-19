@@ -26,21 +26,43 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
     setDateForCalendar(selectedDate);
   };
 
+  const YEAR = dateForCalendar.getFullYear();
+  let MONTH = dateForCalendar.getMonth() + 1;
+  if (MONTH < 10) {
+    MONTH = `0${MONTH}`;
+  }
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMonthWater('2024-09'));
+    dispatch(getMonthWater(`${YEAR}-${MONTH}`));
   }, [dispatch]);
 
-  const gete = useSelector(state => selectMonthWater(state));
-  console.log('gete: ', gete);
+  const getedWater = useSelector(state => selectMonthWater(state));
+  console.log('getedWater: ', getedWater);
 
   return (
     <ul className={css.calendar}>
-      {Array.from({ length: amountOfDays }, (_, i) => (
-        <li key={i} onClick={() => handleCalendarChange(i + 1)}>
-          <CalendarItem day={i} procNumberForBeauty={100} />
-        </li>
-      ))}
+      {Array.from({ length: amountOfDays }, (_, i) => {
+        let sumaOfWater = 0;
+        const ideaAmountOfWater = 1500;
+
+        for (let j = 0; j < getedWater.length; j++) {
+          const dayOfDrinking = new Date(getedWater[j].drinkingTime).getDate();
+
+          if (i + 1 == dayOfDrinking) {
+            sumaOfWater = sumaOfWater + getedWater[j].usedWater;
+          }
+        }
+
+        const calcWaterProc = ((sumaOfWater / ideaAmountOfWater) * 100).toFixed(
+          2
+        );
+        return (
+          <li key={i} onClick={() => handleCalendarChange(i + 1)}>
+            <CalendarItem day={i + 1} procNumber={calcWaterProc} />
+          </li>
+        );
+      })}
     </ul>
   );
 };
