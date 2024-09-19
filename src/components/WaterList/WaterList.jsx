@@ -14,14 +14,16 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
       >
         <div className={css.water_list}>
           {waterData.length === 0 ? (
-            <p className={css.no_water_text}>No water consumed on this day.</p>
+            <p className={css.no_water_text}>
+              😰 No water was consumed on this day.
+            </p>
           ) : (
             waterData.map(item => (
               <WaterItem
-                key={item.id}
+                key={item._id}
                 item={item}
                 onEdit={() => onEdit(item)}
-                onDelete={() => onDelete(item.id)}
+                onDelete={() => onDelete(item._id)}
               />
             ))
           )}
