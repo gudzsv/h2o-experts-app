@@ -7,11 +7,7 @@ import styles from './DailyInfo.module.css';
 import { useModal } from 'components/Modal/UseModal.jsx';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 
-const DailyInfo = () => {
-  const [dateForCalendar, setDateForCalendar] = useState(() => {
-    return new Date();
-  });
-
+const DailyInfo = ({ dateForCalendar }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterData, setWaterData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());

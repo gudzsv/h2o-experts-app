@@ -1,16 +1,10 @@
 import Calendar from 'components/Calendar/Calendar.jsx';
 import CalendarPagination from 'components/CalendarPagination/CalendarPagination.jsx';
 import Chart from 'components/Chart/Chart.jsx';
-import { useState } from 'react';
 
-const MonthInfo = () => {
-  const [dateForCalendar, setDateForCalendar] = useState(() => {
-    return new Date();
-  });
-
+const MonthInfo = ({ dateForCalendar, setDateForCalendar }) => {
   return (
     <div>
-      MonthInfo
       <CalendarPagination
         dateForCalendar={dateForCalendar}
         setDateForCalendar={setDateForCalendar}
