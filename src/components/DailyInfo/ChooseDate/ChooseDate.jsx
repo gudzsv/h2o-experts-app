@@ -18,12 +18,6 @@ const ChooseDate = ({ selectedDate }) => {
   return (
     <div>
       <h3 className={css.daily_info}>{formatDate(selectedDate)}</h3>
-      {/* Test calendar */}
-      {/* <input
-        type="date"
-        value={selectedDate.toISOString().split('T')[0]}
-        onChange={handleDateChange}
-      /> */}
     </div>
   );
 };

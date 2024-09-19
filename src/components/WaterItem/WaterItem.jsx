@@ -1,19 +1,43 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
-import WaterModal from 'components/WaterModal/WaterModal.jsx';
-
-const isOpen = false;
+import { deleteWater } from '../../redux/water/operations';
 
 const WaterItem = ({ item, onEdit, onDelete }) => {
+  const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDelete = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    dispatch(deleteWater(item._id));
+    setIsDeleteModalOpen(false);
+    if (onDelete) {
+      onDelete(item._id);
+    }
+  };
+
   return (
     <div className={css.water_item}>
       <svg width="38" height="38" className={css.glass}>
         <use href={`${sprite}#icon-water-glass-fill`}></use>
       </svg>
       <div className={css.water_item_content}>
-        <span className={css.water_amount}>{item.amount} ml</span>
-        <span className={css.water_time}>{item.time}</span>
+        <span className={css.water_amount}>{item.usedWater} мл</span>
+        <span className={css.water_time}>{formattedTime}</span>
       </div>
       <div className={css.water_item_actions}>
         <button
@@ -27,16 +51,21 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
         </button>
         <button
           className={css.delete_btn}
-          onClick={onDelete}
+          onClick={handleDelete}
           aria-label="Delete water entry"
         >
           <svg width="14" height="14" className={css.trash}>
             <use href={`${sprite}#icon-trash`}></use>
           </svg>
         </button>
-        {isOpen && <DeleteWaterModal />}
 
-        {isOpen && <WaterModal />}
+        {isDeleteModalOpen && (
+          <DeleteWaterModal
+            id={item._id}
+            onClose={closeDeleteModal}
+            onConfirm={confirmDelete}
+          />
+        )}
       </div>
     </div>
   );

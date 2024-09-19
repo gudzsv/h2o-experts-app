@@ -39,7 +39,8 @@
 }
 
 .no_water_text {
-  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: 343px) {
