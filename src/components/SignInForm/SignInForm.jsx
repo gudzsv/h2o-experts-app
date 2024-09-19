@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
@@ -17,6 +18,7 @@ const validationSchema = Yup.object().shape({
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -47,13 +49,13 @@ const SignInForm = () => {
       <div className={styles.wrapperContent}>
         <div className={styles.wrapperInpt}>
           <label htmlFor={emailId} className={styles.label}>
-            Email
+            {t('signIn.email')}
           </label>
           <input
             id={emailId}
             {...register('email')}
             type="email"
-            placeholder="Enter your email"
+            placeholder={t('signIn.placeholderEmail')}
             className={`${styles.input} ${
               errors.email ? styles.errorInpt : ''
             }`}
@@ -64,14 +66,14 @@ const SignInForm = () => {
         </div>
         <div className={styles.wrapperInpt}>
           <label htmlFor={passwordId} className={styles.label}>
-            Password
+            {t('signIn.password')}
           </label>
           <div className={styles.inputWrapper}>
             <input
               id={passwordId}
               {...register('password')}
               type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
+              placeholder={t('signIn.placeholderPassword')}
               className={`${styles.input} ${
                 errors.password ? styles.errorInpt : ''
               }`}
@@ -101,7 +103,7 @@ const SignInForm = () => {
         className={styles.btn}
         aria-label="Sign in button for an account"
       >
-        Sign In
+        {t('signIn.title')}
       </button>
     </form>
   );
