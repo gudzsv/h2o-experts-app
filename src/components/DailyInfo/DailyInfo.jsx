@@ -4,16 +4,17 @@ import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
 import AddWaterBtnDayliInfo from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo';
 import styles from './DailyInfo.module.css';
+import { useModal } from 'components/Modal/UseModal.jsx';
+import { ModalTemplate } from 'components/Modal/Modal.jsx';
 
-const DailyInfo = () => {
-  const [dateForCalendar, setDateForCalendar] = useState(() => {
-    return new Date();
-  });
-
+const DailyInfo = ({ dateForCalendar }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterData, setWaterData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [editItem, setEditItem] = useState(null);
+  const [isActionType, setIsActionType] = useState('');
+
+  const { modalIsOpen, closeModal, openModal } = useModal();
 
   // Для функції з базою данних
   // const [loading, setLoading] = useState(false);
@@ -94,13 +95,13 @@ const DailyInfo = () => {
     setWaterData(updatedData);
   };
 
-  const openAddWaterModal = () => {
-    setIsModalOpen(true);
+  const handleIsAddWater = () => {
+    openModal();
+    setIsActionType('add');
   };
-
-  const handleAddWater = newWaterData => {
-    setWaterData([...waterData, newWaterData]);
-    setIsModalOpen(false);
+  const handleIsEditWater = () => {
+    openModal();
+    setIsActionType('edit');
   };
 
   return (
@@ -111,22 +112,22 @@ const DailyInfo = () => {
             selectedDate={dateForCalendar}
             setSelectedDate={setSelectedDate}
           />
-          <AddWaterBtnDayliInfo openModal={openAddWaterModal} />
+          <AddWaterBtnDayliInfo onIsAdd={handleIsAddWater} />
         </div>
 
-        {isModalOpen && (
+        <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
           <WaterModal
-            closeModal={() => setIsModalOpen(false)}
-            onAddWater={handleAddWater}
-            editItem={editItem}
+            actionType={isActionType}
+            // waterId={waterId} тут я очікую при кнопці edit id обєкта який редагується
+            // currentDay={currentDay} тут дату в форматі YYYY-MM-DD
           />
-        )}
+        </ModalTemplate>
 
         <div className={styles.water_list_wrapper}>
           <WaterList
             className={styles.water_list}
             waterData={waterData}
-            onEdit={handleEdit}
+            onEdit={handleIsEditWater}
             onDelete={handleDelete}
           />
         </div>
