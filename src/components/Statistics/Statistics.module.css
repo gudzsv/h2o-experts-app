@@ -1,0 +1,11 @@
+.wrapperStatistics {
+  width: 303px;
+  height: 256px;
+}
+@media only screen and (min-width: 768px) {
+  .wrapperStatistics {
+    width: 607px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+}
