@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  position: relative; /* Відносне позиціонування для кнопки */
+  position: relative;
 }
 
 .userBarBtn {
@@ -20,8 +20,8 @@
   font-weight: 700;
   line-height: 24px;
   letter-spacing: -0.16px;
-  position: relative; /* Встановлюємо позиціонування для елемента кнопки */
-  z-index: 1; /* Щоб кнопка залишалася видимою */
+  position: relative;
+  z-index: 1;
 }
 
 .avatar {
