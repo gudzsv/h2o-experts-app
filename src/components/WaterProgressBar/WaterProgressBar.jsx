@@ -1,7 +1,8 @@
 import { number } from 'yup';
 import { format, isToday, parseISO } from 'date-fns';
 import { selectUser } from '../../redux/auth/selectors';
-import { selectDate, selectWaterDate } from '../../redux/water/selectors';
+// import { selectDayWater, selectWaterDate } from '../../redux/water/selectors';
+import { selectDayWater } from '../../redux/water/selectors';
 import css from './WaterProgressBar.module.css';
 import { useSelector } from 'react-redux';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
@@ -27,7 +28,7 @@ export default function WaterProgressBar() {
 
   let amount = 0;
   // Отримання даних про кількість води з src/redux/water/selectors.js за допомогою селектора selectWaterDate
-  const items = useSelector(selectWaterDate);
+  const items = useSelector(selectDayWater);
   // Очікувані дані: масив об'єктів, що містять дані про кількість спожитої води (item.amount)
 
   if (items && items.length > 0) {
@@ -73,16 +74,16 @@ export default function WaterProgressBar() {
   }
 
   // Отримання обраної дати з src/redux/water/selectors.js за допомогою селектора selectDate
-  const selectedData = useSelector(selectDate);
+  // const selectedData = useSelector(selectDayWater);
 
-  const parsedDate = parseISO(selectedData);
-  const isTodayData = isToday(parsedDate);
+  // const parsedDate = parseISO(selectedData);
+  // const isTodayData = isToday(parsedDate);
 
-  const formattedDate = isTodayData ? 'Today' : format(parsedDate, 'd, MMMM');
+  // const formattedDate = isTodayData ? 'Today' : format(parsedDate, 'd, MMMM');
 
   return (
     <div className={css.container}>
-      <p className={css.text}>{formattedDate}</p>
+      {/* <p className={css.text}>{formattedDate}</p> */}
       <div className={css.backBar}>
         <div
           className={css.frontBar}
