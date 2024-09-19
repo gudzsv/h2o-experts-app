@@ -32,5 +32,26 @@
       "viewStatistic": "View statistics",
       "personalSetting": "Personal rate setting"
     }
+  },
+
+  "signIn": {
+    "title": "Sign In",
+    "account": "Don’t have an account?",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password"
+  },
+
+  "signUp": {
+    "title": "Sign Up",
+    "account": "Already have account?",
+    "signIn": "Sign In",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "placeholderRepeatPassword": "Repeat password"
   }
 }
