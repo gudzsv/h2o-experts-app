@@ -1,5 +1,7 @@
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
+import WaterModal from 'components/WaterModal/WaterModal.jsx';
 
 const WaterItem = ({ item, onEdit, onDelete }) => {
   return (
@@ -30,6 +32,10 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
             <use href={`${sprite}#icon-trash`}></use>
           </svg>
         </button>
+        {false === 'true' && <DeleteWaterModal />} //please change false ===
+        'true' to correct condition to show modal
+        {false === 'true' && <WaterModal />} //please change false === 'true' to
+        correct condition to show modal
       </div>
     </div>
   );
