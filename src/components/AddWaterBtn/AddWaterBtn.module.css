@@ -117,13 +117,17 @@
   width: 16px;
   height: 16px;
   border-radius: 50px;
+
   stroke: var(--white);
-  transition: transform var(--Animation_cubic);
+  transition: transform var(--Animation_cubic),
+    background-color var(--Animation_cubic), stroke var(--Animation_cubic);
 }
 
 .primaryButton:focus .primaryButtonIcon,
 .primaryButton:hover .primaryButtonIcon {
   transform: rotate(180deg);
+  background-color: var(--light-green);
+  stroke: var(--dark-blue);
 }
 
 .primaryButtonText {
@@ -178,12 +182,15 @@
   stroke: var(--dark-blue);
   border-radius: 50%;
   padding: 6px;
-  transition: transform var(--Animation_cubic);
+  transition: transform var(--Animation_cubic),
+    background-color var(--Animation_cubic), stroke var(--Animation_cubic);
 }
 
 .secondaryButton:focus .secondaryButtonIcon,
 .secondaryButton:hover .secondaryButtonIcon {
   transform: rotate(180deg);
+  background-color: var(--dark-blue);
+  stroke: var(--light-gray);
 }
 
 .secondaryButtonText {
