@@ -1,6 +1,11 @@
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
+import { getMonthWater } from 'src/redux/water/operations.js';
+import { selectMonthWater } from 'src/redux/water/selectors.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   function getDaysInMonth(date) {
     return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
@@ -20,6 +25,14 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
     const selectedDate = getFormattedDate(number);
     setDateForCalendar(selectedDate);
   };
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMonthWater('2024-09'));
+  }, [dispatch]);
+
+  const gete = useSelector(state => selectMonthWater(state));
+  console.log(gete);
 
   return (
     <ul className={css.calendar}>
