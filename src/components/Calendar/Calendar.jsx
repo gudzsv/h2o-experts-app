@@ -6,7 +6,12 @@ import css from './Calendar.module.css';
 import { getMonthWater } from '../../redux/water/operations.js';
 import { selectMonthWater } from '../../redux/water/selectors.js';
 
+import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
+import { selectUser } from '../../redux/auth/selectors.js';
+
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
+  let waterDailyNormaBar = useSelector(selectUser);
+
   function getDaysInMonth(date) {
     return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
   }
@@ -38,13 +43,16 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   }, [dispatch]);
 
   const getedWater = useSelector(state => selectMonthWater(state));
-  console.log('getedWater: ', getedWater);
 
   return (
     <ul className={css.calendar}>
       {Array.from({ length: amountOfDays }, (_, i) => {
         let sumaOfWater = 0;
-        const ideaAmountOfWater = 1500;
+
+        let waterDailyNorma =
+          waterDailyNormaBar?.dailyNorma ?? DEFAULT_DAILY_NORMA;
+
+        const ideaAmountOfWater = waterDailyNorma * 1000;
 
         for (let j = 0; j < getedWater.length; j++) {
           const dayOfDrinking = new Date(getedWater[j].drinkingTime).getDate();
