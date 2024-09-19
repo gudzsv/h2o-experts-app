@@ -13,8 +13,11 @@ export default function UserPanel() {
     if (name) {
       return name;
     }
-    const emailLocalPart = email?.split('@')[0];
-    return emailLocalPart;
+    if (email) {
+      const emailLocalPart = email.split('@')[0];
+      return emailLocalPart;
+    }
+    return 'User';
   };
 
   return (
