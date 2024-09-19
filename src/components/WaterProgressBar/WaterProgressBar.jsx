@@ -1,7 +1,5 @@
 import { number } from 'yup';
-import { format, isToday, parseISO } from 'date-fns';
 import { selectUser } from '../../redux/auth/selectors';
-// import { selectDayWater, selectWaterDate } from '../../redux/water/selectors';
 import { selectDayWater } from '../../redux/water/selectors';
 import css from './WaterProgressBar.module.css';
 import { useSelector } from 'react-redux';
@@ -73,17 +71,8 @@ export default function WaterProgressBar() {
     floatPercentMod = -6.5;
   }
 
-  // Отримання обраної дати з src/redux/water/selectors.js за допомогою селектора selectDate
-  // const selectedData = useSelector(selectDayWater);
-
-  // const parsedDate = parseISO(selectedData);
-  // const isTodayData = isToday(parsedDate);
-
-  // const formattedDate = isTodayData ? 'Today' : format(parsedDate, 'd, MMMM');
-
   return (
     <div className={css.container}>
-      {/* <p className={css.text}>{formattedDate}</p> */}
       <div className={css.backBar}>
         <div
           className={css.frontBar}
