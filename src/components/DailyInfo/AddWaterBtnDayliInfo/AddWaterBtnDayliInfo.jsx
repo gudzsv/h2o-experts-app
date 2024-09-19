@@ -1,10 +1,10 @@
 import css from './AddWaterBtnDayliInfo.module.css';
 import sprite from '../../../assets/icons/sprite.svg';
 
-const AddWaterBtnDayliInfo = ({ openModal }) => {
+const AddWaterBtnDayliInfo = ({ onIsAdd }) => {
   return (
     <div>
-      <button onClick={openModal} className={css.add_button}>
+      <button onClick={onIsAdd} className={css.add_button}>
         <div className={css.wrapper}>
           <svg width="30" height="30" className={css.icon}>
             <use href={`${sprite}#icon-plus-btn`}></use>
