@@ -36,7 +36,7 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
         <use href={`${sprite}#icon-water-glass-fill`}></use>
       </svg>
       <div className={css.water_item_content}>
-        <span className={css.water_amount}>{item.usedWater} мл</span>
+        <span className={css.water_amount}>{item.usedWater} ml</span>
         <span className={css.water_time}>{formattedTime}</span>
       </div>
       <div className={css.water_item_actions}>
