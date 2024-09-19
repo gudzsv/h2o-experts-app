@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
-import { getMonthWater } from 'src/redux/water/operations.js';
-import { selectMonthWater } from 'src/redux/water/selectors.js';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { getMonthWater } from '../../redux/water/operations.js';
+import { selectMonthWater } from '../../redux/water/selectors.js';
 
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   function getDaysInMonth(date) {
@@ -32,7 +32,7 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   }, [dispatch]);
 
   const gete = useSelector(state => selectMonthWater(state));
-  console.log(gete);
+  console.log('gete: ', gete);
 
   return (
     <ul className={css.calendar}>

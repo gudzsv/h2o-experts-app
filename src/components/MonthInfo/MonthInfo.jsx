@@ -5,7 +5,6 @@ import Chart from 'components/Chart/Chart.jsx';
 const MonthInfo = ({ dateForCalendar, setDateForCalendar }) => {
   return (
     <div>
-      MonthInfo
       <CalendarPagination
         dateForCalendar={dateForCalendar}
         setDateForCalendar={setDateForCalendar}
