@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 import toast from 'react-hot-toast';
 import { selectDayWater } from '../../../redux/water/selectors.js';
+import sprite from '../../../assets/icons/sprite.svg';
 
 const validationSchema = Yup.object().shape({
   drinkingTime: Yup.string().required('Recording time is required'),
@@ -148,11 +149,11 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
           width="43"
           height="43"
         >
-          <use href="/src/assets/icons/sprite.svg#icon-minus-btn"></use>
+          <use href={`${sprite}#icon-minus-btn`}></use>
         </svg>
         <p className={styles.ml}>{waterForm.water} ml</p>
         <svg onClick={plusWater} className={styles.icon} width="43" height="43">
-          <use href="/src/assets/icons/sprite.svg#icon-plus-btn"></use>
+          <use href={`${sprite}#icon-plus-btn`}></use>
         </svg>
       </div>
 
