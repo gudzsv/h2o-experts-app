@@ -10,19 +10,11 @@ import {
 } from 'recharts';
 
 import css from './Chart.module.css';
-import { useSelector } from 'react-redux';
-import { selectDayWater } from '../../redux/water/selectors';
-import Loader from 'components/Loader/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoading, selectMonthWater } from '../../redux/water/selectors';
+import { useEffect } from 'react';
+import { getMonthWater } from '../../redux/water/operations';
 
-// const data = [
-//   { day: 16, amount: 2.3 },
-//   { day: 17, amount: 1.5 },
-//   { day: 18, amount: 1.8 },
-//   { day: 19, amount: 2.0 },
-//   { day: 20, amount: 1.7 },
-//   { day: 21, amount: 2.4 },
-//   { day: 22, amount: 2.5 },
-// ];
 const CustomDot = props => {
   const { cx, cy } = props;
   return (
@@ -38,33 +30,53 @@ const CustomDot = props => {
     </g>
   );
 };
-const Statistics = () => {
-  const dayWaterData = useSelector(selectDayWater);
-  console.log('Day Water Data:', dayWaterData);
 
-  if (dayWaterData.length === 0) {
-    return <Loader />;
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className={css.customTooltip}>
+        <p>{` ${payload[0].value} `}</p>
+      </div>
+    );
+  }
+  return null;
+};
+const Chart = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const monthWaterData = useSelector(selectMonthWater);
+  useEffect(() => {
+    const yearMonth = '2025-10';
+    dispatch(getMonthWater(yearMonth));
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <p> Loading...</p>;
   }
 
-  const data = dayWaterData.map(item => ({
-    day: item.day,
-    amount: item.amount,
+  const data = monthWaterData.map(entry => ({
+    day: entry.drinkingTime,
+    amount: entry.usedWater,
   }));
-  console.log(data);
 
   return (
     <div className={css.wrapperStatistics}>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <CartesianGrid horizontal="" vertical="" />
-          <Tooltip cursor={false} />
+          <Tooltip cursor={false} content={<CustomTooltip />} />
           <XAxis
             dataKey="day"
             tick={{ dy: 15 }}
             axisLine={false}
             tickLine={false}
           />
-          <YAxis axisLine={false} tick={{ dx: -15 }} tickLine={false} />
+          <YAxis
+            axisLine={false}
+            tick={{ dx: -13 }}
+            tickLine={false}
+            tickFormatter={value => `${value} L`}
+          />
           <Area
             animationDuration={0}
             dataKey="amount"
@@ -85,4 +97,4 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
+export default Chart;
