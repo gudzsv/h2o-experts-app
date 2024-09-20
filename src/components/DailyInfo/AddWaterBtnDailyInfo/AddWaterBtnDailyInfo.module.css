@@ -9,7 +9,6 @@
   letter-spacing: -0.01em;
   text-align: center;
   color: #323f47;
-  padding-right: 20px;
 }
 
 .icon {
@@ -32,6 +31,5 @@
 
 @media screen and (min-width: 703px) {
   .add_button {
-    padding-right: 32px;
   }
 }

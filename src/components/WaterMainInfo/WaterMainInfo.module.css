@@ -13,26 +13,6 @@
   padding: 24px 16px;
 }
 
-/* .trackerImage {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-} */
-
-/* .trackerLogo {
-  display: inline-block;
-  position: absolute;
-  top: 24px;
-  left: 16px;
-} */
-
-.addWaterBtn {
-  position: absolute;
-  bottom: 32px;
-  right: 16px;
-  /* display: block; */
-}
-/* @media screen and (min-width: 768px) { */
 @media screen and (min-width: 767px) {
   .trackerSection {
     min-width: 704px;
@@ -44,36 +24,10 @@
     background-size: 374px 477px;
     padding: 32px;
   }
-  /* .trackerImage {
-    width: 262px;
-    height: 335px;
-  } */
 }
 
-/* @media screen and (min-width: 768px) {
-  .trackerSection {
-    display: inline-block;
-    width: 704px;
-    height: 578px;
-    padding-top: 69px;
-  }
-  .trackerImage {
-    width: 374px;
-    height: 477px;
-  }
-  .trackerLogo {
-    top: 32px;
-    left: 32px;
-  }
-
-  .btn {
-    top: 454px;
-    left: 494px;
-  }
-} */
-
 @media screen and (min-width: 1440px) {
-  .sectionWrapper {
+  .trackerSection {
     min-width: 672px;
     min-height: 736px;
     background-image: image-set(
@@ -81,13 +35,5 @@
       url(../../assets/img/bottle_for_water/bottle_for_water_desktop_2x.webp) 2x
     );
     background-size: 472px 604px;
-  }
-  /* .trackerImage {
-    width: 472px;
-    height: 604px;
-  } */
-  .addWaterBtn {
-    top: 612px;
-    left: 462px;
   }
 }

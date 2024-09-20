@@ -9,6 +9,8 @@
   border-radius: 15px;
   padding: 12px;
   box-shadow: 0px 4px 50px 0px #0000001a;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .text {
@@ -60,6 +62,7 @@
   margin-top: 0;
   margin-bottom: 0;
   justify-content: space-between;
+  width: 100%;
 }
 
 .stablePercent {
