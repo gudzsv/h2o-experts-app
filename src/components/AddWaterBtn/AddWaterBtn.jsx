@@ -9,7 +9,7 @@ const getClassName = (prefixClass, element, css) =>
 const AddWaterBtn = memo(function AddWaterBtn({
   btnType = 'primary',
   isAbsolute = false,
-  onOpenModel,
+  onClick,
 }) {
   const prefixClass = btnType === 'primary' ? 'primary' : 'secondary';
 
@@ -21,7 +21,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
     <>
       <button
         className={buttonClassName}
-        onClick={onOpenModel}
+        onClick={onClick}
         aria-label="Add water"
         aria-haspopup="dialog"
       >
