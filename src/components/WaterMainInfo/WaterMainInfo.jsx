@@ -23,7 +23,7 @@ export default function WaterMainInfo() {
       <AddWaterBtn
         btnType="primary"
         isAbsolute={true}
-        onOpenModel={handleOpenModal}
+        onClick={handleOpenModal}
       />
 
       <ModalTemplate modalIsOpen={isModalOpen} closeModal={handleCloseModal}>

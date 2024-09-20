@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-import AddWaterBtnDailyInfo from './AddWaterBtnDailyInfo/AddWaterBtnDailyInfo';
+// import AddWaterBtnDailyInfo from './AddWaterBtnDailyInfo/AddWaterBtnDailyInfo';
 import styles from './DailyInfo.module.css';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import {
   getDayWater,
   deleteWater,
 } from '../../redux/water/operations';
+import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
 
 const DailyInfo = ({ dateForCalendar }) => {
   const dispatch = useDispatch();
@@ -71,7 +72,8 @@ const DailyInfo = ({ dateForCalendar }) => {
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
           <ChooseDate selectedDate={dateForCalendar || new Date()} />
-          <AddWaterBtnDailyInfo onIsAdd={handleIsAddWater} />
+          {/* <AddWaterBtnDailyInfo onIsAdd={handleIsAddWater} /> */}
+          <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
         </div>
 
         {modalIsOpen && (
