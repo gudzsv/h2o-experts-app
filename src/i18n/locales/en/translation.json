@@ -53,5 +53,13 @@
     "password": "Password",
     "placeholderPassword": "Enter your password",
     "placeholderRepeatPassword": "Repeat password"
+  },
+
+  "chooseDate": {
+    "today": "Today",
+    "noWaterConsumed": "No water was consumed on this day.",
+    "edit": "Edit water entry",
+    "delete": "Delete water entry",
+    "ml": "ml"
   }
 }

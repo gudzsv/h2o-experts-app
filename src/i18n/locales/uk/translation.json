@@ -53,5 +53,13 @@
     "password": "Пароль",
     "placeholderPassword": "Введіть пароль",
     "placeholderRepeatPassword": "Повторіть пароль"
+  },
+
+  "chooseDate": {
+    "today": "Сьогодні",
+    "noWaterConsumed": "В цей день не було спожито води.",
+    "edit": "Редагувати запис про воду",
+    "delete": "Видалити запис про воду",
+    "ml": "мл"
   }
 }
