@@ -3,7 +3,7 @@ import WaterItem from 'components/WaterItem/WaterItem';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
 
-const WaterList = ({ waterData, onEdit, onDelete }) => {
+const WaterList = ({ waterData, onEdit /*onDelete*/ }) => {
   return (
     <div>
       <ScrollMenu
@@ -23,7 +23,7 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
                 key={item._id}
                 item={item}
                 onEdit={() => onEdit(item)}
-                onDelete={() => onDelete(item._id)}
+                // onDelete={() => onDelete(item._id)}
               />
             ))
           )}

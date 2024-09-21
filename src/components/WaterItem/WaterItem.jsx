@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
-import { deleteWater } from '../../redux/water/operations';
+// import { deleteWater } from '../../redux/water/operations';
 
-const WaterItem = ({ item, onEdit, onDelete }) => {
+const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
   const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
   });
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
@@ -22,13 +22,13 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
     setIsDeleteModalOpen(true);
   };
 
-  const confirmDelete = () => {
-    dispatch(deleteWater(item._id));
-    setIsDeleteModalOpen(false);
-    if (onDelete) {
-      onDelete(item._id);
-    }
-  };
+  // const confirmDelete = () => {
+  //   dispatch(deleteWater(item._id));
+  //   setIsDeleteModalOpen(false);
+  //   if (onDelete) {
+  //     onDelete(item._id);
+  //   }
+  // };
 
   return (
     <div className={css.water_item}>

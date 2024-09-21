@@ -20,14 +20,18 @@ export const LogOutModal = ({ modalIsOpen, closeModal }) => {
 
   return (
     <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
-      <div className={css["modal-logout-content"]}>
+      <div className={css.modalLogoutContent}>
         <div>
-          <h2 className={css["mod-logout"]}>Log out</h2>
-          <p className={css["q-mod-logout"]}>Do you really want to leave?</p>
+          <h2 className={css.modLogout}>Log out</h2>
+          <p className={css.qModLogout}>Do you really want to leave?</p>
         </div>
-        <div className={css["modal-logout-btn"]}>
-          <button className={css["modal-logout-btn-out"]} onClick={handleLogOut}>Log out</button>
-          <button className={css["modal-logout-btn-cancel"]} onClick={closeModal}>Cancel</button>
+        <div className={css.modalLogoutBtn}>
+          <button className={css.modalLogoutBtnOut} onClick={handleLogOut}>
+            Log out
+          </button>
+          <button className={css.modalLogoutBtnCancel} onClick={closeModal}>
+            Cancel
+          </button>
         </div>
       </div>
     </ModalTemplate>
