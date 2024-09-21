@@ -64,10 +64,11 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   });
   useEffect(() => {
     if (actionType === 'edit' && waterItem) {
-      setValue('drinkingTime', defaultDrinkingTime);
+      const initialTime = waterItem.drinkingTime.split('T')[1].slice(0, 5);
+      setValue('drinkingTime', initialTime);
       setValue('usedWater', waterItem.usedWater);
       setWaterForm({
-        time: waterItem.drinkingTime.split(' ')[1],
+        time: initialTime || defaultDrinkingTime,
         water: waterItem.usedWater,
       });
     }
@@ -110,8 +111,8 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   };
 
   const formatDateTime = (date, time) => {
-    const formattedDate = date.toString().split('T')[0]; // 'YYYY-MM-DD'
-    return `${formattedDate}T${time}:00`; // 'YYYY-MM-DD HH:mm:ss'
+    const formattedDate = date.toString().split('T')[0];
+    return `${formattedDate}T${time}:00`;
   };
 
   const onSubmit = data => {
