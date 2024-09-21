@@ -6,11 +6,15 @@ import UserBarPopover from '../UserBarPopover/UserBarPopover';
 import sprite from '../../assets/icons/sprite.svg';
 import { AiTwotoneSmile } from 'react-icons/ai';
 
-const getFirstName = fullName => (fullName ? fullName.split(' ')[0] : 'User');
-
 const Userbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const userInfo = useSelector(selectUser);
+
+  // Отримуємо ім'я користувача або частину email до знака @, якщо ім'я — "User"
+  const userName =
+    userInfo?.name === 'User'
+      ? userInfo?.email.split('@')[0] // Отримуємо частину email до @
+      : userInfo?.name || 'unknown user';
 
   const toggleMenu = () => {
     setMenuOpen(prevMenuOpen => !prevMenuOpen);
@@ -19,7 +23,7 @@ const Userbar = () => {
   return (
     <div className={css.userBarMenu}>
       <button className={css.userBarBtn} onClick={toggleMenu}>
-        {getFirstName(userInfo?.name)}
+        {userName}
         {userInfo?.avatar ? (
           <img src={userInfo.avatar} alt="User Avatar" className={css.avatar} />
         ) : (
