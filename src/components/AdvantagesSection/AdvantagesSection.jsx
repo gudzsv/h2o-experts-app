@@ -1,9 +1,19 @@
-// import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
 import styles from './AdvantagesSection.module.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCounter } from '../../redux/auth/selectors.js';
+import { getCounter } from '../../redux/auth/operations.js';
 
 const AdvantagesSection = () => {
-  // const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCounter());
+  }, []);
+  const counter = useSelector(selectCounter);
+  console.log(counter);
+
   return (
     <section className={styles.advantagesSection}>
       <button className={styles.customersButton}>
@@ -15,7 +25,9 @@ const AdvantagesSection = () => {
           </ul>
           <p className={styles.customerText}>
             <Trans i18nKey="homepage.advantages.customers">
-              Our <span className={styles.accent}>happy</span> customers
+              Our
+              <span className={styles.accent}>{{ counter }}</span>
+              happy customers
             </Trans>
           </p>
         </div>
