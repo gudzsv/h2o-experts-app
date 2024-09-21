@@ -6,8 +6,8 @@
   "pages": {
     "home": "Трекер води",
     "notfound": "Сторінку не знайдено",
-    "signin": "Вхід",
-    "signup": "Реєстрація",
+    "signIn": "Вхід",
+    "signUp": "Реєстрація",
     "tracker": "Твій трекер води",
     "forgot": "Відновлення пароля",
     "renew": "Оновлення пароля",
@@ -27,10 +27,41 @@
     },
 
     "advantages": {
-      "customers": "Наші <1>щасливі</1> клієнти",
+      "customers": "Наші <1>{{counter}}</1> щасливі клієнти",
       "habitDrive": "Сприяння звичкам",
       "viewStatistic": "Переглянути статистику",
       "personalSetting": "Налаштування особистого рейтингу"
     }
+  },
+
+  "signIn": {
+    "title": "Вхід",
+    "account": "Не маєте акаунту?",
+    "signUp": "Реєстрація",
+    "email": "Електронна пошта",
+    "placeholderEmail": "Введіть електронну пошту",
+    "password": "Пароль",
+    "placeholderPassword": "Введіть пароль",
+    "forgotPassword": "Забули ваш пароль?",
+    "googleBtn": "Вхід з акаунтом"
+  },
+
+  "signUp": {
+    "title": "Реєстрація",
+    "account": "Вже маєте акаунт?",
+    "signIn": "Вхід",
+    "email": "Електронна пошта",
+    "placeholderEmail": "Введіть електронну пошту",
+    "password": "Пароль",
+    "placeholderPassword": "Введіть пароль",
+    "placeholderRepeatPassword": "Повторіть пароль"
+  },
+
+  "chooseDate": {
+    "today": "Сьогодні",
+    "noWaterConsumed": "В цей день не було спожито води.",
+    "edit": "Редагувати запис про воду",
+    "delete": "Видалити запис про воду",
+    "ml": "мл"
   }
 }

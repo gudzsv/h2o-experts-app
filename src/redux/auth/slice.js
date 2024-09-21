@@ -9,6 +9,8 @@ import {
   getCounter,
   getOAuthURL,
   loginOAuth,
+  sendResetEmail,
+  resetPwd,
 } from './operations.js';
 import toast from 'react-hot-toast';
 import { MESSAGES } from '../../constants/constants.js';
@@ -87,12 +89,15 @@ const authSlice = createSlice({
       })
       .addCase(currentUser.pending, handlePending)
       .addCase(currentUser.fulfilled, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
         state.isLoading = false;
         state.user = payload.data.user;
       })
       .addCase(currentUser.rejected, state => {
+        state.isRefreshing = false;
         state.isLoading = false;
-        handleError(ERROR.USER_DATA);
+        // handleError(ERROR.USER_DATA);
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
@@ -113,6 +118,8 @@ const authSlice = createSlice({
         state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, state => {
+        state.isLoggedIn = false;
+        state.isLoading = false;
         state.isRefreshing = false;
         state.token = null;
         handleError(ERROR.REFRESH);
@@ -123,12 +130,12 @@ const authSlice = createSlice({
 
       .addCase(getOAuthURL.pending, handlePending)
       .addCase(getOAuthURL.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
         state.OAuthURL = payload.data.url;
+        state.isLoading = false;
       })
       .addCase(getOAuthURL.rejected, state => {
         state.isLoading = false;
-        handleError(ERROR.GET_OAUTH_URL);
+        // handleError(ERROR.GET_OAUTH_URL);
       })
       .addCase(loginOAuth.pending, handlePending)
       .addCase(loginOAuth.fulfilled, (state, { payload }) => {
@@ -142,6 +149,24 @@ const authSlice = createSlice({
         state.OAuthURL = '';
         state.isLoading = false;
         handleError(ERROR.LOGIN_OAUTH);
+      })
+      .addCase(sendResetEmail.pending, handlePending)
+      .addCase(sendResetEmail.fulfilled, state => {
+        state.isLoading = false;
+        handleMessage(SUCCESS.SEND_RESET_EMAIL);
+      })
+      .addCase(sendResetEmail.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.SEND_RESET_EMAIL);
+      })
+      .addCase(resetPwd.pending, handlePending)
+      .addCase(resetPwd.fulfilled, state => {
+        state.isLoading = false;
+        handleMessage(SUCCESS.RESET_PWD);
+      })
+      .addCase(resetPwd.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.RESET_PWD);
       });
   },
 });

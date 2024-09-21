@@ -1,11 +1,11 @@
-import Loader from 'components/Loader/Loader.jsx';
+// import Loader from 'components/Loader/Loader.jsx';
 import PrivateRoute from 'components/PrivateRoute.jsx';
 import RestrictedRoute from 'components/RestrictedRoute.jsx';
 import SharedLayout from 'components/SharedLayout/SharedLayout.jsx';
 import { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router';
-import { refreshUser } from './redux/auth/operations.js';
+import { currentUser } from './redux/auth/operations.js';
 import { selectIsRefreshing } from './redux/auth/selectors.js';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
@@ -23,26 +23,34 @@ function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    dispatch(currentUser());
   }, [dispatch]);
 
   return isRefreshing ? (
-    <Loader />
+    <p>...Loading</p>
   ) : (
-    <SharedLayout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route element={<RestrictedRoute />}>
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/oauth-redirect" element={<OAuthPage />} />
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="/tracker" element={<TrackerPage />} />
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </SharedLayout>
+    <>
+      {/* <Loader /> */}
+      <SharedLayout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route element={<RestrictedRoute />}>
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/oauth-redirect" element={<OAuthPage />} />
+            {/* <Route path="/reset-password" element={<ResetPwdPage />} />
+          <Route
+          path="/confirm-reset-password"
+          element={<ConfirmResetPwdPage />}
+          /> */}
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/tracker" element={<TrackerPage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </SharedLayout>
+    </>
   );
 }
 

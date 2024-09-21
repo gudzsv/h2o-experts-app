@@ -1,15 +1,23 @@
+import { useEffect } from 'react';
 import { number } from 'yup';
-import { format, isToday, parseISO } from 'date-fns';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
-import { selectDate, selectWaterDate } from '../../redux/water/selectors';
+import { selectDayWater } from '../../redux/water/selectors';
+import { getDayWater } from '../../redux/water/operations';
 import css from './WaterProgressBar.module.css';
-import { useSelector } from 'react-redux';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterProgressBar() {
-  // Отримання даних користувача src/redux/auth/selectors.js за допомогою селектора selectUser
-  let waterDailyNormaBar = useSelector(selectUser);
-  // Очікувані дані: об'єкт користувача, який містить інформацію про dailyNorma (щоденна норма води користувача)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    dispatch(getDayWater(today));
+  }, [dispatch]);
+
+  const dayWater = useSelector(selectDayWater);
+
+  const waterDailyNormaBar = useSelector(selectUser);
 
   let waterDailyNorma;
 
@@ -26,12 +34,8 @@ export default function WaterProgressBar() {
   }
 
   let amount = 0;
-  // Отримання даних про кількість води з src/redux/water/selectors.js за допомогою селектора selectWaterDate
-  const items = useSelector(selectWaterDate);
-  // Очікувані дані: масив об'єктів, що містять дані про кількість спожитої води (item.amount)
-
-  if (items && items.length > 0) {
-    amount = items.reduce((total, item) => total + item.amount, 0);
+  if (dayWater && dayWater.length > 0) {
+    amount = dayWater.reduce((total, item) => total + item.usedWater, 0);
   }
 
   const dailyNormaMl = waterDailyNorma * 1000;
@@ -72,17 +76,8 @@ export default function WaterProgressBar() {
     floatPercentMod = -6.5;
   }
 
-  // Отримання обраної дати з src/redux/water/selectors.js за допомогою селектора selectDate
-  const selectedData = useSelector(selectDate);
-
-  const parsedDate = parseISO(selectedData);
-  const isTodayData = isToday(parsedDate);
-
-  const formattedDate = isTodayData ? 'Today' : format(parsedDate, 'd, MMMM');
-
   return (
     <div className={css.container}>
-      <p className={css.text}>{formattedDate}</p>
       <div className={css.backBar}>
         <div
           className={css.frontBar}

@@ -28,7 +28,7 @@
 .water_item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: white;
   white-space: nowrap;
   border-radius: 15px;
@@ -61,7 +61,7 @@
   stroke: #323f47;
 }
 
-@media screen and (min-width: 703px) {
+@media screen and (min-width: 768px) {
   .water_item {
     width: 192px;
     height: 86px;
@@ -73,9 +73,16 @@
   .pencil {
     width: 16px;
     height: 16px;
+    margin-bottom: 10px;
   }
   .trash {
     width: 16px;
     height: 16px;
+  }
+  .water_amount {
+    line-height: 149%;
+  }
+  .water_time {
+    line-height: 187%;
   }
 }

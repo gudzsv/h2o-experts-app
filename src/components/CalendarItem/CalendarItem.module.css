@@ -13,7 +13,6 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  background: #ffffff;
 
   width: 28px;
   height: 28px;
@@ -24,6 +23,13 @@
   font-size: 14px;
   font-weight: 800;
 }
+.water_not_full {
+  background: #323f4733;
+}
+
+.water_full {
+  background: #ffffff;
+}
 
 .proc_number {
   display: block;
@@ -31,7 +37,11 @@
   font-size: 10px;
   font-weight: 400;
 
+  width: 35px;
+
   margin: 0;
+
+  text-align: center;
 
   color: #2f2f2f99;
 }
@@ -51,5 +61,6 @@
   .proc_number {
     height: 23px;
     font-size: 12px;
+    width: 40px;
   }
 }

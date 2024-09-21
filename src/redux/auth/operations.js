@@ -15,7 +15,7 @@ export const register = createAsyncThunk(
   async (registerData, thunkAPI) => {
     try {
       await API.post('/users/register', registerData);
-      const { data } = await API.post('/users/login', registerData);
+      const { data } = await API.post('/auth/login', registerData);
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (loginData, thunkAPI) => {
     try {
-      const { data } = await API.post('/users/login', loginData);
+      const { data } = await API.post('/auth/login', loginData);
       setAuthHeader(data.data.accessToken);
 
       return data;
@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const { data } = await API.post('/users/logout');
+    const { data } = await API.post('/auth/logout');
     await persistor.purge();
     clearAuthHeader();
 
@@ -50,15 +50,25 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
-export const currentUser = createAsyncThunk(
-  'auth/current',
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const response = await API.get('/users');
-      return response.data;
+      const { data } = await API.post('/auth/refresh');
+      setAuthHeader(data.data.accessToken);
+      return data;
     } catch (error) {
+      clearAuthHeader();
       return thunkAPI.rejectWithValue(error.message);
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { auth } = getState();
+      if (!auth.token) {
+        return false;
+      }
+    },
   }
 );
 
@@ -74,24 +84,23 @@ export const editUser = createAsyncThunk(
   }
 );
 
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI) => {
+export const currentUser = createAsyncThunk(
+  'auth/current',
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const { data } = await API.get('/users/refresh');
-      setAuthHeader(data.data.accessToken);
-      return data;
+      const state = getState();
+
+      setAuthHeader(state.auth.token);
+      const response = await API.get('/users');
+      return response.data;
     } catch (error) {
-      clearAuthHeader();
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   },
   {
     condition: (_, { getState }) => {
-      const { auth } = getState();
-      if (!auth.token) {
-        return false;
-      }
+      const token = getState().auth.token;
+      return Boolean(token);
     },
   }
 );
@@ -112,7 +121,7 @@ export const getOAuthURL = createAsyncThunk(
   'auth/getOAuthURL',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/users/get-oauth-url');
+      const { data } = await API.get('/auth/get-oauth-url');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -124,13 +133,37 @@ export const loginOAuth = createAsyncThunk(
   'auth/loginOAuth',
   async (confirmCode, thunkAPI) => {
     try {
-      const { data } = await API.post('/users/confirm-oauth', {
+      const { data } = await API.post('/auth/confirm-oauth', {
         code: confirmCode,
       });
       setAuthHeader(data.data.token);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const sendResetEmail = createAsyncThunk(
+  'auth/sendResetEmail',
+  async (email, thunkAPI) => {
+    try {
+      const response = await API.post('/auth/send-reset-email', email);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPwd = createAsyncThunk(
+  'auth/resetPwd',
+  async (token, thunkAPI) => {
+    try {
+      const response = await API.post('/auth/reset-pwd', token);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
     }
   }
 );

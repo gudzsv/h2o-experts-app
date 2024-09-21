@@ -1,17 +1,22 @@
 import WaterForm from './WaterForm/WaterForm.jsx';
 import styles from './WaterModal.module.css';
 
-const WaterModal = ({ add, edit, waterId }) => {
+const WaterModal = ({ actionType, title, waterId, currentDay }) => {
   return (
     <div className={styles.wrapper}>
-      {edit ? (
+      {actionType === 'edit' ? (
         <h1 className={styles.title}> Edit the entered amount of water</h1>
-      ) : add ? (
+      ) : actionType === 'add' ? (
         <h1 className={styles.title}> Add water</h1>
       ) : (
-        <h1 className={styles.title}>...</h1>
+        <h1 className={styles.title}>{title}</h1>
       )}
-      <WaterForm add={add} edit={edit} waterId={waterId}></WaterForm>
+
+      <WaterForm
+        actionType={actionType}
+        waterId={waterId}
+        currentDay={currentDay}
+      ></WaterForm>
     </div>
   );
 };

@@ -2,129 +2,105 @@ import { useState, useEffect } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-import AddWaterBtnDayliInfo from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo';
 import styles from './DailyInfo.module.css';
+import { ModalTemplate } from 'components/Modal/Modal.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectDayWater, selectIsLoading } from '../../redux/water/selectors';
+import {
+  addWater,
+  editWater,
+  getDayWater,
+  // deleteWater,
+} from '../../redux/water/operations';
+import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
+import BallTriangleLoader from './Loader/LoaderForDailyInfo';
 
 const DailyInfo = ({ dateForCalendar }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [waterData, setWaterData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const dispatch = useDispatch();
+  const dayWater = useSelector(selectDayWater);
+  const isLoading = useSelector(selectIsLoading);
+
   const [editItem, setEditItem] = useState(null);
+  const [isActionType, setIsActionType] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  // Для функції з базою данних
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  // Тестові данні, формат ключів "YYYY-MM-DD"
-  const waterHistory = {
-    '2024-09-01': [
-      { id: 1, amount: 250, time: '07:00 AM' },
-      { id: 2, amount: 250, time: '11:00 AM' },
-    ],
-    '2024-09-02': [{ id: 3, amount: 250, time: '09:00 AM' }],
-    '2024-09-03': [
-      { id: 4, amount: 250, time: '09:00 AM' },
-      { id: 5, amount: 250, time: '07:00 AM' },
-    ],
-    '2024-09-04': [
-      { id: 6, amount: 250, time: '11:00 AM' },
-      { id: 7, amount: 250, time: '11:00 AM' },
-      { id: 8, amount: 250, time: '11:00 AM' },
-      { id: 9, amount: 250, time: '07:00 AM' },
-    ],
-    '2024-09-15': [
-      { id: 10, amount: 250, time: '11:00 AM' },
-      { id: 11, amount: 250, time: '11:00 AM' },
-      { id: 12, amount: 250, time: '11:00 AM' },
-      { id: 13, amount: 250, time: '07:00 AM' },
-      { id: 14, amount: 250, time: '11:00 AM' },
-      { id: 15, amount: 250, time: '11:00 AM' },
-      { id: 16, amount: 250, time: '11:00 AM' },
-      { id: 17, amount: 250, time: '07:00 AM' },
-    ],
-  };
-
-  const getFormattedDate = () => {
-    const year = dateForCalendar.getFullYear();
-    const month = String(dateForCalendar.getMonth() + 1).padStart(2, '0');
-    const day = String(dateForCalendar.getDate()).padStart(2, '0');
-
+  const getFormattedDate = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
 
-  // Функція для отримання данних з бази данних / поки працюємо з тестовими данними
-  // const fetchWaterDataForDate = async formattedDate => {
-  //   setLoading(true);
-  //   setError(null);
-
-  //   try {
-  //     const response = await fetch(`/api/water-data?date=${formattedDate}`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch water data');
-  //     }
-  //     const data = await response.json();
-  //     setWaterData(data);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  const fetchWaterDataForDate = formattedDate => {
-    setWaterData(waterHistory[formattedDate] || []);
-  };
-
   useEffect(() => {
-    const formattedDate = getFormattedDate();
-    fetchWaterDataForDate(formattedDate);
-  }, [dateForCalendar]);
+    const formattedDate = getFormattedDate(dateForCalendar || new Date());
+    dispatch(getDayWater(formattedDate));
+  }, [dispatch, dateForCalendar]);
 
-  const handleEdit = item => {
+  const handleIsAddWater = () => {
+    setEditItem(null);
+    setIsActionType('add');
+    setModalIsOpen(true);
+  };
+
+  const handleIsEditWater = item => {
     setEditItem(item);
-    setIsModalOpen(true);
-  };
-
-  const handleDelete = id => {
-    const updatedData = waterData.filter(item => item.id !== id);
-    setWaterData(updatedData);
-  };
-
-  const openAddWaterModal = () => {
-    setIsModalOpen(true);
+    setIsActionType('edit');
+    setModalIsOpen(true);
   };
 
   const handleAddWater = newWaterData => {
-    setWaterData([...waterData, newWaterData]);
-    setIsModalOpen(false);
+    const formattedDate = getFormattedDate(dateForCalendar);
+    const waterDataWithDate = {
+      ...newWaterData,
+      drinkingTime: `${formattedDate}T${newWaterData.drinkingTime}`,
+    };
+    dispatch(addWater(waterDataWithDate));
+    setModalIsOpen(false);
   };
+
+  const handleEditWater = updatedWaterData => {
+    dispatch(editWater({ waterId: editItem._id, ...updatedWaterData }));
+    setModalIsOpen(false);
+  };
+
+  // const handleDeleteWater = id => {
+  //   dispatch(deleteWater(id));
+  // };
 
   return (
     <div className={styles.dailyInfo}>
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
-          <ChooseDate
-            selectedDate={dateForCalendar}
-            setSelectedDate={setSelectedDate}
-          />
-          <AddWaterBtnDayliInfo openModal={openAddWaterModal} />
+          <ChooseDate selectedDate={dateForCalendar || new Date()} />
+          {/* <AddWaterBtnDailyInfo onIsAdd={handleIsAddWater} /> */}
+          <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
         </div>
 
-        {isModalOpen && (
-          <WaterModal
-            closeModal={() => setIsModalOpen(false)}
-            onAddWater={handleAddWater}
-            editItem={editItem}
-          />
+        {modalIsOpen && (
+          <ModalTemplate
+            modalIsOpen={modalIsOpen}
+            closeModal={() => setModalIsOpen(false)}
+          >
+            <WaterModal
+              actionType={isActionType}
+              onAddWater={handleAddWater}
+              onEditWater={handleEditWater}
+              editItem={editItem}
+              closeModal={() => setModalIsOpen(false)}
+            />
+          </ModalTemplate>
         )}
 
         <div className={styles.water_list_wrapper}>
-          <WaterList
-            className={styles.water_list}
-            waterData={waterData}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          {isLoading ? (
+            <BallTriangleLoader />
+          ) : (
+            <WaterList
+              waterData={dayWater}
+              onEdit={handleIsEditWater}
+              // onDelete={handleDeleteWater}
+            />
+          )}
         </div>
       </div>
     </div>

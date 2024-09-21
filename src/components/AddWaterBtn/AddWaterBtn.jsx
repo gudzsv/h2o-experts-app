@@ -1,48 +1,44 @@
-import { useState } from 'react';
+import { memo } from 'react';
+import clsx from 'clsx';
 import css from './AddWaterBtn.module.css';
-import Icons from '../../assets/icons/sprite.svg';
-import WaterModal from '../WaterModal/WaterModal';
-import { selectDate } from '../../redux/water/selectors';
-import { useSelector } from 'react-redux';
-import { isToday, parseISO } from 'date-fns';
+import sprite from '../../assets/icons/sprite.svg';
 
-export default function AddWaterBtn({ mainColor, colorText, colorIcon }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const getClassName = (prefixClass, element, css) =>
+  css[`${prefixClass}${element}`];
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+const AddWaterBtn = memo(function AddWaterBtn({
+  btnType = 'primary',
+  isAbsolute = false,
+  onClick,
+}) {
+  const prefixClass = btnType === 'primary' ? 'primary' : 'secondary';
 
-  // Отримання обраної дати з src/redux/water/selectors.js за допомогою селектора selectDate
-  const selectedData = useSelector(selectDate); // Очікується дата у форматі ISO-строки зі стану water
-
-  const parsedDate = parseISO(selectedData);
-
-  const isTodayData = isToday(parsedDate);
+  const buttonClassName = clsx(css[`${prefixClass}Button`], {
+    [css.absolute]: isAbsolute,
+  });
 
   return (
     <>
       <button
-        className={css.wrapper}
-        style={{ backgroundColor: mainColor }}
-        onClick={openModal}
-        disabled={!isTodayData}
-        aria-disabled={!isTodayData}
-        aria-label="Add water button"
+        className={buttonClassName}
+        onClick={onClick}
+        aria-label="Add water"
+        aria-haspopup="dialog"
       >
-        <div
-          className={
-            !isTodayData ? css.add_water_btn_disabled : css.add_water_btn
-          }
-          style={{ color: colorText }}
+        <svg
+          className={getClassName(prefixClass, 'ButtonIcon', css)}
+          width={16}
+          height={16}
+          aria-hidden="true"
         >
-          <svg className={css.icon} stroke={colorIcon}>
-            <use href={Icons + '#icon-x'}></use>
-          </svg>
-          <span className={css.text}>Add water</span>
-        </div>
+          <use href={`${sprite}#icon-plus`}></use>
+        </svg>
+        <span className={getClassName(prefixClass, 'ButtonText', css)}>
+          Add water
+        </span>
       </button>
-
-      {isModalOpen && <WaterModal operationType="add" onClose={closeModal} />}
     </>
   );
-}
+});
+
+export default AddWaterBtn;

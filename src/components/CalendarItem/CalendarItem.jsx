@@ -1,10 +1,24 @@
+import clsx from 'clsx';
 import css from './CalendarItem.module.css';
 
-const CalendarItem = ({ day, procNumberForBeauty }) => {
+const CalendarItem = ({ day, procNumber }) => {
+  let procent;
+  if (procNumber > 100) {
+    procent = 100;
+  } else {
+    procent = procNumber;
+  }
+
+  const button_water = clsx(
+    css.button_day,
+    procent == 100 && css.water_full,
+    procent < 100 && css.water_not_full
+  );
+
   return (
     <div className={css.calendar_items}>
-      <button className={css.button_day}>{day + 1}</button>
-      <p className={css.proc_number}>{procNumberForBeauty}%</p>
+      <button className={button_water}>{day}</button>
+      <p className={css.proc_number}>{procent}%</p>
     </div>
   );
 };

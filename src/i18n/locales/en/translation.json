@@ -27,10 +27,41 @@
     },
 
     "advantages": {
-      "customers": "Our <1>happy</1> customers",
+      "customers": "Our <1>{{counter}}</1> happy customers",
       "habitDrive": "Habit drive",
       "viewStatistic": "View statistics",
       "personalSetting": "Personal rate setting"
     }
+  },
+
+  "signIn": {
+    "title": "Sign In",
+    "account": "Don’t have an account?",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "forgotPassword": "Forgot your password?",
+    "googleBtn": "Continue with"
+  },
+
+  "signUp": {
+    "title": "Sign Up",
+    "account": "Already have account?",
+    "signIn": "Sign In",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "placeholderRepeatPassword": "Repeat password"
+  },
+
+  "chooseDate": {
+    "today": "Today",
+    "noWaterConsumed": "No water was consumed on this day.",
+    "edit": "Edit water entry",
+    "delete": "Delete water entry",
+    "ml": "ml"
   }
 }
