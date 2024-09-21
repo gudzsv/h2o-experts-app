@@ -29,21 +29,28 @@ function App() {
   return isRefreshing ? (
     <p>...Loading</p>
   ) : (
-    // <Loader />
-    <SharedLayout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route element={<RestrictedRoute />}>
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/oauth-redirect" element={<OAuthPage />} />
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="/tracker" element={<TrackerPage />} />
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </SharedLayout>
+    <>
+      {/* <Loader /> */}
+      <SharedLayout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route element={<RestrictedRoute />}>
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/oauth-redirect" element={<OAuthPage />} />
+            {/* <Route path="/reset-password" element={<ResetPwdPage />} />
+          <Route
+          path="/confirm-reset-password"
+          element={<ConfirmResetPwdPage />}
+          /> */}
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/tracker" element={<TrackerPage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </SharedLayout>
+    </>
   );
 }
 
