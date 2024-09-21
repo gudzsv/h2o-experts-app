@@ -2,7 +2,12 @@ import css from './CalendarPagination.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { useDispatch } from 'react-redux';
 import { getMonthWater } from '../../redux/water/operations.js';
-const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
+const CalendarPagination = ({
+  toggleChart,
+  isChart,
+  dateForCalendar,
+  setDateForCalendar,
+}) => {
   const formattedMonth = new Date(dateForCalendar).toLocaleString('en-US', {
     month: 'long',
   });
@@ -49,7 +54,7 @@ const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
 
   return (
     <div className={[css.calender_pag_div]}>
-      <h2 className={css.word_month}>Month</h2>
+      <h2 className={css.word_month}>{isChart ? 'Statistics' : 'Month'}</h2>
 
       <div className={css.pag_element}>
         <button className={css.button_back_month} onClick={handlePreviousMonth}>
@@ -68,7 +73,7 @@ const CalendarPagination = ({ dateForCalendar, setDateForCalendar }) => {
           </svg>
         </button>
 
-        <button className={css.show_info_button}>
+        <button className={css.show_info_button} onClick={toggleChart}>
           <svg className={css.icon_pie_chart}>
             <use href={`${sprite}#icon-pie-chart`}></use>
           </svg>
