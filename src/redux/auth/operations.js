@@ -133,13 +133,37 @@ export const loginOAuth = createAsyncThunk(
   'auth/loginOAuth',
   async (confirmCode, thunkAPI) => {
     try {
-      const { data } = await API.post('/users/confirm-oauth', {
+      const { data } = await API.post('/auth/confirm-oauth', {
         code: confirmCode,
       });
       setAuthHeader(data.data.token);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const sendResetEmail = createAsyncThunk(
+  'auth/sendResetEmail',
+  async (email, thunkAPI) => {
+    try {
+      const response = await API.post('/auth/send-reset-email', email);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPwd = createAsyncThunk(
+  'auth/resetPwd',
+  async (token, thunkAPI) => {
+    try {
+      const response = await API.post('/auth/reset-pwd', token);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
     }
   }
 );
