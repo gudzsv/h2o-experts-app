@@ -41,7 +41,9 @@
     "email": "Email",
     "placeholderEmail": "Enter your email",
     "password": "Password",
-    "placeholderPassword": "Enter your password"
+    "placeholderPassword": "Enter your password",
+    "forgotPassword": "Forgot your password?",
+    "googleBtn": "Continue with"
   },
 
   "signUp": {

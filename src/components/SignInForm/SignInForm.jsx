@@ -111,6 +111,8 @@ const SignInForm = () => {
               <div className={styles.error}>{errors.password.message}</div>
             )}
           </div>
+        </div>
+        <div className={styles.btnWrapper}>
           <button
             type="submit"
             className={styles.btn}
@@ -124,7 +126,7 @@ const SignInForm = () => {
             onClick={handleOAuth}
             aria-label="Sign in button for an account with Google"
           >
-            Continue with
+            {t('signIn.googleBtn')}
             <svg className={styles.googleIcon}>
               <use
                 href={`${sprite}${'#google-logo'}`}
