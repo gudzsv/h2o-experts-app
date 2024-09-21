@@ -7,6 +7,7 @@ import WaterDetailedInfo from 'components/WaterDetailedInfo/WaterDetailedInfo.js
 
 const TrackerPage = () => {
   const { t } = useTranslation();
+
   return (
     <Container>
       <Helmet>
