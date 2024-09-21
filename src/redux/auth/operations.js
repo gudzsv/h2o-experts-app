@@ -121,7 +121,7 @@ export const getOAuthURL = createAsyncThunk(
   'auth/getOAuthURL',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/users/get-oauth-url');
+      const { data } = await API.get('/auth/get-oauth-url');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
