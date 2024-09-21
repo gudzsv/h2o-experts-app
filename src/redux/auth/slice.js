@@ -130,8 +130,8 @@ const authSlice = createSlice({
 
       .addCase(getOAuthURL.pending, handlePending)
       .addCase(getOAuthURL.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
         state.OAuthURL = payload.data.url;
+        state.isLoading = false;
       })
       .addCase(getOAuthURL.rejected, state => {
         state.isLoading = false;

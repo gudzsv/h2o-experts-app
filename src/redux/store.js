@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer } from './auth/slice';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import persistStore from 'redux-persist/es/persistStore';
+import { authReducer } from './auth/slice';
+import { waterReducer } from './water/slice';
 import {
   FLUSH,
   REHYDRATE,
@@ -10,8 +12,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import persistStore from 'redux-persist/es/persistStore';
-import { waterReducer } from './water/slice';
 
 const persistConfig = {
   key: 'root',
