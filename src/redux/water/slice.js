@@ -51,7 +51,7 @@ const waterSlice = createSlice({
           elem => elem._id === payload.data._id
         );
         state.dayWater.splice(index, 1, payload.data);
-        handleMessage(SUCCESS.ADD_WATER);
+        handleMessage(SUCCESS.EDIT_WATER);
       })
       .addCase(editWater.rejected, handleError(ERROR.ADD_WATER))
       .addCase(deleteWater.pending, handlePending)
@@ -67,14 +67,14 @@ const waterSlice = createSlice({
       .addCase(getDayWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.dayWater = payload.date;
-        handleMessage(SUCCESS.GET_DAY_WATER);
+        // handleMessage(SUCCESS.GET_DAY_WATER);
       })
       .addCase(getDayWater.rejected, handleError(ERROR.GET_DAY_WATER))
       .addCase(getMonthWater.pending, handlePending)
       .addCase(getMonthWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.monthWater = payload.date;
-        handleMessage(SUCCESS.GET_MONTH_WATER);
+        // handleMessage(SUCCESS.GET_MONTH_WATER);
       })
       .addCase(getMonthWater.rejected, handleError(ERROR.GET_MONTH_WATER));
   },

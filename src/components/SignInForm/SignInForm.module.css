@@ -37,6 +37,11 @@
   }
 }
 
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .input {
   border-radius: 15px;
   border: 1px solid var(--border-color);
