@@ -41,7 +41,9 @@
     "email": "Електронна пошта",
     "placeholderEmail": "Введіть електронну пошту",
     "password": "Пароль",
-    "placeholderPassword": "Введіть пароль"
+    "placeholderPassword": "Введіть пароль",
+    "forgotPassword": "Забули ваш пароль?",
+    "googleBtn": "Вхід з акаунтом"
   },
 
   "signUp": {
