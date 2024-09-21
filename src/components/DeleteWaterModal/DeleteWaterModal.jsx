@@ -1,18 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { deleteWater } from '../../redux/water/operations';
 import toast from 'react-hot-toast';
+import { ModalTemplate } from '../Modal/Modal';
 import css from './DeleteWaterModal.module.css';
 
-export const DeleteWaterModal = ({ id, onClose }) => {
+export const DeleteWaterModal = ({ id, modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
-
-  console.log({ id });
 
   const handleDelete = async () => {
     try {
       const response = await dispatch(deleteWater(id));
       if (response.meta.requestStatus === 'fulfilled') {
-        onClose();
+        closeModal();
       } else {
         throw new Error('Failed to delete');
       }
@@ -23,50 +22,32 @@ export const DeleteWaterModal = ({ id, onClose }) => {
   };
 
   return (
-    <div
-      // className={css['overlay']}
-      role="dialog"
-      aria-label="delete-modal-title"
-    >
-      <div className={css['delete-water-modal']}>
-        {/* <button
-          type="button"
-          className={css['close-button-mod']}
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <svg className={css['close-icon-mod']} width="24" height="24">
-            <use href="../../assets/icons/sprite.svg#icon-x"></use>
-          </svg>
-        </button> */}
-        <div className={css['delete-water-modal-content']}>
-          <h2 id="delete-modal-title" className={css['mod-delete']}>
-            Delete entry
-          </h2>
-          <p className={css['q-mod-del']}>
+    <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+      <div className={css.deleteWaterModalContent}>
+        <div>
+          <h2 className={css.modDelete}>Delete entry</h2>
+          <p className={css.qModDel}>
             Are you sure you want to delete the entry?
           </p>
         </div>
-        <div className={css['delete-water-modal-btn']}>
+        <div className={css.deleteWaterModalBtn}>
           <button
             type="button"
-            className={css['delete-button-modal']}
+            className={css.deleteButtonModal}
             onClick={handleDelete}
-            aria-label="Delete"
           >
             Delete
           </button>
           <button
             type="button"
-            className={css['cancel-button-modal']}
-            onClick={onClose}
-            aria-label="Cancel"
+            className={css.cancelButtonModal}
+            onClick={closeModal}
           >
-            <span className={css['modal-cancel']}>Cancel</span>
+            Cancel
           </button>
         </div>
       </div>
-    </div>
+    </ModalTemplate>
   );
 };
 

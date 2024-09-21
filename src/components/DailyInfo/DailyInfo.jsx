@@ -10,7 +10,7 @@ import {
   addWater,
   editWater,
   getDayWater,
-  deleteWater,
+  // deleteWater,
 } from '../../redux/water/operations';
 import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
 import BallTriangleLoader from './Loader/LoaderForDailyInfo';
@@ -63,9 +63,9 @@ const DailyInfo = ({ dateForCalendar }) => {
     setModalIsOpen(false);
   };
 
-  const handleDeleteWater = id => {
-    dispatch(deleteWater(id));
-  };
+  // const handleDeleteWater = id => {
+  //   dispatch(deleteWater(id));
+  // };
 
   return (
     <div className={styles.dailyInfo}>
@@ -98,7 +98,7 @@ const DailyInfo = ({ dateForCalendar }) => {
             <WaterList
               waterData={dayWater}
               onEdit={handleIsEditWater}
-              onDelete={handleDeleteWater}
+              // onDelete={handleDeleteWater}
             />
           )}
         </div>

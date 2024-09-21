@@ -10,28 +10,28 @@ export default function UserBarPopover({ onClose }) {
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  const handleClickOutside = useCallback(
-    event => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
+  // const handleClickOutside = useCallback(
+  //   event => {
+  //     if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+  //       onClose();
+  //     }
+  //   },
+  //   [onClose]
+  // );
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [handleClickOutside]);
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, [handleClickOutside]);
 
   const handleLogoutClick = () => {
     setIsOpenLogOut(true);
-    onClose();
+    // onClose();
   };
 
   const handleSettingsClick = () => {
     setIsOpenSettings(true);
-    onClose();
+    // onClose();
   };
 
   return (
@@ -48,7 +48,12 @@ export default function UserBarPopover({ onClose }) {
       {isOpenSettings && (
         <UserSettingsModal onClose={() => setIsOpenSettings(false)} />
       )}
-      {isOpenLogOut && <LogOutModal onClose={() => setIsOpenLogOut(false)} />}
+      {isOpenLogOut && (
+        <LogOutModal
+          modalIsOpen={isOpenLogOut}
+          closeModal={handleLogoutClick}
+        />
+      )}
     </div>
   );
 }
