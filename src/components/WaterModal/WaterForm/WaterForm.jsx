@@ -36,16 +36,12 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     Math.round(now.getMinutes() / 5) * 5
   ).padStart(2, '0')}`;
 
-  console.log(formattedTime);
-
   const defaultDrinkingTime =
     actionType === 'edit'
       ? waterItem.drinkingTime.split('T')[1].slice(0, 5)
       : formattedTime;
 
   const defaultUsedWater = actionType === 'edit' ? waterItem.usedWater : 50;
-
-  console.log(defaultDrinkingTime);
 
   const {
     register,
@@ -126,14 +122,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       dispatch(addWater(payload));
       toast.success('Water added successfully!');
     } else if (actionType === 'edit') {
-      console.log(waterItem);
-      console.log('----------------');
-
-      console.log({
-        waterId: waterItem._id,
-        ...payload,
-      });
-
       dispatch(
         editWater({
           waterId: waterItem._id,

@@ -20,7 +20,11 @@ export default function WaterMainInfo() {
       <AddWaterBtn btnType="primary" isAbsolute={true} onClick={openModal} />
 
       <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
-        <WaterModal actionType="add" closeModal={closeModal} />
+        <WaterModal
+          actionType="add"
+          closeModal={closeModal}
+          // currentDay={поточний день}
+        />
       </ModalTemplate>
     </section>
   );
