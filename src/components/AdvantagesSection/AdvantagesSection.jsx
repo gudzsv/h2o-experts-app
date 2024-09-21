@@ -1,18 +1,17 @@
 import { Trans } from 'react-i18next';
 import styles from './AdvantagesSection.module.css';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCounter } from '../../redux/auth/selectors.js';
 import { getCounter } from '../../redux/auth/operations.js';
 
 const AdvantagesSection = () => {
   const dispatch = useDispatch();
+  const counter = useSelector(selectCounter);
 
   useEffect(() => {
     dispatch(getCounter());
-  }, []);
-  const counter = useSelector(selectCounter);
-  console.log(counter);
+  }, [dispatch]);
 
   return (
     <section className={styles.advantagesSection}>
@@ -24,10 +23,8 @@ const AdvantagesSection = () => {
             <li className={styles.icon3}></li>
           </ul>
           <p className={styles.customerText}>
-            <Trans i18nKey="homepage.advantages.customers">
-              Our
-              <span className={styles.accent}>{{ counter }}</span>
-              happy customers
+            <Trans i18nKey="homepage.advantages.customers" values={{ counter }}>
+              Our <span className={styles.accent}></span> happy customers
             </Trans>
           </p>
         </div>
