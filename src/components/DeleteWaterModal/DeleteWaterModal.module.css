@@ -1,14 +1,3 @@
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(47, 47, 47, 0.60);
-    z-index: 1000;
-    overflow: hidden;
-}
-
 .delete-water-modal {
     display: inline-flex;
     padding: 40px 14px;
@@ -67,12 +56,4 @@
     font-weight: 700;
     line-height: 18px;
     letter-spacing: -0.14px;
-}
-
-.close-button-mod {
-    position: absolute;
-    top: 20px;
-    right: 16px;
-    cursor: pointer;
-    stroke: #2f2f2f;
 }
