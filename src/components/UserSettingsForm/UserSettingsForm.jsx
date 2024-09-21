@@ -14,11 +14,9 @@ const userSettingsValidationSchema = Yup.object().shape({
   userEmail: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
-  userWeight: Yup.number().positive('Weight must be a positive number'),
-  userTime: Yup.number().positive('Active time must be a positive number'),
-  dailyRequirement: Yup.number().positive(
-    'Water intake must be a positive number'
-  ),
+  userWeight: Yup.number(),
+  userTime: Yup.number(),
+  dailyRequirement: Yup.number(),
 });
 
 const UserSettingsForm = () => {
@@ -214,9 +212,6 @@ const UserSettingsForm = () => {
               className={css.userInput}
               {...register('userWeight')}
             />
-            {errors.userWeight && (
-              <p className={css.error}>{errors.userWeight.message}</p>
-            )}
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="userTime" className={css.labelRegularly}>
@@ -231,9 +226,6 @@ const UserSettingsForm = () => {
               className={css.userInput}
               {...register('userTime')}
             />
-            {errors.userTime && (
-              <p className={css.error}>{errors.userTime.message}</p>
-            )}
           </div>
           <div className={css.wrapperWaterAmount}>
             <p className={css.labelRegularlyWaterAmount}>
@@ -254,9 +246,6 @@ const UserSettingsForm = () => {
               className={css.userInput}
               {...register('dailyRequirement')}
             />
-            {errors.dailyRequirement && (
-              <p className={css.error}>{errors.dailyRequirement.message}</p>
-            )}
           </div>
         </div>
       </div>
