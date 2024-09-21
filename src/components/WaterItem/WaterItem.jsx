@@ -42,7 +42,7 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
       <div className={css.water_item_actions}>
         <button
           className={css.edit_btn}
-          onClick={onEdit}
+          onClick={() => onEdit(item)}
           aria-label="Edit water entry"
         >
           <svg width="14" height="14" className={css.pencil}>

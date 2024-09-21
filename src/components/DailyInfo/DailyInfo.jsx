@@ -7,22 +7,22 @@ import styles from './DailyInfo.module.css';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDayWater, selectIsLoading } from '../../redux/water/selectors';
-import {
-  addWater,
-  editWater,
-  getDayWater,
-  deleteWater,
-} from '../../redux/water/operations';
+import { getDayWater, deleteWater } from '../../redux/water/operations';
 import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
+import { useModal } from 'components/Modal/UseModal.jsx';
 
 const DailyInfo = ({ dateForCalendar }) => {
   const dispatch = useDispatch();
   const dayWater = useSelector(selectDayWater);
   const isLoading = useSelector(selectIsLoading);
 
-  const [editItem, setEditItem] = useState(null);
+  const { modalIsOpen, closeModal, openModal } = useModal();
+
+  // const [editItem, setEditItem] = useState(null);
+  const [editId, setEditId] = useState('');
   const [isActionType, setIsActionType] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isCurrentDay, setIsCurrentDay] = useState('');
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const getFormattedDate = date => {
     const year = date.getFullYear();
@@ -33,35 +33,42 @@ const DailyInfo = ({ dateForCalendar }) => {
 
   useEffect(() => {
     const formattedDate = getFormattedDate(dateForCalendar || new Date());
+    setIsCurrentDay(formattedDate);
     dispatch(getDayWater(formattedDate));
   }, [dispatch, dateForCalendar]);
 
   const handleIsAddWater = () => {
-    setEditItem(null);
+    // setEditItem(null);
     setIsActionType('add');
-    setModalIsOpen(true);
+    openModal();
+    // setModalIsOpen(true);
   };
 
   const handleIsEditWater = item => {
-    setEditItem(item);
+    // setEditItem(item);
+
+    setEditId(item._id);
     setIsActionType('edit');
-    setModalIsOpen(true);
+    openModal();
+    // setModalIsOpen(true);
   };
 
-  const handleAddWater = newWaterData => {
-    const formattedDate = getFormattedDate(dateForCalendar);
-    const waterDataWithDate = {
-      ...newWaterData,
-      drinkingTime: `${formattedDate}T${newWaterData.drinkingTime}`,
-    };
-    dispatch(addWater(waterDataWithDate));
-    setModalIsOpen(false);
-  };
+  // const handleAddWater = newWaterData => {
+  //   const formattedDate = getFormattedDate(dateForCalendar);
+  //   const waterDataWithDate = {
+  //     ...newWaterData,
+  //     drinkingTime: `${formattedDate}T${newWaterData.drinkingTime}`,
+  //   };
+  //   dispatch(addWater(waterDataWithDate));
+  //   setModalIsOpen(false);
+  // };
 
-  const handleEditWater = updatedWaterData => {
-    dispatch(editWater({ waterId: editItem._id, ...updatedWaterData }));
-    setModalIsOpen(false);
-  };
+  // const handleEditWater = updatedWaterData => {
+  //   console.log(updatedWaterData);
+
+  //   dispatch(editWater({ waterId: editItem._id, ...updatedWaterData }));
+  //   setModalIsOpen(false);
+  // };
 
   const handleDeleteWater = id => {
     dispatch(deleteWater(id));
@@ -76,20 +83,14 @@ const DailyInfo = ({ dateForCalendar }) => {
           <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
         </div>
 
-        {modalIsOpen && (
-          <ModalTemplate
-            modalIsOpen={modalIsOpen}
-            closeModal={() => setModalIsOpen(false)}
-          >
-            <WaterModal
-              actionType={isActionType}
-              onAddWater={handleAddWater}
-              onEditWater={handleEditWater}
-              editItem={editItem}
-              closeModal={() => setModalIsOpen(false)}
-            />
-          </ModalTemplate>
-        )}
+        <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+          <WaterModal
+            actionType={isActionType}
+            waterId={editId}
+            currentDay={isCurrentDay}
+            closeModal={closeModal}
+          />
+        </ModalTemplate>
 
         <div className={styles.water_list_wrapper}>
           {isLoading ? (

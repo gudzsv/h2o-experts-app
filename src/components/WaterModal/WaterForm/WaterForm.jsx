@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
     .required(),
 });
 
-const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
+const WaterForm = ({ actionType, waterId, currentDay, closeModal }) => {
   const timeOptions = Array.from({ length: 24 * 12 }, (_, i) => {
     const hours = String(Math.floor(i / 12)).padStart(2, '0');
     const minutes = String((i % 12) * 5).padStart(2, '0');
@@ -116,12 +116,18 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
       dispatch(addWater(payload));
       toast.success('Water added successfully!');
     } else if (actionType === 'edit') {
-      dispatch(editWater(payload));
+      dispatch(
+        editWater({
+          waterId: waterId,
+          editData: payload,
+        })
+      );
       toast.success('Water updated successfully!');
     } else {
       toast.error('No action was specified. Please try again.');
     }
-    console.log(payload);
+    closeModal();
+    console.log(waterId);
   };
 
   return (
