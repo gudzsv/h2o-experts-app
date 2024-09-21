@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
@@ -61,9 +61,9 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
 
         {isDeleteModalOpen && (
           <DeleteWaterModal
+            modalIsOpen={isDeleteModalOpen}
             id={item._id}
-            onClose={closeDeleteModal}
-            onConfirm={confirmDelete}
+            closeModal={closeDeleteModal}
           />
         )}
       </div>

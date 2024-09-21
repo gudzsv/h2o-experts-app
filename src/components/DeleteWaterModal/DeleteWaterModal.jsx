@@ -15,7 +15,7 @@ export const DeleteWaterModal = ({ id, modalIsOpen, closeModal }) => {
       } else {
         throw new Error('Failed to delete');
       }
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error('Не удалось удалить запись. Попробуйте снова.');
     }
@@ -23,14 +23,28 @@ export const DeleteWaterModal = ({ id, modalIsOpen, closeModal }) => {
 
   return (
     <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
-      <div className={css["delete-water-modal-content"]}>
+      <div className={css.deleteWaterModalContent}>
         <div>
-          <h2 className={css["mod-delete"]}>Delete entry</h2>
-          <p className={css["q-mod-del"]}>Are you sure you want to delete the entry?</p>
+          <h2 className={css.modDelete}>Delete entry</h2>
+          <p className={css.qModDel}>
+            Are you sure you want to delete the entry?
+          </p>
         </div>
-        <div className={css["delete-water-modal-btn"]}>
-          <button type="button" className={css["delete-button-modal"]} onClick={handleDelete}>Delete</button>
-          <button type="button" className={css["cancel-button-modal"]} onClick={closeModal}>Cancel</button>
+        <div className={css.deleteWaterModalBtn}>
+          <button
+            type="button"
+            className={css.deleteButtonModal}
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+          <button
+            type="button"
+            className={css.cancelButtonModal}
+            onClick={closeModal}
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </ModalTemplate>
