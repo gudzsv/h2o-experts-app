@@ -19,7 +19,7 @@ const DailyInfo = ({ dateForCalendar }) => {
   const { modalIsOpen, closeModal, openModal } = useModal();
 
   // const [editItem, setEditItem] = useState(null);
-  const [editId, setEditId] = useState('');
+  const [editItem, setEditItem] = useState({});
   const [isActionType, setIsActionType] = useState('');
   const [isCurrentDay, setIsCurrentDay] = useState('');
   // const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -47,7 +47,7 @@ const DailyInfo = ({ dateForCalendar }) => {
   const handleIsEditWater = item => {
     // setEditItem(item);
 
-    setEditId(item._id);
+    setEditItem(item);
     setIsActionType('edit');
     openModal();
     // setModalIsOpen(true);
@@ -86,7 +86,7 @@ const DailyInfo = ({ dateForCalendar }) => {
         <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
           <WaterModal
             actionType={isActionType}
-            waterId={editId}
+            waterItem={editItem}
             currentDay={isCurrentDay}
             closeModal={closeModal}
           />

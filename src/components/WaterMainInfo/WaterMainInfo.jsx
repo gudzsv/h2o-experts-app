@@ -5,13 +5,10 @@ import WaterDailyNorma from '../WaterDailyNorma/WaterDailyNorma.jsx';
 import WaterProgressBar from '../WaterProgressBar/WaterProgressBar.jsx';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import WaterModal from 'components/WaterModal/WaterModal.jsx';
-import { useState } from 'react';
+import { useModal } from 'components/Modal/UseModal.jsx';
 
 export default function WaterMainInfo() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const { modalIsOpen, closeModal, openModal } = useModal();
 
   return (
     <section className={css.trackerSection}>
@@ -20,14 +17,10 @@ export default function WaterMainInfo() {
       <WaterDailyNorma />
       <WaterProgressBar />
 
-      <AddWaterBtn
-        btnType="primary"
-        isAbsolute={true}
-        onClick={handleOpenModal}
-      />
+      <AddWaterBtn btnType="primary" isAbsolute={true} onClick={openModal} />
 
-      <ModalTemplate modalIsOpen={isModalOpen} closeModal={handleCloseModal}>
-        <WaterModal actionType="add" />
+      <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+        <WaterModal actionType="add" closeModal={closeModal} />
       </ModalTemplate>
     </section>
   );

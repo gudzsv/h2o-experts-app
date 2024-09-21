@@ -20,7 +20,13 @@ export const editWater = createAsyncThunk(
       const { data } = await API.patch(`/water/${waterId}`, { ...editData });
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      console.error(
+        'Error in editWater:',
+        error.response ? error.response.data : error
+      );
+      return thunkAPI.rejectWithValue(
+        error.response?.data || 'Something went wrong'
+      );
     }
   }
 );

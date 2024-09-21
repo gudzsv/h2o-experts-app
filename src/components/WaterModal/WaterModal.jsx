@@ -1,7 +1,7 @@
 import WaterForm from './WaterForm/WaterForm.jsx';
 import styles from './WaterModal.module.css';
 
-const WaterModal = ({ actionType, closeModal, waterId, currentDay }) => {
+const WaterModal = ({ actionType, closeModal, waterItem, currentDay }) => {
   return (
     <div className={styles.wrapper}>
       {actionType === 'edit' ? (
@@ -14,7 +14,7 @@ const WaterModal = ({ actionType, closeModal, waterId, currentDay }) => {
 
       <WaterForm
         actionType={actionType}
-        waterId={waterId}
+        waterItem={waterItem}
         currentDay={currentDay}
         closeModal={closeModal}
       ></WaterForm>
