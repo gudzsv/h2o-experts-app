@@ -31,10 +31,17 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
   const dispatch = useDispatch();
 
+  const now = new Date();
+  const formattedTime = `${now.getHours()}:${String(
+    Math.round(now.getMinutes() / 5) * 5
+  ).padStart(2, '0')}`;
+
+  console.log(formattedTime);
+
   const defaultDrinkingTime =
     actionType === 'edit'
       ? waterItem.drinkingTime.split('T')[1].slice(0, 5)
-      : '00:00';
+      : formattedTime;
 
   const defaultUsedWater = actionType === 'edit' ? waterItem.usedWater : 50;
 
