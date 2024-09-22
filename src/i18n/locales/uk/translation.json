@@ -27,7 +27,7 @@
     },
 
     "advantages": {
-      "customers": "Наші <1>щасливі</1> клієнти",
+      "customers": "Наші <1>{{counter}}</1> щасливі клієнти",
       "habitDrive": "Сприяння звичкам",
       "viewStatistic": "Переглянути статистику",
       "personalSetting": "Налаштування особистого рейтингу"
@@ -41,7 +41,9 @@
     "email": "Електронна пошта",
     "placeholderEmail": "Введіть електронну пошту",
     "password": "Пароль",
-    "placeholderPassword": "Введіть пароль"
+    "placeholderPassword": "Введіть пароль",
+    "forgotPassword": "Забули ваш пароль?",
+    "googleBtn": "Вхід з акаунтом"
   },
 
   "signUp": {
@@ -53,6 +55,14 @@
     "password": "Пароль",
     "placeholderPassword": "Введіть пароль",
     "placeholderRepeatPassword": "Повторіть пароль"
+  },
+
+  "chooseDate": {
+    "today": "Сьогодні",
+    "noWaterConsumed": "В цей день не було спожито води.",
+    "edit": "Редагувати запис про воду",
+    "delete": "Видалити запис про воду",
+    "ml": "мл"
   },
 
   "waterForm": {

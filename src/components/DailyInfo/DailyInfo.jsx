@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-// import AddWaterBtnDailyInfo from './AddWaterBtnDailyInfo/AddWaterBtnDailyInfo';
 import styles from './DailyInfo.module.css';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDayWater, selectIsLoading } from '../../redux/water/selectors';
-import { getDayWater, deleteWater } from '../../redux/water/operations';
+
+import {
+ 
+  getDayWater,
+  // deleteWater,
+} from '../../redux/water/operations';
 import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
+import BallTriangleLoader from './Loader/LoaderForDailyInfo';
 import { useModal } from 'components/Modal/UseModal.jsx';
+
 
 const DailyInfo = ({ dateForCalendar }) => {
   const dispatch = useDispatch();
@@ -70,9 +76,9 @@ const DailyInfo = ({ dateForCalendar }) => {
   //   setModalIsOpen(false);
   // };
 
-  const handleDeleteWater = id => {
-    dispatch(deleteWater(id));
-  };
+  // const handleDeleteWater = id => {
+  //   dispatch(deleteWater(id));
+  // };
 
   return (
     <div className={styles.dailyInfo}>
@@ -94,12 +100,12 @@ const DailyInfo = ({ dateForCalendar }) => {
 
         <div className={styles.water_list_wrapper}>
           {isLoading ? (
-            <p>Loading...</p>
+            <BallTriangleLoader />
           ) : (
             <WaterList
               waterData={dayWater}
               onEdit={handleIsEditWater}
-              onDelete={handleDeleteWater}
+              // onDelete={handleDeleteWater}
             />
           )}
         </div>
