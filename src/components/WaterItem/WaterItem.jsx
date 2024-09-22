@@ -1,13 +1,10 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
-// import { deleteWater } from '../../redux/water/operations';
 import { useTranslation } from 'react-i18next';
-// import { useModal } from 'components/Modal/UseModal';
 
-const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
+const WaterItem = ({ item, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
   const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
@@ -16,25 +13,14 @@ const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
   });
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  // const dispatch = useDispatch();
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
-
   const handleDelete = () => {
-    setIsDeleteModalOpen(true);
+    onDelete(item._id);
   };
 
-  // const confirmDelete = () => {
-  //   dispatch(deleteWater(item._id));
-  //   setIsDeleteModalOpen(false);
-  //   if (onDelete) {
-  //     onDelete(item._id);
-  //   }
-  // };
-
-  // Функція для форматування води в літри
   const formatWaterAmount = usedWater => {
     if (usedWater >= 1000) {
       return `${(usedWater / 1000).toFixed(1)} ${t('chooseDate.l')}`;
