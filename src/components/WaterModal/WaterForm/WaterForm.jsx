@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,8 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
   const waterUsed = useId();
   const selectorTime = useId();
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -135,17 +138,19 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     <>
       {actionType === 'edit' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
-          Correct entered data:
+          {t('waterForm.titleEdit')}:
         </h2>
       ) : actionType === 'add' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
-          Choose a value:
+          {t('waterForm.titleAdd')}:
         </h2>
       ) : (
         <h2>...</h2>
       )}
 
-      <h2 className={styles.secondTitleRegular}>Amount of water:</h2>
+      <h2 className={styles.secondTitleRegular}>
+        {t('waterForm.secondTitle')}:
+      </h2>
 
       <div className={styles.container}>
         <svg
@@ -167,7 +172,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapperSelector}>
           <label htmlFor={selectorTime} className={styles.secondTitleRegular}>
-            Recording time:
+            {t('waterForm.time')}:
           </label>
           <select
             id={selectorTime}
@@ -192,7 +197,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
         </div>
         <div className={styles.wrapperNumber}>
           <label htmlFor={waterUsed} className={styles.secondTitle}>
-            Enter the value of the water used:
+            {t('waterForm.waterUsed')}:
           </label>
           <input
             type="number"
@@ -214,7 +219,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
           className={`${styles.submit} ${!isValid ? styles.disabledBtn : ''}`}
           disabled={!isValid}
         >
-          Save
+          {t('waterForm.button')}
         </button>
       </form>
     </>

@@ -53,5 +53,19 @@
     "password": "Пароль",
     "placeholderPassword": "Введіть пароль",
     "placeholderRepeatPassword": "Повторіть пароль"
+  },
+
+  "waterForm": {
+    "titleEdit": "Виправити введені дані",
+    "titleAdd": "Виберіть значення",
+    "secondTitle": "Кількість води",
+    "time": "Час запису",
+    "waterUsed": "Введіть кількість використаної води",
+    "button": "Зберігти"
+  },
+
+  "waterModal": {
+    "edit": "Редагувати введену кількість води",
+    "add": "Додати воду"
   }
 }
