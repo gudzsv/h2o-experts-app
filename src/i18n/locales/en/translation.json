@@ -62,7 +62,9 @@
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
+
     "ml": "ml"
+     "l": "L"
   },
 
   "waterForm": {
@@ -76,6 +78,9 @@
 
   "waterModal": {
     "edit": "Edit the entered amount of water",
-    "add": "Add water"
+
+   
+   
+
   }
 }
