@@ -6,7 +6,6 @@ import { useId } from 'react';
 import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
-import toast from 'react-hot-toast';
 
 import sprite from '../../../assets/icons/sprite.svg';
 
@@ -48,7 +47,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     handleSubmit,
     setValue,
     trigger,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -121,7 +120,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
     if (actionType === 'add') {
       dispatch(addWater(payload));
-      toast.success('Water added successfully!');
     } else if (actionType === 'edit') {
       dispatch(
         editWater({
@@ -129,9 +127,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
           ...payload,
         })
       );
-      toast.success('Water updated successfully!');
-    } else {
-      toast.error('No action was specified. Please try again.');
     }
     closeModal();
   };
@@ -179,7 +174,9 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
             {...register('drinkingTime')}
             value={waterForm.time}
             onChange={handleChangeTime}
-            className={styles.input}
+            className={`${styles.input} ${
+              errors.drinkingTime ? styles.error : ''
+            }`}
           >
             {timeOptions.map(time => (
               <option key={time} value={time}>
@@ -187,7 +184,11 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
               </option>
             ))}
           </select>
-          {errors.recordingTime && <span>{errors.recordingTime.message}</span>}
+          {errors.drinkingTime && (
+            <span className={styles.errorMessage}>
+              {errors.drinkingTime.message}
+            </span>
+          )}
         </div>
         <div className={styles.wrapperNumber}>
           <label htmlFor={waterUsed} className={styles.secondTitle}>
@@ -199,11 +200,22 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
             onChange={handleChangeWater}
             value={waterForm.water}
             id={waterUsed}
-            className={styles.input}
+            className={`${styles.input} ${
+              errors.usedWater ? styles.error : ''
+            }`}
           />
-          {errors.waterMl && <span>{errors.waterMl.message}</span>}
+          {errors.usedWater && (
+            <span className={styles.errorMessage}>
+              {errors.usedWater.message}
+            </span>
+          )}
         </div>
-        <button className={styles.submit}>Save</button>
+        <button
+          className={`${styles.submit} ${!isValid ? styles.disabledBtn : ''}`}
+          disabled={!isValid}
+        >
+          Save
+        </button>
       </form>
     </>
   );
