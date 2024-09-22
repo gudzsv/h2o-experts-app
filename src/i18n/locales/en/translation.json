@@ -77,6 +77,7 @@
   },
 
   "waterModal": {
-    "edit": "Edit the entered amount of water"
+    "edit": "Edit the entered amount of water",
+    "add": "Add water"
   }
 }
