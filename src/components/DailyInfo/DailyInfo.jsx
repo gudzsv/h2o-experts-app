@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
@@ -28,38 +28,58 @@ const DailyInfo = ({ dateForCalendar }) => {
     return `${year}-${month}-${day}`;
   };
 
-  useEffect(() => {
-    const formattedDate = getFormattedDate(dateForCalendar || new Date());
-    setIsCurrentDay(formattedDate);
-    dispatch(getDayWater(formattedDate));
-  }, [dispatch, dateForCalendar]);
+  const formattedDate = useMemo(
+    () => getFormattedDate(dateForCalendar || new Date()),
+    [dateForCalendar]
+  );
 
-  const handleIsAddWater = () => {
+  useEffect(() => {
+    if (formattedDate !== isCurrentDay) {
+      setIsCurrentDay(formattedDate);
+      dispatch(getDayWater(formattedDate));
+    }
+  }, [dispatch, formattedDate, isCurrentDay]);
+
+  const handleIsAddWater = useCallback(() => {
     setIsActionType('add');
     openModal();
-  };
+  }, [openModal]);
 
-  const handleIsEditWater = item => {
-    setEditItem(item);
-    setIsActionType('edit');
-    openModal();
-  };
+  const handleIsEditWater = useCallback(
+    item => {
+      setEditItem(item);
+      setIsActionType('edit');
+      openModal();
+    },
+    [openModal]
+  );
 
-  const handleDeleteWater = id => {
-    dispatch(deleteWater(id)).then(() => {
-      dispatch(getDayWater(getFormattedDate(dateForCalendar || new Date())));
-    });
-  };
+  const handleDeleteWater = useCallback(
+    async id => {
+      await dispatch(deleteWater(id));
+      dispatch(getDayWater(formattedDate));
+    },
+    [dispatch, formattedDate]
+  );
 
   return (
     <div className={styles.dailyInfo}>
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
           <ChooseDate selectedDate={dateForCalendar || new Date()} />
-          <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
+          <AddWaterBtn
+            btnType="secondary"
+            onClick={handleIsAddWater}
+            aria-label="Add water record"
+          />
         </div>
 
-        <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+        <ModalTemplate
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          aria-modal="true"
+          role="dialog"
+        >
           <WaterModal
             actionType={isActionType}
             waterItem={editItem}
