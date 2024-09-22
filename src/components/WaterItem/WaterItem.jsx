@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import css from './WaterItem.module.css';
@@ -6,7 +5,7 @@ import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
 // import { deleteWater } from '../../redux/water/operations';
 import { useTranslation } from 'react-i18next';
-import { useModal } from 'components/Modal/UseModal';
+// import { useModal } from 'components/Modal/UseModal';
 
 const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
   const { t } = useTranslation();
@@ -19,14 +18,14 @@ const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // const dispatch = useDispatch();
 
-   const closeDeleteModal = () => {
+  const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
 
   const handleDelete = () => {
     setIsDeleteModalOpen(true);
   };
-  
+
   // const confirmDelete = () => {
   //   dispatch(deleteWater(item._id));
   //   setIsDeleteModalOpen(false);
@@ -35,6 +34,14 @@ const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
   //   }
   // };
 
+  // Функція для форматування води в літри
+  const formatWaterAmount = usedWater => {
+    if (usedWater >= 1000) {
+      return `${(usedWater / 1000).toFixed(1)} ${t('chooseDate.l')}`;
+    }
+    return `${usedWater} ${t('chooseDate.ml')}`;
+  };
+
   return (
     <div className={css.water_item}>
       <svg width="38" height="38" className={css.glass}>
@@ -42,7 +49,7 @@ const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
       </svg>
       <div className={css.water_item_content}>
         <span className={css.water_amount}>
-          {item.usedWater} {t('chooseDate.ml')}
+          {formatWaterAmount(item.usedWater)}
         </span>
         <span className={css.water_time}>{formattedTime}</span>
       </div>
@@ -73,7 +80,6 @@ const WaterItem = ({ item, onEdit /*onDelete*/ }) => {
             id={item._id}
             closeModal={closeDeleteModal}
           />
-
         )}
       </div>
     </div>

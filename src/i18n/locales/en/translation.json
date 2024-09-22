@@ -62,6 +62,7 @@
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
-    "ml": "ml"
+    "ml": "ml",
+    "l": "L"
   }
 }

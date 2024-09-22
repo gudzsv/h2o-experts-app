@@ -4,7 +4,6 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
 import { useTranslation } from 'react-i18next';
 
-
 const WaterList = ({ waterData, onEdit /*onDelete*/ }) => {
   const { t } = useTranslation();
 
