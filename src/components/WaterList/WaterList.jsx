@@ -25,8 +25,10 @@ const WaterList = ({ waterData, onEdit /*onDelete*/ }) => {
               <WaterItem
                 key={item._id}
                 item={item}
-                onEdit={() => onEdit(item)}
-                // onDelete={() => onDelete(item._id)}
+
+                onEdit={onEdit}
+              // onDelete={() => onDelete(item._id)}
+
               />
             ))
           )}

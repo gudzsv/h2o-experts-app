@@ -62,7 +62,21 @@
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
+
     "ml": "ml",
     "l": "L"
+  },
+
+  "waterForm": {
+    "titleEdit": "Correct entered data",
+    "titleAdd": "Choose a value",
+    "secondTitle": "Amount of water",
+    "time": "Recording time",
+    "waterUsed": "Enter the value of the water used",
+    "button": "Save"
+  },
+
+  "waterModal": {
+    "edit": "Edit the entered amount of water"
   }
 }

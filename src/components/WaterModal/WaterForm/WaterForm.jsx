@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
-import toast from 'react-hot-toast';
-import { selectDayWater } from '../../../redux/water/selectors.js';
+
 import sprite from '../../../assets/icons/sprite.svg';
 
 const validationSchema = Yup.object().shape({
@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
     .required(),
 });
 
-const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
+const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const timeOptions = Array.from({ length: 24 * 12 }, (_, i) => {
     const hours = String(Math.floor(i / 12)).padStart(2, '0');
     const minutes = String((i % 12) * 5).padStart(2, '0');
@@ -29,40 +29,52 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
   const waterUsed = useId();
   const selectorTime = useId();
 
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
-  const waterDaily = useSelector(selectDayWater);
-  const waterById = waterDaily.find(contact => contact.id === waterId);
+  const now = new Date();
+  const formattedTime = `${now.getHours()}:${String(
+    Math.round(now.getMinutes() / 5) * 5
+  ).padStart(2, '0')}`;
+
+  const defaultDrinkingTime =
+    actionType === 'edit'
+      ? waterItem.drinkingTime.split('T')[1].slice(0, 5)
+      : formattedTime;
+
+  const defaultUsedWater = actionType === 'edit' ? waterItem.usedWater : 50;
 
   const {
     register,
     handleSubmit,
     setValue,
     trigger,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      drinkingTime: '00:00',
-      usedWater: 50,
+      drinkingTime: defaultDrinkingTime,
+      usedWater: defaultUsedWater,
     },
     resolver: yupResolver(validationSchema),
   });
 
   const [waterForm, setWaterForm] = useState({
-    time: '00:00',
-    water: 50,
+    time: defaultDrinkingTime,
+    water: defaultUsedWater,
   });
   useEffect(() => {
-    if (actionType === 'edit' && waterById) {
-      setValue('drinkingTime', waterById.drinkingTime.split(' ')[1]);
-      setValue('usedWater', waterById.usedWater);
+    if (actionType === 'edit' && waterItem) {
+      const initialTime = waterItem.drinkingTime.split('T')[1].slice(0, 5);
+      setValue('drinkingTime', initialTime);
+      setValue('usedWater', waterItem.usedWater);
       setWaterForm({
-        time: waterById.drinkingTime.split(' ')[1],
-        water: waterById.usedWater,
+        time: initialTime || defaultDrinkingTime,
+        water: waterItem.usedWater,
       });
     }
-  }, [actionType, waterById, setValue]);
+  }, [actionType, waterItem, setValue, defaultDrinkingTime]);
 
   const plusWater = () => {
     setWaterForm(prevState => {
@@ -101,44 +113,44 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
   };
 
   const formatDateTime = (date, time) => {
-    const formattedDate = date.toString().split('T')[0]; // 'YYYY-MM-DD'
-    return `${formattedDate}T${time}:00`; // 'YYYY-MM-DD HH:mm:ss'
+    const formattedDate = date.toString().split('T')[0];
+    return `${formattedDate}T${time}:00`;
   };
 
   const onSubmit = data => {
     const formattedDateTime = formatDateTime(currentDay, waterForm.time);
     const payload = { ...data, drinkingTime: formattedDateTime };
-    console.log(formattedDateTime);
-
-    console.log('after data', payload);
 
     if (actionType === 'add') {
       dispatch(addWater(payload));
-      toast.success('Water added successfully!');
     } else if (actionType === 'edit') {
-      dispatch(editWater(payload));
-      toast.success('Water updated successfully!');
-    } else {
-      toast.error('No action was specified. Please try again.');
+      dispatch(
+        editWater({
+          waterId: waterItem._id,
+          ...payload,
+        })
+      );
     }
-    console.log(payload);
+    closeModal();
   };
 
   return (
     <>
       {actionType === 'edit' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
-          Correct entered data:
+          {t('waterForm.titleEdit')}:
         </h2>
       ) : actionType === 'add' ? (
         <h2 className={`${styles.secondTitle} ${styles.secondTitleMargin}`}>
-          Choose a value:
+          {t('waterForm.titleAdd')}:
         </h2>
       ) : (
         <h2>...</h2>
       )}
 
-      <h2 className={styles.secondTitleRegular}>Amount of water:</h2>
+      <h2 className={styles.secondTitleRegular}>
+        {t('waterForm.secondTitle')}:
+      </h2>
 
       <div className={styles.container}>
         <svg
@@ -160,14 +172,16 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapperSelector}>
           <label htmlFor={selectorTime} className={styles.secondTitleRegular}>
-            Recording time:
+            {t('waterForm.time')}:
           </label>
           <select
             id={selectorTime}
             {...register('drinkingTime')}
             value={waterForm.time}
             onChange={handleChangeTime}
-            className={styles.input}
+            className={`${styles.input} ${
+              errors.drinkingTime ? styles.error : ''
+            }`}
           >
             {timeOptions.map(time => (
               <option key={time} value={time}>
@@ -175,11 +189,15 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
               </option>
             ))}
           </select>
-          {errors.recordingTime && <span>{errors.recordingTime.message}</span>}
+          {errors.drinkingTime && (
+            <span className={styles.errorMessage}>
+              {errors.drinkingTime.message}
+            </span>
+          )}
         </div>
         <div className={styles.wrapperNumber}>
           <label htmlFor={waterUsed} className={styles.secondTitle}>
-            Enter the value of the water used:
+            {t('waterForm.waterUsed')}:
           </label>
           <input
             type="number"
@@ -187,11 +205,22 @@ const WaterForm = ({ actionType, waterId, currentDay = '2024-09-15' }) => {
             onChange={handleChangeWater}
             value={waterForm.water}
             id={waterUsed}
-            className={styles.input}
+            className={`${styles.input} ${
+              errors.usedWater ? styles.error : ''
+            }`}
           />
-          {errors.waterMl && <span>{errors.waterMl.message}</span>}
+          {errors.usedWater && (
+            <span className={styles.errorMessage}>
+              {errors.usedWater.message}
+            </span>
+          )}
         </div>
-        <button className={styles.submit}>Save</button>
+        <button
+          className={`${styles.submit} ${!isValid ? styles.disabledBtn : ''}`}
+          disabled={!isValid}
+        >
+          {t('waterForm.button')}
+        </button>
       </form>
     </>
   );
