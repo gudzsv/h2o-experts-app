@@ -24,6 +24,15 @@ const SignInSection = () => {
             {t('signIn.signUp')}
           </Link>
         </p>
+        <p className={styles.wrapperText}>
+          <Link
+            to="/reset-password"
+            className={styles.link}
+            aria-label="Go to reset password page"
+          >
+            {t('signIn.forgotPassword')}
+          </Link>
+        </p>
       </div>
     </section>
   );

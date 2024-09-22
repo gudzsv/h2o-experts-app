@@ -1,0 +1,59 @@
+.wrapperStatistics {
+  width: 303px;
+  height: 256px;
+}
+
+.customTooltip {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 10px;
+}
+.title {
+  color: #323f47;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  margin-top: 40px;
+  margin-bottom: 47px;
+}
+.loadingMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #323f47;
+  margin-top: 20px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loadingMessage::after {
+  content: '...';
+  animation: blink 1s infinite;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrapperStatistics {
+    width: 607px;
+  }
+  .title {
+    font-size: 28px;
+    line-height: 1.14;
+    letter-spacing: -0.28px;
+  }
+}

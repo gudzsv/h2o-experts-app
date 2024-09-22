@@ -37,6 +37,8 @@
 }
 
 .no_water_text {
+  margin-top: 40px;
+  width: 300px;
   display: flex;
   justify-content: center;
 }

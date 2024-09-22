@@ -2,8 +2,12 @@ import css from './WaterList.module.css';
 import WaterItem from 'components/WaterItem/WaterItem';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
+import { useTranslation } from 'react-i18next';
 
-const WaterList = ({ waterData, onEdit, onDelete }) => {
+
+const WaterList = ({ waterData, onEdit /*onDelete*/ }) => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <ScrollMenu
@@ -15,15 +19,17 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
         <div className={css.water_list}>
           {waterData.length === 0 ? (
             <p className={css.no_water_text}>
-              😰 No water was consumed on this day.
+              {t('chooseDate.noWaterConsumed')}
             </p>
           ) : (
             waterData.map(item => (
               <WaterItem
                 key={item._id}
                 item={item}
+
                 onEdit={onEdit}
-                onDelete={() => onDelete(item._id)}
+              // onDelete={() => onDelete(item._id)}
+
               />
             ))
           )}
