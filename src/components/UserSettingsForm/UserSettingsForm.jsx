@@ -3,6 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { editUser } from '../../redux/auth/operations';
 
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
@@ -20,16 +22,18 @@ const userSettingsValidationSchema = Yup.object().shape({
 });
 
 const UserSettingsForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState();
 
   const handleImageChange = event => {
     const file = event.target.files[0];
+
     if (file) {
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
       }
-      setImagePreview(URL.createObjectURL(file));
+      const objectUrl = URL.createObjectURL(file);
+      setImagePreview(objectUrl);
       setValue('userImage', file);
     }
   };
@@ -42,15 +46,11 @@ const UserSettingsForm = () => {
     formData.append('weight', data.userWeight || 0);
     formData.append('activityLevel', data.userTime || 0);
     formData.append('dailyRequirement', data.dailyRequirement || 0);
-    if (data.userImage) {
-      formData.append('photo', data.userImage);
-    }
-    // Для перевірки що лежить в об'єкті
-    for (let pair of formData.entries()) {
-      console.log('FormData entry:', pair[0], pair[1]);
+    if (data.userImage && data.userImage.length > 0) {
+      formData.append('photo', data.userImage[0]);
     }
     try {
-      //dispatch((formData));
+      await dispatch(editUser(formData));
     } catch (error) {
       console.log('error:', error);
     }
@@ -110,7 +110,7 @@ const UserSettingsForm = () => {
                   <input
                     type="radio"
                     id="radioWoman"
-                    value="Woman"
+                    value="female"
                     className={css.radio}
                     {...register('gender')}
                   />
@@ -122,7 +122,7 @@ const UserSettingsForm = () => {
                   <input
                     type="radio"
                     id="radioMan"
-                    value="Man"
+                    value="male"
                     className={css.radio}
                     {...register('gender')}
                   />
