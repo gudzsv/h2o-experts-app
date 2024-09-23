@@ -11,10 +11,8 @@ export const LogOutModal = ({ modalIsOpen, closeModal }) => {
   const handleLogOut = async () => {
     const response = await dispatch(logOut());
     if (response.meta.requestStatus === 'fulfilled') {
-      localStorage.clear();
-      dispatch({ type: 'auth/clearStore' });
-      navigate('/');
       closeModal();
+      navigate('/');
     }
   };
 
@@ -26,12 +24,8 @@ export const LogOutModal = ({ modalIsOpen, closeModal }) => {
           <p className={css.qModLogout}>Do you really want to leave?</p>
         </div>
         <div className={css.modalLogoutBtn}>
-          <button className={css.modalLogoutBtnOut} onClick={handleLogOut}>
-            Log out
-          </button>
-          <button className={css.modalLogoutBtnCancel} onClick={closeModal}>
-            Cancel
-          </button>
+          <button className={css.modalLogoutBtnOut} onClick={handleLogOut}>Log out</button>
+          <button className={css.modalLogoutBtnCancel} onClick={closeModal}>Cancel</button>
         </div>
       </div>
     </ModalTemplate>
