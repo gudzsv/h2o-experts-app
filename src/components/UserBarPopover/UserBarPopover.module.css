@@ -3,9 +3,14 @@
   border: 1px solid #ddd;
   border-radius: 15px;
   padding: 14px;
-  width: 157px;
   box-shadow: 0 4px 8px var(--border-shadow);
   z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(10px);
+  pointer-events: auto;
+  width: 100%;
 }
 
 .popoverButton {
