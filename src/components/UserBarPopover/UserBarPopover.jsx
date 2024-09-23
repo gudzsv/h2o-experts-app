@@ -51,7 +51,7 @@ export default function UserBarPopover({ onClose }) {
       {isOpenLogOut && (
         <LogOutModal
           modalIsOpen={isOpenLogOut}
-          closeModal={handleLogoutClick}
+          closeModal={() => setIsOpenLogOut(false)}
         />
       )}
     </div>
