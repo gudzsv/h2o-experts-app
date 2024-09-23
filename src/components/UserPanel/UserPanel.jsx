@@ -40,7 +40,7 @@ export default function UserPanel() {
           <h2 className={css.salutation}>
             Hello, <span className={css.userName}>{userName}</span>!
           </h2>
-          <UserBar />
+          <UserBar userInfo={userInfo} />
         </>
       )}
     </div>
