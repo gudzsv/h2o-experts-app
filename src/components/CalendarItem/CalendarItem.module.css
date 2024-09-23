@@ -46,6 +46,11 @@
   color: #2f2f2f99;
 }
 
+.today_day {
+  background: #323f47;
+  color: #9be1a0;
+}
+
 @media only screen and (min-width: 768px) {
   .calendar_items {
     gap: 4px;

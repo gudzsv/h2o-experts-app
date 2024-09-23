@@ -6,7 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useId } from 'react';
 import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addWater, editWater } from '../../../redux/water/operations.js';
+import {
+  addWater,
+  editWater,
+  getMonthWater,
+} from '../../../redux/water/operations.js';
 
 import sprite from '../../../assets/icons/sprite.svg';
 
@@ -123,6 +127,11 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
     if (actionType === 'add') {
       dispatch(addWater(payload));
+      console.log(payload);
+
+      setTimeout(() => {
+        dispatch(getMonthWater(currentDay.slice(0, -3)));
+      }, 1000);
     } else if (actionType === 'edit') {
       dispatch(
         editWater({
@@ -130,6 +139,9 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
           ...payload,
         })
       );
+      setTimeout(() => {
+        dispatch(getMonthWater(currentDay.slice(0, -3)));
+      }, 1000);
     }
     closeModal();
   };
