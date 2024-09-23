@@ -148,8 +148,8 @@ export const sendResetEmail = createAsyncThunk(
   'auth/sendResetEmail',
   async (email, thunkAPI) => {
     try {
-      const response = await API.post('/auth/send-reset-email', email);
-      return response;
+      const { data } = await API.post('/auth/send-reset-email', email);
+      return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
