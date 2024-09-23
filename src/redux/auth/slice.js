@@ -101,7 +101,7 @@ const authSlice = createSlice({
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
-        state.user = action.payload.data.user;
+        state.user = action.payload.data;
         handleMessage(SUCCESS.EDIT_USER);
       })
       .addCase(editUser.rejected, state => {
