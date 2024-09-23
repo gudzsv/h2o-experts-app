@@ -15,6 +15,13 @@ import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
 import BallTriangleLoader from './Loader/LoaderForDailyInfo';
 import { useModal } from 'components/Modal/UseModal.jsx';
 
+const getFormattedDate = date => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const DailyInfo = ({ dateForCalendar }) => {
   const dispatch = useDispatch();
   const dayWater = useSelector(selectDayWater);
@@ -24,13 +31,6 @@ const DailyInfo = ({ dateForCalendar }) => {
   const [editItem, setEditItem] = useState({});
   const [isActionType, setIsActionType] = useState('');
   const [isCurrentDay, setIsCurrentDay] = useState('');
-
-  const getFormattedDate = date => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   const formattedDate = useMemo(
     () => getFormattedDate(dateForCalendar || new Date()),
