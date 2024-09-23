@@ -1,26 +1,31 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import css from '../UserBar/UserBar.module.css';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/auth/selectors.js';
 import UserBarPopover from '../UserBarPopover/UserBarPopover';
 import sprite from '../../assets/icons/sprite.svg';
 import { AiTwotoneSmile } from 'react-icons/ai';
 
-const Userbar = () => {
+const Userbar = ({ userInfo }) => {
+  // Отримуємо дані через пропси
   const [menuOpen, setMenuOpen] = useState(false);
-  const userInfo = useSelector(selectUser);
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
 
-  const userName =
-    userInfo?.name === 'User'
-      ? userInfo?.email.split('@')[0]
-      : userInfo?.name || 'unknown user';
+  // Мемоізація імені користувача
+  const userName = useMemo(() => {
+    if (userInfo?.name === 'User') {
+      return userInfo?.email.split('@')[0]; // Якщо ім'я користувача "User", використовуємо частину email до символа @
+    }
+    return userInfo?.name || 'unknown user'; // Якщо ім'я відсутнє, виводимо "unknown user"
+  }, [userInfo?.name, userInfo?.email]);
 
-  const toggleMenu = e => {
-    e.stopPropagation();
-    setMenuOpen(prevMenuOpen => !prevMenuOpen);
-  };
+  // Використання useCallback для уникнення перевизначення функції на кожному рендері
+  const toggleMenu = useCallback(
+    e => {
+      e.stopPropagation();
+      setMenuOpen(prevMenuOpen => !prevMenuOpen);
+    },
+    [setMenuOpen]
+  );
 
   return (
     <div className={css.userBarMenu}>
