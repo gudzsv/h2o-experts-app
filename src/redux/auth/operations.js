@@ -136,7 +136,7 @@ export const loginOAuth = createAsyncThunk(
       const { data } = await API.post('/auth/confirm-oauth', {
         code: confirmCode,
       });
-      setAuthHeader(data.data.token);
+      setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
