@@ -5,20 +5,17 @@ import sprite from '../../assets/icons/sprite.svg';
 import { AiTwotoneSmile } from 'react-icons/ai';
 
 const Userbar = ({ userInfo }) => {
-  // Отримуємо дані через пропси
   const [menuOpen, setMenuOpen] = useState(false);
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
 
-  // Мемоізація імені користувача
   const userName = useMemo(() => {
     if (userInfo?.name === 'User') {
-      return userInfo?.email.split('@')[0]; // Якщо ім'я користувача "User", використовуємо частину email до символа @
+      return userInfo?.email.split('@')[0];
     }
-    return userInfo?.name || 'unknown user'; // Якщо ім'я відсутнє, виводимо "unknown user"
+    return userInfo?.name || 'unknown user';
   }, [userInfo?.name, userInfo?.email]);
 
-  // Використання useCallback для уникнення перевизначення функції на кожному рендері
   const toggleMenu = useCallback(
     e => {
       e.stopPropagation();

@@ -20,7 +20,7 @@ export default function UserPanel() {
       dispatch(currentUser())
         .unwrap()
         .then(response => {
-          setUserInfo(response.data); // Отримуємо та зберігаємо дані про користувача
+          setUserInfo(response.data);
         })
         .catch(error => {
           console.error('Error loading user profile:', error);
@@ -40,7 +40,7 @@ export default function UserPanel() {
           <h2 className={css.salutation}>
             Hello, <span className={css.userName}>{userName}</span>!
           </h2>
-          <UserBar userInfo={userInfo} /> {/* Передаємо дані в UserBar */}
+          <UserBar userInfo={userInfo} />
         </>
       )}
     </div>
