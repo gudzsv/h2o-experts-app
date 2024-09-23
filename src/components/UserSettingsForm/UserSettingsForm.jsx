@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { editUser } from '../../redux/auth/operations';
 
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
@@ -20,41 +22,8 @@ const userSettingsValidationSchema = Yup.object().shape({
 });
 
 const UserSettingsForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState();
-
-  const handleImageChange = event => {
-    const file = event.target.files[0];
-    if (file) {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
-      setImagePreview(URL.createObjectURL(file));
-      setValue('userImage', file);
-    }
-  };
-
-  const onSubmitForm = async data => {
-    const formData = new FormData();
-    formData.append('name', data.userName);
-    formData.append('gender', data.gender);
-    formData.append('email', data.userEmail || '');
-    formData.append('weight', data.userWeight || 0);
-    formData.append('activityLevel', data.userTime || 0);
-    formData.append('dailyRequirement', data.dailyRequirement || 0);
-    if (data.userImage) {
-      formData.append('photo', data.userImage);
-    }
-    // Для перевірки що лежить в об'єкті
-    for (let pair of formData.entries()) {
-      console.log('FormData entry:', pair[0], pair[1]);
-    }
-    try {
-      //dispatch((formData));
-    } catch (error) {
-      console.log('error:', error);
-    }
-  };
 
   const {
     register,
@@ -64,6 +33,42 @@ const UserSettingsForm = () => {
   } = useForm({
     resolver: yupResolver(userSettingsValidationSchema),
   });
+
+  const handleImageChange = useCallback(
+    event => {
+      const file = event.target.files[0];
+      if (file) {
+        if (imagePreview) {
+          URL.revokeObjectURL(imagePreview);
+        }
+        const objectUrl = URL.createObjectURL(file);
+        setImagePreview(objectUrl);
+        setValue('userImage', file);
+      }
+    },
+    [imagePreview, setValue]
+  );
+
+  const onSubmitForm = useCallback(
+    async data => {
+      const formData = new FormData();
+      formData.append('name', data.userName);
+      formData.append('gender', data.gender);
+      formData.append('email', data.userEmail || '');
+      formData.append('weight', data.userWeight || 0);
+      formData.append('activityLevel', data.userTime || 0);
+      formData.append('dailyRequirement', data.dailyRequirement || 0);
+      if (data.userImage && data.userImage.length > 0) {
+        formData.append('photo', data.userImage[0]);
+      }
+      try {
+        await dispatch(editUser(formData));
+      } catch (error) {
+        console.log('error:', error);
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmitForm)}>
@@ -100,42 +105,45 @@ const UserSettingsForm = () => {
           Upload a photo
         </label>
       </div>
+
       <div className={css.wrapperDesktopFlex}>
         <div className={css.wrapperFrame}>
-          <div className={css.genderContainer}>
-            <label className={css.labelGender}>
+          <fieldset aria-labelledby="gender">
+            <legend id="gender" className={css.labelGender}>
               Your gender identity
-              <div className={css.radioWrapper}>
-                <div className={css.radioContainer}>
-                  <input
-                    type="radio"
-                    id="radioWoman"
-                    value="Woman"
-                    className={css.radio}
-                    {...register('gender')}
-                  />
-                  <label htmlFor="radioWoman" className={css.hiddenLabel}>
-                    Woman
-                  </label>
-                </div>
-                <div className={css.radioContainer}>
-                  <input
-                    type="radio"
-                    id="radioMan"
-                    value="Man"
-                    className={css.radio}
-                    {...register('gender')}
-                  />
-                  <label htmlFor="radioMan" className={css.hiddenLabel}>
-                    Man
-                  </label>
-                </div>
+            </legend>
+            <div className={css.radioWrapper}>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioWoman"
+                  value="female"
+                  className={css.radio}
+                  {...register('gender')}
+                />
+                <label htmlFor="radioWoman" className={css.hiddenLabel}>
+                  Woman
+                </label>
               </div>
-            </label>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioMan"
+                  value="male"
+                  className={css.radio}
+                  {...register('gender')}
+                />
+                <label htmlFor="radioMan" className={css.hiddenLabel}>
+                  Man
+                </label>
+              </div>
+            </div>
             {errors.gender && (
-              <p className={css.error}>{errors.gender.message}</p>
+              <p className={css.error} aria-live="assertive">
+                {errors.gender.message}
+              </p>
             )}
-          </div>
+          </fieldset>
           <div className={css.gap}>
             <div className={css.wrapper}>
               <label htmlFor="userName" className={css.label}>
@@ -151,7 +159,9 @@ const UserSettingsForm = () => {
                 {...register('userName')}
               />
               {errors.userName && (
-                <p className={css.error}>{errors.userName.message}</p>
+                <p className={css.error} aria-live="assertive">
+                  {errors.userName.message}
+                </p>
               )}
             </div>
             <div className={css.wrapper}>
@@ -171,10 +181,13 @@ const UserSettingsForm = () => {
                 {...register('userEmail')}
               />
               {errors.userEmail && (
-                <p className={css.error}>{errors.userEmail.message}</p>
+                <p className={css.error} aria-live="assertive">
+                  {errors.userEmail.message}
+                </p>
               )}
             </div>
           </div>
+
           <div>
             <h2 className={css.subtitle}>My daily norma</h2>
             <div className={css.wrapperText}>
@@ -198,6 +211,7 @@ const UserSettingsForm = () => {
             </p>
           </div>
         </div>
+
         <div className={css.wrapperFrameTwo}>
           <div className={`${css.wrapperInput} ${css.retreat}`}>
             <label htmlFor="userWeight" className={css.labelRegularly}>
@@ -249,6 +263,7 @@ const UserSettingsForm = () => {
           </div>
         </div>
       </div>
+
       <button type="submit" className={css.subButton}>
         Save
       </button>
