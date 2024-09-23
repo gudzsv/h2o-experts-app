@@ -11,7 +11,8 @@
     "tracker": "Your Tracker",
     "forgot": "Forgot Password",
     "renew": "Renew",
-    "error": "Error"
+    "error": "Error",
+    "resetPwd": "Reset password"
   },
 
   "logo": {
@@ -63,5 +64,14 @@
     "edit": "Edit water entry",
     "delete": "Delete water entry",
     "ml": "ml"
+  },
+
+  "resetPwd": {
+    "title": "Reset password",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "placeholderRepeatPassword": "Repeat password"
   }
 }

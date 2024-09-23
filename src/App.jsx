@@ -13,6 +13,12 @@ const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage.jsx'));
 const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage.jsx'));
 const OAuthPage = lazy(() => import('./pages/OAuthPage/OAuthPage.jsx'));
+const ConfirmResetPwdPage = lazy(() =>
+  import('./pages/ConfirmResetPwdPage/ConfirmResetPwdPage.jsx')
+);
+const ResetPwdPage = lazy(() =>
+  import('./pages/ResetPwdPage/ResetPwdPage.jsx')
+);
 
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage/NotFoundPage.jsx')
@@ -38,11 +44,11 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/oauth-redirect" element={<OAuthPage />} />
-            {/* <Route path="/reset-password" element={<ResetPwdPage />} />
-          <Route
-          path="/confirm-reset-password"
-          element={<ConfirmResetPwdPage />}
-          /> */}
+            <Route path="/reset-password" element={<ResetPwdPage />} />
+            <Route
+              path="/confirm-reset-password"
+              element={<ConfirmResetPwdPage />}
+            />
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/tracker" element={<TrackerPage />} />

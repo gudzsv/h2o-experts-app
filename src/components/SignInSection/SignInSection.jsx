@@ -26,7 +26,7 @@ const SignInSection = () => {
         </p>
         <p className={styles.wrapperText}>
           <Link
-            to="/reset-password"
+            to="/confirm-reset-password"
             className={styles.link}
             aria-label="Go to reset password page"
           >
