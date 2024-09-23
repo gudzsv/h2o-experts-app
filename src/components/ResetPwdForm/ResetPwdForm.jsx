@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import sprite from '../../assets/icons/sprite.svg';
 
 import { resetPwd } from '../../redux/auth/operations';
+import { useNavigate } from 'react-router';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -23,6 +24,7 @@ const validationSchema = Yup.object().shape({
 
 const ResetPwdForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -50,8 +52,9 @@ const ResetPwdForm = () => {
 
   const onSubmit = data => {
     const { password } = data;
-    dispatch(resetPwd({ token, password }));
+    dispatch(resetPwd({ password, token }));
     reset();
+    navigate('/signin');
   };
 
   return (
