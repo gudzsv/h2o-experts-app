@@ -11,7 +11,8 @@
     "tracker": "Your Tracker",
     "forgot": "Forgot Password",
     "renew": "Renew",
-    "error": "Error"
+    "error": "Error",
+    "resetPwd": "Reset password"
   },
 
   "logo": {
@@ -62,7 +63,6 @@
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
-
     "ml": "ml",
     "l": "L"
   },
@@ -79,5 +79,14 @@
   "waterModal": {
     "edit": "Edit the entered amount of water",
     "add": "Add water"
+  },
+
+  "resetPwd": {
+    "title": "Reset password",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "placeholderRepeatPassword": "Repeat password"
   }
 }
