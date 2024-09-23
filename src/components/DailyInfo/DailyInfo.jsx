@@ -6,10 +6,21 @@ import styles from './DailyInfo.module.css';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDayWater, selectIsLoading } from '../../redux/water/selectors';
-import { getDayWater, deleteWater } from '../../redux/water/operations';
+import {
+  getDayWater,
+  deleteWater,
+  getMonthWater,
+} from '../../redux/water/operations';
 import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
 import BallTriangleLoader from './Loader/LoaderForDailyInfo';
 import { useModal } from 'components/Modal/UseModal.jsx';
+
+const getFormattedDate = date => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const DailyInfo = ({ dateForCalendar }) => {
   const dispatch = useDispatch();
@@ -20,13 +31,6 @@ const DailyInfo = ({ dateForCalendar }) => {
   const [editItem, setEditItem] = useState({});
   const [isActionType, setIsActionType] = useState('');
   const [isCurrentDay, setIsCurrentDay] = useState('');
-
-  const getFormattedDate = date => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   const formattedDate = useMemo(
     () => getFormattedDate(dateForCalendar || new Date()),
@@ -58,6 +62,7 @@ const DailyInfo = ({ dateForCalendar }) => {
     async id => {
       await dispatch(deleteWater(id));
       dispatch(getDayWater(formattedDate));
+      dispatch(getMonthWater(formattedDate.slice(0, -3)));
     },
     [dispatch, formattedDate]
   );
