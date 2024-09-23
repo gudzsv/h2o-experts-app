@@ -50,9 +50,7 @@ const ResetPwdForm = () => {
 
   const onSubmit = data => {
     const { password } = data;
-    const body = { token, password };
-
-    dispatch(resetPwd(body));
+    dispatch(resetPwd({ token, password }));
     reset();
   };
 
