@@ -11,23 +11,31 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
 
   const handleLogoutClick = e => {
     e.stopPropagation();
-    console.log('Відкриття модального вікна LogOut');
     setIsOpenLogOut(true);
   };
 
   const handleSettingsClick = e => {
     e.stopPropagation();
-    console.log('Відкриття модального вікна Settings');
     setIsOpenSettings(true);
   };
 
   return (
     <div className={css.userBarPopover} ref={popoverRef}>
-      <button className={css.popoverButton} onClick={handleSettingsClick}>
+      <button
+        className={css.popoverButton}
+        onClick={handleSettingsClick}
+        aria-haspopup="dialog"
+        aria-label="Open settings"
+      >
         <CiSettings />
         <span>Settings</span>
       </button>
-      <button className={css.popoverButton} onClick={handleLogoutClick}>
+      <button
+        className={css.popoverButton}
+        onClick={handleLogoutClick}
+        aria-haspopup="dialog"
+        aria-label="Log out"
+      >
         <IoIosLogOut />
         <span>Log out</span>
       </button>

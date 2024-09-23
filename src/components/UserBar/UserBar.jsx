@@ -6,7 +6,7 @@ import UserBarPopover from '../UserBarPopover/UserBarPopover';
 import sprite from '../../assets/icons/sprite.svg';
 import { AiTwotoneSmile } from 'react-icons/ai';
 
-const Userbar = () => {
+const UserBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const userInfo = useSelector(selectUser);
   const buttonRef = useRef(null);
@@ -44,4 +44,4 @@ const Userbar = () => {
   );
 };
 
-export default Userbar;
+export default UserBar;
