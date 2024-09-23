@@ -1,37 +1,24 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
 import { CiSettings } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 
-export default function UserBarPopover({ onClose }) {
-  const popoverRef = useRef(null);
+const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  // const handleClickOutside = useCallback(
-  //   event => {
-  //     if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-  //       onClose();
-  //     }
-  //   },
-  //   [onClose]
-  // );
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, [handleClickOutside]);
-
-  const handleLogoutClick = () => {
+  const handleLogoutClick = e => {
+    e.stopPropagation();
+    console.log('Відкриття модального вікна LogOut');
     setIsOpenLogOut(true);
-    // onClose();
   };
 
-  const handleSettingsClick = () => {
+  const handleSettingsClick = e => {
+    e.stopPropagation();
+    console.log('Відкриття модального вікна Settings');
     setIsOpenSettings(true);
-    // onClose();
   };
 
   return (
@@ -46,14 +33,27 @@ export default function UserBarPopover({ onClose }) {
       </button>
 
       {isOpenSettings && (
-        <UserSettingsModal onClose={() => setIsOpenSettings(false)} />
+        <UserSettingsModal
+          modalIsOpen={isOpenSettings}
+          onClose={() => {
+            setIsOpenSettings(false);
+            onClose();
+          }}
+        />
       )}
       {isOpenLogOut && (
         <LogOutModal
           modalIsOpen={isOpenLogOut}
-          closeModal={handleLogoutClick}
+          closeModal={() => {
+            setIsOpenLogOut(false);
+            onClose();
+          }}
         />
       )}
     </div>
   );
-}
+});
+
+UserBarPopover.displayName = 'UserBarPopover';
+
+export default UserBarPopover;

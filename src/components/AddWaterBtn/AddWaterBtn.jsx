@@ -10,6 +10,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
   btnType = 'primary',
   isAbsolute = false,
   onClick,
+  day,
 }) {
   const prefixClass = btnType === 'primary' ? 'primary' : 'secondary';
 
@@ -17,11 +18,28 @@ const AddWaterBtn = memo(function AddWaterBtn({
     [css.absolute]: isAbsolute,
   });
 
+  const getValidDate = date => {
+    const validDate = date instanceof Date && !isNaN(date) ? date : new Date();
+    return validDate.toISOString().split('T')[0];
+  };
+
+  const handleClick = () => {
+    const selectedDay = getValidDate(day);
+
+    console.log('Received day prop in AddWaterBtn:', day);
+    console.log('Selected day (processed in AddWaterBtn):', selectedDay);
+
+    if (onClick) {
+      console.log('Calling onClick with:', selectedDay);
+      onClick(selectedDay);
+    }
+  };
+
   return (
     <>
       <button
         className={buttonClassName}
-        onClick={onClick}
+        onClick={handleClick}
         aria-label="Add water"
         aria-haspopup="dialog"
       >

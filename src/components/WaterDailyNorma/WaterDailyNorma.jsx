@@ -4,12 +4,8 @@ import { selectUser } from '../../redux/auth/selectors.js';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterDailyNorma() {
-  // Отримання даних користувача з src/redux/water/selectors.js за допомогою селектора selectUser
   let waterDailyNormaBar = useSelector(selectUser);
 
-  // Очікувані дані: об'єкт користувача, який містить інформацію про dailyNorma (щоденна норма води користувача)
-
-  // Якщо dailyNorma існує, використовуємо її, якщо ні, ставимо значення за замовчуванням 1.5 літра
   let waterDailyNorma = waterDailyNormaBar?.dailyNorma ?? DEFAULT_DAILY_NORMA;
 
   return (
