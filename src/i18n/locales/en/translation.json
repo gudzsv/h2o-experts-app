@@ -1,6 +1,8 @@
 {
   "lang": {
-    "choose": "Choose Language"
+    "choose": "Choose Language",
+    "select": "Select language",
+    "language": "English"
   },
 
   "pages": {
