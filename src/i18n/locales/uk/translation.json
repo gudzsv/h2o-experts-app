@@ -12,7 +12,7 @@
     "forgot": "Відновлення пароля",
     "renew": "Оновлення пароля",
     "error": "Помилка",
-    "resetPwd": ""
+    "resetPwd": "Скинути пароль"
   },
 
   "logo": {
@@ -80,5 +80,14 @@
   "waterModal": {
     "edit": "Редагувати введену кількість води",
     "add": "Додати воду"
+  },
+
+  "resetPwd": {
+    "title": "Скинути пароль",
+    "email": "Електронна пошта",
+    "placeholderEmail": "Введіть електронну пошту",
+    "password": "Пароль",
+    "placeholderPassword": "Введіть пароль",
+    "placeholderRepeatPassword": "Повторіть пароль"
   }
 }
