@@ -92,7 +92,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
-        state.user = payload.data.user;
+        state.user = payload.data;
       })
       .addCase(currentUser.rejected, state => {
         state.isRefreshing = false;
@@ -101,7 +101,7 @@ const authSlice = createSlice({
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
-        state.user = action.payload.data.user;
+        state.user = action.payload.data;
         handleMessage(SUCCESS.EDIT_USER);
       })
       .addCase(editUser.rejected, state => {
@@ -142,7 +142,7 @@ const authSlice = createSlice({
         state.OAuthURL = '';
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.token = payload.data.token;
+        state.token = payload.data.accessToken;
         handleMessage();
       })
       .addCase(loginOAuth.rejected, state => {
