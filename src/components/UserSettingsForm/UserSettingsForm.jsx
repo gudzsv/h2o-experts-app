@@ -3,8 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
 import { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/auth/operations';
+import { selectUser } from '../../redux/auth/selectors';
 
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
@@ -24,7 +25,7 @@ const userSettingsValidationSchema = Yup.object().shape({
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState();
-
+  const { email } = useSelector(selectUser);
   const {
     register,
     handleSubmit,
@@ -32,6 +33,9 @@ const UserSettingsForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userSettingsValidationSchema),
+    defaultValues: {
+      userEmail: email,
+    },
   });
 
   const handleImageChange = useCallback(
