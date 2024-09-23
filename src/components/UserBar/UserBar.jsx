@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import css from '../UserBar/UserBar.module.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors.js';
@@ -6,23 +6,39 @@ import UserBarPopover from '../UserBarPopover/UserBarPopover';
 import sprite from '../../assets/icons/sprite.svg';
 import { AiTwotoneSmile } from 'react-icons/ai';
 
-const Userbar = () => {
+const UserBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const userInfo = useSelector(selectUser);
+  const buttonRef = useRef(null);
+  const popoverRef = useRef(null);
 
-  // Отримуємо ім'я користувача або частину email до знака @, якщо ім'я — "User"
   const userName =
     userInfo?.name === 'User'
-      ? userInfo?.email.split('@')[0] // Отримуємо частину email до @
+      ? userInfo?.email.split('@')[0]
       : userInfo?.name || 'unknown user';
 
-  const toggleMenu = () => {
+  const toggleMenu = e => {
+    e.stopPropagation();
     setMenuOpen(prevMenuOpen => !prevMenuOpen);
+  };
+
+  const handleSettingsClick = () => {
+    setMenuOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    setMenuOpen(false);
   };
 
   return (
     <div className={css.userBarMenu}>
-      <button className={css.userBarBtn} onClick={toggleMenu}>
+      <button
+        ref={buttonRef}
+        className={css.userBarBtn}
+        onClick={toggleMenu}
+        aria-haspopup="true"
+        aria-expanded={menuOpen}
+      >
         {userName}
         {userInfo?.avatar ? (
           <img src={userInfo.avatar} alt="User Avatar" className={css.avatar} />
@@ -35,9 +51,26 @@ const Userbar = () => {
           <use href={`${sprite}#icon-chevron-up`} />
         </svg>
       </button>
-      {menuOpen && <UserBarPopover />}
+      {menuOpen && (
+        <UserBarPopover ref={popoverRef} role="menu">
+          <button
+            onClick={handleSettingsClick}
+            role="menuitem"
+            aria-label="Open settings"
+          >
+            Settings
+          </button>
+          <button
+            onClick={handleLogoutClick}
+            role="menuitem"
+            aria-label="Log out"
+          >
+            Logout
+          </button>
+        </UserBarPopover>
+      )}
     </div>
   );
 };
 
-export default Userbar;
+export default UserBar;

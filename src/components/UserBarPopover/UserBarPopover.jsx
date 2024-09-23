@@ -1,59 +1,67 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
 import { CiSettings } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 
-export default function UserBarPopover({ onClose }) {
-  const popoverRef = useRef(null);
+const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  // const handleClickOutside = useCallback(
-  //   event => {
-  //     if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-  //       onClose();
-  //     }
-  //   },
-  //   [onClose]
-  // );
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, [handleClickOutside]);
-
-  const handleLogoutClick = () => {
+  const handleLogoutClick = e => {
+    e.stopPropagation();
     setIsOpenLogOut(true);
-    // onClose();
   };
 
-  const handleSettingsClick = () => {
+  const handleSettingsClick = e => {
+    e.stopPropagation();
     setIsOpenSettings(true);
-    // onClose();
   };
 
   return (
     <div className={css.userBarPopover} ref={popoverRef}>
-      <button className={css.popoverButton} onClick={handleSettingsClick}>
+      <button
+        className={css.popoverButton}
+        onClick={handleSettingsClick}
+        aria-haspopup="dialog"
+        aria-label="Open settings"
+      >
         <CiSettings />
         <span>Settings</span>
       </button>
-      <button className={css.popoverButton} onClick={handleLogoutClick}>
+      <button
+        className={css.popoverButton}
+        onClick={handleLogoutClick}
+        aria-haspopup="dialog"
+        aria-label="Log out"
+      >
         <IoIosLogOut />
         <span>Log out</span>
       </button>
 
       {isOpenSettings && (
-        <UserSettingsModal onClose={() => setIsOpenSettings(false)} />
+        <UserSettingsModal
+          modalIsOpen={isOpenSettings}
+          onClose={() => {
+            setIsOpenSettings(false);
+            onClose();
+          }}
+        />
       )}
       {isOpenLogOut && (
         <LogOutModal
           modalIsOpen={isOpenLogOut}
-          closeModal={() => setIsOpenLogOut(false)}
+          closeModal={() => {
+            setIsOpenLogOut(false);
+            onClose();
+          }}
         />
       )}
     </div>
   );
-}
+});
+
+UserBarPopover.displayName = 'UserBarPopover';
+
+export default UserBarPopover;

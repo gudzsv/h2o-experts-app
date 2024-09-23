@@ -6,9 +6,12 @@ import WaterProgressBar from '../WaterProgressBar/WaterProgressBar.jsx';
 import { ModalTemplate } from 'components/Modal/Modal.jsx';
 import WaterModal from 'components/WaterModal/WaterModal.jsx';
 import { useModal } from 'components/Modal/UseModal.jsx';
+import { format } from 'date-fns';
 
 export default function WaterMainInfo() {
   const { modalIsOpen, closeModal, openModal } = useModal();
+
+  const currentDay = format(new Date(), 'yyyy-MM-dd');
 
   return (
     <section className={css.trackerSection}>
@@ -23,7 +26,7 @@ export default function WaterMainInfo() {
         <WaterModal
           actionType="add"
           closeModal={closeModal}
-          // currentDay={поточний день}
+          currentDay={currentDay}
         />
       </ModalTemplate>
     </section>
