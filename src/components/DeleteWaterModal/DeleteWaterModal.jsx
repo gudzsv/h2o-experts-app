@@ -1,73 +1,59 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteWater } from '../../redux/water/operations';
-import toast from 'react-hot-toast';
+import { ModalTemplate } from '../Modal/Modal';
 import css from './DeleteWaterModal.module.css';
 
-export const DeleteWaterModal = ({ id, onClose }) => {
-  const dispatch = useDispatch();
+export const DeleteWaterModal = React.memo(
+  ({ id, modalIsOpen, closeModal }) => {
+    const dispatch = useDispatch();
 
-  console.log({ id });
-
-  const handleDelete = async () => {
-    try {
+    const handleDelete = async () => {
       const response = await dispatch(deleteWater(id));
       if (response.meta.requestStatus === 'fulfilled') {
-        onClose();
-      } else {
-        throw new Error('Failed to delete');
+        closeModal();
       }
-      // eslint-disable-next-line no-unused-vars
-    } catch (error) {
-      toast.error('Не удалось удалить запись. Попробуйте снова.');
-    }
-  };
+    };
 
-  return (
-    <div
-      // className={css['overlay']}
-      role="dialog"
-      aria-label="delete-modal-title"
-    >
-      <div className={css['delete-water-modal']}>
-        {/* <button
-          type="button"
-          className={css['close-button-mod']}
-          onClick={onClose}
-          aria-label="Close"
+    return (
+      <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+        <div
+          className={css.deleteWaterModalContent}
+          role="dialog"
+          aria-labelledby="deleteModalTitle"
+          aria-describedby="deleteModalDescription"
         >
-          <svg className={css['close-icon-mod']} width="24" height="24">
-            <use href="../../assets/icons/sprite.svg#icon-x"></use>
-          </svg>
-        </button> */}
-        <div className={css['delete-water-modal-content']}>
-          <h2 id="delete-modal-title" className={css['mod-delete']}>
-            Delete entry
-          </h2>
-          <p className={css['q-mod-del']}>
-            Are you sure you want to delete the entry?
-          </p>
+          <div>
+            <h2 id="deleteModalTitle" className={css.modDelete}>
+              Delete entry
+            </h2>
+            <p id="deleteModalDescription" className={css.qModDel}>
+              Are you sure you want to delete the entry?
+            </p>
+          </div>
+          <div className={css.deleteWaterModalBtn}>
+            <button
+              type="button"
+              className={css.deleteButtonModal}
+              onClick={handleDelete}
+              aria-label="Confirm delete"
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className={css.cancelButtonModal}
+              onClick={closeModal}
+              aria-label="Cancel delete"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-        <div className={css['delete-water-modal-btn']}>
-          <button
-            type="button"
-            className={css['delete-button-modal']}
-            onClick={handleDelete}
-            aria-label="Delete"
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            className={css['cancel-button-modal']}
-            onClick={onClose}
-            aria-label="Cancel"
-          >
-            <span className={css['modal-cancel']}>Cancel</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+      </ModalTemplate>
+    );
+  }
+);
 
+DeleteWaterModal.displayName = 'DeleteWaterModal';
 export default DeleteWaterModal;

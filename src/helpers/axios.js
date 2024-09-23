@@ -15,10 +15,7 @@ API.interceptors.response.use(
       originalRequest._retry = true;
       try {
         await store.dispatch(refreshUser());
-        // await store.dispatch(currentUser());
       } catch (refreshError) {
-        // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
-        // console.error('Token refresh failed:', refreshError);
         API.defaults.headers.common.Authorization = '';
         window.location.href = '/signin';
         return Promise.reject(refreshError);

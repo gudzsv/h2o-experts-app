@@ -1,29 +1,31 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
-import { deleteWater } from '../../redux/water/operations';
 import { useTranslation } from 'react-i18next';
-import { ModalTemplate } from 'components/Modal/Modal';
-import { useModal } from 'components/Modal/UseModal';
 
 const WaterItem = ({ item, onEdit, onDelete }) => {
   const { t } = useTranslation();
+
   const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
   });
 
-  const dispatch = useDispatch();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const { modalIsOpen, openModal, closeModal } = useModal();
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+  const handleDelete = () => {
+    onDelete(item._id);
+  };
 
-  const confirmDelete = () => {
-    dispatch(deleteWater(item._id));
-    closeModal();
-    if (onDelete) {
-      onDelete(item._id);
+  const formatWaterAmount = usedWater => {
+    if (usedWater >= 1000) {
+      return `${(usedWater / 1000).toFixed(1)} ${t('chooseDate.l')}`;
     }
+    return `${usedWater} ${t('chooseDate.ml')}`;
   };
 
   return (
@@ -33,14 +35,14 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
       </svg>
       <div className={css.water_item_content}>
         <span className={css.water_amount}>
-          {item.usedWater} {t('chooseDate.ml')}
+          {formatWaterAmount(item.usedWater)}
         </span>
         <span className={css.water_time}>{formattedTime}</span>
       </div>
       <div className={css.water_item_actions}>
         <button
           className={css.edit_btn}
-          onClick={onEdit}
+          onClick={() => onEdit(item)}
           aria-label={t('chooseDate.edit')}
         >
           <svg width="14" height="14" className={css.pencil}>
@@ -50,22 +52,20 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
 
         <button
           className={css.delete_btn}
-          onClick={() => openModal()}
-          aria-label={t('chooseDate.delete')}
+          onClick={handleDelete}
+          aria-label="Delete water entry"
         >
           <svg width="14" height="14" className={css.trash}>
             <use href={`${sprite}#icon-trash`}></use>
           </svg>
         </button>
 
-        {modalIsOpen && (
-          <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
-            <DeleteWaterModal
-              id={item._id}
-              onClose={closeModal}
-              onConfirm={confirmDelete}
-            />
-          </ModalTemplate>
+        {isDeleteModalOpen && (
+          <DeleteWaterModal
+            modalIsOpen={isDeleteModalOpen}
+            id={item._id}
+            closeModal={closeDeleteModal}
+          />
         )}
       </div>
     </div>

@@ -89,7 +89,7 @@ const Chart = () => {
 
   return (
     <div>
-      <h2 className={css.title}>Statistics</h2>
+      {/* <h2 className={css.title}>Statistics</h2> */}
       <div className={css.wrapperStatistics}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={groupedData}>

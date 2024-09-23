@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { editUser } from '../../redux/auth/operations';
 
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
@@ -11,45 +13,71 @@ const userSettingsValidationSchema = Yup.object().shape({
     .min(3, 'The minimum number of characters is 3')
     .max(50, 'The maximum number of characters is 50')
     .required('Name is required'),
-  userEmail: Yup.string().email('Invalid email format'),
+  userEmail: Yup.string()
+    .email('Invalid email format')
+    .required('Email is required'),
   userWeight: Yup.number(),
   userTime: Yup.number(),
-  UserWaterNorma: Yup.number(),
+  dailyRequirement: Yup.number(),
 });
 
 const UserSettingsForm = () => {
+  const dispatch = useDispatch();
+  const [imagePreview, setImagePreview] = useState();
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userSettingsValidationSchema),
   });
 
-  const [imagePreview, setImagePreview] = useState();
-
-  const handleImageChange = event => {
-    const file = event.target.files[0];
-    if (file) {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
+  const handleImageChange = useCallback(
+    event => {
+      const file = event.target.files[0];
+      if (file) {
+        if (imagePreview) {
+          URL.revokeObjectURL(imagePreview);
+        }
+        const objectUrl = URL.createObjectURL(file);
+        setImagePreview(objectUrl);
+        setValue('userImage', file);
       }
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
+    },
+    [imagePreview, setValue]
+  );
+
+  const onSubmitForm = useCallback(
+    async data => {
+      const formData = new FormData();
+      formData.append('name', data.userName);
+      formData.append('gender', data.gender);
+      formData.append('email', data.userEmail || '');
+      formData.append('weight', data.userWeight || 0);
+      formData.append('activityLevel', data.userTime || 0);
+      formData.append('dailyRequirement', data.dailyRequirement || 0);
+      if (data.userImage && data.userImage.length > 0) {
+        formData.append('photo', data.userImage[0]);
+      }
+      try {
+        await dispatch(editUser(formData));
+      } catch (error) {
+        console.log('error:', error);
+      }
+    },
+    [dispatch]
+  );
 
   return (
-    <form
-      className={css.form}
-      onSubmit={handleSubmit(data => console.log(data))}
-    >
+    <form className={css.form} onSubmit={handleSubmit(onSubmitForm)}>
       <div className={css.uploadContainer}>
         <input
           type="file"
           id="userImage"
           className={css.fileImage}
           accept="image/*"
-          autoComplete="off"
           {...register('userImage')}
           onChange={handleImageChange}
         />
@@ -77,42 +105,45 @@ const UserSettingsForm = () => {
           Upload a photo
         </label>
       </div>
+
       <div className={css.wrapperDesktopFlex}>
         <div className={css.wrapperFrame}>
-          <div className={css.genderContainer}>
-            <label className={css.labelGender}>
+          <fieldset aria-labelledby="gender">
+            <legend id="gender" className={css.labelGender}>
               Your gender identity
-              <div className={css.radioWrapper}>
-                <div className={css.radioContainer}>
-                  <input
-                    type="radio"
-                    id="radioWoman"
-                    value="Woman"
-                    className={css.radio}
-                    {...register('gender')}
-                  />
-                  <label htmlFor="radioWoman" className={css.hiddenLabel}>
-                    Woman
-                  </label>
-                </div>
-                <div className={css.radioContainer}>
-                  <input
-                    type="radio"
-                    id="radioMan"
-                    value="Man"
-                    className={css.radio}
-                    {...register('gender')}
-                  />
-                  <label htmlFor="radioMan" className={css.hiddenLabel}>
-                    Man
-                  </label>
-                </div>
+            </legend>
+            <div className={css.radioWrapper}>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioWoman"
+                  value="female"
+                  className={css.radio}
+                  {...register('gender')}
+                />
+                <label htmlFor="radioWoman" className={css.hiddenLabel}>
+                  Woman
+                </label>
               </div>
-            </label>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioMan"
+                  value="male"
+                  className={css.radio}
+                  {...register('gender')}
+                />
+                <label htmlFor="radioMan" className={css.hiddenLabel}>
+                  Man
+                </label>
+              </div>
+            </div>
             {errors.gender && (
-              <p className={css.error}>{errors.gender.message}</p>
+              <p className={css.error} aria-live="assertive">
+                {errors.gender.message}
+              </p>
             )}
-          </div>
+          </fieldset>
           <div className={css.gap}>
             <div className={css.wrapper}>
               <label htmlFor="userName" className={css.label}>
@@ -128,7 +159,9 @@ const UserSettingsForm = () => {
                 {...register('userName')}
               />
               {errors.userName && (
-                <p className={css.error}>{errors.userName.message}</p>
+                <p className={css.error} aria-live="assertive">
+                  {errors.userName.message}
+                </p>
               )}
             </div>
             <div className={css.wrapper}>
@@ -147,8 +180,14 @@ const UserSettingsForm = () => {
                 autoComplete="email"
                 {...register('userEmail')}
               />
+              {errors.userEmail && (
+                <p className={css.error} aria-live="assertive">
+                  {errors.userEmail.message}
+                </p>
+              )}
             </div>
           </div>
+
           <div>
             <h2 className={css.subtitle}>My daily norma</h2>
             <div className={css.wrapperText}>
@@ -172,6 +211,7 @@ const UserSettingsForm = () => {
             </p>
           </div>
         </div>
+
         <div className={css.wrapperFrameTwo}>
           <div className={`${css.wrapperInput} ${css.retreat}`}>
             <label htmlFor="userWeight" className={css.labelRegularly}>
@@ -208,21 +248,22 @@ const UserSettingsForm = () => {
             <p className={css.accent}> 1.8L</p>
           </div>
           <div className={css.wrapperInput}>
-            <label htmlFor="userWaterNorma" className={css.labelWaterNorma}>
+            <label htmlFor="dailyRequirement" className={css.labelWaterNorma}>
               Write down how much water you will drink:
             </label>
             <input
               type="text"
-              id="userWaterNorma"
-              name="userWaterNorma"
+              id="dailyRequirement"
+              name="dailyRequirement"
               placeholder="1.8"
               autoComplete="off"
               className={css.userInput}
-              {...register('UserWaterNorma')}
+              {...register('dailyRequirement')}
             />
           </div>
         </div>
       </div>
+
       <button type="submit" className={css.subButton}>
         Save
       </button>
