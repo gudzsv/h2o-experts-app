@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
@@ -35,12 +35,16 @@ const UserSettingsForm = () => {
     dailyRequirement,
     photo,
   } = useSelector(selectUser);
+  const userName = !name || name === 'User' ? email?.split('@')[0] : name;
 
   const [imagePreview, setImagePreview] = useState(photo);
+  const [waterRequirement, setWaterRequirement] = useState('1.8');
+
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userSettingsValidationSchema),
@@ -48,7 +52,7 @@ const UserSettingsForm = () => {
       userEmail: email,
       userImage: photo,
       gender: gender,
-      userName: name,
+      userName: userName,
       userWeight: weight,
       userTime: activityLevel,
       dailyRequirement: dailyRequirement,
@@ -69,6 +73,18 @@ const UserSettingsForm = () => {
     },
     [imagePreview, setValue]
   );
+
+  const genderValue = watch('gender');
+  const weightValue = watch('userWeight');
+  const timeValue = watch('userTime');
+
+  useEffect(() => {
+    if (genderValue === 'female') {
+      setWaterRequirement(weightValue * 0.03 + timeValue * 0.4);
+    } else if (genderValue === 'male') {
+      setWaterRequirement(weightValue * 0.04 + timeValue * 0.6);
+    }
+  }, [genderValue, weightValue, timeValue]);
 
   const onSubmitForm = useCallback(
     async data => {
@@ -212,7 +228,6 @@ const UserSettingsForm = () => {
               )}
             </div>
           </div>
-
           <div>
             <h2 className={css.subtitle}>{t('settingsForm.subtitle')}</h2>
             <div className={css.wrapperText}>
@@ -269,7 +284,12 @@ const UserSettingsForm = () => {
             <p className={css.labelRegularlyWaterAmount}>
               {t('settingsForm.WaterAmount')}
             </p>
-            <p className={css.accent}> 1.8L</p>
+            <p className={css.accent}>
+              {typeof waterRequirement === 'number' && !isNaN(waterRequirement)
+                ? waterRequirement.toFixed(1)
+                : '0.00'}
+              L
+            </p>
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="dailyRequirement" className={css.labelWaterNorma}>
