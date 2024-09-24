@@ -110,6 +110,7 @@ export const getCounter = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await API.get('/users/count');
+
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
