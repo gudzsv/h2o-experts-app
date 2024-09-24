@@ -1,5 +1,5 @@
 .wrapper {
-  width: 303px;
+  width: 260px;
 }
 .title {
   color: var(--dark-blue);
@@ -19,13 +19,13 @@
     line-height: 32px;
   }
   .wrapper {
-    width: 560px;
+    width: 520px;
   }
 }
 
 /* Desktop */
 @media only screen and (min-width: 1440px) {
   .wrapper {
-    width: 840px;
+    width: 800px;
   }
 }
