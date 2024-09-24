@@ -95,6 +95,15 @@
     "titleModal": "Налаштування"
   },
 
+  "deleteModal": {
+    "title": "Видалити запис",
+    "confirm": "Ви впевнені, що хочете видалити запис?",
+    "delete": "Видалити",
+    "ariaDelete": "Підтвердити видалення",
+    "close": "Скасувати",
+    "ariaClose": "Скасувати видалення"
+  },
+
   "settingsForm": {
     "userPhotoAlt": "Фото користувача",
     "userUploadButton": "Завантажити фото",
