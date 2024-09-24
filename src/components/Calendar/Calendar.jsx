@@ -11,7 +11,7 @@ import { selectUser } from '../../redux/auth/selectors.js';
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   const [today, setToday] = useState(() => new Date().getDate());
 
-  const waterDailyNormaBar = useSelector(selectUser);
+  const user = useSelector(selectUser);
   const getWater = useSelector(selectMonthWater);
 
   const dispatch = useDispatch();
@@ -24,12 +24,9 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
     ).getDate();
   }, [dateForCalendar]);
 
-  const waterDailyNorma = waterDailyNormaBar?.dailyNorma ?? DEFAULT_DAILY_NORMA;
+  const waterDailyNorma = user?.dailyRequirement || DEFAULT_DAILY_NORMA;
 
-  const ideaAmountOfWater = useMemo(
-    () => waterDailyNorma * 1000,
-    [waterDailyNorma]
-  );
+  const ideaAmountOfWater = useMemo(() => waterDailyNorma, [waterDailyNorma]);
 
   useEffect(() => {
     const YEAR = dateForCalendar.getFullYear();
@@ -49,6 +46,7 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
           sumOfWater += entry.usedWater;
         }
       });
+
       const calcWaterProc = ((sumOfWater / ideaAmountOfWater) * 100).toFixed(2);
       return calcWaterProc;
     });
