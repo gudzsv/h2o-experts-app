@@ -3,6 +3,8 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  min-width: 170px;
+  justify-content: center;
 }
 
 .userBarBtn {
@@ -22,6 +24,9 @@
   letter-spacing: -0.16px;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  flex-grow: 1;
 }
 
 .avatar {

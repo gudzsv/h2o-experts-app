@@ -1,23 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { useId } from 'react';
 import { useState } from 'react';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { register as signUp } from '../../redux/auth/operations';
 import { useDispatch } from 'react-redux';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Required'),
-  password: Yup.string()
-    .min(6, 'Password must contain at least 6 characters')
-    .required('Required'),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Required'),
-});
+import { signUpValidationSchema } from '../../helpers/validation';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -42,7 +32,7 @@ const SignUpForm = () => {
       password: '',
       repeatPassword: '',
     },
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(signUpValidationSchema),
   });
 
   const onSubmit = data => {
@@ -61,11 +51,13 @@ const SignUpForm = () => {
           <input
             id={emailId}
             {...register('email')}
-            type="email"
+            type="text"
             placeholder={t('signUp.placeholderEmail')}
             className={`${styles.input} ${
               errors.email ? styles.errorInpt : ''
             }`}
+            autoComplete="email"
+            inputMode="email"
           />
           {errors.email && (
             <div className={styles.error}>{errors.email.message}</div>
