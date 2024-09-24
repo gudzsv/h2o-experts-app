@@ -8,6 +8,10 @@ import { editUser } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
 import { useTranslation } from 'react-i18next';
 
+import avatarMobile1x from '../../assets/img/settings_avatar/settings_avatar_mob_1x.webp';
+import avatarMobile2x from '../../assets/img/settings_avatar/settings_avatar_mob_2x.webp';
+import sprite from '../../assets/icons/sprite.svg';
+
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
   gender: Yup.string().required('Please select your gender'),
@@ -116,14 +120,9 @@ const UserSettingsForm = ({ onClose }) => {
           onChange={handleImageChange}
         />
         <img
-          src={
-            imagePreview ||
-            '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp'
-          }
+          src={imagePreview || avatarMobile1x}
           srcSet={
-            imagePreview
-              ? `${imagePreview}`
-              : '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp, /src/assets/img/settings_avatar/settings_avatar_mob_2x.webp'
+            (imagePreview ? imagePreview : avatarMobile1x, avatarMobile2x)
           }
           alt={t('settingsForm.userPhotoAlt')}
           aria-label="Upload a photo"
@@ -134,7 +133,7 @@ const UserSettingsForm = ({ onClose }) => {
         />
         <label htmlFor="userImage" className={css.uploadButton}>
           <svg>
-            <use href="/src/assets/icons/sprite.svg#icon-upload"></use>
+            <use href={`${sprite}#icon-upload`}></use>
           </svg>
           {t('settingsForm.userUploadButton')}
         </label>
