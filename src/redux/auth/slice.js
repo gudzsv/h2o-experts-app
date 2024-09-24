@@ -61,9 +61,12 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         handleMessage(SUCCESS.REGISTER);
       })
-      .addCase(register.rejected, state => {
+      .addCase(register.rejected, (state, { payload }) => {
         state.isLoggedIn = false;
-        handleError(ERROR.REGISTER);
+        payload === 'Request failed with status code 409' &&
+          handleError(ERROR.EMAIL_EXIST);
+        payload !== 'Request failed with status code 409' &&
+          handleError(ERROR.REGISTER);
       })
 
       .addCase(login.pending, handlePending)
@@ -73,9 +76,13 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         handleMessage(SUCCESS.LOGIN);
       })
-      .addCase(login.rejected, state => {
+      .addCase(login.rejected, (state, { payload }) => {
+        payload === 'Request failed with status code 401' &&
+          handleError(ERROR.LOGIN);
+        payload === 'Request failed with status code 404' &&
+          handleError(ERROR.USER_NOT_FOUND);
+
         state.isLoggedIn = false;
-        handleError(ERROR.LOGIN);
       })
       .addCase(logOut.fulfilled, state => {
         state.user = initialState.user;
