@@ -1,10 +1,11 @@
+import Loader from 'components/Loader/Loader.jsx';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router';
 
 const SharedLayout = ({ children }) => {
   return (
     <main>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         {children}
         <Outlet />
       </Suspense>

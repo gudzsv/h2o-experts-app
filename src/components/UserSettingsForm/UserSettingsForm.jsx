@@ -3,8 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
 import { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/auth/operations';
+import { selectUser } from '../../redux/auth/selectors';
+import { useTranslation } from 'react-i18next';
 
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
@@ -23,8 +25,9 @@ const userSettingsValidationSchema = Yup.object().shape({
 
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [imagePreview, setImagePreview] = useState();
-
+  const { email } = useSelector(selectUser);
   const {
     register,
     handleSubmit,
@@ -32,6 +35,9 @@ const UserSettingsForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userSettingsValidationSchema),
+    defaultValues: {
+      userEmail: email,
+    },
   });
 
   const handleImageChange = useCallback(
@@ -91,7 +97,7 @@ const UserSettingsForm = () => {
               ? `${imagePreview}`
               : '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp, /src/assets/img/settings_avatar/settings_avatar_mob_2x.webp'
           }
-          alt="User photo"
+          alt={t('settingsForm.userPhotoAlt')}
           aria-label="Upload a photo"
           className={css.userPhoto}
           loading="lazy"
@@ -102,7 +108,7 @@ const UserSettingsForm = () => {
           <svg>
             <use href="/src/assets/icons/sprite.svg#icon-upload"></use>
           </svg>
-          Upload a photo
+          {t('settingsForm.userUploadButton')}
         </label>
       </div>
 
@@ -110,7 +116,7 @@ const UserSettingsForm = () => {
         <div className={css.wrapperFrame}>
           <fieldset aria-labelledby="gender">
             <legend id="gender" className={css.labelGender}>
-              Your gender identity
+              {t('settingsForm.userGender')}
             </legend>
             <div className={css.radioWrapper}>
               <div className={css.radioContainer}>
@@ -122,7 +128,7 @@ const UserSettingsForm = () => {
                   {...register('gender')}
                 />
                 <label htmlFor="radioWoman" className={css.hiddenLabel}>
-                  Woman
+                  {t('settingsForm.genderWoman')}
                 </label>
               </div>
               <div className={css.radioContainer}>
@@ -134,7 +140,7 @@ const UserSettingsForm = () => {
                   {...register('gender')}
                 />
                 <label htmlFor="radioMan" className={css.hiddenLabel}>
-                  Man
+                  {t('settingsForm.genderMan')}
                 </label>
               </div>
             </div>
@@ -147,14 +153,14 @@ const UserSettingsForm = () => {
           <div className={css.gap}>
             <div className={css.wrapper}>
               <label htmlFor="userName" className={css.label}>
-                Your name
+                {t('settingsForm.userNameLabel')}
               </label>
               <input
                 type="text"
                 id="userName"
                 name="userName"
                 className={css.userInput}
-                placeholder="Nadia"
+                placeholder={t('settingsForm.userNamePlaceholder')}
                 autoComplete="name"
                 {...register('userName')}
               />
@@ -169,7 +175,7 @@ const UserSettingsForm = () => {
                 htmlFor="userEmail"
                 className={`${css.label} ${css.retreatBottom}`}
               >
-                Email
+                {t('settingsForm.userEmailLabel')}
               </label>
               <input
                 type="email"
@@ -189,25 +195,24 @@ const UserSettingsForm = () => {
           </div>
 
           <div>
-            <h2 className={css.subtitle}>My daily norma</h2>
+            <h2 className={css.subtitle}>{t('settingsForm.subtitle')}</h2>
             <div className={css.wrapperText}>
               <p className={css.text}>
-                For woman:
+                {t('settingsForm.textForWoman')}
                 <span className={css.textAccent}>V=(M*0,03) + (T*0,4)</span>
               </p>
               <p className={css.text}>
-                For man:
+                {t('settingsForm.textForMan')}
                 <span className={css.textAccent}>V=(M*0,04) + (T*0,6)</span>
               </p>
             </div>
             <p className={css.textDescription}>
-              <span className={css.textAccent}>*</span> V is the volume of the
-              water norm in liters per day, M is your body weight, T is the time
-              of active sports, or another type of activity commensurate in
-              terms of loads (in the absence of these, you must set 0)
+              <span className={css.textAccent}>*</span>
+              {t('settingsForm.textDescription')}
             </p>
             <p className={css.textActiveTime}>
-              <span className={css.mark}>!</span>Active time in hours
+              <span className={css.mark}>!</span>
+              {t('settingsForm.textActiveTime')}
             </p>
           </div>
         </div>
@@ -215,7 +220,7 @@ const UserSettingsForm = () => {
         <div className={css.wrapperFrameTwo}>
           <div className={`${css.wrapperInput} ${css.retreat}`}>
             <label htmlFor="userWeight" className={css.labelRegularly}>
-              Your weight in kilograms:
+              {t('settingsForm.userWeight')}
             </label>
             <input
               type="text"
@@ -229,7 +234,7 @@ const UserSettingsForm = () => {
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="userTime" className={css.labelRegularly}>
-              The time of active participation in sports:
+              {t('settingsForm.userTime')}
             </label>
             <input
               type="text"
@@ -243,13 +248,13 @@ const UserSettingsForm = () => {
           </div>
           <div className={css.wrapperWaterAmount}>
             <p className={css.labelRegularlyWaterAmount}>
-              The required amount of water in liters per day:
+              {t('settingsForm.WaterAmount')}
             </p>
             <p className={css.accent}> 1.8L</p>
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="dailyRequirement" className={css.labelWaterNorma}>
-              Write down how much water you will drink:
+              {t('settingsForm.labelWaterNorma')}
             </label>
             <input
               type="text"
@@ -265,7 +270,7 @@ const UserSettingsForm = () => {
       </div>
 
       <button type="submit" className={css.subButton}>
-        Save
+        {t('settingsForm.subButton')}
       </button>
     </form>
   );
