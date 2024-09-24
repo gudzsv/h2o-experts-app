@@ -102,6 +102,7 @@ const UserSettingsForm = ({ onClose }) => {
       if (data.userImage && data.userImage instanceof File) {
         formData.append('photo', data.userImage);
       }
+      console.log('FormData:', ...formData);
       dispatch(editUser(formData));
       onClose(false);
     },
@@ -122,7 +123,9 @@ const UserSettingsForm = ({ onClose }) => {
         <img
           src={imagePreview || avatarMobile1x}
           srcSet={
-            (imagePreview ? imagePreview : avatarMobile1x, avatarMobile2x)
+            imagePreview
+              ? `${imagePreview}`
+              : `${avatarMobile1x} 1x, ${avatarMobile2x} 2x`
           }
           alt={t('settingsForm.userPhotoAlt')}
           aria-label="Upload a photo"
