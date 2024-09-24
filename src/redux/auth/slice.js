@@ -25,7 +25,7 @@ const initialState = {
     weight: null,
     activityLevel: null,
     gender: 'female',
-    dailyRequirement: 2000,
+    dailyRequirement: 3000,
     photo: null,
   },
   token: null,

@@ -1,6 +1,8 @@
 {
   "lang": {
-    "choose": "Choose Language"
+    "choose": "Choose Language",
+    "select": "Select language",
+    "language": "English"
   },
 
   "pages": {
@@ -11,7 +13,8 @@
     "tracker": "Your Tracker",
     "forgot": "Forgot Password",
     "renew": "Renew",
-    "error": "Error"
+    "error": "Error",
+    "resetPwd": "Reset password"
   },
 
   "logo": {
@@ -62,7 +65,6 @@
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
-
     "ml": "ml",
     "l": "L"
   },
@@ -80,6 +82,7 @@
     "edit": "Edit the entered amount of water",
     "add": "Add water"
   },
+
 
   "settingsModal": {
     "titleModal": "Setting"
@@ -103,5 +106,21 @@
     "WaterAmount": " The required amount of water in liters per day:",
     "labelWaterNorma": "Write down how much water you will drink:",
     "subButton": "Save"
+
+  "resetPwd": {
+    "title": "Reset password",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "password": "Password",
+    "placeholderPassword": "Enter your password",
+    "placeholderRepeatPassword": "Repeat password"
+  },
+
+  "notFound": {
+    "title": "Oops!",
+    "info": "Looks like this page is not available.",
+    "advice": "Let’s get you back on track!",
+    "goBack": " Go to Home"
+
   }
 }

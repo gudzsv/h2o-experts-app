@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (registerData, thunkAPI) => {
     try {
-      await API.post('/users/register', registerData);
+      await API.post('/auth/register', registerData);
       const { data } = await API.post('/auth/login', registerData);
       setAuthHeader(data.data.accessToken);
       return data;
@@ -148,8 +148,8 @@ export const sendResetEmail = createAsyncThunk(
   'auth/sendResetEmail',
   async (email, thunkAPI) => {
     try {
-      const response = await API.post('/auth/send-reset-email', email);
-      return response;
+      const { data } = await API.post('/auth/send-reset-email', email);
+      return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
