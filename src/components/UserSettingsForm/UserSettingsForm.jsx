@@ -122,7 +122,9 @@ const UserSettingsForm = ({ onClose }) => {
         <img
           src={imagePreview || avatarMobile1x}
           srcSet={
-            (imagePreview ? imagePreview : avatarMobile1x, avatarMobile2x)
+            imagePreview
+              ? `${imagePreview}`
+              : `${avatarMobile1x} 1x, ${avatarMobile2x} 2x`
           }
           alt={t('settingsForm.userPhotoAlt')}
           aria-label="Upload a photo"
