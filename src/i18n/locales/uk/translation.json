@@ -123,5 +123,18 @@
     "password": "Пароль",
     "placeholderPassword": "Введіть пароль",
     "placeholderRepeatPassword": "Повторіть пароль"
+  },
+
+  "waterDailyNorma": {
+    "liters": "Л",
+    "dailyNorma": "Щоденна норма"
+  },
+
+  "addWaterBtn": {
+    "addWater": "Додати води"
+  },
+
+  "userPanel": {
+    "greeting": "Привіт"
   }
 }

@@ -28,7 +28,7 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
         aria-label="Open settings"
       >
         <CiSettings />
-        <span>Settings</span>
+        <span>Setting</span>
       </button>
       <button
         className={css.popoverButton}

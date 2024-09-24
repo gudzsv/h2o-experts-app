@@ -122,5 +122,18 @@
     "password": "Password",
     "placeholderPassword": "Enter your password",
     "placeholderRepeatPassword": "Repeat password"
+  },
+
+  "waterDailyNorma": {
+    "liters": "L",
+    "dailyNorma": "My daily norma"
+  },
+
+  "addWaterBtn": {
+    "addWater": "Add water"
+  },
+
+  "userPanel": {
+    "greeting": "Hello"
   }
 }

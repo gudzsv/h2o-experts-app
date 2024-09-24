@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import css from '../UserBar/UserBar.module.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors.js';
@@ -9,8 +9,13 @@ import { AiTwotoneSmile } from 'react-icons/ai';
 const UserBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const userInfo = useSelector(selectUser);
-  const buttonRef = useRef(null);
+  const userBarRef = useRef(null);
   const popoverRef = useRef(null);
+
+  useEffect(() => {
+    console.log('User avatar:', userInfo?.photo);
+    console.log('User info:', userInfo);
+  }, [userInfo]);
 
   const userName =
     userInfo?.name === 'User'
@@ -22,26 +27,41 @@ const UserBar = () => {
     setMenuOpen(prevMenuOpen => !prevMenuOpen);
   };
 
-  const handleSettingsClick = () => {
-    setMenuOpen(false);
+  const handleClickOutside = e => {
+    if (
+      userBarRef.current &&
+      !userBarRef.current.contains(e.target) &&
+      popoverRef.current &&
+      !popoverRef.current.contains(e.target) &&
+      !e.target.closest('.ReactModal__Content')
+    ) {
+      setMenuOpen(false);
+    }
   };
 
-  const handleLogoutClick = () => {
-    setMenuOpen(false);
-  };
+  useEffect(() => {
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen]);
 
   return (
-    <div className={css.userBarMenu}>
+    <div className={css.userBarMenu} ref={userBarRef}>
       <button
-        ref={buttonRef}
         className={css.userBarBtn}
         onClick={toggleMenu}
         aria-haspopup="true"
         aria-expanded={menuOpen}
       >
         {userName}
-        {userInfo?.avatar ? (
-          <img src={userInfo.avatar} alt="User Avatar" className={css.avatar} />
+        {userInfo?.photo ? (
+          <img src={userInfo.photo} alt="User Avatar" className={css.avatar} />
         ) : (
           <span className={css.avatarPlaceholder}>
             <AiTwotoneSmile />
@@ -52,22 +72,7 @@ const UserBar = () => {
         </svg>
       </button>
       {menuOpen && (
-        <UserBarPopover ref={popoverRef} role="menu">
-          <button
-            onClick={handleSettingsClick}
-            role="menuitem"
-            aria-label="Open settings"
-          >
-            Settings
-          </button>
-          <button
-            onClick={handleLogoutClick}
-            role="menuitem"
-            aria-label="Log out"
-          >
-            Logout
-          </button>
-        </UserBarPopover>
+        <UserBarPopover ref={popoverRef} onClose={() => setMenuOpen(false)} />
       )}
     </div>
   );

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { number } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
 import { selectDayWater } from '../../redux/water/selectors';
@@ -9,51 +8,32 @@ import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterProgressBar() {
   const dispatch = useDispatch();
+  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
     dispatch(getDayWater(today));
-  }, [dispatch]);
+  }, [dispatch, today]);
 
   const dayWater = useSelector(selectDayWater);
+  const user = useSelector(selectUser);
 
-  const waterDailyNormaBar = useSelector(selectUser);
+  const waterDailyNorma = user?.dailyRequirement || DEFAULT_DAILY_NORMA;
 
-  let waterDailyNorma;
-
-  const normaValidation = number().min(0).max(5).required();
-
-  try {
-    normaValidation.validateSync(
-      waterDailyNormaBar?.dailyNorma || DEFAULT_DAILY_NORMA
-    );
-    waterDailyNorma = waterDailyNormaBar?.dailyNorma || DEFAULT_DAILY_NORMA;
-  } catch (error) {
-    console.error('Validation error:', error);
-    waterDailyNorma = DEFAULT_DAILY_NORMA;
-  }
+  console.log('User daily norma (ml):', waterDailyNorma);
 
   let amount = 0;
   if (dayWater && dayWater.length > 0) {
     amount = dayWater.reduce((total, item) => total + item.usedWater, 0);
   }
+  console.log('Total water consumed:', amount);
 
-  const dailyNormaMl = waterDailyNorma * 1000;
-
-  function percentDailyCalc(waterDay, norma) {
-    return Math.round((waterDay / norma) * 100);
-  }
-
-  let percentDaily = percentDailyCalc(amount, dailyNormaMl);
-
-  if (!percentDaily || percentDaily < 0 || typeof percentDaily !== 'number') {
-    percentDaily = 0;
-  } else if (percentDaily > 100) {
-    percentDaily = 100;
-  }
+  const percentDaily = Math.min(
+    Math.round((amount / waterDailyNorma) * 100),
+    100
+  );
+  console.log('Percent consumed:', percentDaily);
 
   let circleRightMod = -2;
-
   if (percentDaily <= 2) {
     circleRightMod = -10;
   } else if (percentDaily > 2 && percentDaily < 7) {
@@ -63,7 +43,6 @@ export default function WaterProgressBar() {
   }
 
   let floatPercentMod = -7;
-
   if (percentDaily < 4 && percentDaily >= 0) {
     floatPercentMod = -3;
   } else if (percentDaily >= 4 && percentDaily < 12) {
@@ -81,9 +60,7 @@ export default function WaterProgressBar() {
       <div className={css.backBar}>
         <div
           className={css.frontBar}
-          style={{
-            width: `${percentDaily}%`,
-          }}
+          style={{ width: `${percentDaily}%` }}
           role="progressbar"
           aria-valuenow={percentDaily}
           aria-valuemin="0"
@@ -94,7 +71,7 @@ export default function WaterProgressBar() {
               className={css.floatPercent}
               style={{ right: floatPercentMod }}
             >
-              {Math.round(percentDaily)}%
+              {percentDaily}%
             </div>
           </div>
         </div>
