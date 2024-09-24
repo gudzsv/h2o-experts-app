@@ -1,28 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { useId } from 'react';
 import { useState } from 'react';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { register as signUp } from '../../redux/auth/operations';
 import { useDispatch } from 'react-redux';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
-      message: 'Must be a valid email',
-      excludeEmptyString: true,
-    })
-    .required('Required'),
-  password: Yup.string()
-    .min(6, 'Password must contain at least 6 characters')
-    .required('Required'),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Required'),
-});
+import { signUpValidationSchema } from '../../helpers/validation';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -47,7 +32,7 @@ const SignUpForm = () => {
       password: '',
       repeatPassword: '',
     },
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(signUpValidationSchema),
   });
 
   const onSubmit = data => {
