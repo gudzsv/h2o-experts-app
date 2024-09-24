@@ -8,7 +8,7 @@ import AdvantagesSection from 'components/AdvantagesSection/AdvantagesSection';
 const HomePage = () => {
   const { t } = useTranslation();
   return (
-    <Container>
+    <div class="container">
       <Helmet>
         <title>{t('pages.home')}</title>
       </Helmet>
@@ -16,7 +16,7 @@ const HomePage = () => {
         <WelcomeSection />
         <AdvantagesSection />
       </PageContent>
-    </Container>
+    </div>
   );
 };
 
