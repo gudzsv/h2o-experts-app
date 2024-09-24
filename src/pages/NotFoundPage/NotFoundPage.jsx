@@ -16,32 +16,34 @@ const NotFoundPage = () => {
         <title>{t('pages.notFound')}</title>
       </Helmet>
       <PageContent>
-        <div className={styles.lottieContainer} aria-hidden="true">
-          <Lottie
-            animationData={animationData}
-            loop={true}
-            className={styles.lottieAnimation}
-            role="img"
-            aria-label={t('notFound.info')}
-          />
-        </div>
-        <section
-          className={styles.notFoundContent}
-          aria-labelledby="not-found-title"
-        >
-          <h1 className={styles.notFoundTitle} id="not-found-title">
-            {t('notFound.title')}
-          </h1>
-          <p className={styles.notFoundMessage}>{t('notFound.info')}</p>
-          <p className={styles.notFoundSubMessage}>{t('notFound.advice')}</p>
-          <Link
-            to="/"
-            className={styles.notFoundLink}
-            aria-label={t('notFound.goBack')}
+        <div className={styles.sectionsWrapper}>
+          <div className={styles.lottieContainer} aria-hidden="true">
+            <Lottie
+              animationData={animationData}
+              loop={true}
+              className={styles.lottieAnimation}
+              role="img"
+              aria-label={t('notFound.info')}
+            />
+          </div>
+          <section
+            className={styles.notFoundContent}
+            aria-labelledby="not-found-title"
           >
-            {t('notFound.goBack')}
-          </Link>
-        </section>
+            <h1 className={styles.notFoundTitle} id="not-found-title">
+              {t('notFound.title')}
+            </h1>
+            <p className={styles.notFoundMessage}>{t('notFound.info')}</p>
+            <p className={styles.notFoundSubMessage}>{t('notFound.advice')}</p>
+            <Link
+              to="/"
+              className={styles.notFoundLink}
+              aria-label={t('notFound.goBack')}
+            >
+              {t('notFound.goBack')}
+            </Link>
+          </section>
+        </div>
       </PageContent>
     </Container>
   );
