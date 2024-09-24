@@ -90,5 +90,12 @@
     "password": "Password",
     "placeholderPassword": "Enter your password",
     "placeholderRepeatPassword": "Repeat password"
+  },
+
+  "notFound": {
+    "title": "Oops!",
+    "info": "Looks like this page is not available.",
+    "advice": "Let’s get you back on track!",
+    "goBack": " Go to Home"
   }
 }
