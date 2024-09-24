@@ -1,20 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteWater } from '../../redux/water/operations';
 import { ModalTemplate } from '../Modal/Modal';
 import css from './DeleteWaterModal.module.css';
+import { useTranslation } from 'react-i18next';
 
 export const DeleteWaterModal = React.memo(
-  ({ id, modalIsOpen, closeModal }) => {
-    const dispatch = useDispatch();
-
-    const handleDelete = async () => {
-      const response = await dispatch(deleteWater(id));
-      if (response.meta.requestStatus === 'fulfilled') {
-        closeModal();
-      }
-    };
-
+  ({ modalIsOpen, handleDelete, closeModal }) => {
+    const { t } = useTranslation();
     return (
       <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
         <div
@@ -25,10 +16,10 @@ export const DeleteWaterModal = React.memo(
         >
           <div>
             <h2 id="deleteModalTitle" className={css.modDelete}>
-              Delete entry
+              {t('deleteModal.title')}
             </h2>
             <p id="deleteModalDescription" className={css.qModDel}>
-              Are you sure you want to delete the entry?
+              {t('deleteModal.confirm')}
             </p>
           </div>
           <div className={css.deleteWaterModalBtn}>
@@ -36,17 +27,17 @@ export const DeleteWaterModal = React.memo(
               type="button"
               className={css.deleteButtonModal}
               onClick={handleDelete}
-              aria-label="Confirm delete"
+              aria-label={t('deleteModal.ariaDelete')}
             >
-              Delete
+              {t('deleteModal.delete')}
             </button>
             <button
               type="button"
               className={css.cancelButtonModal}
               onClick={closeModal}
-              aria-label="Cancel delete"
+              aria-label={t('deleteModal.ariaClose')}
             >
-              Cancel
+              {t('deleteModal.close')}
             </button>
           </div>
         </div>
