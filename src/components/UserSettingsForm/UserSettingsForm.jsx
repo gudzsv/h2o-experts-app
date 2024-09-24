@@ -23,7 +23,7 @@ const userSettingsValidationSchema = Yup.object().shape({
   dailyRequirement: Yup.number(),
 });
 
-const UserSettingsForm = () => {
+const UserSettingsForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const {
@@ -82,15 +82,8 @@ const UserSettingsForm = () => {
       if (data.userImage && data.userImage instanceof File) {
         formData.append('photo', data.userImage);
       }
-
-      try {
-        const response = await dispatch(editUser(formData));
-        if (response?.payload?.photo) {
-          setImagePreview(response.payload.photo);
-        }
-      } catch (error) {
-        console.log('error:', error);
-      }
+      dispatch(editUser(formData));
+      onClose(false);
     },
     [dispatch]
   );

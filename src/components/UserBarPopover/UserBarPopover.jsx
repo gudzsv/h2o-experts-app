@@ -44,11 +44,8 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
 
       {isOpenSettings && (
         <UserSettingsModal
-          modalIsOpen={isOpenSettings}
-          onClose={() => {
-            setIsOpenSettings(false);
-            onClose();
-          }}
+          onClose={setIsOpenSettings}
+          isOpen={isOpenSettings}
         />
       )}
       {isOpenLogOut && (
