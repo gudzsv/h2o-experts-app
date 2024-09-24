@@ -6,6 +6,11 @@
   gap: 16px;
 }
 
+.modLogout {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
 .modalLogoutBtn {
   display: flex;
   flex-direction: column;

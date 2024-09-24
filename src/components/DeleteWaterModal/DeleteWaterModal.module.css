@@ -6,6 +6,11 @@
   gap: 16px;
 }
 
+.modDelete {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
 .deleteWaterModalBtn {
   display: flex;
   flex-direction: column;
