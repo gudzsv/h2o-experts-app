@@ -60,6 +60,13 @@
     "placeholderRepeatPassword": "Повторіть пароль"
   },
 
+  "notFound": {
+    "title": "Ой!",
+    "info": "Схоже, ця сторінка недоступна.",
+    "advice": "Давайте повернемо вас на правильний шлях!",
+    "goBack": "Перейти на головну"
+  },
+
   "chooseDate": {
     "today": "Сьогодні",
     "noWaterConsumed": "В цей день не було спожито води.",
@@ -84,10 +91,10 @@
     "add": "Додати воду"
   },
 
-
   "settingsModal": {
     "titleModal": "Налаштування"
   },
+
   "settingsForm": {
     "userPhotoAlt": "Фото користувача",
     "userUploadButton": "Завантажити фото",
@@ -107,6 +114,7 @@
     "WaterAmount": " Необхідна кількість води в літрах на добу:",
     "labelWaterNorma": "Запишіть, скільки води ви будете пити:",
     "subButton": "Зберегти"
+  },
 
   "resetPwd": {
     "title": "Скинути пароль",
@@ -115,12 +123,5 @@
     "password": "Пароль",
     "placeholderPassword": "Введіть пароль",
     "placeholderRepeatPassword": "Повторіть пароль"
-  },
-
-  "notFound": {
-    "title": "Ой!",
-    "info": "Схоже, ця сторінка недоступна.",
-    "advice": "Давайте повернемо вас на правильний шлях!",
-    "goBack": "Перейти на головну"
   }
 }
