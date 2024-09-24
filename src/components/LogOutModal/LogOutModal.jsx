@@ -1,63 +1,59 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logOut } from '../../redux/auth/operations.js';
+import { logOut } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
+import { ModalTemplate } from '../Modal/Modal';
 import css from './LogOutModal.module.css';
 
-export const LogOutModal = ({ onClose }) => {
+export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
     const response = await dispatch(logOut());
     if (response.meta.requestStatus === 'fulfilled') {
-      localStorage.clear();
+      closeModal();
       navigate('/');
-      onClose();
     }
   };
 
   return (
-    <div
-      className={css['overlay']}
-      role="dialog"
-      aria-label="logout-modal-title"
-    >
-      <div className={css['modal-logout']}>
-        <button
-          type="button"
-          className={css['close-button-mod']}
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <svg className={css['close-icon-mod']} width="24" height="24">
-            <use href="../../assets/icons/sprite.svg#icon-x"></use>
-          </svg>
-        </button>
-        <div className={css['modal-logout-content']}>
-          <h2 id="logout-modal-title" className={css['mod-logout']}>
+    <ModalTemplate modalIsOpen={modalIsOpen} closeModal={closeModal}>
+      <div
+        className={css.modalLogoutContent}
+        role="dialog"
+        aria-labelledby="logoutModalTitle"
+        aria-describedby="logoutModalDescription"
+      >
+        <div>
+          <h2 id="logoutModalTitle" className={css.modLogout}>
             Log out
           </h2>
-          <p className={css['q-mod-logout']}>Do you really want to leave?</p>
+          <p id="logoutModalDescription" className={css.qModLogout}>
+            Do you really want to leave?
+          </p>
         </div>
-        <div className={css['modal-logout-btn']}>
+        <div className={css.modalLogoutBtn}>
           <button
-            className={css['modal-logout-btn-out']}
+            className={css.modalLogoutBtnOut}
             onClick={handleLogOut}
-            aria-label="Log out"
+            aria-label="Confirm log out"
           >
             Log out
           </button>
           <button
-            className={css['modal-logout-btn-cancel']}
-            onClick={onClose}
-            aria-label="Cancel"
+            className={css.modalLogoutBtnCancel}
+            onClick={closeModal}
+            aria-label="Cancel log out"
           >
-            <span className={css['modal-cancel']}>Cancel</span>
+            Cancel
           </button>
         </div>
       </div>
-    </div>
+    </ModalTemplate>
   );
-};
+});
+
+LogOutModal.displayName = 'LogOutModal';
 
 export default LogOutModal;

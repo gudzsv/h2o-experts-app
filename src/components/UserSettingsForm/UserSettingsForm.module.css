@@ -45,6 +45,7 @@
   width: 75px;
   height: 75px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .labelGender {
@@ -162,6 +163,7 @@
   line-height: 1.2;
   letter-spacing: -0.14px;
   margin-bottom: 0;
+  margin-top: 10px;
 }
 .subtitle {
   font-family: 'Poppins', sans-serif;
@@ -219,7 +221,8 @@
   font-style: normal;
   line-height: 1.2;
   letter-spacing: -0.14px;
-  margin-bottom: 24px;
+  margin-bottom: 24px !important;
+  margin-top: 14px;
 }
 
 .mark {
@@ -249,7 +252,7 @@
   color: var(--light-green);
   font-weight: 700;
   margin: 0;
-  margin-bottom: 14px;
+  margin-bottom: 14px !important;
 }
 .wrapperWaterAmount {
   display: flex;
@@ -368,7 +371,6 @@
   }
   .wrapperWaterAmount {
     flex-direction: row;
-    margin-bottom: 14px;
     margin-top: 24px;
   }
   .accent {
@@ -411,4 +413,19 @@
   .textActiveTime {
     margin-bottom: 0;
   }
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+legend {
+  display: block;
+  margin-bottom: 0;
+  padding: 0;
+  font-weight: normal;
+  color: inherit;
 }

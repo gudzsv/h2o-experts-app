@@ -1,0 +1,125 @@
+.form {
+  padding-top: 32px;
+}
+
+.wrapperContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapperContent {
+    gap: 20px;
+  }
+}
+
+.wrapperInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+}
+
+@media screen and (min-width: 768px) {
+  .label {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+}
+
+.input {
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  padding: 16px;
+  color: var(--placeholder);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+  outline: none;
+  width: 100%;
+  transition: var(--Animation_cubic);
+}
+
+.input:focus {
+  color: var(--black);
+}
+
+.input:active {
+  color: var(--black);
+  border: 1px solid var(--border-color-active);
+}
+
+.error {
+  color: var(--error);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
+  letter-spacing: -0.14px;
+  margin-top: 10px;
+}
+
+.errorInput {
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  fill: none;
+  stroke: var(--black);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 30px;
+  background-color: var(--light-green);
+  border: none;
+  color: var(--dark-blue);
+  text-align: center;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+  padding: 16px;
+  transition: background-color var(--Animation_cubic);
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: var(--light-green-hover);
+}
+
+@media screen and (min-width: 768px) {
+  .btn {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+    padding: 18px;
+  }
+}

@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useId } from 'react';
@@ -9,7 +10,12 @@ import { register as signUp } from '../../redux/auth/operations';
 import { useDispatch } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Required'),
+  email: Yup.string()
+    .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
+      message: 'Must be a valid email',
+      excludeEmptyString: true,
+    })
+    .required('Required'),
   password: Yup.string()
     .min(6, 'Password must contain at least 6 characters')
     .required('Required'),
@@ -20,6 +26,7 @@ const validationSchema = Yup.object().shape({
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
@@ -54,16 +61,18 @@ const SignUpForm = () => {
       <div className={styles.wrapperContent}>
         <div className={styles.wrapperInpt}>
           <label htmlFor={emailId} className={styles.label}>
-            Email
+            {t('signUp.email')}
           </label>
           <input
             id={emailId}
             {...register('email')}
-            type="email"
-            placeholder="Enter your email"
+            type="text"
+            placeholder={t('signUp.placeholderEmail')}
             className={`${styles.input} ${
               errors.email ? styles.errorInpt : ''
             }`}
+            autoComplete="email"
+            inputMode="email"
           />
           {errors.email && (
             <div className={styles.error}>{errors.email.message}</div>
@@ -71,14 +80,14 @@ const SignUpForm = () => {
         </div>
         <div className={styles.wrapperInpt}>
           <label htmlFor={passwordId} className={styles.label}>
-            Password
+            {t('signUp.password')}
           </label>
           <div className={styles.inputWrapper}>
             <input
               id={passwordId}
               {...register('password')}
               type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
+              placeholder={t('signUp.placeholderPassword')}
               className={`${styles.input} ${
                 errors.password ? styles.errorInpt : ''
               }`}
@@ -104,14 +113,14 @@ const SignUpForm = () => {
         </div>
         <div className={styles.wrapperInpt}>
           <label htmlFor={repeatPasswordId} className={styles.label}>
-            Repeat password
+            {t('signUp.password')}
           </label>
           <div className={styles.inputWrapper}>
             <input
               id={repeatPasswordId}
               {...register('repeatPassword')}
               type={showRepeatPassword ? 'text' : 'password'}
-              placeholder="Repeat password"
+              placeholder={t('signUp.placeholderRepeatPassword')}
               className={`${styles.input} ${
                 errors.repeatPassword ? styles.errorInpt : ''
               }`}
@@ -143,7 +152,7 @@ const SignUpForm = () => {
         className={styles.btn}
         aria-label="Sign up button for an account"
       >
-        Sign Up
+        {t('signUp.title')}
       </button>
     </form>
   );

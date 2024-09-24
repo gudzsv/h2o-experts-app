@@ -14,13 +14,13 @@
 
 .wrapper {
   height: 209px;
-  margin: 0 16px;
+  margin-top: 43px;
   background-color: #f0eff4;
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 703px) {
+@media screen and (min-width: 768px) {
   .wrapper {
-    margin: 0 16px;
+    margin-top: 49px;
   }
 }

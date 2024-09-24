@@ -1,29 +1,23 @@
+import { useTranslation } from 'react-i18next';
 import css from './ChooseDate.module.css';
 
 const ChooseDate = ({ selectedDate }) => {
-  // Функція для форматування заголовка з дати у строку
+  const { t, i18n } = useTranslation();
+
   const formatDate = date => {
     const today = new Date();
     if (date.toDateString() === today.toDateString()) {
-      return 'Today';
+      return t('chooseDate.today');
     }
-    return date
-      .toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-      })
-      .replace(' ', ', ');
+    return date.toLocaleDateString(i18n.language, {
+      day: 'numeric',
+      month: 'long',
+    });
   };
 
   return (
     <div>
       <h3 className={css.daily_info}>{formatDate(selectedDate)}</h3>
-      {/* Test calendar */}
-      {/* <input
-        type="date"
-        value={selectedDate.toISOString().split('T')[0]}
-        onChange={handleDateChange}
-      /> */}
     </div>
   );
 };

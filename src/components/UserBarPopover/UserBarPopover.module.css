@@ -1,0 +1,49 @@
+.userBarPopover {
+  background: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 14px;
+  box-shadow: 0 4px 8px var(--border-shadow);
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(10px);
+  pointer-events: auto;
+  width: 100%;
+}
+
+.popoverButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.CiSettings {
+  width: 16px;
+  height: 16px;
+}
+
+.logoutIcon {
+  fill: var(--dark-blue-translucent);
+  stroke: var(--dark-blue-translucent);
+}
+
+.settingsText {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.49;
+  color: var(--dark-blue);
+}
+
+.logoutText {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.49;
+  color: var(--dark-blue-translucent);
+}

@@ -5,7 +5,7 @@ import uk from '../../assets/icons/lang/uk.svg';
 import css from './LanguageSwitcher.module.css';
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState('en');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -52,19 +52,23 @@ const LanguageSwitcher = () => {
     }
   };
 
+  const availableLanguages = language === 'en' ? ['uk'] : ['en'];
+
+  const languageTranslate = t('lang.language');
+
   return (
     <div className={css.languageSwitcher} ref={selectRef}>
       <button
         className={css.languageSelect}
         onClick={toggleDropdown}
-        aria-label="Select language"
+        aria-label={t('lang.select')}
         aria-haspopup="true"
         aria-expanded={isDropdownOpen}
       >
         <img
           className={css.languageIcon}
           src={language === 'en' ? en : uk}
-          alt={language === 'en' ? 'English' : 'Українська'}
+          alt={languageTranslate}
           width="18"
           height="18"
         />
@@ -74,34 +78,23 @@ const LanguageSwitcher = () => {
         ref={dropdownRef}
         role="menu"
       >
-        <li
-          className={css.languageOption}
-          onClick={event => handleLanguageChange(event, 'en')}
-          role="menuitem"
-          tabIndex="0"
-        >
-          <img
-            className={css.languageIcon}
-            src={en}
-            alt="English"
-            width="18"
-            height="18"
-          />
-        </li>
-        <li
-          className={css.languageOption}
-          onClick={event => handleLanguageChange(event, 'uk')}
-          role="menuitem"
-          tabIndex="0"
-        >
-          <img
-            className={css.languageIcon}
-            src={uk}
-            alt="Українська"
-            width="18"
-            height="18"
-          />
-        </li>
+        {availableLanguages.map(lang => (
+          <li
+            key={lang}
+            className={css.languageOption}
+            onClick={event => handleLanguageChange(event, lang)}
+            role="menuitem"
+            tabIndex="0"
+          >
+            <img
+              className={css.languageIcon}
+              src={lang === 'en' ? en : uk}
+              alt={languageTranslate}
+              width="18"
+              height="18"
+            />
+          </li>
+        ))}
       </ul>
     </div>
   );

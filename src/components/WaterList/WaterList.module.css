@@ -15,8 +15,7 @@
 
 .water_list {
   display: flex;
-  gap: 10px;
-  padding: 0 20px;
+  gap: 8px;
   margin-bottom: 24px;
 }
 
@@ -34,12 +33,14 @@
 
 .horizontal_scroll_container::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: black;
-  padding-left: 20px;
+  background-color: #323f47;
 }
 
 .no_water_text {
-  align-items: center;
+  margin-top: 40px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: 343px) {
@@ -50,7 +51,7 @@
   }
 }
 
-@media screen and (min-width: 703px) {
+@media screen and (min-width: 768px) {
   .wrapper {
     gap: 10px;
     padding: 0 24px;
@@ -58,7 +59,5 @@
   }
   .water_list {
     gap: 32px;
-    padding: 0 32px;
-    margin-bottom: 24px;
   }
 }

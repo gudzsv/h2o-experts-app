@@ -1,33 +1,83 @@
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import CalendarItem from 'components/CalendarItem/CalendarItem';
 import css from './Calendar.module.css';
 
+import { getMonthWater } from '../../redux/water/operations.js';
+import { selectMonthWater } from '../../redux/water/selectors.js';
+import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
+import { selectUser } from '../../redux/auth/selectors.js';
+
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
-  function getDaysInMonth(date) {
-    return new Date(date.getYear(), date.getMonth() + 1, 0).getDate();
-  }
+  const [today, setToday] = useState(() => new Date().getDate());
 
-  const amountOfDays = getDaysInMonth(dateForCalendar);
+  const waterDailyNormaBar = useSelector(selectUser);
+  const getWater = useSelector(selectMonthWater);
 
-  function getFormattedDate(day) {
-    const year = dateForCalendar.getFullYear();
-    const month = dateForCalendar.getMonth();
-    const date = new Date(year, month, day);
+  const dispatch = useDispatch();
 
-    return date;
-  }
+  const amountOfDays = useMemo(() => {
+    return new Date(
+      dateForCalendar.getFullYear(),
+      dateForCalendar.getMonth() + 1,
+      0
+    ).getDate();
+  }, [dateForCalendar]);
 
-  const handleCalendarChange = number => {
-    const selectedDate = getFormattedDate(number);
+  const waterDailyNorma = waterDailyNormaBar?.dailyNorma ?? DEFAULT_DAILY_NORMA;
+
+  const ideaAmountOfWater = useMemo(
+    () => waterDailyNorma * 1000,
+    [waterDailyNorma]
+  );
+
+  useEffect(() => {
+    const YEAR = dateForCalendar.getFullYear();
+    let MONTH = dateForCalendar.getMonth() + 1;
+    if (MONTH < 10) {
+      MONTH = `0${MONTH}`;
+    }
+    dispatch(getMonthWater(`${YEAR}-${MONTH}`));
+  }, [dispatch, dateForCalendar]);
+
+  const waterDataByDay = useMemo(() => {
+    return Array.from({ length: amountOfDays }, (_, i) => {
+      let sumOfWater = 0;
+      getWater.forEach(entry => {
+        const dayOfDrinking = new Date(entry.drinkingTime).getDate();
+        if (i + 1 === dayOfDrinking) {
+          sumOfWater += entry.usedWater;
+        }
+      });
+      const calcWaterProc = ((sumOfWater / ideaAmountOfWater) * 100).toFixed(2);
+      return calcWaterProc;
+    });
+  }, [getWater, amountOfDays, ideaAmountOfWater]);
+
+  const handleCalendarChange = day => {
+    const selectedDate = new Date(
+      dateForCalendar.getFullYear(),
+      dateForCalendar.getMonth(),
+      day
+    );
     setDateForCalendar(selectedDate);
+    setToday(day);
   };
 
   return (
     <ul className={css.calendar}>
-      {Array.from({ length: amountOfDays }, (_, i) => (
-        <li key={i} onClick={() => handleCalendarChange(i + 1)}>
-          <CalendarItem day={i} procNumberForBeauty={100} />
-        </li>
-      ))}
+      {Array.from({ length: amountOfDays }, (_, i) => {
+        const isToday = today === i + 1;
+        return (
+          <li key={i} onClick={() => handleCalendarChange(i + 1)}>
+            <CalendarItem
+              day={i + 1}
+              procNumber={waterDataByDay[i]}
+              isToday={isToday}
+            />
+          </li>
+        );
+      })}
     </ul>
   );
 };

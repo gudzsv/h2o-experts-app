@@ -1,134 +1,108 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import WaterModal from 'components/WaterModal/WaterModal';
-import AddWaterBtnDayliInfo from './AddWaterBtnDayliInfo/AddWaterBtnDayliInfo';
 import styles from './DailyInfo.module.css';
+import { ModalTemplate } from 'components/Modal/Modal.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectDayWater, selectIsLoading } from '../../redux/water/selectors';
+import {
+  getDayWater,
+  deleteWater,
+  getMonthWater,
+} from '../../redux/water/operations';
+import AddWaterBtn from 'components/AddWaterBtn/AddWaterBtn.jsx';
+import BallTriangleLoader from './Loader/LoaderForDailyInfo';
+import { useModal } from 'components/Modal/UseModal.jsx';
 
-const DailyInfo = () => {
-  const [dateForCalendar, setDateForCalendar] = useState(() => {
-    return new Date();
-  });
+const getFormattedDate = date => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [waterData, setWaterData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [editItem, setEditItem] = useState(null);
+const DailyInfo = ({ dateForCalendar }) => {
+  const dispatch = useDispatch();
+  const dayWater = useSelector(selectDayWater);
+  const isLoading = useSelector(selectIsLoading);
 
-  // Для функції з базою данних
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+  const { modalIsOpen, closeModal, openModal } = useModal();
+  const [editItem, setEditItem] = useState({});
+  const [isActionType, setIsActionType] = useState('');
+  const [isCurrentDay, setIsCurrentDay] = useState('');
 
-  // Тестові данні, формат ключів "YYYY-MM-DD"
-  const waterHistory = {
-    '2024-09-01': [
-      { id: 1, amount: 250, time: '07:00 AM' },
-      { id: 2, amount: 250, time: '11:00 AM' },
-    ],
-    '2024-09-02': [{ id: 3, amount: 250, time: '09:00 AM' }],
-    '2024-09-03': [
-      { id: 4, amount: 250, time: '09:00 AM' },
-      { id: 5, amount: 250, time: '07:00 AM' },
-    ],
-    '2024-09-04': [
-      { id: 6, amount: 250, time: '11:00 AM' },
-      { id: 7, amount: 250, time: '11:00 AM' },
-      { id: 8, amount: 250, time: '11:00 AM' },
-      { id: 9, amount: 250, time: '07:00 AM' },
-    ],
-    '2024-09-15': [
-      { id: 10, amount: 250, time: '11:00 AM' },
-      { id: 11, amount: 250, time: '11:00 AM' },
-      { id: 12, amount: 250, time: '11:00 AM' },
-      { id: 13, amount: 250, time: '07:00 AM' },
-      { id: 14, amount: 250, time: '11:00 AM' },
-      { id: 15, amount: 250, time: '11:00 AM' },
-      { id: 16, amount: 250, time: '11:00 AM' },
-      { id: 17, amount: 250, time: '07:00 AM' },
-    ],
-  };
-
-  const getFormattedDate = () => {
-    const year = dateForCalendar.getFullYear();
-    const month = String(dateForCalendar.getMonth() + 1).padStart(2, '0');
-    const day = String(dateForCalendar.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  };
-
-  // Функція для отримання данних з бази данних / поки працюємо з тестовими данними
-  // const fetchWaterDataForDate = async formattedDate => {
-  //   setLoading(true);
-  //   setError(null);
-
-  //   try {
-  //     const response = await fetch(`/api/water-data?date=${formattedDate}`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch water data');
-  //     }
-  //     const data = await response.json();
-  //     setWaterData(data);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  const fetchWaterDataForDate = formattedDate => {
-    setWaterData(waterHistory[formattedDate] || []);
-  };
+  const formattedDate = useMemo(
+    () => getFormattedDate(dateForCalendar || new Date()),
+    [dateForCalendar]
+  );
 
   useEffect(() => {
-    const formattedDate = getFormattedDate();
-    fetchWaterDataForDate(formattedDate);
-  }, [dateForCalendar]);
+    if (formattedDate !== isCurrentDay) {
+      setIsCurrentDay(formattedDate);
+      dispatch(getDayWater(formattedDate));
+    }
+  }, [dispatch, formattedDate, isCurrentDay]);
 
-  const handleEdit = item => {
-    setEditItem(item);
-    setIsModalOpen(true);
-  };
+  const handleIsAddWater = useCallback(() => {
+    setIsActionType('add');
+    openModal();
+  }, [openModal]);
 
-  const handleDelete = id => {
-    const updatedData = waterData.filter(item => item.id !== id);
-    setWaterData(updatedData);
-  };
+  const handleIsEditWater = useCallback(
+    item => {
+      setEditItem(item);
+      setIsActionType('edit');
+      openModal();
+    },
+    [openModal]
+  );
 
-  const openAddWaterModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleAddWater = newWaterData => {
-    setWaterData([...waterData, newWaterData]);
-    setIsModalOpen(false);
-  };
+  const handleDeleteWater = useCallback(
+    async id => {
+      await dispatch(deleteWater(id));
+      dispatch(getDayWater(formattedDate));
+      dispatch(getMonthWater(formattedDate.slice(0, -3)));
+    },
+    [dispatch, formattedDate]
+  );
 
   return (
     <div className={styles.dailyInfo}>
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
-          <ChooseDate
-            selectedDate={dateForCalendar}
-            setSelectedDate={setSelectedDate}
+          <ChooseDate selectedDate={dateForCalendar || new Date()} />
+          <AddWaterBtn
+            btnType="secondary"
+            onClick={handleIsAddWater}
+            aria-label="Add water record"
           />
-          <AddWaterBtnDayliInfo openModal={openAddWaterModal} />
         </div>
 
-        {isModalOpen && (
+        <ModalTemplate
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          aria-modal="true"
+          role="dialog"
+        >
           <WaterModal
-            closeModal={() => setIsModalOpen(false)}
-            onAddWater={handleAddWater}
-            editItem={editItem}
+            actionType={isActionType}
+            waterItem={editItem}
+            currentDay={isCurrentDay}
+            closeModal={closeModal}
           />
-        )}
+        </ModalTemplate>
 
         <div className={styles.water_list_wrapper}>
-          <WaterList
-            className={styles.water_list}
-            waterData={waterData}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          {isLoading ? (
+            <BallTriangleLoader />
+          ) : (
+            <WaterList
+              waterData={dayWater}
+              onEdit={handleIsEditWater}
+              onDelete={handleDeleteWater}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ export const OAuthLogin = () => {
 
   useEffect(() => {
     dispatch(loginOAuth(code));
-  });
+  }, []);
 
   return <>{isLoggedIn && <Navigate to={'/tracker'} />}</>;
 };

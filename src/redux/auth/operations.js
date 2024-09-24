@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (registerData, thunkAPI) => {
     try {
-      await API.post('/users/register', registerData);
+      await API.post('/auth/register', registerData);
       const { data } = await API.post('/auth/login', registerData);
       setAuthHeader(data.data.accessToken);
       return data;
@@ -54,7 +54,7 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/auth/refresh');
+      const { data } = await API.post('/auth/refresh');
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -110,6 +110,7 @@ export const getCounter = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await API.get('/users/count');
+
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -121,7 +122,7 @@ export const getOAuthURL = createAsyncThunk(
   'auth/getOAuthURL',
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get('/users/get-oauth-url');
+      const { data } = await API.get('/auth/get-oauth-url');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -133,13 +134,37 @@ export const loginOAuth = createAsyncThunk(
   'auth/loginOAuth',
   async (confirmCode, thunkAPI) => {
     try {
-      const { data } = await API.post('/users/confirm-oauth', {
+      const { data } = await API.post('/auth/confirm-oauth', {
         code: confirmCode,
       });
-      setAuthHeader(data.data.token);
+      setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const sendResetEmail = createAsyncThunk(
+  'auth/sendResetEmail',
+  async (email, thunkAPI) => {
+    try {
+      const { data } = await API.post('/auth/send-reset-email', email);
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPwd = createAsyncThunk(
+  'auth/resetPwd',
+  async (token, thunkAPI) => {
+    try {
+      const response = await API.post('/auth/reset-pwd', token);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
     }
   }
 );
