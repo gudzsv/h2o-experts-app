@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
-import { CiSettings } from 'react-icons/ci';
-import { IoIosLogOut } from 'react-icons/io';
+import sprite from '../../assets/icons/sprite.svg'; // Імпорт спрайту
 
 const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   const { t } = useTranslation();
@@ -29,8 +28,10 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
         aria-haspopup="dialog"
         aria-label={t('userBarPopover.setting')}
       >
-        <CiSettings />
-        <span>{t('userBarPopover.setting')}</span>{' '}
+        <svg className={css.icon} width="16" height="16">
+          <use xlinkHref={`${sprite}#icon-settings`} />
+        </svg>
+        <span>{t('userBarPopover.setting')}</span>
       </button>
       <button
         className={css.popoverButton}
@@ -38,8 +39,10 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
         aria-haspopup="dialog"
         aria-label={t('userBarPopover.logout')}
       >
-        <IoIosLogOut />
-        <span>{t('userBarPopover.logout')}</span>{' '}
+        <svg className={css.icon} width="16" height="16">
+          <use xlinkHref={`${sprite}#icon-log-out`} />
+        </svg>
+        <span>{t('userBarPopover.logout')}</span>
       </button>
 
       {isOpenSettings && (
