@@ -1,15 +1,9 @@
 .container {
+  width: 100%;
   min-width: 320px;
   max-width: 375px;
-  width: 100%;
   padding: 0 16px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 @media only screen and (min-width: 768px) {
@@ -22,6 +16,6 @@
 @media only screen and (min-width: 1440px) {
   .container {
     max-width: 1440px;
-    height: 100vh;
+    /* height: 100vh; */
   }
 }
