@@ -19,19 +19,15 @@ export default function WaterProgressBar() {
 
   const waterDailyNorma = user?.dailyRequirement || DEFAULT_DAILY_NORMA;
 
-  console.log('User daily norma (ml):', waterDailyNorma);
-
   let amount = 0;
   if (dayWater && dayWater.length > 0) {
     amount = dayWater.reduce((total, item) => total + item.usedWater, 0);
   }
-  console.log('Total water consumed:', amount);
 
   const percentDaily = Math.min(
     Math.round((amount / waterDailyNorma) * 100),
     100
   );
-  console.log('Percent consumed:', percentDaily);
 
   let circleRightMod = -2;
   if (percentDaily <= 2) {

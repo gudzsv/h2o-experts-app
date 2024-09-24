@@ -136,5 +136,10 @@
 
   "userPanel": {
     "greeting": "Привіт"
+  },
+
+  "userBarPopover": {
+    "setting": "Налаштування",
+    "logout": "Вийти"
   }
 }

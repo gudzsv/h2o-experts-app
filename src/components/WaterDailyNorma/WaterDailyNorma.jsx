@@ -22,8 +22,6 @@ export default function WaterDailyNorma() {
     }
   }, [user]);
 
-  console.log('waterDailyNorma:', dailyNorm);
-
   return (
     <div className={css.container}>
       <p className={css.norma}>

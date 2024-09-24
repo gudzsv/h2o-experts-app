@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
@@ -6,6 +7,7 @@ import { CiSettings } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 
 const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
+  const { t } = useTranslation();
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
@@ -25,19 +27,19 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
         className={css.popoverButton}
         onClick={handleSettingsClick}
         aria-haspopup="dialog"
-        aria-label="Open settings"
+        aria-label={t('userBarPopover.setting')}
       >
         <CiSettings />
-        <span>Setting</span>
+        <span>{t('userBarPopover.setting')}</span>{' '}
       </button>
       <button
         className={css.popoverButton}
         onClick={handleLogoutClick}
         aria-haspopup="dialog"
-        aria-label="Log out"
+        aria-label={t('userBarPopover.logout')}
       >
         <IoIosLogOut />
-        <span>Log out</span>
+        <span>{t('userBarPopover.logout')}</span>{' '}
       </button>
 
       {isOpenSettings && (

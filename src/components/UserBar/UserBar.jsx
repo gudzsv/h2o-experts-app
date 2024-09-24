@@ -12,11 +12,6 @@ const UserBar = () => {
   const userBarRef = useRef(null);
   const popoverRef = useRef(null);
 
-  useEffect(() => {
-    console.log('User avatar:', userInfo?.photo);
-    console.log('User info:', userInfo);
-  }, [userInfo]);
-
   const userName =
     userInfo?.name === 'User'
       ? userInfo?.email.split('@')[0]

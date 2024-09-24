@@ -135,5 +135,10 @@
 
   "userPanel": {
     "greeting": "Hello"
+  },
+
+  "userBarPopover": {
+    "setting": "Setting",
+    "logout": "Log out"
   }
 }
