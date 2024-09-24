@@ -26,8 +26,17 @@ const userSettingsValidationSchema = Yup.object().shape({
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [imagePreview, setImagePreview] = useState();
-  const { email } = useSelector(selectUser);
+  const {
+    email,
+    name,
+    gender,
+    weight,
+    activityLevel,
+    dailyRequirement,
+    photo,
+  } = useSelector(selectUser);
+
+  const [imagePreview, setImagePreview] = useState(photo);
   const {
     register,
     handleSubmit,
@@ -37,6 +46,12 @@ const UserSettingsForm = () => {
     resolver: yupResolver(userSettingsValidationSchema),
     defaultValues: {
       userEmail: email,
+      userImage: photo,
+      gender: gender,
+      userName: name,
+      userWeight: weight,
+      userTime: activityLevel,
+      dailyRequirement: dailyRequirement,
     },
   });
 
@@ -64,11 +79,15 @@ const UserSettingsForm = () => {
       formData.append('weight', data.userWeight || 0);
       formData.append('activityLevel', data.userTime || 0);
       formData.append('dailyRequirement', data.dailyRequirement || 0);
-      if (data.userImage && data.userImage.length > 0) {
-        formData.append('photo', data.userImage[0]);
+      if (data.userImage && data.userImage instanceof File) {
+        formData.append('photo', data.userImage);
       }
+
       try {
-        await dispatch(editUser(formData));
+        const response = await dispatch(editUser(formData));
+        if (response?.payload?.photo) {
+          setImagePreview(response.payload.photo);
+        }
       } catch (error) {
         console.log('error:', error);
       }
