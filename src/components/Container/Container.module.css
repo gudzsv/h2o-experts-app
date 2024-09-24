@@ -4,9 +4,11 @@
   width: 100%;
   padding: 0 16px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Tablet */
 @media only screen and (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -14,9 +16,9 @@
   }
 }
 
-/* Desktop */
 @media only screen and (min-width: 1440px) {
   .container {
     max-width: 1440px;
+    height: 100vh;
   }
 }
