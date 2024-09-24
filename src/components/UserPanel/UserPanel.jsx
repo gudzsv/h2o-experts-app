@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next'; // Додаємо хук для перекладу
+import { useTranslation } from 'react-i18next';
 import UserBar from '../UserBar/UserBar.jsx';
 import {
   selectIsLoggedIn,
@@ -12,7 +12,7 @@ import css from './UserPanel.module.css';
 
 export default function UserPanel() {
   const dispatch = useDispatch();
-  const { t } = useTranslation(); // Ініціалізуємо переклад
+  const { t } = useTranslation();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isLoading = useSelector(selectIsLoading);

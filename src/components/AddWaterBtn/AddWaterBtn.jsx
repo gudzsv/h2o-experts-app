@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import clsx from 'clsx';
-import { useTranslation } from 'react-i18next'; // Додаємо хук для перекладу
+import { useTranslation } from 'react-i18next';
 import css from './AddWaterBtn.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 
@@ -18,7 +18,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
   onClick,
   day,
 }) {
-  const { t } = useTranslation(); // Ініціалізуємо переклад
+  const { t } = useTranslation();
   const prefixClass = btnType === 'primary' ? 'primary' : 'secondary';
 
   const buttonClassName = clsx(css[`${prefixClass}Button`], {
@@ -37,7 +37,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
     <button
       className={buttonClassName}
       onClick={handleClick}
-      aria-label={t('addWater')} // Переклад для aria-label
+      aria-label={t('addWater')}
       aria-haspopup="dialog"
       aria-pressed="false"
     >
@@ -50,7 +50,7 @@ const AddWaterBtn = memo(function AddWaterBtn({
         <use href={`${sprite}#icon-plus`}></use>
       </svg>
       <span className={getClassName(prefixClass, 'ButtonText', css)}>
-        {t('addWaterBtn.addWater')} {/* Переклад тексту кнопки */}
+        {t('addWaterBtn.addWater')}
       </span>
     </button>
   );
