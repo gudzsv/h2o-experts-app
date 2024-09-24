@@ -43,7 +43,7 @@ h2 {
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.32px;
-  padding-top: 172px;
+  padding-top: 150px;
 }
 
 @media screen and (min-width: 768px) {
@@ -57,7 +57,7 @@ h2 {
 
 @media screen and (min-width: 1440px) {
   .title {
-    padding-top: 113px;
+    padding-top: 60px;
   }
 }
 

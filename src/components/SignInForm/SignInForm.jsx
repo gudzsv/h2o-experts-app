@@ -11,7 +11,12 @@ import { getOAuthURL, login } from '../../redux/auth/operations';
 import { selectOAuthURL } from '../../redux/auth/selectors';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Required'),
+  email: Yup.string()
+    .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
+      message: 'Must be a valid email',
+      excludeEmptyString: true,
+    })
+    .required('Required'),
   password: Yup.string()
     .min(6, 'Password must contain at least 6 characters')
     .required('Required'),
@@ -68,11 +73,13 @@ const SignInForm = () => {
             <input
               id={emailId}
               {...register('email')}
-              type="email"
+              type="text"
               placeholder={t('signIn.placeholderEmail')}
               className={`${styles.input} ${
                 errors.email ? styles.errorInpt : ''
               }`}
+              autoComplete="email"
+              inputMode="email"
             />
             {errors.email && (
               <div className={styles.error}>{errors.email.message}</div>
