@@ -102,7 +102,6 @@ const UserSettingsForm = ({ onClose }) => {
       if (data.userImage && data.userImage instanceof File) {
         formData.append('photo', data.userImage);
       }
-      console.log('FormData:', ...formData);
       dispatch(editUser(formData));
       onClose(false);
     },
