@@ -4,18 +4,21 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100vh;
 }
 
 @media screen and (min-width: 768px) {
   .pageContentWrapper {
     margin-top: 32px;
     margin-bottom: 32px;
+
+    align-items: center;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .pageContentWrapper {
-    display: flex;
+    justify-content: center;
     flex-direction: row;
     gap: 32px;
   }

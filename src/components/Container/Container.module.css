@@ -1,12 +1,11 @@
 .container {
+  width: 100%;
   min-width: 320px;
   max-width: 375px;
-  width: 100%;
   padding: 0 16px;
   margin: 0 auto;
 }
 
-/* Tablet */
 @media only screen and (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -14,9 +13,9 @@
   }
 }
 
-/* Desktop */
 @media only screen and (min-width: 1440px) {
   .container {
     max-width: 1440px;
+    /* height: 100vh; */
   }
 }
