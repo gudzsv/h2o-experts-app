@@ -205,5 +205,13 @@
     "October": "Жовтень",
     "November": "Листопад",
     "December": "Грудень"
+  },
+  "validationForm": {
+    "drinkingTimeRequired": "Час запису є обов’язковим",
+    "usedWaterRequired": "Водне значення є обов’язковим!",
+    "usedWaterTypeError": "Значення має бути числом",
+    "usedWaterPositive": "Значення має бути більше за 0",
+    "usedWaterInteger": "Значення має бути цілим числом",
+    "usedWaterMax": "Значення не повинно перевищувати 9999"
   }
 }
