@@ -51,6 +51,7 @@ const UserSettingsForm = ({ onClose }) => {
     watch,
     formState: { errors },
   } = useForm({
+    mode: 'onTouched',
     resolver: yupResolver(userSettingsValidationSchema),
     defaultValues: {
       userEmail: email,
@@ -188,7 +189,9 @@ const UserSettingsForm = ({ onClose }) => {
                 type="text"
                 id="userName"
                 name="userName"
-                className={css.userInput}
+                className={`${css.userInput} ${
+                  errors.userName ? css.errorInput : ''
+                }`}
                 placeholder={t('settingsForm.userNamePlaceholder')}
                 autoComplete="name"
                 {...register('userName')}
@@ -210,7 +213,9 @@ const UserSettingsForm = ({ onClose }) => {
                 type="email"
                 id="userEmail"
                 name="userEmail"
-                className={css.userInput}
+                className={`${css.userInput} ${
+                  errors.userEmail ? css.errorInput : ''
+                }`}
                 placeholder="nadia10@gmail.com"
                 autoComplete="email"
                 {...register('userEmail')}
