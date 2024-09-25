@@ -23,8 +23,6 @@ const WaterList = ({ waterData, onEdit, onDelete, dateForCalendar }) => {
     [waterData]
   );
 
-  console.log(filteredWaterData);
-
   return (
     <div>
       <ScrollMenu

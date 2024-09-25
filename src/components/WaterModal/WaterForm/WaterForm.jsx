@@ -127,7 +127,6 @@
 
 //     if (actionType === 'add') {
 //       dispatch(addWater(payload));
-//       console.log(payload);
 
 //       setTimeout(() => {
 //         dispatch(getMonthWater(currentDay.slice(0, -3)));
