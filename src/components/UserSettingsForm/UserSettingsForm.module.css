@@ -165,6 +165,16 @@
   margin-bottom: 0;
   margin-top: 10px;
 }
+.errorInput {
+  color: var(--error);
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(233, 66, 66, 0.3);
+}
+.errorInput:focus,
+.errorInput:hover {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(233, 66, 66, 0.3);
+}
 .subtitle {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
