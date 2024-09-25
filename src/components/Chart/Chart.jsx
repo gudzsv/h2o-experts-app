@@ -103,7 +103,7 @@ const Chart = () => {
             />
             <YAxis
               axisLine={false}
-              tick={{ dx: -7 }}
+              tick={{ dx: -10 }}
               tickLine={false}
               tickFormatter={value => `${value}`}
             />
