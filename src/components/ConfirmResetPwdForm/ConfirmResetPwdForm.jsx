@@ -1,6 +1,6 @@
 import css from './ConfirmResetPwdForm.module.css';
 
-import { useId } from 'react';
+import { useEffect, useId } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,10 @@ const ConfirmResetPwdForm = () => {
     },
     resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    reset();
+  }, [t, reset]);
 
   const onSubmit = data => {
     dispatch(sendResetEmail(data));

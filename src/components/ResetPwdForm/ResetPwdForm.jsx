@@ -1,6 +1,6 @@
 import css from './ResetPwdForm.module.css';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
@@ -52,6 +52,10 @@ const ResetPwdForm = () => {
     },
     resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    reset();
+  }, [t, reset]);
 
   const onSubmit = data => {
     const { password } = data;
