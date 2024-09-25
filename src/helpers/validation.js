@@ -33,3 +33,18 @@ export const getSignInValidationSchema = t => {
     password: getPasswordValidation(t),
   });
 };
+
+export const confirmResetPwdValidationSchema = t => {
+  return Yup.object().shape({
+    email: getEmailValidation(t),
+  });
+};
+
+export const resetPwdValidationSchema = t => {
+  return Yup.object().shape({
+    password: getPasswordValidation(t),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref('password')], t('validation.repeatPasswordMessage'))
+      .required(t('validation.requiredMessage')),
+  });
+};
