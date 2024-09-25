@@ -68,13 +68,6 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
           />
         )}
       </div>
-      {isDeleteModalOpen && (
-        <DeleteWaterModal
-          modalIsOpen={isDeleteModalOpen}
-          id={item._id}
-          closeModal={closeDeleteModal}
-        />
-      )}
     </div>
   );
 };

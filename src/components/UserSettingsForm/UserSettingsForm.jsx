@@ -115,7 +115,7 @@ const UserSettingsForm = ({ onClose }) => {
       dispatch(editUser(formData));
       onClose(false);
     },
-    [dispatch]
+    [dispatch, onClose]
   );
 
   return (

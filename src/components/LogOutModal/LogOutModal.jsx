@@ -4,14 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { logOut } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
 import { ModalTemplate } from '../Modal/Modal';
-import { useTranslation } from 'react-i18next';
 import css from './LogOutModal.module.css';
 
 export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleLogOut = () => {
     dispatch(logOut()).then(response => {
