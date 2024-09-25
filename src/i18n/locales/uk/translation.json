@@ -111,7 +111,7 @@
     "genderWoman": "Жінка",
     "genderMan": "Чоловік",
     "userNameLabel": "Ваше ім'я",
-    "userNamePlaceholder": "Надія",
+    "userNamePlaceholder": "ім'я користувача",
     "userEmailLabel": "Електронна пошта",
     "subtitle": "Моя денна норма",
     "textForWoman": "Для жінки:",
@@ -122,7 +122,8 @@
     "userTime": "Час активного заняття спортом:",
     "WaterAmount": " Необхідна кількість води в літрах на добу:",
     "labelWaterNorma": "Запишіть, скільки води ви будете пити:",
-    "subButton": "Зберегти"
+    "subButton": "Зберегти",
+    "errorField": "Поле має бути заповнене"
   },
 
   "resetPwd": {
