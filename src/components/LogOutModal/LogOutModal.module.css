@@ -1,14 +1,24 @@
 .modalLogoutContent {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 16px;
 }
 
+.titleOut {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .modLogout {
   text-align: center;
-  padding-bottom: 16px;
+  font-size: 20px;
+}
+
+.qModLogout {
+  font-size: 14px;
 }
 
 .modalLogoutBtn {
@@ -21,10 +31,11 @@
 
 .modalLogoutBtnOut {
   display: flex;
-  padding: 14px 126px;
+  padding: 14px 124px;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 100%;
   border-radius: 30px;
   background: var(--Accent, #9be1a0);
 }
@@ -35,6 +46,43 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 100%;
   border-radius: 30px;
   background: #f0eff4;
+}
+
+@media only screen and (min-width: 767.97px) {
+  .modalLogoutContent {
+    gap: 24px;
+    min-width: 435px;
+  }
+
+  .titleOut {
+    gap: 24px;
+  }
+
+  .modalLogoutBtn {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .modalLogoutBtnOut {
+    padding: 18px 67px;
+    width: 100%;
+    min-width: 200px;
+  }
+
+  .modalLogoutBtnCancel {
+    padding: 18px 59px;
+    width: 100%;
+    min-width: 200px;
+  }
+
+  .modLogout {
+    font-size: 28px;
+  }
+
+  .qModLogout {
+    font-size: 18px;
+  }
 }

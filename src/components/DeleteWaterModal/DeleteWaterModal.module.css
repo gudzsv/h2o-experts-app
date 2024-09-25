@@ -1,14 +1,24 @@
 .deleteWaterModalContent {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 28px;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
 .modDelete {
   text-align: center;
-  padding-bottom: 16px;
+  font-size: 20px;
+}
+
+.qModDel {
+  font-size: 14px;
 }
 
 .deleteWaterModalBtn {
@@ -25,6 +35,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 100%;
   border-radius: 30px;
   background: var(--Accent, #9be1a0);
 }
@@ -35,6 +46,44 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 100%;
   border-radius: 30px;
   background: #f0eff4;
+}
+
+@media only screen and (min-width: 767.97px) {
+  .deleteWaterModalContent {
+    gap: 24px;
+    min-width: 435px;
+  }
+
+  .titleBlock {
+    gap: 24px;
+  }
+  
+  .deleteWaterModalBtn {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .deleteButtonModal {
+    padding: 18px 67px;
+    width: 100%;
+    min-width: 200px;
+    
+  }
+
+  .cancelButtonModal {
+    padding: 18px 59px;
+    width: 100%;
+    min-width: 200px;
+  }
+
+  .modDelete {
+    font-size: 28px;
+  }
+
+  .qModDel {
+    font-size: 18px;
+  }
 }

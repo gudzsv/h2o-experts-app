@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
 import { ModalTemplate } from '../Modal/Modal';
+import { useTranslation } from 'react-i18next';
 import css from './LogOutModal.module.css';
 
 export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,28 +27,28 @@ export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
         aria-labelledby="logoutModalTitle"
         aria-describedby="logoutModalDescription"
       >
-        <div>
+        <div className={css.titleOut}>
           <h2 id="logoutModalTitle" className={css.modLogout}>
-            Log out
+            {t('logoutModal.outtitle')}
           </h2>
           <p id="logoutModalDescription" className={css.qModLogout}>
-            Do you really want to leave?
+            {t('logoutModal.questionout')}
           </p>
         </div>
         <div className={css.modalLogoutBtn}>
           <button
             className={css.modalLogoutBtnOut}
             onClick={handleLogOut}
-            aria-label="Confirm log out"
+            aria-label={t('logoutModal.ariaConfirm')}
           >
-            Log out
+            {t('logoutModal.outbtn')}
           </button>
           <button
             className={css.modalLogoutBtnCancel}
             onClick={closeModal}
-            aria-label="Cancel log out"
+            aria-label={t('logoutModal.ariaClose')}
           >
-            Cancel
+            {t('logoutModal.cancelbtn')}
           </button>
         </div>
       </div>
