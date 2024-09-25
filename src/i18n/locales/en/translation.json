@@ -60,6 +60,13 @@
     "placeholderRepeatPassword": "Repeat password"
   },
 
+  "validation": {
+    "emailMessage": "Must be a valid email",
+    "requiredMessage": "Required",
+    "passwordMessage": "Password must contain at least 6 characters",
+    "repeatPasswordMessage": "Passwords must match"
+  },
+
   "notFound": {
     "title": "Oops!",
     "info": "Looks like this page is not available.",

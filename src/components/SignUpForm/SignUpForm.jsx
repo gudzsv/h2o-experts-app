@@ -1,17 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useId } from 'react';
+import { useId, useEffect } from 'react';
 import { useState } from 'react';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { register as signUp } from '../../redux/auth/operations';
 import { useDispatch } from 'react-redux';
-import { signUpValidationSchema } from '../../helpers/validation';
+import { getSignUpValidationSchema } from '../../helpers/validation';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const validationSchema = getSignUpValidationSchema(t);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
@@ -32,8 +33,12 @@ const SignUpForm = () => {
       password: '',
       repeatPassword: '',
     },
-    resolver: yupResolver(signUpValidationSchema),
+    resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    reset();
+  }, [t, reset]);
 
   const onSubmit = data => {
     const { email, password } = data;

@@ -8,7 +8,7 @@ import sprite from '../../assets/icons/sprite.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOAuthURL, login } from '../../redux/auth/operations';
 import { selectOAuthURL } from '../../redux/auth/selectors';
-import { signInValidationSchema } from '../../helpers/validation';
+import { getSignInValidationSchema } from '../../helpers/validation';
 
 const navigate = url => {
   return (window.location.href = url);
@@ -19,7 +19,7 @@ const SignInForm = () => {
   const OAuthURL = useSelector(selectOAuthURL);
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
-
+  const validationSchema = getSignInValidationSchema(t);
   const emailId = useId();
   const passwordId = useId();
 
@@ -38,8 +38,12 @@ const SignInForm = () => {
       email: '',
       password: '',
     },
-    resolver: yupResolver(signInValidationSchema),
+    resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    reset();
+  }, [t, reset]);
 
   const onSubmit = data => {
     dispatch(login(data));
