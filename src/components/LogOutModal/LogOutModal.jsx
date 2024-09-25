@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { logOut } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
 import { ModalTemplate } from '../Modal/Modal';
+import { useTranslation } from 'react-i18next';
 import css from './LogOutModal.module.css';
 
 export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -28,7 +30,7 @@ export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
         aria-labelledby="logoutModalTitle"
         aria-describedby="logoutModalDescription"
       >
-        <div>
+        <div className={css.titleOut}>
           <h2 id="logoutModalTitle" className={css.modLogout}>
             {t('logOutModal.title')}
           </h2>

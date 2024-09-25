@@ -14,9 +14,10 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-  };
+  const handleCloseDeleteModal = () => setIsDeleteModalOpen(false);
+
+  const handleOpenModel = () => setIsDeleteModalOpen(true);
+
   const handleDelete = () => {
     onDelete(item._id);
   };
@@ -52,13 +53,20 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
 
         <button
           className={css.delete_btn}
-          onClick={handleDelete}
+          onClick={handleOpenModel}
           aria-label="Delete water entry"
         >
           <svg width="14" height="14" className={css.trash}>
             <use href={`${sprite}#icon-trash`}></use>
           </svg>
         </button>
+        {isDeleteModalOpen && (
+          <DeleteWaterModal
+            modalIsOpen={isDeleteModalOpen}
+            handleDelete={handleDelete}
+            closeModal={handleCloseDeleteModal}
+          />
+        )}
       </div>
       {isDeleteModalOpen && (
         <DeleteWaterModal

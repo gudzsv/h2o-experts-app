@@ -8,6 +8,10 @@ import { editUser } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
 import { useTranslation } from 'react-i18next';
 
+import avatarMobile1x from '../../assets/img/settings_avatar/settings_avatar_mob_1x.webp';
+import avatarMobile2x from '../../assets/img/settings_avatar/settings_avatar_mob_2x.webp';
+import sprite from '../../assets/icons/sprite.svg';
+
 const userSettingsValidationSchema = Yup.object().shape({
   userImage: Yup.mixed(),
   gender: Yup.string().required('Please select your gender'),
@@ -18,9 +22,18 @@ const userSettingsValidationSchema = Yup.object().shape({
   userEmail: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
-  userWeight: Yup.number(),
-  userTime: Yup.number(),
-  dailyRequirement: Yup.number(),
+  userWeight: Yup.number()
+    .typeError('Weight should be a numeric value')
+    .min(1, 'Weight must be greater than 0')
+    .required('Weight is required'),
+  userTime: Yup.number()
+    .typeError('Active time should be a numeric value.')
+    .min(1, 'Active time must be greater than 0')
+    .required('Active time is required'),
+  dailyRequirement: Yup.number()
+    .typeError('Daily water should be a numeric value.')
+    .min(1, 'Daily water requirement must be greater than 0')
+    .required('Daily water requirement is required'),
 });
 
 const UserSettingsForm = ({ onClose }) => {
@@ -47,6 +60,7 @@ const UserSettingsForm = ({ onClose }) => {
     watch,
     formState: { errors },
   } = useForm({
+    mode: 'onTouched',
     resolver: yupResolver(userSettingsValidationSchema),
     defaultValues: {
       userEmail: email,
@@ -116,14 +130,11 @@ const UserSettingsForm = ({ onClose }) => {
           onChange={handleImageChange}
         />
         <img
-          src={
-            imagePreview ||
-            '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp'
-          }
+          src={imagePreview || avatarMobile1x}
           srcSet={
             imagePreview
               ? `${imagePreview}`
-              : '/src/assets/img/settings_avatar/settings_avatar_mob_1x.webp, /src/assets/img/settings_avatar/settings_avatar_mob_2x.webp'
+              : `${avatarMobile1x} 1x, ${avatarMobile2x} 2x`
           }
           alt={t('settingsForm.userPhotoAlt')}
           aria-label="Upload a photo"
@@ -134,7 +145,7 @@ const UserSettingsForm = ({ onClose }) => {
         />
         <label htmlFor="userImage" className={css.uploadButton}>
           <svg>
-            <use href="/src/assets/icons/sprite.svg#icon-upload"></use>
+            <use href={`${sprite}#icon-upload`}></use>
           </svg>
           {t('settingsForm.userUploadButton')}
         </label>
@@ -187,7 +198,9 @@ const UserSettingsForm = ({ onClose }) => {
                 type="text"
                 id="userName"
                 name="userName"
-                className={css.userInput}
+                className={`${css.userInput} ${
+                  errors.userName ? css.errorInput : ''
+                }`}
                 placeholder={t('settingsForm.userNamePlaceholder')}
                 autoComplete="name"
                 {...register('userName')}
@@ -209,8 +222,10 @@ const UserSettingsForm = ({ onClose }) => {
                 type="email"
                 id="userEmail"
                 name="userEmail"
-                className={css.userInput}
-                placeholder="nadia10@gmail.com"
+                className={`${css.userInput} ${
+                  errors.userEmail ? css.errorInput : ''
+                }`}
+                placeholder="example@email.com"
                 autoComplete="email"
                 {...register('userEmail')}
               />
@@ -255,9 +270,16 @@ const UserSettingsForm = ({ onClose }) => {
               name="userWeight"
               placeholder="0"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.userWeight ? css.errorInput : ''
+              }`}
               {...register('userWeight')}
             />
+            {errors.userWeight && (
+              <p className={css.error} aria-live="assertive">
+                {errors.userWeight.message}
+              </p>
+            )}
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="userTime" className={css.labelRegularly}>
@@ -269,9 +291,16 @@ const UserSettingsForm = ({ onClose }) => {
               name="userTime"
               placeholder="0"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.userTime ? css.errorInput : ''
+              }`}
               {...register('userTime')}
             />
+            {errors.userTime && (
+              <p className={css.error} aria-live="assertive">
+                {errors.userTime.message}
+              </p>
+            )}
           </div>
           <div className={css.wrapperWaterAmount}>
             <p className={css.labelRegularlyWaterAmount}>
@@ -292,11 +321,17 @@ const UserSettingsForm = ({ onClose }) => {
               type="text"
               id="dailyRequirement"
               name="dailyRequirement"
-              placeholder="1.8"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.dailyRequirement ? css.errorInput : ''
+              }`}
               {...register('dailyRequirement')}
             />
+            {errors.dailyRequirement && (
+              <p className={css.error} aria-live="assertive">
+                {errors.dailyRequirement.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
