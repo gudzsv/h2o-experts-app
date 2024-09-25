@@ -3,24 +3,25 @@ import css from './ResetPwdForm.module.css';
 import { useId, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import sprite from '../../assets/icons/sprite.svg';
 
 import { resetPwd } from '../../redux/auth/operations';
-import { useNavigate } from 'react-router';
 
-const validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(6, 'Password must contain at least 6 characters')
-    .required('Required'),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Required'),
-});
+import { resetPwdValidationSchema } from '../../helpers/validation';
+
+// const validationSchema = Yup.object().shape({
+//   password: Yup.string()
+//     .min(6, 'Password must contain at least 6 characters')
+//     .required('Required'),
+//   repeatPassword: Yup.string()
+//     .oneOf([Yup.ref('password')], 'Passwords must match')
+//     .required('Required'),
+// });
 
 const ResetPwdForm = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const ResetPwdForm = () => {
 
   const url = new URL(window.location.href);
   const token = url.searchParams.get('token');
+
+  const validationSchema = resetPwdValidationSchema(t);
 
   const {
     register,

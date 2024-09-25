@@ -5,19 +5,16 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { sendResetEmail } from '../../redux/auth/operations';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Required'),
-});
+import { confirmResetPwdValidationSchema } from '../../helpers/validation';
 
 const ConfirmResetPwdForm = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  const validationSchema = confirmResetPwdValidationSchema(t);
   const emailId = useId();
 
   const {
