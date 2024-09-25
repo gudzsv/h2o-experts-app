@@ -54,15 +54,25 @@ const UserBar = () => {
         aria-haspopup="true"
         aria-expanded={menuOpen}
       >
-        {userName}
+        <span className={css.userName}>{userName}</span>
         {userInfo?.photo ? (
-          <img src={userInfo.photo} alt="User Avatar" className={css.avatar} />
+          <img
+            src={userInfo.photo}
+            alt="User Avatar"
+            className={css.avatar}
+            width={38}
+            height={38}
+          />
         ) : (
           <span className={css.avatarPlaceholder}>
             <AiTwotoneSmile />
           </span>
         )}
-        <svg className={`${css.chevron} ${menuOpen ? css.open : ''}`}>
+        <svg
+          className={`${css.chevron} ${menuOpen ? css.open : ''}`}
+          width={16}
+          height={16}
+        >
           <use href={`${sprite}#icon-chevron-up`} />
         </svg>
       </button>

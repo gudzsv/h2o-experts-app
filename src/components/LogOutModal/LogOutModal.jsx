@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { logOut } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
 import { ModalTemplate } from '../Modal/Modal';
@@ -10,13 +11,15 @@ export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const handleLogOut = async () => {
-    const response = await dispatch(logOut());
-    if (response.meta.requestStatus === 'fulfilled') {
-      closeModal();
-      navigate('/');
-    }
+  const handleLogOut = () => {
+    dispatch(logOut()).then(response => {
+      if (response.meta.requestStatus === 'fulfilled') {
+        closeModal();
+        navigate('/');
+      }
+    });
   };
 
   return (
@@ -29,26 +32,26 @@ export const LogOutModal = React.memo(({ modalIsOpen, closeModal }) => {
       >
         <div className={css.titleOut}>
           <h2 id="logoutModalTitle" className={css.modLogout}>
-            {t('logoutModal.outtitle')}
+            {t('logOutModal.title')}
           </h2>
           <p id="logoutModalDescription" className={css.qModLogout}>
-            {t('logoutModal.questionout')}
+            {t('logOutModal.confirm')}
           </p>
         </div>
         <div className={css.modalLogoutBtn}>
           <button
             className={css.modalLogoutBtnOut}
             onClick={handleLogOut}
-            aria-label={t('logoutModal.ariaConfirm')}
+            aria-label={t('logOutModal.ariaLogOut')}
           >
-            {t('logoutModal.outbtn')}
+            {t('logOutModal.logOut')}
           </button>
           <button
             className={css.modalLogoutBtnCancel}
             onClick={closeModal}
-            aria-label={t('logoutModal.ariaClose')}
+            aria-label={t('logOutModal.ariaClose')}
           >
-            {t('logoutModal.cancelbtn')}
+            {t('logOutModal.close')}
           </button>
         </div>
       </div>

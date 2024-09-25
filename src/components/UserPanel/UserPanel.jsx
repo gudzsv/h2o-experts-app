@@ -1,29 +1,14 @@
-// import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import UserBar from '../UserBar/UserBar.jsx';
-import {
-  // selectIsLoggedIn,
-  // selectIsLoading,
-  selectUser,
-} from '../../redux/auth/selectors.js';
-// import { currentUser } from '../../redux/auth/operations.js';
+import { selectUser } from '../../redux/auth/selectors.js';
+
 import css from './UserPanel.module.css';
 
 export default function UserPanel() {
-  // const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
-  // const isLoading = useSelector(selectIsLoading);
   const userInfo = useSelector(selectUser);
-
-  // useEffect(() => {
-  //   // if (isLoggedIn) {
-  //   //   dispatch(currentUser());
-  //   // }
-  //   // userInfo = useSelector(selectUser);
-  // }, [dispatch, userInfo]);
 
   const userName =
     userInfo?.name === 'User'
@@ -32,15 +17,11 @@ export default function UserPanel() {
 
   return (
     <div className={css.container}>
-      {/* {isLoggedIn && !isLoading && ( */}
-      <>
-        <h2 className={css.salutation}>
-          {t('userPanel.greeting')},{' '}
-          <span className={css.userName}>{userName}</span>!
-        </h2>
-        <UserBar userInfo={userInfo} />
-      </>
-      {/* )} */}
+      <h2 className={css.salutation}>
+        {t('userPanel.greeting')},&nbsp;
+        <span className={css.userName}>{userName}!</span>
+      </h2>
+      <UserBar userInfo={userInfo} />
     </div>
   );
 }

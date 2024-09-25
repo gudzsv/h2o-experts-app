@@ -27,7 +27,7 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
     <div>
       <ScrollMenu
         scrollContainerClassName={css.horizontal_scroll_container}
-        LeftArrow={null} // Явно зазначено, що стрілки не потрібні
+        LeftArrow={null}
         RightArrow={null}
         wheel={true}
       >

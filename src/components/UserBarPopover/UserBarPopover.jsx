@@ -21,30 +21,31 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   };
 
   return (
-    <div className={css.userBarPopover} ref={popoverRef}>
-      <button
-        className={css.popoverButton}
-        onClick={handleSettingsClick}
-        aria-haspopup="dialog"
-        aria-label={t('userBarPopover.setting')}
-      >
-        <svg className={css.icon} width="16" height="16">
-          <use xlinkHref={`${sprite}#icon-settings`} />
-        </svg>
-        <span>{t('userBarPopover.setting')}</span>
-      </button>
-      <button
-        className={css.popoverButton}
-        onClick={handleLogoutClick}
-        aria-haspopup="dialog"
-        aria-label={t('userBarPopover.logout')}
-      >
-        <svg className={css.icon} width="16" height="16">
-          <use xlinkHref={`${sprite}#icon-log-out`} />
-        </svg>
-        <span>{t('userBarPopover.logout')}</span>
-      </button>
-
+    <>
+      <div className={css.userBarPopover} ref={popoverRef}>
+        <button
+          className={css.settingBtn}
+          onClick={handleSettingsClick}
+          aria-haspopup="dialog"
+          aria-label={t('userBarPopover.setting')}
+        >
+          <svg className={css.iconDark} width="16" height="16">
+            <use xlinkHref={`${sprite}#icon-settings`} />
+          </svg>
+          <span className={css.textBalk}>{t('userBarPopover.setting')}</span>
+        </button>
+        <button
+          className={css.logOutBtn}
+          onClick={handleLogoutClick}
+          aria-haspopup="dialog"
+          aria-label={t('userBarPopover.logout')}
+        >
+          <svg className={css.iconGray} width="16" height="16">
+            <use xlinkHref={`${sprite}#icon-log-out`} />
+          </svg>
+          <span className={css.textGray}>{t('userBarPopover.logout')}</span>
+        </button>
+      </div>
       {isOpenSettings && (
         <UserSettingsModal
           onClose={setIsOpenSettings}
@@ -60,7 +61,7 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
           }}
         />
       )}
-    </div>
+    </>
   );
 });
 

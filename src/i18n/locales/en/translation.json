@@ -103,13 +103,13 @@
     "ariaClose": "Cancel delete"
   },
 
-  "logoutModal": {
-    "outtitle": "Log Out",
-    "questionout": "Do you really want to leave?",
-    "outbtn": "Log Out",
-    "ariaConfirm": "Confirm logout",
-    "cancelbtn": "Cancel",
-    "ariaClose": "Cancel logout"
+  "logOutModal": {
+    "title": "Log out",
+    "confirm": "Do you really want to leave?",
+    "logOut": "Log out",
+    "ariaLogOut": "Confirm log out",
+    "close": "Cancel",
+    "ariaClose": "Cancel log out"
   },
 
   "settingsForm": {
@@ -158,5 +158,29 @@
   "userBarPopover": {
     "setting": "Setting",
     "logout": "Log out"
+  },
+
+  "calendar": {
+    "statistics": "Statistics",
+    "month": "Month",
+    "previousMonth": "previous month",
+    "nextMonth": "next month",
+    "hideChart": "hide chart",
+    "showChart": "show chart"
+  },
+
+  "months": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
   }
 }

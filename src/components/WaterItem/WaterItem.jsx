@@ -60,7 +60,6 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
             <use href={`${sprite}#icon-trash`}></use>
           </svg>
         </button>
-
         {isDeleteModalOpen && (
           <DeleteWaterModal
             modalIsOpen={isDeleteModalOpen}
@@ -69,6 +68,13 @@ const WaterItem = ({ item, onEdit, onDelete }) => {
           />
         )}
       </div>
+      {isDeleteModalOpen && (
+        <DeleteWaterModal
+          modalIsOpen={isDeleteModalOpen}
+          id={item._id}
+          closeModal={closeDeleteModal}
+        />
+      )}
     </div>
   );
 };

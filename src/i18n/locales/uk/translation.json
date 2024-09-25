@@ -96,7 +96,7 @@
   },
 
   "deleteModal": {
-    "title": "Видалення запису",
+    "title": "Видалити запис",
     "confirm": "Ви впевнені, що хочете видалити запис?",
     "delete": "Видалити",
     "ariaDelete": "Підтвердити видалення",
@@ -104,12 +104,12 @@
     "ariaClose": "Скасувати видалення"
   },
 
-  "logoutModal": {
-    "outtitle": "Вихід з системи",
-    "questionout": "Ви дійсно хочете вийти за системи?",
-    "outbtn": "Вийти",
-    "ariaConfirm": "Підтвердити вихід",
-    "cancelbtn": "Скасувати",
+  "logOutModal": {
+    "title": "Вихід",
+    "confirm": "Ви дійсно хочете вийти?",
+    "logOut": "Вийти",
+    "ariaLogOut": "Підтвердити вихід",
+    "close": "Скасувати",
     "ariaClose": "Скасувати вихід"
   },
 
@@ -159,5 +159,29 @@
   "userBarPopover": {
     "setting": "Налаштування",
     "logout": "Вийти"
+  },
+
+  "calendar": {
+    "statistics": "Статистика",
+    "month": "Місяць",
+    "previousMonth": "попередній місяць",
+    "nextMonth": "наступний місяць",
+    "hideChart": "приховати діаграму",
+    "showChart": "показати діаграму"
+  },
+
+  "months": {
+    "January": "Січень",
+    "February": "Лютий",
+    "March": "Березень",
+    "April": "Квітень",
+    "May": "Травень",
+    "June": "Червень",
+    "July": "Липень",
+    "August": "Серпень",
+    "September": "Вересень",
+    "October": "Жовтень",
+    "November": "Листопад",
+    "December": "Грудень"
   }
 }

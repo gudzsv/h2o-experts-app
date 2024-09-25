@@ -3,7 +3,7 @@ import styles from './LoaderForDailyInfo.module.css';
 
 const BallTriangleLoader = () => (
   <div className={styles.dailyInfoLoader}>
-    <BallTriangle height={65} width={65} ariaLabel="loading" />
+    <BallTriangle height={40} width={40} ariaLabel="loading" />
   </div>
 );
 
