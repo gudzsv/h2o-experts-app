@@ -204,5 +204,13 @@
     "October": "October",
     "November": "November",
     "December": "December"
+  },
+  "validationForm": {
+    "drinkingTimeRequired": "Recording time is required",
+    "usedWaterRequired": "Water value is required!",
+    "usedWaterTypeError": "Value must be a number",
+    "usedWaterPositive": "Value must be greater than 0",
+    "usedWaterInteger": "Value must be a whole number",
+    "usedWaterMax": "Value must not exceed 9999"
   }
 }

@@ -22,20 +22,6 @@ const generateTimeOptions = () => {
   });
 };
 
-const validationSchema = Yup.object().shape({
-  drinkingTime: Yup.string().required('Recording time is required'),
-  usedWater: Yup.number()
-    .nullable()
-    .transform((value, originalValue) => {
-      return originalValue === '' ? null : value;
-    })
-    .required('Water value is required!')
-    .typeError('Value must be a number')
-    .positive('Value must be greater than 0')
-    .integer('Value must be a whole number')
-    .max(9999, 'Value must not exceed 9999'),
-});
-
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const timeOptions = generateTimeOptions(); // Винесена за компонент
   const { t } = useTranslation();
@@ -52,6 +38,22 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       : formattedTime;
 
   const defaultUsedWater = actionType === 'edit' ? waterItem.usedWater : 50;
+
+  const validationSchema = Yup.object().shape({
+    drinkingTime: Yup.string().required(
+      t('validationForm.drinkingTimeRequired')
+    ),
+    usedWater: Yup.number()
+      .nullable()
+      .transform((value, originalValue) => {
+        return originalValue === '' ? null : value;
+      })
+      .required(t('validationForm.usedWaterRequired'))
+      .typeError(t('validationForm.usedWaterTypeError'))
+      .positive(t('validationForm.usedWaterPositive'))
+      .integer(t('validationForm.usedWaterInteger'))
+      .max(9999, t('validationForm.usedWaterMax')),
+  });
 
   const {
     register,
