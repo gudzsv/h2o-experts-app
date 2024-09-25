@@ -129,8 +129,23 @@
     "userWeight": "Your weight in kilograms:",
     "userTime": "The time of active participation in sports:",
     "WaterAmount": " The required amount of water in liters per day:",
-    "labelWaterNorma": "Write down how much water you will drink:",
-    "subButton": "Save"
+    "labelWaterNorma": "Write down how much water you will drink (ml):",
+    "subButton": "Save",
+    "ValidationGender": "Please select your gender",
+    "ValidationNameMin": "The minimum number of characters is 3",
+    "ValidationNameMax": "The maximum number of characters is 50",
+    "ValidationNameRequired": "Name is required",
+    "ValidationEmail": "Invalid email format",
+    "ValidationEmailRequired": "Email is required",
+    "ValidationWeightTypeError": "Weight should be a numeric value",
+    "ValidationWeightMin": "Weight must be greater than 0",
+    "ValidationWeightRequired": "Weight is required",
+    "ValidationTimeTypeError": "Active time should be a numeric value.",
+    "ValidationTimeMin": "Active time must be greater than 0",
+    "ValidationTimeRequired": "Active time is required",
+    "ValidationDailyRequirementTypeError": "Daily water should be a numeric value",
+    "ValidationDailyRequirementMin": "Daily water requirement must be greater than 0",
+    "ValidationDailyRequirementRequired": "Daily water requirement is required"
   },
 
   "resetPwd": {
