@@ -22,9 +22,18 @@ const userSettingsValidationSchema = Yup.object().shape({
   userEmail: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
-  userWeight: Yup.number(),
-  userTime: Yup.number(),
-  dailyRequirement: Yup.number(),
+  userWeight: Yup.number()
+    .typeError('Weight should be a numeric value')
+    .min(1, 'Weight must be greater than 0')
+    .required('Weight is required'),
+  userTime: Yup.number()
+    .typeError('Active time should be a numeric value.')
+    .min(1, 'Active time must be greater than 0')
+    .required('Active time is required'),
+  dailyRequirement: Yup.number()
+    .typeError('Daily water should be a numeric value.')
+    .min(1, 'Daily water requirement must be greater than 0')
+    .required('Daily water requirement is required'),
 });
 
 const UserSettingsForm = ({ onClose }) => {
@@ -268,7 +277,7 @@ const UserSettingsForm = ({ onClose }) => {
             />
             {errors.userWeight && (
               <p className={css.error} aria-live="assertive">
-                {t('settingsForm.errorField')}
+                {errors.userWeight.message}
               </p>
             )}
           </div>
@@ -289,7 +298,7 @@ const UserSettingsForm = ({ onClose }) => {
             />
             {errors.userTime && (
               <p className={css.error} aria-live="assertive">
-                {t('settingsForm.errorField')}
+                {errors.userTime.message}
               </p>
             )}
           </div>
@@ -312,11 +321,17 @@ const UserSettingsForm = ({ onClose }) => {
               type="text"
               id="dailyRequirement"
               name="dailyRequirement"
-              placeholder="1.8"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.dailyRequirement ? css.errorInput : ''
+              }`}
               {...register('dailyRequirement')}
             />
+            {errors.dailyRequirement && (
+              <p className={css.error} aria-live="assertive">
+                {errors.dailyRequirement.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
