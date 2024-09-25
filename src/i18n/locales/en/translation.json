@@ -110,7 +110,7 @@
     "genderWoman": "Woman",
     "genderMan": "Man",
     "userNameLabel": "Your name",
-    "userNamePlaceholder": "Nadia",
+    "userNamePlaceholder": "User name",
     "userEmailLabel": "Email",
     "subtitle": "My daily norma",
     "textForWoman": "For woman:",
@@ -121,7 +121,8 @@
     "userTime": "The time of active participation in sports:",
     "WaterAmount": " The required amount of water in liters per day:",
     "labelWaterNorma": "Write down how much water you will drink:",
-    "subButton": "Save"
+    "subButton": "Save",
+    "errorField": "The field must be filled"
   },
 
   "resetPwd": {

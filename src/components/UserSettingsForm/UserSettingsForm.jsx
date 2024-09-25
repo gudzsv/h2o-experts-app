@@ -216,7 +216,7 @@ const UserSettingsForm = ({ onClose }) => {
                 className={`${css.userInput} ${
                   errors.userEmail ? css.errorInput : ''
                 }`}
-                placeholder="nadia10@gmail.com"
+                placeholder="example@email.com"
                 autoComplete="email"
                 {...register('userEmail')}
               />
@@ -261,9 +261,16 @@ const UserSettingsForm = ({ onClose }) => {
               name="userWeight"
               placeholder="0"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.userWeight ? css.errorInput : ''
+              }`}
               {...register('userWeight')}
             />
+            {errors.userWeight && (
+              <p className={css.error} aria-live="assertive">
+                {t('settingsForm.errorField')}
+              </p>
+            )}
           </div>
           <div className={css.wrapperInput}>
             <label htmlFor="userTime" className={css.labelRegularly}>
@@ -275,9 +282,16 @@ const UserSettingsForm = ({ onClose }) => {
               name="userTime"
               placeholder="0"
               autoComplete="off"
-              className={css.userInput}
+              className={`${css.userInput} ${
+                errors.userTime ? css.errorInput : ''
+              }`}
               {...register('userTime')}
             />
+            {errors.userTime && (
+              <p className={css.error} aria-live="assertive">
+                {t('settingsForm.errorField')}
+              </p>
+            )}
           </div>
           <div className={css.wrapperWaterAmount}>
             <p className={css.labelRegularlyWaterAmount}>
