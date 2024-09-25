@@ -15,6 +15,7 @@
   .container {
     padding: 32px 32px 35px 32px;
     width: 704px;
+    height: 738px;
   }
 }
 
@@ -22,7 +23,7 @@
   .container {
     padding: 32px 32px 33px 32px;
     width: 672px;
-
+    height: 736px;
     margin: 0;
   }
 }

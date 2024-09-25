@@ -6,7 +6,6 @@
 
 .calender_pag_div {
   justify-content: space-between;
-
   margin-bottom: 24px;
 }
 
@@ -29,13 +28,14 @@
 
 .icon_arrow_calendar_right,
 .icon_arrow_calendar_left {
-  fill: #323f47;
-  stroke: #323f47;
+  fill: var(--dark-blue);
+  stroke: var(--dark-blue);
   padding: 0;
   margin: 0;
 
   width: 40px;
   height: 20px;
+  transition: fill var(--Animation_cubic), stroke var(--Animation_cubic);
 }
 
 .button_back_month,
@@ -48,6 +48,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.button_next_month:active .icon_arrow_calendar_right,
+.button_next_month:hover .icon_arrow_calendar_right {
+  fill: var(--light-green);
+  stroke: var(--light-green);
+}
+
+.button_back_month:active .icon_arrow_calendar_left,
+.button_back_month:hover .icon_arrow_calendar_left {
+  fill: var(--light-green);
+  stroke: var(--light-green);
 }
 
 .current_month_year {

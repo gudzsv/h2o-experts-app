@@ -1,8 +1,16 @@
 .daily_info {
-  color: #323f47;
-  height: 24px;
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 1.2em;
-  letter-spacing: -0.2px;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .daily_info {
+    font-size: 28px;
+    line-height: 1.14;
+  }
 }

@@ -94,6 +94,24 @@
     "titleModal": "Setting"
   },
 
+  "deleteModal": {
+    "title": "Delete entry",
+    "confirm": "Are you sure you want to delete the entry?",
+    "delete": "Delete",
+    "ariaDelete": "Confirm delete",
+    "close": "Cancel",
+    "ariaClose": "Cancel delete"
+  },
+
+  "logOutModal": {
+    "title": "Log out",
+    "confirm": "Do you really want to leave?",
+    "logOut": "Log out",
+    "ariaLogOut": "Confirm log out",
+    "close": "Cancel",
+    "ariaClose": "Cancel log out"
+  },
+
   "settingsForm": {
     "userPhotoAlt": "User photo",
     "userUploadButton": "Upload a photo",
@@ -140,5 +158,29 @@
   "userBarPopover": {
     "setting": "Setting",
     "logout": "Log out"
+  },
+
+  "calendar": {
+    "statistics": "Statistics",
+    "month": "Month",
+    "previousMonth": "previous month",
+    "nextMonth": "next month",
+    "hideChart": "hide chart",
+    "showChart": "show chart"
+  },
+
+  "months": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
   }
 }

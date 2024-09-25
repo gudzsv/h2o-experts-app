@@ -1,7 +1,6 @@
 .calendar {
   display: flex;
   flex-wrap: wrap;
-
   column-gap: 17px;
   row-gap: 20px;
 }
@@ -9,10 +8,8 @@
 ul {
   list-style: none;
   margin: 0;
-  padding: 0 0 0 5px;
-
+  padding: 0;
   width: 270px;
-
   margin: 0 auto;
 }
 

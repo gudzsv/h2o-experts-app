@@ -1,21 +1,25 @@
 .water_item_actions {
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
 .water_amount {
-  font-weight: 700;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
-  line-height: 100%;
-  color: #323f47;
-  margin-bottom: 6px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .water_time {
-  font-weight: 400;
+  color: var(--placeholder);
+  font-family: 'Poppins', sans-serif;
   font-size: 12px;
-  line-height: 100%;
-  color: rgba(47, 47, 47, 0.6);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .water_item_content {
@@ -23,18 +27,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8px;
 }
 
 .water_item {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 10px;
   background-color: white;
   white-space: nowrap;
   border-radius: 15px;
-  padding: 19px 14px;
+  padding: 18px 14px;
   width: 149px;
   height: 74px;
+
+  backdrop-filter: blur(16.799999237060547px);
 }
 
 .glass {
@@ -51,20 +59,32 @@
   background-color: inherit;
 }
 
-.pencil {
-  fill: white;
-  stroke: #323f47;
-}
-
+.pencil,
 .trash {
   fill: white;
   stroke: #323f47;
+  transition: stroke var(--Animation_cubic);
+}
+
+.edit_btn:active,
+.edit_btn:hover .pencil {
+  stroke: var(--light-green);
+}
+
+.delete_btn:active,
+.delete_btn:hover .trash {
+  stroke: var(--light-green);
 }
 
 @media screen and (min-width: 768px) {
+  .water_item_actions {
+    gap: 14px;
+  }
   .water_item {
+    gap: 20px;
     width: 192px;
     height: 86px;
+    padding: 20px;
   }
   .glass {
     width: 44px;
@@ -73,7 +93,6 @@
   .pencil {
     width: 16px;
     height: 16px;
-    margin-bottom: 10px;
   }
   .trash {
     width: 16px;
