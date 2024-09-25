@@ -47,7 +47,11 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
         }
       });
 
-      const calcWaterProc = ((sumOfWater / ideaAmountOfWater) * 100).toFixed(2);
+      const calcWaterProc = Math.min(
+        Math.round((sumOfWater / ideaAmountOfWater) * 100),
+        100
+      );
+
       return calcWaterProc;
     });
   }, [getWater, amountOfDays, ideaAmountOfWater]);
