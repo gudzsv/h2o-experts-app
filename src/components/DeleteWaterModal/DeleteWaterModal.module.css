@@ -37,7 +37,19 @@
   gap: 10px;
   width: 100%;
   border-radius: 30px;
+  font-weight: 700;
   background: var(--Accent, #9be1a0);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.deleteButtonModal:hover {
+  background: var(--Accent, #87d28d);
+}
+
+.deleteButtonModal:active {
+  color: #bcbcbc;
+
+  background: inherit;
 }
 
 .cancelButtonModal {
@@ -49,6 +61,14 @@
   width: 100%;
   border-radius: 30px;
   background: #f0eff4;
+  font-weight: 700;
+  color: #323f474d;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cancelButtonModal:hover {
+  color: #323f47;
+  background: #f4f4f6;
 }
 
 @media only screen and (min-width: 767.97px) {
@@ -60,7 +80,7 @@
   .titleBlock {
     gap: 24px;
   }
-  
+
   .deleteWaterModalBtn {
     flex-direction: row;
     gap: 10px;
@@ -70,7 +90,6 @@
     padding: 18px 67px;
     width: 100%;
     min-width: 200px;
-    
   }
 
   .cancelButtonModal {

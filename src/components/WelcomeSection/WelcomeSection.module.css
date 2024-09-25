@@ -89,6 +89,7 @@
     gap: 16px;
   }
 }
+
 .linkSignUp {
   color: var(--dark-blue);
   text-align: center;
@@ -101,6 +102,16 @@
   border-radius: 30px;
   background-color: var(--light-green);
   padding: 14px 19px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.linkSignUp:hover {
+  background-color: var(--light-green-hover);
+}
+
+.linkSignUp:active {
+  background-color: inherit;
+  color: #bcbcbc;
 }
 
 .linkSignIn {
@@ -115,6 +126,17 @@
   border-radius: 30px;
   border: 1px solid var(--dark-blue);
   padding: 14px 28px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.linkSignIn:hover {
+  color: var(--light-green);
+  border: 1px solid var(--light-green);
+}
+
+.linkSignIn:active {
+  color: #bcbcbc;
+  border: 1px solid #bcbcbc;
 }
 
 @media screen and (min-width: 768px) {
