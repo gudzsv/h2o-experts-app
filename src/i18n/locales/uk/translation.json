@@ -130,8 +130,23 @@
     "userWeight": "Ваша вага в кілограмах:",
     "userTime": "Час активного заняття спортом:",
     "WaterAmount": " Необхідна кількість води в літрах на добу:",
-    "labelWaterNorma": "Запишіть, скільки води ви будете пити:",
-    "subButton": "Зберегти"
+    "labelWaterNorma": "Запишіть, скільки води ви будете пити (мл):",
+    "subButton": "Зберегти",
+    "ValidationGender": "Виберіть стать",
+    "ValidationNameMin": "Мінімальна кількість символів – 3",
+    "ValidationNameMax": "Максимальна кількість символів – 50",
+    "ValidationNameRequired": "Необхідно вказати ім'я",
+    "ValidationEmail": "Недійсний формат електронної пошти",
+    "ValidationEmailRequired": "Необхідно вказати адресу електронної пошти",
+    "ValidationWeightTypeError": "Необхідно вказати вагу у числовому значені",
+    "ValidationWeightMin": "Вага має бути більше 0",
+    "ValidationWeightRequired": "Необхідно вказати вагу",
+    "ValidationTimeTypeError": "Необхідно вказати активний час у числовому значені",
+    "ValidationTimeMin": "Активний час має бути більше ніж 0",
+    "ValidationTimeRequired": "Необхідно вказати актиний час",
+    "ValidationDailyRequirementTypeError": "Необхідно вказати добову норму води у числовому значені",
+    "ValidationDailyRequirementMin": "Добова норма води має бути більше 0",
+    "ValidationDailyRequirementRequired": "Необхідно вказати добову норму води"
   },
 
   "resetPwd": {

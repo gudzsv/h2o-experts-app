@@ -12,30 +12,6 @@ import avatarMobile1x from '../../assets/img/settings_avatar/settings_avatar_mob
 import avatarMobile2x from '../../assets/img/settings_avatar/settings_avatar_mob_2x.webp';
 import sprite from '../../assets/icons/sprite.svg';
 
-const userSettingsValidationSchema = Yup.object().shape({
-  userImage: Yup.mixed(),
-  gender: Yup.string().required('Please select your gender'),
-  userName: Yup.string()
-    .min(3, 'The minimum number of characters is 3')
-    .max(50, 'The maximum number of characters is 50')
-    .required('Name is required'),
-  userEmail: Yup.string()
-    .email('Invalid email format')
-    .required('Email is required'),
-  userWeight: Yup.number()
-    .typeError('Weight should be a numeric value')
-    .min(1, 'Weight must be greater than 0')
-    .required('Weight is required'),
-  userTime: Yup.number()
-    .typeError('Active time should be a numeric value.')
-    .min(1, 'Active time must be greater than 0')
-    .required('Active time is required'),
-  dailyRequirement: Yup.number()
-    .typeError('Daily water should be a numeric value.')
-    .min(1, 'Daily water requirement must be greater than 0')
-    .required('Daily water requirement is required'),
-});
-
 const UserSettingsForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -52,6 +28,30 @@ const UserSettingsForm = ({ onClose }) => {
 
   const [imagePreview, setImagePreview] = useState(photo);
   const [waterRequirement, setWaterRequirement] = useState('1.8');
+
+  const userSettingsValidationSchema = Yup.object().shape({
+    userImage: Yup.mixed(),
+    gender: Yup.string().required(t('settingsForm.ValidationGender')),
+    userName: Yup.string()
+      .min(3, t('settingsForm.ValidationNameMin'))
+      .max(50, t('settingsForm.ValidationNameMax'))
+      .required(t('settingsForm.ValidationNameRequired')),
+    userEmail: Yup.string()
+      .email(t('settingsForm.ValidationEmail'))
+      .required(t('settingsForm.ValidationEmailRequired')),
+    userWeight: Yup.number()
+      .typeError(t('settingsForm.ValidationWeightTypeError'))
+      .min(1, t('settingsForm.ValidationWeightMin'))
+      .required(t('settingsForm.ValidationWeightRequired')),
+    userTime: Yup.number()
+      .typeError(t('settingsForm.ValidationTimeTypeError'))
+      .min(1, t('settingsForm.ValidationTimeMin'))
+      .required(t('settingsForm.ValidationTimeRequired')),
+    dailyRequirement: Yup.number()
+      .typeError(t('settingsForm.ValidationDailyRequirementTypeError'))
+      .min(1, t('settingsForm.ValidationDailyRequirementMin'))
+      .required(t('settingsForm.ValidationDailyRequirementRequired')),
+  });
 
   const {
     register,
