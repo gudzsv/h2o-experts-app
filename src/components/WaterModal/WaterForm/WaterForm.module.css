@@ -61,6 +61,9 @@ p {
   stroke: var(--dark-blue);
   cursor: pointer;
 }
+.icon:focus {
+  outline: none;
+}
 
 .ml {
   color: var(--white);
