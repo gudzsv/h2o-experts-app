@@ -130,8 +130,7 @@
     "userTime": "The time of active participation in sports:",
     "WaterAmount": " The required amount of water in liters per day:",
     "labelWaterNorma": "Write down how much water you will drink:",
-    "subButton": "Save",
-    "errorField": "The field must be filled"
+    "subButton": "Save"
   },
 
   "resetPwd": {
