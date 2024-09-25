@@ -104,7 +104,8 @@ const authSlice = createSlice({
       .addCase(currentUser.rejected, state => {
         state.isRefreshing = false;
         state.isLoading = false;
-        // handleError(ERROR.USER_DATA);
+        state.token = null;
+        state.isLoggedIn = false;
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
@@ -142,7 +143,6 @@ const authSlice = createSlice({
       })
       .addCase(getOAuthURL.rejected, state => {
         state.isLoading = false;
-        // handleError(ERROR.GET_OAUTH_URL);
       })
       .addCase(loginOAuth.pending, handlePending)
       .addCase(loginOAuth.fulfilled, (state, { payload }) => {
