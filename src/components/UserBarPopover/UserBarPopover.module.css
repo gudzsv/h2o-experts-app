@@ -31,41 +31,39 @@
   text-align: left;
 }
 
-.textBalk {
-  color: var(--dark-blue);
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.3;
-}
-.textGray {
+.btnText {
   color: var(--gray-opacity);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: 1.3;
+  transition: color var(--Animation_cubic);
 }
 
-.iconDark {
-  stroke: var(--dark-blue);
-  transition: stroke var(--Animation_cubic);
-}
-
-.iconGray {
+.icon {
   stroke: var(--gray-opacity);
   transition: stroke var(--Animation_cubic);
 }
 
-.settingBtn:active .iconDark,
-.settingBtn:hover .iconDark {
-  stroke: var(--light-green-hover);
+.settingBtn:active .icon,
+.settingBtn:hover .icon {
+  stroke: var(--dark-blue);
 }
 
-.logOutBtn:active .iconGray,
-.logOutBtn:hover .iconGray {
-  stroke: var(--light-green-hover);
+.settingBtn:active .btnText,
+.settingBtn:hover .btnText {
+  color: var(--dark-blue);
+}
+
+.logOutBtn:active .icon,
+.logOutBtn:hover .icon {
+  stroke: var(--dark-blue);
+}
+
+.logOutBtn:active .btnText,
+.logOutBtn:hover .btnText {
+  color: var(--dark-blue);
 }
 
 .CiSettings {
