@@ -14,7 +14,7 @@ export const DeleteWaterModal = React.memo(
           aria-labelledby="deleteModalTitle"
           aria-describedby="deleteModalDescription"
         >
-          <div>
+          <div className={css.titleBlock}>
             <h2 id="deleteModalTitle" className={css.modDelete}>
               {t('deleteModal.title')}
             </h2>

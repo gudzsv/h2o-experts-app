@@ -103,6 +103,15 @@
     "ariaClose": "Cancel delete"
   },
 
+  "logoutModal": {
+    "outtitle": "Log Out",
+    "questionout": "Do you really want to leave?",
+    "outbtn": "Log Out",
+    "ariaConfirm": "Confirm logout",
+    "cancelbtn": "Cancel",
+    "ariaClose": "Cancel logout"
+  },
+
   "settingsForm": {
     "userPhotoAlt": "User photo",
     "userUploadButton": "Upload a photo",
