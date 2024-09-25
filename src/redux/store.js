@@ -24,7 +24,6 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    // user: placeholderReducer,
     water: waterReducer,
   },
   middleware: getDefaultMiddleware =>
@@ -34,11 +33,5 @@ export const store = configureStore({
       },
     }),
 });
-
-// Заглушка для persistStore, якщо використовуєте redux-persist
-// export const persistor = {
-//   persist: () => {},
-//   purge: () => {},
-// };
 
 export const persistor = persistStore(store);
