@@ -5,7 +5,7 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
 import { useTranslation } from 'react-i18next';
 
-const WaterList = ({ waterData, onEdit, onDelete }) => {
+const WaterList = ({ waterData, onEdit, onDelete, dateForCalendar }) => {
   const { t } = useTranslation();
 
   const normalizeItem = item => {
@@ -22,6 +22,8 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
         ),
     [waterData]
   );
+
+  console.log(filteredWaterData);
 
   return (
     <div>
@@ -43,6 +45,7 @@ const WaterList = ({ waterData, onEdit, onDelete }) => {
                 item={item}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                dateForCalendar={dateForCalendar}
               />
             ))
           )}

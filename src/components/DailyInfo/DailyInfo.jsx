@@ -101,6 +101,7 @@ const DailyInfo = ({ dateForCalendar }) => {
               waterData={dayWater}
               onEdit={handleIsEditWater}
               onDelete={handleDeleteWater}
+              dateForCalendar={dateForCalendar}
             />
           )}
         </div>
