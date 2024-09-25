@@ -60,6 +60,13 @@
     "placeholderRepeatPassword": "Повторіть пароль"
   },
 
+  "validation": {
+    "emailMessage": "Має бути дійсна електронна адреса",
+    "requiredMessage": "Обов'язково",
+    "passwordMessage": "Пароль має містити не менше 6 символів",
+    "repeatPasswordMessage": "Паролі повинні співпадати"
+  },
+
   "notFound": {
     "title": "Ой!",
     "info": "Схоже, ця сторінка недоступна.",
