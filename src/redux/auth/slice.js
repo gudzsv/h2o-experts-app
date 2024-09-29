@@ -150,7 +150,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isLoggedIn = true;
         state.token = payload.data.accessToken;
-        handleMessage();
+        handleMessage(SUCCESS.LOGIN_OAUTH);
       })
       .addCase(loginOAuth.rejected, state => {
         state.OAuthURL = '';

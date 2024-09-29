@@ -5,12 +5,18 @@ import { useId, useEffect } from 'react';
 import { useState } from 'react';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
-import { register as signUp } from '../../redux/auth/operations';
-import { useDispatch } from 'react-redux';
+import { getOAuthURL, register as signUp } from '../../redux/auth/operations';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSignUpValidationSchema } from '../../helpers/validation';
+import { selectOAuthURL } from '../../redux/auth/selectors';
+
+const navigate = url => {
+  return (window.location.href = url);
+};
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const OAuthURL = useSelector(selectOAuthURL);
   const { t } = useTranslation();
   const validationSchema = getSignUpValidationSchema(t);
 
@@ -38,12 +44,17 @@ const SignUpForm = () => {
 
   useEffect(() => {
     reset();
-  }, [t, reset]);
+    OAuthURL && navigate(OAuthURL);
+  }, [OAuthURL, t, reset]);
 
   const onSubmit = data => {
     const { email, password } = data;
     dispatch(signUp({ email, password }));
     reset();
+  };
+
+  const handleOAuth = () => {
+    dispatch(getOAuthURL());
   };
 
   return (
@@ -137,13 +148,31 @@ const SignUpForm = () => {
           )}
         </div>
       </div>
-      <button
-        type="submit"
-        className={styles.btn}
-        aria-label="Sign up button for an account"
-      >
-        {t('signUp.title')}
-      </button>
+
+      <div className={styles.btnWrapper}>
+        <button
+          type="submit"
+          className={styles.btn}
+          aria-label="Sign up button for an account"
+        >
+          {t('signUp.title')}
+        </button>
+        <button
+          className={styles.googleBtn}
+          type="button"
+          onClick={handleOAuth}
+          aria-label="Sign in button for an account with Google"
+        >
+          {t('signIn.googleBtn')}
+          <svg className={styles.googleIcon}>
+            <use
+              href={`${sprite}${'#google-logo'}`}
+              width={65}
+              height={20}
+            ></use>
+          </svg>
+        </button>
+      </div>
     </form>
   );
 };

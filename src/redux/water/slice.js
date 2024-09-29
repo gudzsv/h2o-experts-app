@@ -8,6 +8,7 @@ import {
 } from './operations';
 import toast from 'react-hot-toast';
 import { MESSAGES } from '../../constants/constants.js';
+import { createDate } from '../../helpers/createDateMessage';
 
 const { SUCCESS, ERROR } = MESSAGES;
 
@@ -38,20 +39,7 @@ const waterSlice = createSlice({
       .addCase(addWater.fulfilled, (state, { payload }) => {
         state.dayWater.push(payload.data);
         state.isLoading = false;
-
-        let day = new Date(payload.data.drinkingTime).getDate();
-        if (day < 10) {
-          day = `0${day}`;
-        }
-        let month = new Date(payload.data.drinkingTime).getMonth() + 1;
-        if (month < 10) {
-          month = `0${month}`;
-        }
-        const year = new Date(payload.data.drinkingTime).getFullYear();
-
-        const mes = `${SUCCESS.ADD_WATER}:
-        ${day}-${month}-${year}`;
-        handleMessage(mes);
+        handleMessage(createDate(payload, SUCCESS.ADD_WATER));
       })
       .addCase(addWater.rejected, state => {
         state.isLoading = false;
