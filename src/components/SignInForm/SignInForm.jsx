@@ -23,10 +23,6 @@ const SignInForm = () => {
   const emailId = useId();
   const passwordId = useId();
 
-  useEffect(() => {
-    OAuthURL && navigate(OAuthURL);
-  }, [OAuthURL]);
-
   const {
     register,
     handleSubmit,
@@ -42,8 +38,9 @@ const SignInForm = () => {
   });
 
   useEffect(() => {
+    OAuthURL && navigate(OAuthURL);
     reset();
-  }, [t, reset]);
+  }, [OAuthURL, t, reset]);
 
   const onSubmit = data => {
     dispatch(login(data));
