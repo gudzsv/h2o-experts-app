@@ -41,11 +41,11 @@ const handlePending = state => {
 };
 
 const handleMessage = message => {
-  toast.success(message);
+  toast.success(message, { id: message });
 };
 
 const handleError = message => {
-  toast.error(message);
+  toast.error(message, { id: message });
 };
 
 const authSlice = createSlice({
@@ -130,7 +130,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isRefreshing = false;
         state.token = null;
-        handleError(ERROR.REFRESH);
       })
       .addCase(getCounter.fulfilled, (state, { payload }) => {
         state.counter = payload.data.usersCount;

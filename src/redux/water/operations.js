@@ -8,7 +8,7 @@ export const addWater = createAsyncThunk(
       const { data } = await API.post('/water', addData);
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -38,7 +38,7 @@ export const deleteWater = createAsyncThunk(
       const { data } = await API.delete(`/water/${waterId}`);
       return { data, waterId };
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -50,7 +50,7 @@ export const getDayWater = createAsyncThunk(
       const { data } = await API.get(`/water/day/${date}`);
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -62,7 +62,7 @@ export const getMonthWater = createAsyncThunk(
       const { data } = await API.get(`/water/month/${yearMonth}`);
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
