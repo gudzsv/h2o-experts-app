@@ -25,9 +25,11 @@ export const MESSAGES = {
     LOGIN_OAUTH: 'Error authorize with Google',
     USER_DATA: 'Same error, try again',
     EDIT_USER: 'Error to edit user data',
-    ADD_WATER: 'Eror to add water',
+    ADD_WATER: 'Error to add water',
     EDIT_WATER: 'Error to edit water data',
     DELETE_WATER: 'Error to delete water data',
+    GET_DAY_WATER: 'Error to load daily water data',
+    GET_MONTH_WATER: 'Error to load monthly water data',
     SEND_RESET_EMAIL:
       'Error send reset email. Chech your email or try again later.',
     RESET_PWD: 'Error. Password not changed',

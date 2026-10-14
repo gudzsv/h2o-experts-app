@@ -23,11 +23,11 @@ const handlePending = state => {
 };
 
 const handleMessage = message => {
-  toast.success(message);
+  toast.success(message, { id: message });
 };
 
 const handleError = message => {
-  toast.error(message);
+  toast.error(message, { id: message });
 };
 
 const waterSlice = createSlice({
@@ -51,10 +51,15 @@ const waterSlice = createSlice({
         const index = state.dayWater.findIndex(
           elem => elem._id === payload.data._id
         );
-        state.dayWater.splice(index, 1, payload.data);
+        if (index !== -1) {
+          state.dayWater.splice(index, 1, payload.data);
+        }
         handleMessage(SUCCESS.EDIT_WATER);
       })
-      .addCase(editWater.rejected, handleError(ERROR.ADD_WATER))
+      .addCase(editWater.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.EDIT_WATER);
+      })
       .addCase(deleteWater.pending, handlePending)
       .addCase(deleteWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -63,21 +68,30 @@ const waterSlice = createSlice({
         );
         handleMessage(SUCCESS.DELETE_WATER);
       })
-      .addCase(deleteWater.rejected, handleError(ERROR.DELETE_WATER))
+      .addCase(deleteWater.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.DELETE_WATER);
+      })
       .addCase(getDayWater.pending, handlePending)
       .addCase(getDayWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.dayWater = payload.date;
         // handleMessage(SUCCESS.GET_DAY_WATER);
       })
-      .addCase(getDayWater.rejected, handleError(ERROR.GET_DAY_WATER))
+      .addCase(getDayWater.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.GET_DAY_WATER);
+      })
       .addCase(getMonthWater.pending, handlePending)
       .addCase(getMonthWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.monthWater = payload.date;
         // handleMessage(SUCCESS.GET_MONTH_WATER);
       })
-      .addCase(getMonthWater.rejected, handleError(ERROR.GET_MONTH_WATER));
+      .addCase(getMonthWater.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.GET_MONTH_WATER);
+      });
   },
 });
 

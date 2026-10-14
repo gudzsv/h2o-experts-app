@@ -113,7 +113,7 @@ export const getCounter = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -125,7 +125,7 @@ export const getOAuthURL = createAsyncThunk(
       const { data } = await API.get('/auth/get-oauth-url');
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -140,7 +140,7 @@ export const loginOAuth = createAsyncThunk(
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -152,7 +152,7 @@ export const sendResetEmail = createAsyncThunk(
       const { data } = await API.post('/auth/send-reset-email', email);
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -161,10 +161,10 @@ export const resetPwd = createAsyncThunk(
   'auth/resetPwd',
   async (token, thunkAPI) => {
     try {
-      const response = await API.post('/auth/reset-pwd', token);
-      return response;
+      const { data } = await API.post('/auth/reset-pwd', token);
+      return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
