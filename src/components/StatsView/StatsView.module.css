@@ -5,12 +5,12 @@
   margin: 16px 0;
   padding: 24px 16px;
   border-radius: var(--radius-lg);
-  background-color: var(--light-gray);
+  background-color: var(--surface-alt);
 }
 
 .back {
   align-self: flex-start;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.2;
@@ -20,7 +20,7 @@
 
 .title {
   margin: 0;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Gilroy', sans-serif;
   font-size: 28px;
   font-weight: 700;
@@ -29,7 +29,7 @@
 
 .subtitle {
   margin: 0 0 12px;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -41,7 +41,7 @@
   padding: 20px 16px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  background-color: var(--white);
+  background-color: var(--surface);
 }
 
 .streakMet {
@@ -50,7 +50,7 @@
 
 .streakLabel {
   margin: 0;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -60,7 +60,7 @@
 
 .streakValue {
   margin: 4px 0 8px;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 28px;
   font-weight: 700;
@@ -70,7 +70,7 @@
 
 .streakText {
   margin: 0;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
@@ -79,7 +79,7 @@
 
 .streakText + .streakText {
   margin-top: 4px;
-  color: var(--black-a60);
+  color: var(--text-body-a60);
 }
 
 .tiles {
@@ -91,7 +91,7 @@
 .tile {
   padding: 16px;
   border-radius: var(--radius-sm);
-  background-color: var(--white);
+  background-color: var(--surface);
 }
 
 .tiles .tile:last-child {
@@ -100,7 +100,7 @@
 
 .tileValue {
   margin: 0 0 4px;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 20px;
   font-weight: 700;
@@ -110,7 +110,7 @@
 
 .tileLabel {
   margin: 0;
-  color: var(--black-a60);
+  color: var(--text-body-a60);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
@@ -119,7 +119,7 @@
 
 .change {
   margin: 8px 0 0;
-  color: var(--black-a60);
+  color: var(--text-body-a60);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -129,8 +129,8 @@
 .changeValue {
   padding: 2px 8px;
   border-radius: var(--radius-lg);
-  background-color: var(--light-gray);
-  color: var(--dark-blue);
+  background-color: var(--surface-alt);
+  color: var(--text);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -141,7 +141,7 @@
 
 .note {
   margin: 0 0 12px;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
@@ -167,7 +167,7 @@
 
 .partName {
   margin: 0;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 700;
@@ -191,8 +191,8 @@
   padding: 14px 16px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  background-color: var(--white);
-  color: var(--black-a60);
+  background-color: var(--surface);
+  color: var(--text-body-a60);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
@@ -215,15 +215,15 @@
 
 .achievementHint,
 .achievementState {
-  color: var(--black-a60);
+  color: var(--text-body-a60);
 }
 
 .achievementGoal {
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .started {
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .bar {
@@ -234,7 +234,7 @@
   height: 6px;
   margin-top: 6px;
   border-radius: var(--radius-lg);
-  background-color: var(--light-gray);
+  background-color: var(--surface-alt);
 }
 
 .barFill {
@@ -246,15 +246,15 @@
 
 .unlocked {
   border-color: var(--light-green);
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .empty {
   margin: 0;
   padding: 16px;
   border-radius: var(--radius-sm);
-  background-color: var(--white);
-  color: var(--dark-blue);
+  background-color: var(--surface);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
@@ -262,7 +262,7 @@
 }
 
 .link {
-  color: var(--dark-blue);
+  color: var(--text);
   font-weight: 700;
 }
 
@@ -272,7 +272,7 @@
   border: 1px solid var(--light-green);
   border-radius: var(--radius-lg);
   background-color: transparent;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.2;
@@ -284,6 +284,7 @@
 .retry:hover,
 .retry:focus-visible {
   background-color: var(--light-green);
+  color: var(--on-accent);
 }
 
 @media screen and (min-width: 768px) {

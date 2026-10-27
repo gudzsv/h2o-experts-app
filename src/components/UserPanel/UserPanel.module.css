@@ -1,8 +1,8 @@
 .container {
-  background-color: var(--light-gray);
+  background-color: var(--surface-alt);
   display: flex;
   flex-direction: column;
-  color: var(--white);
+  color: var(--text-inverse);
 }
 
 .salutation {
@@ -12,7 +12,7 @@
   line-height: 1;
   font-style: normal;
   letter-spacing: -0.01em;
-  color: var(--dark-blue);
+  color: var(--text);
   margin-bottom: 20px;
 }
 

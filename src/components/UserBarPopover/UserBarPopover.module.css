@@ -15,7 +15,7 @@
   gap: 8px;
 
   border-radius: var(--radius-sm);
-  background-color: var(--white);
+  background-color: var(--surface);
   box-shadow: var(--shadow-card);
 }
 
@@ -33,7 +33,7 @@
 }
 
 .btnText {
-  color: var(--gray-opacity);
+  color: var(--text-a40);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -43,46 +43,46 @@
 }
 
 .icon {
-  stroke: var(--gray-opacity);
+  stroke: var(--text-a40);
   transition: stroke var(--Animation_cubic);
 }
 
 .statsIcon {
   /* The two-tone sprite icon takes its strokes from these variables. */
-  --color1: var(--gray-opacity);
-  --color2: var(--gray-opacity);
+  --color1: var(--text-a40);
+  --color2: var(--text-a40);
   transition: all var(--Animation_cubic);
 }
 
 .statsBtn:active .statsIcon,
 .statsBtn:hover .statsIcon {
-  --color1: var(--dark-blue);
-  --color2: var(--dark-blue);
+  --color1: var(--text);
+  --color2: var(--text);
 }
 
 .statsBtn:active .btnText,
 .statsBtn:hover .btnText {
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .settingBtn:active .icon,
 .settingBtn:hover .icon {
-  stroke: var(--dark-blue);
+  stroke: var(--text);
 }
 
 .settingBtn:active .btnText,
 .settingBtn:hover .btnText {
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .logOutBtn:active .icon,
 .logOutBtn:hover .icon {
-  stroke: var(--dark-blue);
+  stroke: var(--text);
 }
 
 .logOutBtn:active .btnText,
 .logOutBtn:hover .btnText {
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .CiSettings {
@@ -91,20 +91,20 @@
 }
 
 .logoutIcon {
-  fill: var(--dark-blue-translucent);
-  stroke: var(--dark-blue-translucent);
+  fill: var(--text-a40);
+  stroke: var(--text-a40);
 }
 
 .settingsText {
   font-weight: 700;
   font-size: 15px;
   line-height: 1.49;
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 .logoutText {
   font-weight: 700;
   font-size: 15px;
   line-height: 1.49;
-  color: var(--dark-blue-translucent);
+  color: var(--text-a40);
 }

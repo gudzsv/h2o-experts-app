@@ -6,7 +6,7 @@
   letter-spacing: -0.18px;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--dark-blue);
+  color: var(--text);
 }
 
 @media screen and (min-width: 768px) {

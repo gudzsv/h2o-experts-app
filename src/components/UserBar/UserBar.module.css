@@ -13,8 +13,8 @@
   align-items: center;
   gap: 8px;
   border-radius: var(--radius-lg);
-  background-color: var(--dark-blue);
-  color: var(--white);
+  background-color: var(--fill-strong);
+  color: var(--text-inverse);
   padding: 6px 12px;
   cursor: pointer;
   text-align: center;
@@ -36,12 +36,12 @@
   align-items: center;
   gap: 8px;
   border-radius: var(--radius-lg);
-  background-color: var(--dark-blue);
+  background-color: var(--fill-strong);
   width: max-content;
 }
 
 .userName {
-  color: var(--white);
+  color: var(--text-inverse);
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -63,7 +63,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--light-gray);
+  background-color: var(--surface-alt);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +73,7 @@
 .chevron {
   width: 16px;
   height: 16px;
-  stroke: var(--white);
+  stroke: var(--text-inverse);
   transition: transform var(--Animation_cubic);
   border-radius: 50%;
   padding: 2px;

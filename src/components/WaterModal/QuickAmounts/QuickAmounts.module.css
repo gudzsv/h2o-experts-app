@@ -8,7 +8,7 @@
 .chip {
   padding: 5px 8px;
 
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -17,7 +17,7 @@
 
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  background: var(--white);
+  background: var(--surface);
   cursor: pointer;
   transition:
     background-color var(--Animation_cubic),
@@ -26,19 +26,19 @@
 }
 
 .chip:hover {
-  background: var(--light-gray);
+  background: var(--surface-alt);
 }
 
 .chip:focus-visible {
-  outline: 2px solid var(--dark-blue);
+  outline: 2px solid var(--text);
   outline-offset: 2px;
 }
 
 .chipActive,
 .chipActive:hover {
-  color: var(--white);
-  border-color: var(--dark-blue);
-  background: var(--dark-blue);
+  color: var(--text-inverse);
+  border-color: var(--text);
+  background: var(--fill-strong);
 }
 
 @media screen and (min-width: 768px) {

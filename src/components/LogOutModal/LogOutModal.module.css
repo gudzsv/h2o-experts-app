@@ -59,14 +59,14 @@
   gap: 10px;
   width: 100%;
   border-radius: var(--radius-lg);
-  background: var(--light-gray);
+  background: var(--surface-alt);
   font-weight: 700;
-  color: var(--dark-blue-a30);
+  color: var(--text-a30);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modalLogoutBtnCancel:hover {
-  color: var(--dark-blue);
+  color: var(--text);
   background: var(--gray-hover);
 }
 
