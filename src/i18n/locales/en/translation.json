@@ -192,7 +192,9 @@
 
   "celebrate": {
     "goalMet": "Daily goal reached! Come back tomorrow to keep the streak.",
-    "achievement": "New achievement: {{name}}"
+    "achievement": "New achievement: {{name}}",
+    "achievements_one": "{{count}} new achievement",
+    "achievements_other": "{{count}} new achievements"
   },
   "stats": {
     "title": "Statistics",
@@ -212,12 +214,27 @@
     "empty": "No water recorded yet.",
     "toTracker": "Add your first drink",
     "achievements": "Achievements",
-    "achievement": {
-      "firstGoal": "First day with the goal met",
-      "streak7": "7 days in a row",
-      "streak30": "30 days in a row"
+    "track": {
+      "firstGoal": { "title": "First goal" },
+      "streak": { "title": "Streak" },
+      "volume": { "title": "Total water" },
+      "earlyBird": { "title": "Early bird", "hint": "Days with water before 9:00." },
+      "perfectWeek": { "title": "Perfect weeks", "hint": "The goal met every day from Monday to Sunday." }
     },
-    "unlocked": "Unlocked",
+    "tier": {
+      "firstGoal": "First day with the goal met",
+      "streak_one": "{{count}} day in a row",
+      "streak_other": "{{count}} days in a row",
+      "volume": "{{amount}} in total",
+      "earlyBird_one": "{{count}} early day",
+      "earlyBird_other": "{{count}} early days",
+      "perfectWeek_one": "{{count}} perfect week",
+      "perfectWeek_other": "{{count}} perfect weeks"
+    },
+    "level": "Level {{level}} of {{total}}",
+    "next": "Next: {{name}}",
+    "done": "Unlocked: {{name}}",
+    "allTiers": "All done: {{name}}",
     "progress": "{{progress}} of {{target}}",
     "timeOfDay": {
       "title": "When you drink",

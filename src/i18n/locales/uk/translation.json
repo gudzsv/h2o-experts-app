@@ -192,7 +192,11 @@
 
   "celebrate": {
     "goalMet": "Денну норму виконано! Повертайтеся завтра, щоб продовжити серію.",
-    "achievement": "Нове досягнення: {{name}}"
+    "achievement": "Нове досягнення: {{name}}",
+    "achievements_one": "{{count}} нове досягнення",
+    "achievements_few": "{{count}} нові досягнення",
+    "achievements_many": "{{count}} нових досягнень",
+    "achievements_other": "{{count}} нового досягнення"
   },
   "stats": {
     "title": "Статистика",
@@ -214,12 +218,33 @@
     "empty": "Води ще не записано.",
     "toTracker": "Додайте перший напій",
     "achievements": "Досягнення",
-    "achievement": {
-      "firstGoal": "Перший день із виконаною нормою",
-      "streak7": "7 днів поспіль",
-      "streak30": "30 днів поспіль"
+    "track": {
+      "firstGoal": { "title": "Перша норма" },
+      "streak": { "title": "Серія" },
+      "volume": { "title": "Усього випито" },
+      "earlyBird": { "title": "Ранній птах", "hint": "Дні з водою до 9:00." },
+      "perfectWeek": { "title": "Ідеальні тижні", "hint": "Норма щодня з понеділка по неділю." }
     },
-    "unlocked": "Отримано",
+    "tier": {
+      "firstGoal": "Перший день із виконаною нормою",
+      "streak_one": "{{count}} день поспіль",
+      "streak_few": "{{count}} дні поспіль",
+      "streak_many": "{{count}} днів поспіль",
+      "streak_other": "{{count}} дня поспіль",
+      "volume": "{{amount}} загалом",
+      "earlyBird_one": "{{count}} ранній день",
+      "earlyBird_few": "{{count}} ранні дні",
+      "earlyBird_many": "{{count}} ранніх днів",
+      "earlyBird_other": "{{count}} раннього дня",
+      "perfectWeek_one": "{{count}} ідеальний тиждень",
+      "perfectWeek_few": "{{count}} ідеальні тижні",
+      "perfectWeek_many": "{{count}} ідеальних тижнів",
+      "perfectWeek_other": "{{count}} ідеального тижня"
+    },
+    "level": "Рівень {{level}} з {{total}}",
+    "next": "Далі: {{name}}",
+    "done": "Отримано: {{name}}",
+    "allTiers": "Усе отримано: {{name}}",
     "progress": "{{progress}} з {{target}}",
     "timeOfDay": {
       "title": "Коли ви п'єте",

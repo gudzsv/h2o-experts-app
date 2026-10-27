@@ -203,8 +203,32 @@
   font-weight: 700;
 }
 
+.tiers {
+  white-space: nowrap;
+}
+
+.achievementHint,
+.achievementGoal,
+.achievementState {
+  flex-basis: 100%;
+}
+
+.achievementHint,
+.achievementState {
+  color: var(--black-a60);
+}
+
+.achievementGoal {
+  color: var(--dark-blue);
+}
+
+.started {
+  color: var(--dark-blue);
+}
+
 .bar {
   display: block;
+  flex-shrink: 0;
   width: 100%;
   overflow: hidden;
   height: 6px;
@@ -325,6 +349,20 @@
 
   .achievement {
     flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  /* The bars of a row line up at the bottom of the cards. */
+  .achievement .bar {
+    margin-top: auto;
+  }
+
+  /* In a column a basis is a height, so the lines keep their own height. */
+  .achievementHint,
+  .achievementGoal,
+  .achievementState {
+    flex-basis: auto;
   }
 }
 

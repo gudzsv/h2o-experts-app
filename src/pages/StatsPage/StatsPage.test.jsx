@@ -27,6 +27,9 @@ const makeStats = (overrides = {}) => ({
   monthAverage: 1800,
   completionRate: 70,
   totalGoalDays: 6,
+  totalMl: 45300,
+  earlyDays: 2,
+  perfectWeeks: 0,
   days: Array.from({ length: 30 }, (_, index) => day(index % 2 ? 2100 : 500, index)),
   ...overrides,
 });
@@ -75,14 +78,23 @@ describe('StatsPage', () => {
     expect(screen.getByText('vs the previous 7 days', { exact: false })).toBeTruthy();
     expect(screen.queryByText('No water recorded yet.', { exact: false })).toBeNull();
 
-    // Six days with the goal and a best streak of 4.
-    expect(screen.getByText('Unlocked')).toBeTruthy();
+    // Six days with the goal, a best streak of 4 and 45.3 L in total.
+    expect(
+      screen.getByText('Unlocked: First day with the goal met')
+    ).toBeTruthy();
+    expect(screen.getByText('Level 1 of 5')).toBeTruthy();
+    expect(screen.getByText('Next: 7 days in a row')).toBeTruthy();
     expect(screen.getByText('4 of 7')).toBeTruthy();
-    expect(screen.getByText('4 of 30')).toBeTruthy();
+    expect(screen.getByText('Next: 50 L in total')).toBeTruthy();
+    expect(screen.getByText('45.3 L of 50 L')).toBeTruthy();
+    expect(screen.getByText('2 of 7')).toBeTruthy();
+    expect(screen.getByText('Next: 1 perfect week')).toBeTruthy();
     const bars = screen.getAllByRole('progressbar');
     expect(bars.map(bar => bar.getAttribute('aria-valuenow'))).toEqual([
       '4',
-      '4',
+      '45300',
+      '2',
+      '0',
     ]);
   });
 
@@ -144,21 +156,36 @@ describe('StatsPage', () => {
   });
 
   it('announces each unlocked achievement once', async () => {
-    vi.spyOn(API, 'get').mockResolvedValue({ data: { data: makeStats() } });
+    vi.spyOn(API, 'get').mockResolvedValue({
+      data: { data: makeStats({ totalMl: 5000 }) },
+    });
     const { unmount } = renderPage({ email: 'a@b.c' });
 
     await screen.findByText('Current streak');
-    await waitFor(() =>
-      expect(toast.success).toHaveBeenCalledWith(
-        'New achievement: First day with the goal met',
-        expect.objectContaining({ id: 'achievement-firstGoal' })
-      )
-    );
-    expect(toast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(toast.success).toHaveBeenCalledTimes(2));
+    // The last one is shown first, so the stack reads in order.
+    expect(toast.success.mock.calls.map(([text]) => text)).toEqual([
+      'New achievement: 3 days in a row',
+      'New achievement: First day with the goal met',
+    ]);
 
     unmount();
     renderPage({ email: 'a@b.c' });
     await screen.findByText('Current streak');
+    expect(toast.success).toHaveBeenCalledTimes(2);
+  });
+
+  it('makes one toast when many achievements unlock at once', async () => {
+    vi.spyOn(API, 'get').mockResolvedValue({ data: { data: makeStats() } });
+    renderPage({ email: 'a@b.c' });
+
+    await screen.findByText('Current streak');
+    await waitFor(() =>
+      expect(toast.success).toHaveBeenCalledWith(
+        '3 new achievements',
+        expect.objectContaining({ id: 'achievements' })
+      )
+    );
     expect(toast.success).toHaveBeenCalledTimes(1);
   });
 });
