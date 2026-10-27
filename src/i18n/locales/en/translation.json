@@ -76,6 +76,8 @@
 
   "chooseDate": {
     "today": "Today",
+    "toToday": "← Today",
+    "backToToday": "Back to today",
     "noWaterConsumed": "No water was consumed on this day.",
     "edit": "Edit water entry",
     "delete": "Delete water entry",
