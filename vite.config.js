@@ -49,6 +49,8 @@ const pwa = VitePWA({
     // different screens, so each is cached only once the browser shows it.
     globPatterns: ['**/*.{js,css,html,svg,ttf}', 'icons/*.png'],
     navigateFallback: '/index.html',
+    // Opens the app from a drink reminder notification.
+    importScripts: ['sw-notifications.js'],
     runtimeCaching: [
       {
         urlPattern: ({ request, sameOrigin }) =>

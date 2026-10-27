@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
+import RemindersModal from '../../components/RemindersModal/RemindersModal.jsx';
+import { FiBell } from 'react-icons/fi';
 import sprite from '../../assets/icons/sprite.svg'; // Імпорт спрайту
 
 const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
@@ -11,6 +13,7 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   const navigate = useNavigate();
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
+  const [isOpenReminders, setIsOpenReminders] = useState(false);
 
   const handleLogoutClick = e => {
     e.stopPropagation();
@@ -21,6 +24,11 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
     e.stopPropagation();
     onClose();
     navigate('/stats');
+  };
+
+  const handleRemindersClick = e => {
+    e.stopPropagation();
+    setIsOpenReminders(true);
   };
 
   const handleSettingsClick = e => {
@@ -53,6 +61,15 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
           <span className={css.btnText}>{t('userBarPopover.stats')}</span>
         </button>
         <button
+          className={css.settingBtn}
+          onClick={handleRemindersClick}
+          aria-haspopup="dialog"
+          aria-label={t('userBarPopover.reminders')}
+        >
+          <FiBell className={css.icon} size={16} aria-hidden="true" />
+          <span className={css.btnText}>{t('userBarPopover.reminders')}</span>
+        </button>
+        <button
           className={css.logOutBtn}
           onClick={handleLogoutClick}
           aria-haspopup="dialog"
@@ -68,6 +85,15 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
         <UserSettingsModal
           onClose={setIsOpenSettings}
           isOpen={isOpenSettings}
+        />
+      )}
+      {isOpenReminders && (
+        <RemindersModal
+          isOpen={isOpenReminders}
+          onClose={() => {
+            setIsOpenReminders(false);
+            onClose();
+          }}
         />
       )}
       {isOpenLogOut && (

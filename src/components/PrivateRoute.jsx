@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectToken } from '../redux/auth/selectors';
 import Loader from './Loader/Loader';
+import ReminderScheduler from './ReminderScheduler/ReminderScheduler.jsx';
 import { Navigate, Outlet } from 'react-router';
 
 export const PrivateRoute = () => {
@@ -15,7 +16,12 @@ export const PrivateRoute = () => {
     return <Navigate to={'/signin'} />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <ReminderScheduler />
+      <Outlet />
+    </>
+  );
 };
 
 export default PrivateRoute;

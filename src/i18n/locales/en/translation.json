@@ -249,9 +249,29 @@
     "error": "Could not load the statistics.",
     "retry": "Try again"
   },
+  "reminders": {
+    "heading": "Reminders",
+    "text": "AquaTrack reminds you to drink while it is open in a tab or installed as an app.",
+    "enable": "Remind me to drink water",
+    "window": "When to remind",
+    "from": "From",
+    "to": "To",
+    "windowError": "The end must be later than the start.",
+    "interval": "How often",
+    "intervals": { "60": "1 h", "90": "1.5 h", "120": "2 h", "180": "3 h" },
+    "inAppOnly": "Notifications are not allowed in this browser, so reminders will show inside the app.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "saved": "Reminders saved",
+    "turnedOff": "Reminders are off",
+    "title": "Time for some water!",
+    "body": "Have a glass of water.",
+    "left": "{{amount}} left to today's goal."
+  },
   "userBarPopover": {
     "setting": "Setting",
     "stats": "Statistics",
+    "reminders": "Reminders",
     "logout": "Log out"
   },
 
