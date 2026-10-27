@@ -90,7 +90,9 @@
     "waterUsed": "Enter the value of the water used",
     "button": "Save",
     "minusWater": "Decrease water amount",
-    "plusWater": "Increase water amount"
+    "plusWater": "Increase water amount",
+    "quickAmounts": "Quick amounts",
+    "repeatLast": "Same as last time: {{amount}}"
   },
 
   "waterModal": {

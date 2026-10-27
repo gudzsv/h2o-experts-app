@@ -14,6 +14,11 @@
   outline: none;
 }
 
+/* For modals whose content should use almost the whole screen height. */
+.contentTall {
+  max-height: calc(100vh - 32px);
+}
+
 @media (min-width: 767.99px) {
   .content {
     padding: 40px;

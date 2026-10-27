@@ -17,7 +17,7 @@
 }
 
 .wrapper {
-  width: 303px;
+  width: min(303px, calc(100vw - 56px));
 }
 @media only screen and (min-width: 768px) {
   .wrapper {

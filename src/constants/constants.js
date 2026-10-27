@@ -1,5 +1,7 @@
 export const DEFAULT_DAILY_NORMA = 1500;
 
+export const QUICK_AMOUNTS_ML = [150, 250, 330, 500];
+
 // Values are i18n keys; translate them with i18n.t() when showing a toast.
 export const MESSAGES = {
   SUCCESS: {
