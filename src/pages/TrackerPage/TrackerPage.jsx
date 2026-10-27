@@ -4,6 +4,7 @@ import Container from 'components/Container/Container.jsx';
 import PageContent from 'components/PageContent/PageContent.jsx';
 import WaterMainInfo from 'components/WaterMainInfo/WaterMainInfo.jsx';
 import WaterDetailedInfo from 'components/WaterDetailedInfo/WaterDetailedInfo.jsx';
+import WaterModalProvider from 'components/WaterModal/WaterModalProvider.jsx';
 
 const TrackerPage = () => {
   const { t } = useTranslation();
@@ -13,10 +14,12 @@ const TrackerPage = () => {
       <Helmet>
         <title>{t('pages.tracker')}</title>
       </Helmet>
-      <PageContent>
-        <WaterMainInfo />
-        <WaterDetailedInfo />
-      </PageContent>
+      <WaterModalProvider>
+        <PageContent>
+          <WaterMainInfo />
+          <WaterDetailedInfo />
+        </PageContent>
+      </WaterModalProvider>
     </Container>
   );
 };

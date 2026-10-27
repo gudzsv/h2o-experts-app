@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
@@ -10,6 +11,7 @@ export const ModalTemplate = ({
   modalIsOpen,
   closeModal,
   isSettings,
+  tall,
   children,
 }) => {
   const { t } = useTranslation();
@@ -29,7 +31,7 @@ export const ModalTemplate = ({
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      className={styles.content}
+      className={clsx(styles.content, tall && styles.contentTall)}
       overlayClassName={styles.overlay}
     >
       <div>

@@ -9,6 +9,7 @@ import { addWater, editWater } from '../../../redux/water/operations.js';
 
 import sprite from '../../../assets/icons/sprite.svg';
 import { onActivate } from '../../../helpers/a11y';
+import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
 
 const generateTimeOptions = () => {
   return Array.from({ length: 24 * 12 }, (_, i) => {
@@ -76,6 +77,16 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       setValue('usedWater', waterItem.usedWater);
     }
   }, [actionType, waterItem, setValue]);
+
+  const selectAmount = useCallback(
+    amount => {
+      setValue('usedWater', amount, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    },
+    [setValue]
+  );
 
   // Мемоїзовані функції
   const plusWater = useCallback(() => {
@@ -163,6 +174,10 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
           <use href={`${sprite}#icon-plus-btn`}></use>
         </svg>
       </div>
+
+      {actionType === 'add' && (
+        <QuickAmounts value={watch('usedWater')} onSelect={selectAmount} />
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} aria-labelledby="formTitle">
         <div className={styles.wrapperSelector}>
