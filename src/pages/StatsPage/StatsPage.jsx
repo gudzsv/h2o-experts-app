@@ -10,8 +10,9 @@ import StatsView from 'components/StatsView/StatsView.jsx';
 import css from 'components/StatsView/StatsView.module.css';
 import { getStats } from '../../redux/water/operations.js';
 import { selectUser } from '../../redux/auth/selectors.js';
-import { getAchievements } from '../../helpers/achievements.js';
+import { getUnlockedTiers } from '../../helpers/achievements.js';
 import { takeNewAchievements } from '../../helpers/celebrations.js';
+import { useAchievementName } from '../../hooks/useAchievementName.js';
 import {
   selectIsStatsFailed,
   selectStats,
@@ -30,26 +31,37 @@ const StatsPage = () => {
 
   // Each achievement is announced once, the first time the page shows it.
   const email = useSelector(selectUser)?.email;
+  const getName = useAchievementName();
   useEffect(() => {
     if (!stats || !email) {
       return;
     }
 
-    const unlocked = getAchievements(stats)
-      .filter(({ unlocked }) => unlocked)
-      .map(({ id }) => id);
+    const unlocked = getUnlockedTiers(stats);
+    const fresh = takeNewAchievements(
+      email,
+      unlocked.map(({ id }) => id)
+    ).map(id => unlocked.find(tier => tier.id === id));
+
+    // New tiers can unlock several at once (for example, on the first visit
+    // after the tiers appeared), so more than two make one toast.
+    if (fresh.length > 2) {
+      toast.success(t('celebrate.achievements', { count: fresh.length }), {
+        id: 'achievements',
+        icon: '🏆',
+      });
+      return;
+    }
 
     // Newer toasts stack on top, so the last one is shown first to keep the
     // list in reading order.
-    takeNewAchievements(email, unlocked)
-      .reverse()
-      .forEach(id =>
-        toast.success(
-          t('celebrate.achievement', { name: t(`stats.achievement.${id}`) }),
-          { id: `achievement-${id}`, icon: '🏆' }
-        )
-      );
-  }, [stats, email, t]);
+    fresh.reverse().forEach(tier =>
+      toast.success(t('celebrate.achievement', { name: getName(tier) }), {
+        id: `achievement-${tier.id}`,
+        icon: '🏆',
+      })
+    );
+  }, [stats, email, t, getName]);
 
   return (
     <Container>
