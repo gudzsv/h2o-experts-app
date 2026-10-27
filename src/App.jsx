@@ -16,6 +16,7 @@ const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
 const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage.jsx'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage.jsx'));
 const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage.jsx'));
+const StatsPage = lazy(() => import('./pages/StatsPage/StatsPage.jsx'));
 const OAuthPage = lazy(() => import('./pages/OAuthPage/OAuthPage.jsx'));
 const ConfirmResetPwdPage = lazy(() =>
   import('./pages/ConfirmResetPwdPage/ConfirmResetPwdPage.jsx')
@@ -59,6 +60,7 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/tracker" element={<TrackerPage />} />
+            <Route path="/stats" element={<StatsPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

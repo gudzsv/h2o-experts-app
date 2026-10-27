@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../helpers/axios';
 import { toRejectValue } from '../../helpers/errors';
-import { getWeekRange } from '../../helpers/date';
+import { getWeekRange, toDateKey } from '../../helpers/date';
 
 export const addWater = createAsyncThunk(
   'water/add',
@@ -72,6 +72,21 @@ export const getWeekWater = createAsyncThunk(
         monthKeys.map(monthKey => API.get(`/water/month/${monthKey}`))
       );
       return responses.flatMap(({ data }) => data.date);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(toRejectValue(error));
+    }
+  }
+);
+
+// The server cannot know the user's time zone, so the local date goes along.
+export const getStats = createAsyncThunk(
+  'water/getStats',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await API.get('/water/stats', {
+        params: { today: toDateKey(new Date()) },
+      });
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(toRejectValue(error));
     }

@@ -14,6 +14,7 @@ import {
   editWater,
   getDayWater,
   getMonthWater,
+  getStats,
   getWeekWater,
 } from './operations.js';
 import { waterReducer } from './slice.js';
@@ -171,5 +172,41 @@ describe('getWeekWater', () => {
     expect(action.payload).toHaveLength(monthKeys.length);
 
     get.mockRestore();
+  });
+});
+
+describe('getStats', () => {
+  const stats = { currentStreak: 3, days: [] };
+
+  beforeEach(() => vi.clearAllMocks());
+
+  it('sends the local date and returns the stats', async () => {
+    const get = vi
+      .spyOn(API, 'get')
+      .mockResolvedValue({ data: { data: stats } });
+
+    const action = await getStats()(vi.fn(), vi.fn(), undefined);
+
+    expect(get).toHaveBeenCalledWith('/water/stats', {
+      params: { today: todayKey },
+    });
+    expect(action.payload).toEqual(stats);
+
+    get.mockRestore();
+  });
+
+  it('keeps its failure apart from the tracker loading and toasts', () => {
+    let state = waterReducer(undefined, { type: 'init' });
+
+    state = run(state, getStats.rejected(null, 'req'));
+    expect(state.isStatsFailed).toBe(true);
+    expect(state.isLoading).toBe(false);
+    expect(toast.error).not.toHaveBeenCalled();
+
+    state = run(state, getStats.pending('req'));
+    expect(state.isStatsFailed).toBe(false);
+
+    state = run(state, getStats.fulfilled(stats, 'req'));
+    expect(state.stats).toEqual(stats);
   });
 });
