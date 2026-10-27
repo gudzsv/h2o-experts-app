@@ -7,11 +7,6 @@ import { API } from '../../helpers/axios.js';
 import { createTestStore } from '../../test/store.js';
 import StatsPage from './StatsPage.jsx';
 
-// recharts needs real layout sizes, which jsdom does not have.
-vi.mock('components/StatsView/StatsChart.jsx', () => ({
-  default: ({ days }) => <div data-testid="chart">{days.length} days</div>,
-}));
-
 const day = (total, index) => ({
   date: `2024-03-${String(index + 1).padStart(2, '0')}`,
   total,
@@ -44,15 +39,15 @@ const renderPage = ({ units = 'ml' } = {}) =>
 describe('StatsPage', () => {
   afterEach(() => vi.restoreAllMocks());
 
-  it('shows a loading message until the stats arrive', async () => {
+  it('shows the loader until the stats arrive', async () => {
     vi.spyOn(API, 'get').mockResolvedValue({ data: { data: makeStats() } });
     renderPage();
 
-    expect(screen.getByText('Loading...')).toBeTruthy();
+    expect(screen.getByLabelText('puff-loading')).toBeTruthy();
     await screen.findByText('Current streak');
   });
 
-  it('shows streaks, averages, the chart and achievements', async () => {
+  it('shows streaks, averages and achievements', async () => {
     vi.spyOn(API, 'get').mockResolvedValue({ data: { data: makeStats() } });
     renderPage();
 
@@ -61,7 +56,7 @@ describe('StatsPage', () => {
     expect(screen.getByText('4 days')).toBeTruthy();
     expect(screen.getByText('70%')).toBeTruthy();
     expect(screen.getByText('1.7 L')).toBeTruthy();
-    expect(screen.getByTestId('chart')).toBeTruthy();
+    expect(screen.queryByText('No water recorded yet.', { exact: false })).toBeNull();
 
     // Six days with the goal and a best streak of 4.
     expect(screen.getByText('Unlocked')).toBeTruthy();
@@ -77,7 +72,7 @@ describe('StatsPage', () => {
     await screen.findByText('57.5 oz');
   });
 
-  it('offers to add water instead of an empty chart', async () => {
+  it('offers to add water when nothing is recorded', async () => {
     const days = Array.from({ length: 30 }, (_, index) => day(0, index));
     vi.spyOn(API, 'get').mockResolvedValue({
       data: {
@@ -92,7 +87,7 @@ describe('StatsPage', () => {
     renderPage();
 
     await screen.findByText('No water recorded yet.', { exact: false });
-    expect(screen.queryByTestId('chart')).toBeNull();
+    expect(screen.getByText('Current streak')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Add your first drink' })).toBeTruthy();
   });
 

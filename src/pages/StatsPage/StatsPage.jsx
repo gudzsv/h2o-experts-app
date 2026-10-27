@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from 'components/Container/Container.jsx';
+import Loader from 'components/Loader/Loader.jsx';
 import StatsView from 'components/StatsView/StatsView.jsx';
 import css from 'components/StatsView/StatsView.module.css';
 import { getStats } from '../../redux/water/operations.js';
@@ -46,11 +47,7 @@ const StatsPage = () => {
             </button>
           </div>
         )}
-        {!isFailed && !stats && (
-          <p className={css.empty} aria-live="polite">
-            {t('a11y.loading')}
-          </p>
-        )}
+        {!isFailed && !stats && <Loader />}
         {stats && <StatsView stats={stats} />}
       </div>
     </Container>

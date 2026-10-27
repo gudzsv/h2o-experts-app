@@ -200,8 +200,6 @@
     "days_few": "{{count}} дні",
     "days_many": "{{count}} днів",
     "days_other": "{{count}} дня",
-    "last30Days": "Останні 30 днів",
-    "chartLabel": "Вода за день протягом 30 днів, {{unit}}",
     "empty": "Води ще не записано.",
     "toTracker": "Додайте перший напій",
     "achievements": "Досягнення",
