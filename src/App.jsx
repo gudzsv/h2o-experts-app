@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     dispatch(currentUser());
-  }, []);
+  }, [dispatch]);
 
   // A background refresh of an active session must not unmount the app,
   // otherwise open modals and the selected day are lost.

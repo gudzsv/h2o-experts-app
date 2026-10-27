@@ -2,18 +2,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
 import { useTranslation } from 'react-i18next';
-import {
-  fromDisplayAmount,
-  mlToOz,
-  normalizeUnits,
-  toDisplayAmount,
-  UNITS,
-} from '../../helpers/units.js';
+import { calculateDailyNormLiters } from '../../helpers/dailyNorm.js';
+import { mlToOz, normalizeUnits, UNITS } from '../../helpers/units.js';
+import { getInitialNormField, useDailyNorm } from './useDailyNorm.js';
 
 import avatarMobile1x from '../../assets/img/settings_avatar/settings_avatar_mob_1x.webp';
 import avatarMobile2x from '../../assets/img/settings_avatar/settings_avatar_mob_2x.webp';
@@ -36,10 +32,6 @@ const UserSettingsForm = ({ onClose }) => {
   const userName = !name || name === 'User' ? email?.split('@')[0] : name;
 
   const [imagePreview, setImagePreview] = useState(photo);
-  const [waterRequirement, setWaterRequirement] = useState('1.8');
-  // The daily norm is stored in ml; the field shows it in the chosen units.
-  const [normMl, setNormMl] = useState(dailyRequirement);
-  const previousUnits = useRef(initialUnits);
 
   const userSettingsValidationSchema = Yup.object().shape({
     userImage: Yup.mixed(),
@@ -82,10 +74,7 @@ const UserSettingsForm = ({ onClose }) => {
       userWeight: weight,
       userTime: activityLevel,
       units: initialUnits,
-      dailyRequirement:
-        dailyRequirement === undefined
-          ? dailyRequirement
-          : toDisplayAmount(dailyRequirement, initialUnits),
+      dailyRequirement: getInitialNormField(dailyRequirement, initialUnits),
     },
   });
 
@@ -110,24 +99,17 @@ const UserSettingsForm = ({ onClose }) => {
   const unitsValue = normalizeUnits(watch('units'));
   const isOz = unitsValue === UNITS.OZ;
 
-  useEffect(() => {
-    if (previousUnits.current === unitsValue) {
-      return;
-    }
-
-    previousUnits.current = unitsValue;
-    if (normMl) {
-      setValue('dailyRequirement', toDisplayAmount(normMl, unitsValue));
-    }
-  }, [unitsValue, normMl, setValue]);
-
-  useEffect(() => {
-    if (genderValue === 'female') {
-      setWaterRequirement(weightValue * 0.03 + timeValue * 0.4);
-    } else if (genderValue === 'male') {
-      setWaterRequirement(weightValue * 0.04 + timeValue * 0.6);
-    }
-  }, [genderValue, weightValue, timeValue]);
+  const { normMl, handleNormChange } = useDailyNorm({
+    dailyRequirement,
+    initialUnits,
+    unitsValue,
+    setValue,
+  });
+  const recommendedLiters = calculateDailyNormLiters(
+    genderValue,
+    weightValue,
+    timeValue
+  );
 
   const onSubmitForm = useCallback(
     async data => {
@@ -338,11 +320,11 @@ const UserSettingsForm = ({ onClose }) => {
                 : t('settingsForm.WaterAmount')}
             </p>
             <p className={css.accent}>
-              {typeof waterRequirement === 'number' && !isNaN(waterRequirement)
-                ? isOz
-                  ? Math.round(mlToOz(waterRequirement * 1000))
-                  : waterRequirement.toFixed(1)
-                : '0.00'}
+              {recommendedLiters === null
+                ? '0.00'
+                : isOz
+                ? Math.round(mlToOz(recommendedLiters * 1000))
+                : recommendedLiters.toFixed(1)}
               {isOz ? ` ${t('units.oz')}` : 'L'}
             </p>
           </div>
@@ -391,12 +373,7 @@ const UserSettingsForm = ({ onClose }) => {
               className={`${css.userInput} ${
                 errors.dailyRequirement ? css.errorInput : ''
               }`}
-              {...register('dailyRequirement', {
-                onChange: event =>
-                  setNormMl(
-                    fromDisplayAmount(Number(event.target.value), unitsValue)
-                  ),
-              })}
+              {...register('dailyRequirement', { onChange: handleNormChange })}
             />
             {errors.dailyRequirement && (
               <p className={css.error} aria-live="assertive">
