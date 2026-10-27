@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getEntryDateKey, toDateKey } from '../../helpers/date.js';
+import { sumCountedMl } from '../../helpers/drinks.js';
 
 export const selectDayWater = state => state.water.dayWater;
 export const selectMonthWater = state => state.water.monthWater;
@@ -14,5 +15,5 @@ export const selectTodayWater = createSelector([selectWeekWater], weekWater => {
 });
 
 export const selectTodayTotal = createSelector([selectTodayWater], todayWater =>
-  todayWater.reduce((total, entry) => total + (entry.usedWater || 0), 0)
+  sumCountedMl(todayWater)
 );

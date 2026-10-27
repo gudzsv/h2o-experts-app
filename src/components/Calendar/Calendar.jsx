@@ -7,6 +7,7 @@ import { selectMonthWater } from '../../redux/water/selectors.js';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 import { selectUser } from '../../redux/auth/selectors.js';
 import { getEntryDateKey, toMonthKey } from '../../helpers/date.js';
+import { getCountedMl } from '../../helpers/drinks.js';
 
 const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
   const user = useSelector(selectUser);
@@ -29,7 +30,7 @@ const Calendar = ({ dateForCalendar, setDateForCalendar }) => {
     const sumByDate = new Map();
     getWater.forEach(entry => {
       const dateKey = getEntryDateKey(entry);
-      sumByDate.set(dateKey, (sumByDate.get(dateKey) ?? 0) + entry.usedWater);
+      sumByDate.set(dateKey, (sumByDate.get(dateKey) ?? 0) + getCountedMl(entry));
     });
 
     return Array.from({ length: amountOfDays }, (_, i) => {

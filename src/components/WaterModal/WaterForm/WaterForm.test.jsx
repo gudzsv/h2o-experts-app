@@ -70,3 +70,71 @@ describe('WaterForm goal celebration', () => {
     expect(goalToasts()).toHaveLength(0);
   });
 });
+
+describe('WaterForm drink types', () => {
+  beforeEach(() => vi.clearAllMocks());
+  afterEach(() => vi.restoreAllMocks());
+
+  const renderForm = props => {
+    vi.spyOn(API, 'post').mockImplementation(async (_, body) => ({
+      data: { data: { _id: 'new', ...body } },
+    }));
+    vi.spyOn(API, 'patch').mockImplementation(async (_, body) => ({
+      data: { data: { _id: 'a', ...body } },
+    }));
+    render(
+      <Provider store={createTestStore({ units: 'ml', user: { email: 'a@b.c' } })}>
+        <WaterForm currentDay={todayKey} closeModal={vi.fn()} {...props} />
+      </Provider>
+    );
+  };
+
+  const save = async () => {
+    const button = screen.getByRole('button', { name: 'Save' });
+    await waitFor(() => expect(button.disabled).toBe(false));
+    fireEvent.click(button);
+  };
+
+  it('does not send the type for plain water', async () => {
+    renderForm({ actionType: 'add' });
+
+    expect(
+      screen.getByRole('radio', { name: 'Water' }).getAttribute('aria-checked')
+    ).toBe('true');
+    await save();
+
+    await waitFor(() => expect(API.post).toHaveBeenCalledTimes(1));
+    expect(API.post.mock.calls[0][1]).not.toHaveProperty('drinkType');
+  });
+
+  it('shows what a coffee counts and sends its type', async () => {
+    renderForm({ actionType: 'add' });
+
+    fireEvent.click(screen.getByRole('radio', { name: 'Coffee' }));
+    fireEvent.click(screen.getByRole('button', { name: '250 ml' }));
+    await screen.findByText('Counts toward the goal: 200 ml (80%)');
+    await save();
+
+    await waitFor(() => expect(API.post).toHaveBeenCalledTimes(1));
+    expect(API.post.mock.calls[0][1]).toMatchObject({
+      usedWater: 250,
+      drinkType: 'coffee',
+    });
+  });
+
+  it('sends water when an entry changes back to it', async () => {
+    renderForm({
+      actionType: 'edit',
+      waterItem: { ...entry('a', 300), drinkType: 'tea', hydration: 270 },
+    });
+
+    expect(
+      screen.getByRole('radio', { name: 'Tea' }).getAttribute('aria-checked')
+    ).toBe('true');
+    fireEvent.click(screen.getByRole('radio', { name: 'Water' }));
+    await save();
+
+    await waitFor(() => expect(API.patch).toHaveBeenCalledTimes(1));
+    expect(API.patch.mock.calls[0][1]).toMatchObject({ drinkType: 'water' });
+  });
+});

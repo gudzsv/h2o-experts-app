@@ -45,10 +45,6 @@
   backdrop-filter: blur(16.799999237060547px);
 }
 
-.glass {
-  white-space: nowrap;
-}
-
 .delete_btn {
   border: none;
   background-color: inherit;

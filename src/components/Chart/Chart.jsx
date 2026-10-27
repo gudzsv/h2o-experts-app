@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { selectIsLoading, selectWeekWater } from '../../redux/water/selectors';
 import { useMemo } from 'react';
 import { getEntryDateKey, getWeekDays, toDateKey } from '../../helpers/date.js';
+import { getCountedMl } from '../../helpers/drinks.js';
 import { toDisplayDecimal } from '../../helpers/units.js';
 import { useVolume } from '../../hooks/useVolume.js';
 
@@ -57,7 +58,7 @@ const Chart = () => {
       const dateKey = getEntryDateKey(entry);
       amountByDate.set(
         dateKey,
-        (amountByDate.get(dateKey) ?? 0) + (entry.usedWater || 0)
+        (amountByDate.get(dateKey) ?? 0) + getCountedMl(entry)
       );
     });
 

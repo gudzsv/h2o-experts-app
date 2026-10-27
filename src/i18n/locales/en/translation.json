@@ -86,6 +86,8 @@
   },
 
   "waterForm": {
+    "drink": "Drink",
+    "counted": "Counts toward the goal: {{amount}} ({{percent}}%)",
     "titleEdit": "Correct entered data",
     "titleAdd": "Choose a value",
     "secondTitle": "Amount of water",
@@ -288,6 +290,14 @@
     "auto": "Auto",
     "light": "Light",
     "dark": "Dark"
+  },
+  "drinks": {
+    "water": "Water",
+    "tea": "Tea",
+    "milk": "Milk",
+    "coffee": "Coffee",
+    "juice": "Juice",
+    "soda": "Soda"
   },
   "userBarPopover": {
     "setting": "Setting",

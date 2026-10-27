@@ -6,6 +6,7 @@ import { selectTodayWater } from '../../redux/water/selectors';
 import { getWeekWater } from '../../redux/water/operations';
 import css from './WaterProgressBar.module.css';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
+import { sumCountedMl } from '../../helpers/drinks.js';
 
 export default function WaterProgressBar() {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function WaterProgressBar() {
 
   const waterDailyNorma = user?.dailyRequirement || DEFAULT_DAILY_NORMA;
 
-  const amount = todayWater.reduce((total, item) => total + item.usedWater, 0);
+  const amount = sumCountedMl(todayWater);
 
   const percentDaily = Math.min(
     Math.round((amount / waterDailyNorma) * 100),

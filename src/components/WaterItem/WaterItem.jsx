@@ -2,13 +2,16 @@ import { useState } from 'react';
 import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
+import DrinkIcon from 'components/DrinkIcon/DrinkIcon.jsx';
 import { useTranslation } from 'react-i18next';
 import { getEntryDateKey, toDateKey } from '../../helpers/date.js';
 import { useVolume } from '../../hooks/useVolume.js';
+import { getDrinkType } from '../../helpers/drinks.js';
 
 const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
   const { t } = useTranslation();
   const { format } = useVolume();
+  const drinkType = getDrinkType(item);
 
   const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
     hour: '2-digit',
@@ -28,9 +31,13 @@ const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
   if (toDateKey(dateForCalendar) === getEntryDateKey(item)) {
     return (
       <div className={css.water_item}>
-        <svg width="38" height="38" className={css.glass}>
-          <use href={`${sprite}#icon-water-glass-fill`}></use>
-        </svg>
+        <DrinkIcon
+          type={drinkType}
+          size={38}
+          filled
+          className={css.glass}
+          label={t(`drinks.${drinkType}`)}
+        />
         <div className={css.water_item_content}>
           <span className={css.water_amount}>
             {format(item.usedWater)}
