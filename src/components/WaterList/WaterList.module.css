@@ -24,18 +24,20 @@
   margin-bottom: 40px;
 }
 
+/* Keeps the message's top margin inside, as in the list it replaces, instead
+   of merging it with the margin of the row above. */
+.empty {
+  display: flow-root;
+}
+
 .no_water_text {
   margin-top: 40px;
-  width: 300px;
-  display: flex;
-  /* justify-content: center; */
 
   color: var(--dark-blue);
-  text-align: center;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   line-height: 1.3;
-  letter-spacing: -0.01emx;
+  letter-spacing: -0.01em;
 }
 
 @media screen and (min-width: 343px) {
