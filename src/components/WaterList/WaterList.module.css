@@ -2,7 +2,7 @@
   display: flex;
   min-width: 149px;
   margin-right: 15px;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -26,14 +26,14 @@
 
 .horizontal_scroll_container::-webkit-scrollbar {
   height: 8px;
-  background-color: #f0eff4;
+  background-color: var(--light-gray);
   width: 100%;
   margin-bottom: 40px;
 }
 
 .horizontal_scroll_container::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #323f47;
+  background-color: var(--dark-blue);
 }
 
 .no_water_text {

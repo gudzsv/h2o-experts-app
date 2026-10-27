@@ -14,9 +14,9 @@
   align-items: flex-start;
   gap: 8px;
 
-  border-radius: 15px;
+  border-radius: var(--radius-sm);
   background-color: var(--white);
-  box-shadow: 0px 4px 50px 0px var(--border-shadow);
+  box-shadow: var(--shadow-card);
 }
 
 .settingBtn,

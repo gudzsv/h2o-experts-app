@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
 }
 
 @media screen and (min-width: 768px) {
@@ -81,7 +81,7 @@
   line-height: 1;
   letter-spacing: -0.01em;
   text-align: center;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   border: none;
   cursor: default;
 }
@@ -128,7 +128,7 @@
   bottom: 96px;
   padding: 10px 14px;
   border: none;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   cursor: default;
   min-width: 160px;
 }

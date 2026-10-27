@@ -1,5 +1,5 @@
 .div_for_calendar_things {
-  background: #f0eff4;
+  background: var(--light-gray);
 
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;

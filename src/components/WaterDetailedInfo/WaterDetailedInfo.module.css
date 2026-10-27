@@ -1,5 +1,5 @@
 .container {
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background: var(--light-gray);
   padding: 40px 20px;
   margin-bottom: 16px;
