@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import css from './UserBarPopover.module.css';
 import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
@@ -7,12 +8,19 @@ import sprite from '../../assets/icons/sprite.svg'; // Імпорт спрайт
 
 const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
   const handleLogoutClick = e => {
     e.stopPropagation();
     setIsOpenLogOut(true);
+  };
+
+  const handleStatsClick = e => {
+    e.stopPropagation();
+    onClose();
+    navigate('/stats');
   };
 
   const handleSettingsClick = e => {
@@ -33,6 +41,16 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
             <use xlinkHref={`${sprite}#icon-settings`} />
           </svg>
           <span className={css.btnText}>{t('userBarPopover.setting')}</span>
+        </button>
+        <button
+          className={css.statsBtn}
+          onClick={handleStatsClick}
+          aria-label={t('userBarPopover.stats')}
+        >
+          <svg className={css.statsIcon} width="16" height="16">
+            <use xlinkHref={`${sprite}#icon-pie-chart`} />
+          </svg>
+          <span className={css.btnText}>{t('userBarPopover.stats')}</span>
         </button>
         <button
           className={css.logOutBtn}

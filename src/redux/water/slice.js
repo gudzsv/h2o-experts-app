@@ -5,6 +5,7 @@ import {
   editWater,
   getDayWater,
   getMonthWater,
+  getStats,
   getWeekWater,
 } from './operations';
 import toast from 'react-hot-toast';
@@ -22,6 +23,10 @@ const initialState = {
   monthKey: null,
   weekWater: [],
   isLoading: false,
+  // The stats page shows its error inline, so it does not share `isLoading`
+  // and the toasts with the tracker. Loading is `stats === null`.
+  stats: null,
+  isStatsFailed: false,
 };
 
 const handlePending = state => {
@@ -124,6 +129,15 @@ const waterSlice = createSlice({
       .addCase(getWeekWater.rejected, state => {
         state.isLoading = false;
         handleError(ERROR.GET_WEEK_WATER);
+      })
+      .addCase(getStats.pending, state => {
+        state.isStatsFailed = false;
+      })
+      .addCase(getStats.fulfilled, (state, { payload }) => {
+        state.stats = payload;
+      })
+      .addCase(getStats.rejected, state => {
+        state.isStatsFailed = true;
       });
   },
 });

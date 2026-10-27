@@ -20,6 +20,7 @@
 }
 
 .settingBtn,
+.statsBtn,
 .logOutBtn {
   display: flex;
   align-items: center;
@@ -44,6 +45,24 @@
 .icon {
   stroke: var(--gray-opacity);
   transition: stroke var(--Animation_cubic);
+}
+
+.statsIcon {
+  /* The two-tone sprite icon takes its strokes from these variables. */
+  --color1: var(--gray-opacity);
+  --color2: var(--gray-opacity);
+  transition: all var(--Animation_cubic);
+}
+
+.statsBtn:active .statsIcon,
+.statsBtn:hover .statsIcon {
+  --color1: var(--dark-blue);
+  --color2: var(--dark-blue);
+}
+
+.statsBtn:active .btnText,
+.statsBtn:hover .btnText {
+  color: var(--dark-blue);
 }
 
 .settingBtn:active .icon,

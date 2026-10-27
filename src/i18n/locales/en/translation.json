@@ -11,6 +11,7 @@
     "signIn": "SignIn",
     "signUp": "SignUp",
     "tracker": "Your Tracker",
+    "stats": "Statistics",
     "forgot": "Forgot Password",
     "renew": "Renew",
     "error": "Error",
@@ -187,8 +188,34 @@
     "greeting": "Hello"
   },
 
+  "stats": {
+    "title": "Statistics",
+    "back": "← Back to the tracker",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "completionRate": "Days with the goal met (30 days)",
+    "weekAverage": "Average per day, 7 days",
+    "monthAverage": "Average per day, 30 days",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "last30Days": "Last 30 days",
+    "chartLabel": "Water per day over the last 30 days, {{unit}}",
+    "empty": "No water recorded yet.",
+    "toTracker": "Add your first drink",
+    "achievements": "Achievements",
+    "achievement": {
+      "firstGoal": "First day with the goal met",
+      "streak7": "7 days in a row",
+      "streak30": "30 days in a row"
+    },
+    "unlocked": "Unlocked",
+    "progress": "{{progress}} of {{target}}",
+    "error": "Could not load the statistics.",
+    "retry": "Try again"
+  },
   "userBarPopover": {
     "setting": "Setting",
+    "stats": "Statistics",
     "logout": "Log out"
   },
 
