@@ -39,3 +39,35 @@ export const getWeekChange = ({ days }) => {
   const current = average(days.slice(-WEEK));
   return Math.round(((current - previous) / previous) * 100);
 };
+
+export const DAY_PARTS = ['morning', 'afternoon', 'evening', 'night'];
+
+// Share of the last 30 days' water by part of the day, with one tip when the
+// pattern is worth changing. Returns null without data, including a server
+// that does not send timeOfDay yet.
+export const getTimeOfDay = ({ timeOfDay }) => {
+  const total = timeOfDay
+    ? DAY_PARTS.reduce((sum, id) => sum + timeOfDay[id], 0)
+    : 0;
+  if (total === 0) {
+    return null;
+  }
+
+  const parts = DAY_PARTS.map(id => ({
+    id,
+    share: Math.round((timeOfDay[id] / total) * 100),
+  }));
+  const top = parts.reduce((best, part) =>
+    part.share > best.share ? part : best
+  ).id;
+  const share = id => parts.find(part => part.id === id).share;
+
+  let tip = null;
+  if (share('evening') + share('night') >= 50) {
+    tip = 'tipLate';
+  } else if (share('morning') < 15) {
+    tip = 'tipMorning';
+  }
+
+  return { parts, top, tip };
+};

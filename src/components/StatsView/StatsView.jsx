@@ -5,6 +5,7 @@ import { getWeekChange } from '../../helpers/statsInsights.js';
 import { useVolume } from '../../hooks/useVolume.js';
 import Achievements from './Achievements.jsx';
 import StreakCard from './StreakCard.jsx';
+import TimeOfDay from './TimeOfDay.jsx';
 import css from './StatsView.module.css';
 
 const StatTile = ({ label, value, children }) => (
@@ -30,7 +31,8 @@ const WeekChange = ({ change }) => {
 };
 
 // The daily water chart already lives on the tracker (Month card), so this
-// page only has what it does not show: streaks, averages and achievements.
+// page only has what it does not show: streaks, averages, the time of day and
+// achievements.
 const StatsView = ({ stats }) => {
   const { t } = useTranslation();
   const { format } = useVolume();
@@ -66,6 +68,8 @@ const StatsView = ({ stats }) => {
           value={`${stats.completionRate}%`}
         />
       </div>
+
+      <TimeOfDay stats={stats} />
 
       <Achievements stats={stats} />
     </>
