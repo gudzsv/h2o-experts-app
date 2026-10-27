@@ -18,18 +18,10 @@ const WelcomeSection = () => {
         <h1 className={styles.welcomeTitle}>{t('homepage.welcome.title')}</h1>
 
         <div className={styles.welcomeLinks}>
-          <Link
-            className={styles.linkSignUp}
-            to="/signup"
-            aria-label="Try Water Consumption Tracker"
-          >
+          <Link className={styles.linkSignUp} to="/signup">
             {t('homepage.welcome.tryBtn')}
           </Link>
-          <Link
-            className={styles.linkSignIn}
-            to="/signin"
-            aria-label="Sign in to your account"
-          >
+          <Link className={styles.linkSignIn} to="/signin">
             {t('homepage.welcome.signInBtn')}
           </Link>
         </div>

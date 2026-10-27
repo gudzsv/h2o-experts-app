@@ -72,7 +72,7 @@ This application is crafted by a dedicated team of developers who are passionate
 
 ```bash
 git clone https://github.com/gudzsv/h2o-experts-app.git
-cd water-tracker
+cd h2o-experts-app
 ```
 
 2. Install dependencies:
@@ -84,5 +84,5 @@ npm install
 3. Start the application:
 
 ```bash
-npm start
+npm run dev
 ```

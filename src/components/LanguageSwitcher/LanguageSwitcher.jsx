@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import en from '../../assets/icons/lang/en-us.svg';
 import uk from '../../assets/icons/lang/uk.svg';
+import { onActivate } from '../../helpers/a11y';
 import css from './LanguageSwitcher.module.css';
 
 const LanguageSwitcher = () => {
@@ -20,6 +21,7 @@ const LanguageSwitcher = () => {
 
   useEffect(() => {
     i18n.changeLanguage(language);
+    document.documentElement.lang = language;
   }, [language, i18n]);
 
   useEffect(() => {
@@ -38,18 +40,14 @@ const LanguageSwitcher = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLanguageChange = (event, lang) => {
-    if (event.target.tagName === 'IMG') {
-      setLanguage(lang);
-      localStorage.setItem('language', lang);
-      setIsDropdownOpen(false);
-    }
+  const handleLanguageChange = lang => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+    setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = event => {
-    if (event.target.tagName === 'IMG') {
-      setIsDropdownOpen(prev => !prev);
-    }
+  const toggleDropdown = () => {
+    setIsDropdownOpen(prev => !prev);
   };
 
   const availableLanguages = language === 'en' ? ['uk'] : ['en'];
@@ -82,7 +80,8 @@ const LanguageSwitcher = () => {
           <li
             key={lang}
             className={css.languageOption}
-            onClick={event => handleLanguageChange(event, lang)}
+            onClick={() => handleLanguageChange(lang)}
+            onKeyDown={onActivate(() => handleLanguageChange(lang))}
             role="menuitem"
             tabIndex="0"
           >

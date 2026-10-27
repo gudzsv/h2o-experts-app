@@ -10,26 +10,18 @@ const SignInSection = () => {
     <section className={styles.formSection}>
       <Logo />
       <div className={styles.formWrapper}>
-        <h2 className={styles.title} aria-label="Sign In for an account">
+        <h2 className={styles.title}>
           {t('signIn.title')}
         </h2>
         <SignInForm />
         <p className={styles.wrapperText}>
           <span className={styles.text}>{t('signIn.account')}</span>
-          <Link
-            to="/signup"
-            className={styles.link}
-            aria-label="Go to sign up page"
-          >
+          <Link to="/signup" className={styles.link}>
             {t('signIn.signUp')}
           </Link>
         </p>
         <p className={styles.wrapperText}>
-          <Link
-            to="/confirm-reset-password"
-            className={styles.link}
-            aria-label="Go to reset password page"
-          >
+          <Link to="/confirm-reset-password" className={styles.link}>
             {t('signIn.forgotPassword')}
           </Link>
         </p>

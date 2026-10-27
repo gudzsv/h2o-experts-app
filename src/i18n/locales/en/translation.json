@@ -28,7 +28,6 @@
       "tryBtn": "Try tracker",
       "signInBtn": "Sign In"
     },
-
     "advantages": {
       "customers": "Our <1>{{counter}}</1> happy customers",
       "habitDrive": "Habit drive",
@@ -89,7 +88,9 @@
     "secondTitle": "Amount of water",
     "time": "Recording time",
     "waterUsed": "Enter the value of the water used",
-    "button": "Save"
+    "button": "Save",
+    "minusWater": "Decrease water amount",
+    "plusWater": "Increase water amount"
   },
 
   "waterModal": {
@@ -205,6 +206,7 @@
     "November": "November",
     "December": "December"
   },
+
   "validationForm": {
     "drinkingTimeRequired": "Recording time is required",
     "usedWaterRequired": "Water value is required!",
@@ -212,5 +214,52 @@
     "usedWaterPositive": "Value must be greater than 0",
     "usedWaterInteger": "Value must be a whole number",
     "usedWaterMax": "Value must not exceed 9999"
+  },
+
+  "toasts": {
+    "success": {
+      "REGISTER": "You are successfully registered!",
+      "LOGIN": "You are successfully logged in!",
+      "LOGOUT": "Successfully logged out!",
+      "REFRESH": "Successful refresh!",
+      "LOGIN_OAUTH": "Successfully logged in with Google!",
+      "EDIT_USER": "User data edited successfully",
+      "ADD_WATER": "Water data added successfully",
+      "EDIT_WATER": "Water data edited successfully",
+      "DELETE_WATER": "Water data deleted successfully",
+      "SEND_RESET_EMAIL": "Reset email was sent successfully",
+      "RESET_PWD": "Password changed successfully"
+    },
+    "error": {
+      "UNKNOWN": "Something went wrong. Try again later.",
+      "REGISTER": "Register error. Try again later.",
+      "EMAIL_EXIST": "Email already in use. Try another.",
+      "LOGIN": "Login error. Check your email or password!",
+      "USER_NOT_FOUND": "User does not exist. Check email please!",
+      "LOGOUT": "Logout error",
+      "REFRESH": "Refresh error",
+      "GET_OAUTH_URL": "Error authorize with Google",
+      "LOGIN_OAUTH": "Error authorize with Google",
+      "USER_DATA": "Same error, try again",
+      "EDIT_USER": "Error to edit user data",
+      "ADD_WATER": "Error to add water",
+      "EDIT_WATER": "Error to edit water data",
+      "DELETE_WATER": "Error to delete water data",
+      "GET_DAY_WATER": "Error to load daily water data",
+      "GET_MONTH_WATER": "Error to load monthly water data",
+      "GET_WEEK_WATER": "Error to load weekly water data",
+      "SEND_RESET_EMAIL": "Error send reset email. Check your email or try again later.",
+      "RESET_PWD": "Error. Password not changed"
+    }
+  },
+
+  "addWater": "Add water",
+
+  "a11y": {
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "closeModal": "Close",
+    "deleteEntry": "Delete water entry",
+    "loading": "Loading..."
   }
 }

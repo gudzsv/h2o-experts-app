@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import sprite from '../../assets/icons/sprite.svg';
+import { onActivate } from '../../helpers/a11y';
 
 import { resetPwd } from '../../redux/auth/operations';
 
@@ -85,8 +86,12 @@ const ResetPwdForm = () => {
               <svg
                 className={css.icon}
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                onKeyDown={onActivate(() => setShowPassword(!showPassword))}
+                aria-label={
+                  showPassword ? t('a11y.hidePassword') : t('a11y.showPassword')
+                }
                 role="button"
+                tabIndex={0}
               >
                 <use
                   width={20}
@@ -118,10 +123,16 @@ const ResetPwdForm = () => {
               <svg
                 className={css.icon}
                 onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                onKeyDown={onActivate(() =>
+                  setShowRepeatPassword(!showRepeatPassword)
+                )}
                 aria-label={
-                  showRepeatPassword ? 'Hide password' : 'Show password'
+                  showRepeatPassword
+                    ? t('a11y.hidePassword')
+                    : t('a11y.showPassword')
                 }
                 role="button"
+                tabIndex={0}
               >
                 <use
                   width={20}
@@ -137,11 +148,7 @@ const ResetPwdForm = () => {
             )}
           </div>
         </div>
-        <button
-          type="submit"
-          className={css.btn}
-          aria-label="Sign up button for an account"
-        >
+        <button type="submit" className={css.btn}>
           {t('resetPwd.title')}
         </button>
       </form>

@@ -58,11 +58,7 @@ const ConfirmResetPwdForm = () => {
               <div className={css.error}>{errors.email.message}</div>
             )}
           </div>
-          <button
-            type="submit"
-            className={css.btn}
-            aria-label="Confirm reset password button for an account"
-          >
+          <button type="submit" className={css.btn}>
             {t('resetPwd.title')}
           </button>
         </div>

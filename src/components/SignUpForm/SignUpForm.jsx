@@ -5,6 +5,7 @@ import { useId, useEffect } from 'react';
 import { useState } from 'react';
 import styles from './SignUpForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { onActivate } from '../../helpers/a11y';
 import { getOAuthURL, register as signUp } from '../../redux/auth/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSignUpValidationSchema } from '../../helpers/validation';
@@ -96,8 +97,12 @@ const SignUpForm = () => {
             <svg
               className={styles.icon}
               onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              onKeyDown={onActivate(() => setShowPassword(!showPassword))}
+              aria-label={
+                showPassword ? t('a11y.hidePassword') : t('a11y.showPassword')
+              }
               role="button"
+              tabIndex={0}
             >
               <use
                 width={20}
@@ -129,10 +134,16 @@ const SignUpForm = () => {
             <svg
               className={styles.icon}
               onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+              onKeyDown={onActivate(() =>
+                setShowRepeatPassword(!showRepeatPassword)
+              )}
               aria-label={
-                showRepeatPassword ? 'Hide password' : 'Show password'
+                showRepeatPassword
+                  ? t('a11y.hidePassword')
+                  : t('a11y.showPassword')
               }
               role="button"
+              tabIndex={0}
             >
               <use
                 width={20}
@@ -150,18 +161,13 @@ const SignUpForm = () => {
       </div>
 
       <div className={styles.btnWrapper}>
-        <button
-          type="submit"
-          className={styles.btn}
-          aria-label="Sign up button for an account"
-        >
+        <button type="submit" className={styles.btn}>
           {t('signUp.title')}
         </button>
         <button
           className={styles.googleBtn}
           type="button"
           onClick={handleOAuth}
-          aria-label="Sign in button for an account with Google"
         >
           {t('signIn.googleBtn')}
           <svg className={styles.googleIcon}>

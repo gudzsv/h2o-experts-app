@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 
 import sprite from '../../../assets/icons/sprite.svg';
+import { onActivate } from '../../../helpers/a11y';
 
 const generateTimeOptions = () => {
   return Array.from({ length: 24 * 12 }, (_, i) => {
@@ -128,6 +129,9 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       <div className={styles.container}>
         <svg
           onClick={getValues('usedWater') > 49 ? minusWater : null}
+          onKeyDown={
+            getValues('usedWater') > 49 ? onActivate(minusWater) : undefined
+          }
           className={`${styles.icon} ${
             getValues('usedWater') <= 49 ? styles.disabled : ''
           }`}
@@ -140,10 +144,13 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
           <use href={`${sprite}#icon-minus-btn`}></use>
         </svg>
         <p className={styles.ml} aria-live="polite" aria-atomic="true">
-          {watch('usedWater')} ml
+          {watch('usedWater')} {t('chooseDate.ml')}
         </p>
         <svg
           onClick={getValues('usedWater') < 9950 ? plusWater : null}
+          onKeyDown={
+            getValues('usedWater') < 9950 ? onActivate(plusWater) : undefined
+          }
           className={`${styles.icon} ${
             getValues('usedWater') >= 9950 ? styles.disabled : ''
           }`}

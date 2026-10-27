@@ -9,7 +9,7 @@ const ResetPwdSection = () => {
     <section className={css.section}>
       <Logo />
       <div className={css.formWrapper}>
-        <h2 className={css.title} aria-label="Confirm reset password">
+        <h2 className={css.title}>
           {t('resetPwd.title')}
         </h2>
         <ResetPwdForm />

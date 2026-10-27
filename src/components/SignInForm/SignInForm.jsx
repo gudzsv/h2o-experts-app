@@ -5,6 +5,7 @@ import { useEffect, useId } from 'react';
 import { useState } from 'react';
 import styles from './SignInForm.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { onActivate } from '../../helpers/a11y';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOAuthURL, login } from '../../redux/auth/operations';
 import { selectOAuthURL } from '../../redux/auth/selectors';
@@ -91,8 +92,12 @@ const SignInForm = () => {
               <svg
                 className={styles.icon}
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                onKeyDown={onActivate(() => setShowPassword(!showPassword))}
+                aria-label={
+                  showPassword ? t('a11y.hidePassword') : t('a11y.showPassword')
+                }
                 role="button"
+                tabIndex={0}
               >
                 <use
                   width={20}
@@ -109,18 +114,13 @@ const SignInForm = () => {
           </div>
         </div>
         <div className={styles.btnWrapper}>
-          <button
-            type="submit"
-            className={styles.btn}
-            aria-label="Sign in button for an account"
-          >
+          <button type="submit" className={styles.btn}>
             {t('signIn.title')}
           </button>
           <button
             className={styles.googleBtn}
             type="button"
             onClick={handleOAuth}
-            aria-label="Sign in button for an account with Google"
           >
             {t('signIn.googleBtn')}
             <svg className={styles.googleIcon}>
