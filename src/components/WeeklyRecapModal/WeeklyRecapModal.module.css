@@ -1,0 +1,138 @@
+/* Same look as the other modals; the tiles follow the stats page. */
+.wrapper {
+  width: 260px;
+}
+
+.title {
+  padding-right: 32px;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.range {
+  margin: 4px 0 16px;
+  color: var(--black-a60);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: var(--light-gray);
+}
+
+.tileDone {
+  border-color: var(--light-green);
+}
+
+.value {
+  margin: 0 0 4px;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.label {
+  margin: 0;
+  color: var(--black-a60);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.text {
+  margin: 0 0 8px;
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.message {
+  margin-bottom: 20px;
+  color: var(--dark-blue);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.primary {
+  padding: 14px 32px;
+  border-radius: var(--radius-lg);
+  background-color: var(--light-green);
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  transition: background-color var(--Animation_cubic);
+}
+
+.primary:hover,
+.primary:focus-visible {
+  background-color: var(--light-green-hover);
+}
+
+.secondary {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    width: 400px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .value {
+    font-size: 20px;
+  }
+
+  .range,
+  .label,
+  .text,
+  .primary,
+  .secondary {
+    font-size: 16px;
+  }
+}

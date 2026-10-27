@@ -268,6 +268,21 @@
     "body": "Have a glass of water.",
     "left": "{{amount}} left to today's goal."
   },
+  "weeklyRecap": {
+    "title": "Your week",
+    "goalDaysValue": "{{goalDays}} of 7",
+    "goalDays": "days with the goal met",
+    "total": "drunk in total",
+    "average": "per day on average",
+    "change": "vs the week before",
+    "bestDay": "Best day: {{day}}, {{amount}}.",
+    "perfect": "A perfect week: the goal every day! Keep it going.",
+    "great": "Great week!",
+    "nextGoal_one": "Aim for this week: {{count}} day with the goal met.",
+    "nextGoal_other": "Aim for this week: {{count}} days with the goal met.",
+    "toStats": "See statistics",
+    "close": "Close"
+  },
   "userBarPopover": {
     "setting": "Setting",
     "stats": "Statistics",
