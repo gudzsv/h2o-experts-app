@@ -6,7 +6,10 @@ import { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router';
 import { currentUser } from './redux/auth/operations.js';
-import { selectIsRefreshing } from './redux/auth/selectors.js';
+import {
+  selectIsLoggedIn,
+  selectIsRefreshing,
+} from './redux/auth/selectors.js';
 import Message from 'components/Message/Message.jsx';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
@@ -28,12 +31,15 @@ const NotFoundPage = lazy(() =>
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     dispatch(currentUser());
   }, []);
 
-  return isRefreshing ? (
+  // A background refresh of an active session must not unmount the app,
+  // otherwise open modals and the selected day are lost.
+  return isRefreshing && !isLoggedIn ? (
     <Loader />
   ) : (
     <>
