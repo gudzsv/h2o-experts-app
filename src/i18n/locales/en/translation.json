@@ -139,7 +139,7 @@
     "userWeight": "Your weight in kilograms:",
     "userTime": "The time of active participation in sports (hours):",
     "WaterAmount": " The required amount of water in liters per day:",
-    "labelWaterNorma": "Write down how much water you will drink (ml):",
+    "labelWaterNorma": "Write down how much water you will drink ({{unit}}):",
     "subButton": "Save",
     "ValidationGender": "Please select your gender",
     "ValidationNameMin": "The minimum number of characters is 3",
@@ -155,7 +155,8 @@
     "ValidationTimeRequired": "Active time is required",
     "ValidationDailyRequirementTypeError": "Daily water should be a numeric value",
     "ValidationDailyRequirementMin": "Daily water requirement must be greater than 0",
-    "ValidationDailyRequirementRequired": "Daily water requirement is required"
+    "ValidationDailyRequirementRequired": "Daily water requirement is required",
+    "WaterAmountOz": " The required amount of water in ounces per day:"
   },
 
   "resetPwd": {
@@ -215,7 +216,7 @@
     "usedWaterTypeError": "Value must be a number",
     "usedWaterPositive": "Value must be greater than 0",
     "usedWaterInteger": "Value must be a whole number",
-    "usedWaterMax": "Value must not exceed 9999"
+    "usedWaterMax": "Value must not exceed {{max}}"
   },
 
   "toasts": {
@@ -263,5 +264,11 @@
     "closeModal": "Close",
     "deleteEntry": "Delete water entry",
     "loading": "Loading..."
+  },
+
+  "units": {
+    "ml": "ml",
+    "oz": "oz",
+    "legend": "Units"
   }
 }

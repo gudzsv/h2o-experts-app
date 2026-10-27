@@ -1,21 +1,23 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { QUICK_AMOUNTS_ML } from '../../../constants/constants.js';
+import { useVolume } from '../../../hooks/useVolume.js';
+import { getQuickAmounts } from '../../../helpers/units.js';
 import { selectLastWaterEntry } from '../../../redux/water/selectors.js';
 import css from './QuickAmounts.module.css';
 
+// `value` and `onSelect` use the displayed unit (ml or oz).
 const QuickAmounts = ({ value, onSelect }) => {
   const { t } = useTranslation();
+  const { units, unitLabel, toDisplay } = useVolume();
   const lastEntry = useSelector(selectLastWaterEntry);
-  const unit = t('chooseDate.ml');
+  const amounts = getQuickAmounts(units);
   const current = Number(value);
 
   // A repeat chip that equals a preset would only duplicate it.
+  const lastAmount = lastEntry ? toDisplay(lastEntry.usedWater) : null;
   const repeatAmount =
-    lastEntry && !QUICK_AMOUNTS_ML.includes(lastEntry.usedWater)
-      ? lastEntry.usedWater
-      : null;
+    lastAmount !== null && !amounts.includes(lastAmount) ? lastAmount : null;
 
   const renderChip = (amount, label) => (
     <button
@@ -35,11 +37,11 @@ const QuickAmounts = ({ value, onSelect }) => {
       role="group"
       aria-label={t('waterForm.quickAmounts')}
     >
-      {QUICK_AMOUNTS_ML.map(amount => renderChip(amount, `${amount} ${unit}`))}
+      {amounts.map(amount => renderChip(amount, `${amount} ${unitLabel}`))}
       {repeatAmount !== null &&
         renderChip(
           repeatAmount,
-          t('waterForm.repeatLast', { amount: `${repeatAmount} ${unit}` })
+          t('waterForm.repeatLast', { amount: `${repeatAmount} ${unitLabel}` })
         )}
     </div>
   );

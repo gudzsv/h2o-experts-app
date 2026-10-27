@@ -139,7 +139,7 @@
     "userWeight": "Ваша вага в кілограмах:",
     "userTime": "Час активного заняття спортом (год):",
     "WaterAmount": " Необхідна кількість води в літрах на добу:",
-    "labelWaterNorma": "Запишіть, скільки води ви будете пити (мл):",
+    "labelWaterNorma": "Запишіть, скільки води ви будете пити ({{unit}}):",
     "subButton": "Зберегти",
     "ValidationGender": "Виберіть стать",
     "ValidationNameMin": "Мінімальна кількість символів – 3",
@@ -155,7 +155,8 @@
     "ValidationTimeRequired": "Необхідно вказати актиний час",
     "ValidationDailyRequirementTypeError": "Необхідно вказати добову норму води у числовому значені",
     "ValidationDailyRequirementMin": "Добова норма води має бути більше 0",
-    "ValidationDailyRequirementRequired": "Необхідно вказати добову норму води"
+    "ValidationDailyRequirementRequired": "Необхідно вказати добову норму води",
+    "WaterAmountOz": " Необхідна кількість води в унціях на добу:"
   },
 
   "resetPwd": {
@@ -215,7 +216,7 @@
     "usedWaterTypeError": "Значення має бути числом",
     "usedWaterPositive": "Значення має бути більше за 0",
     "usedWaterInteger": "Значення має бути цілим числом",
-    "usedWaterMax": "Значення не повинно перевищувати 9999"
+    "usedWaterMax": "Значення не повинно перевищувати {{max}}"
   },
 
   "toasts": {
@@ -263,5 +264,11 @@
     "closeModal": "Закрити",
     "deleteEntry": "Видалити запис про воду",
     "loading": "Завантаження..."
+  },
+
+  "units": {
+    "ml": "мл",
+    "oz": "унц.",
+    "legend": "Одиниці"
   }
 }

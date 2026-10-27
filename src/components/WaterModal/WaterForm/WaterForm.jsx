@@ -9,6 +9,12 @@ import { addWater, editWater } from '../../../redux/water/operations.js';
 
 import sprite from '../../../assets/icons/sprite.svg';
 import { onActivate } from '../../../helpers/a11y';
+import {
+  getDefaultAmount,
+  getMaxAmount,
+  getStep,
+} from '../../../helpers/units.js';
+import { useVolume } from '../../../hooks/useVolume.js';
 import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
 
 const generateTimeOptions = () => {
@@ -24,6 +30,9 @@ const timeOptions = generateTimeOptions();
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { units, unitLabel, toDisplay, fromDisplay } = useVolume();
+  const step = getStep(units);
+  const maxAmount = getMaxAmount(units);
 
   const now = new Date();
   const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(
@@ -35,7 +44,10 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       ? waterItem.drinkingTime.split('T')[1].slice(0, 5)
       : formattedTime;
 
-  const defaultUsedWater = actionType === 'edit' ? waterItem.usedWater : 50;
+  const defaultUsedWater =
+    actionType === 'edit'
+      ? toDisplay(waterItem.usedWater)
+      : getDefaultAmount(units);
 
   const validationSchema = Yup.object().shape({
     drinkingTime: Yup.string().required(
@@ -50,7 +62,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       .typeError(t('validationForm.usedWaterTypeError'))
       .positive(t('validationForm.usedWaterPositive'))
       .integer(t('validationForm.usedWaterInteger'))
-      .max(9999, t('validationForm.usedWaterMax')),
+      .max(maxAmount, t('validationForm.usedWaterMax', { max: maxAmount })),
   });
 
   const {
@@ -74,9 +86,13 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     if (actionType === 'edit' && waterItem) {
       const initialTime = waterItem.drinkingTime.split('T')[1].slice(0, 5);
       setValue('drinkingTime', initialTime);
-      setValue('usedWater', waterItem.usedWater);
+      setValue('usedWater', toDisplay(waterItem.usedWater));
     }
-  }, [actionType, waterItem, setValue]);
+  }, [actionType, waterItem, setValue, toDisplay]);
+
+  const amount = Number(watch('usedWater'));
+  const canDecrease = amount >= step;
+  const canIncrease = amount + step <= maxAmount;
 
   const selectAmount = useCallback(
     amount => {
@@ -91,17 +107,17 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   // Мемоїзовані функції
   const plusWater = useCallback(() => {
     const currentWater = Number(getValues('usedWater'));
-    const newWater = currentWater + 50;
+    const newWater = currentWater + step;
     setValue('usedWater', newWater);
     trigger('usedWater');
-  }, [getValues, setValue, trigger]);
+  }, [getValues, setValue, trigger, step]);
 
   const minusWater = useCallback(() => {
     const currentWater = Number(getValues('usedWater'));
-    const newWater = currentWater - 50;
+    const newWater = currentWater - step;
     setValue('usedWater', newWater);
     trigger('usedWater');
-  }, [getValues, setValue, trigger]);
+  }, [getValues, setValue, trigger, step]);
 
   const formatDateTime = (date, time) => {
     const formattedDate = date.toString().split('T')[0];
@@ -110,7 +126,20 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
   const onSubmit = async data => {
     const formattedDateTime = formatDateTime(currentDay, data.drinkingTime);
-    const payload = { ...data, drinkingTime: formattedDateTime };
+
+    // Keep the stored amount when an entry is saved without touching it:
+    // converting to ounces and back would round it.
+    const isAmountUntouched =
+      actionType === 'edit' &&
+      Number(data.usedWater) === toDisplay(waterItem.usedWater);
+    const usedWater = isAmountUntouched
+      ? waterItem.usedWater
+      : fromDisplay(Number(data.usedWater));
+    const payload = {
+      ...data,
+      usedWater,
+      drinkingTime: formattedDateTime,
+    };
 
     closeModal();
 
@@ -139,37 +168,29 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
       <div className={styles.container}>
         <svg
-          onClick={getValues('usedWater') > 49 ? minusWater : null}
-          onKeyDown={
-            getValues('usedWater') > 49 ? onActivate(minusWater) : undefined
-          }
-          className={`${styles.icon} ${
-            getValues('usedWater') <= 49 ? styles.disabled : ''
-          }`}
+          onClick={canDecrease ? minusWater : null}
+          onKeyDown={canDecrease ? onActivate(minusWater) : undefined}
+          className={`${styles.icon} ${!canDecrease ? styles.disabled : ''}`}
           width="43"
           height="43"
           aria-label={t('waterForm.minusWater')}
           role="button"
-          tabIndex={getValues('usedWater') > 49 ? 0 : -1}
+          tabIndex={canDecrease ? 0 : -1}
         >
           <use href={`${sprite}#icon-minus-btn`}></use>
         </svg>
         <p className={styles.ml} aria-live="polite" aria-atomic="true">
-          {watch('usedWater')} {t('chooseDate.ml')}
+          {watch('usedWater')} {unitLabel}
         </p>
         <svg
-          onClick={getValues('usedWater') < 9950 ? plusWater : null}
-          onKeyDown={
-            getValues('usedWater') < 9950 ? onActivate(plusWater) : undefined
-          }
-          className={`${styles.icon} ${
-            getValues('usedWater') >= 9950 ? styles.disabled : ''
-          }`}
+          onClick={canIncrease ? plusWater : null}
+          onKeyDown={canIncrease ? onActivate(plusWater) : undefined}
+          className={`${styles.icon} ${!canIncrease ? styles.disabled : ''}`}
           width="43"
           height="43"
           aria-label={t('waterForm.plusWater')}
           role="button"
-          tabIndex={getValues('usedWater') < 9950 ? 0 : -1}
+          tabIndex={canIncrease ? 0 : -1}
         >
           <use href={`${sprite}#icon-plus-btn`}></use>
         </svg>

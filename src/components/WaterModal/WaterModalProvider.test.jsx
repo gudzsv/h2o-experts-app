@@ -1,9 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { API } from '../../helpers/axios.js';
-import { waterReducer } from '../../redux/water/slice.js';
+import { createTestStore } from '../../test/store.js';
 import WaterModalProvider from './WaterModalProvider.jsx';
 import { useWaterModal } from './waterModalContext.js';
 
@@ -25,8 +24,8 @@ const Openers = () => {
   );
 };
 
-const renderApp = () => {
-  const store = configureStore({ reducer: { water: waterReducer } });
+const renderApp = ({ units } = {}) => {
+  const store = createTestStore({ units });
 
   render(
     <Provider store={store}>
@@ -66,6 +65,62 @@ describe('WaterModalProvider', () => {
     ).toBeTruthy();
     expect(screen.queryByRole('group', { name: 'Quick amounts' })).toBeNull();
     expect(screen.getByLabelText('Recording time:').value).toBe('09:30');
+  });
+
+  describe('with ounces', () => {
+    const save = async () => {
+      const button = screen.getByRole('button', { name: 'Save' });
+      await waitFor(() => expect(button.disabled).toBe(false));
+      fireEvent.click(button);
+    };
+
+    it('stores an added amount in milliliters', async () => {
+      const post = vi.spyOn(API, 'post').mockResolvedValue({
+        data: { data: { _id: 'new', usedWater: 237, drinkingTime: '' } },
+      });
+      renderApp({ units: 'oz' });
+
+      fireEvent.click(screen.getByText('add today'));
+      expect(screen.getByText('2 oz')).toBeTruthy();
+      fireEvent.click(screen.getByRole('button', { name: '8 oz' }));
+      await save();
+
+      await waitFor(() => expect(post).toHaveBeenCalledTimes(1));
+      expect(post.mock.calls[0][1].usedWater).toBe(237);
+    });
+
+    it('keeps the stored milliliters when an entry is saved untouched', async () => {
+      const patch = vi.spyOn(API, 'patch').mockResolvedValue({
+        data: { data: item },
+      });
+      renderApp({ units: 'oz' });
+
+      fireEvent.click(screen.getByText('edit item'));
+      // 400 ml is shown as 14 oz, but must not be rewritten as 414 ml.
+      expect(screen.getByLabelText('Enter the value of the water used:').value)
+        .toBe('14');
+      await save();
+
+      await waitFor(() => expect(patch).toHaveBeenCalledTimes(1));
+      expect(patch.mock.calls[0][0]).toBe('/water/w1');
+      expect(patch.mock.calls[0][1].usedWater).toBe(400);
+    });
+
+    it('converts a changed amount in an edited entry', async () => {
+      const patch = vi.spyOn(API, 'patch').mockResolvedValue({
+        data: { data: item },
+      });
+      renderApp({ units: 'oz' });
+
+      fireEvent.click(screen.getByText('edit item'));
+      fireEvent.click(
+        document.querySelector('svg[aria-label="Increase water amount"]')
+      );
+      await save();
+
+      await waitFor(() => expect(patch).toHaveBeenCalledTimes(1));
+      expect(patch.mock.calls[0][1].usedWater).toBe(444); // 15 oz
+    });
   });
 
   it('adds water for the day it was opened for', async () => {

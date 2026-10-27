@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { selectIsLoading, selectWeekWater } from '../../redux/water/selectors';
 import { useMemo } from 'react';
 import { getEntryDateKey, getWeekDays, toDateKey } from '../../helpers/date.js';
+import { toDisplayDecimal } from '../../helpers/units.js';
+import { useVolume } from '../../hooks/useVolume.js';
 
 const CustomDot = props => {
   const { cx, cy } = props;
@@ -45,6 +47,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 const Chart = () => {
   const { t } = useTranslation();
+  const { units } = useVolume();
   const isLoading = useSelector(selectIsLoading);
   const weekWaterData = useSelector(selectWeekWater);
 
@@ -60,9 +63,9 @@ const Chart = () => {
 
     return getWeekDays().map(date => ({
       day: date.getDate(),
-      amount: amountByDate.get(toDateKey(date)) ?? 0,
+      amount: toDisplayDecimal(amountByDate.get(toDateKey(date)) ?? 0, units),
     }));
-  }, [weekWaterData]);
+  }, [weekWaterData, units]);
 
   if (isLoading) {
     return <p className={css.loadingMessage}>{t('a11y.loading')}</p>;
