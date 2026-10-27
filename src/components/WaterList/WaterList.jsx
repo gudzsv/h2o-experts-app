@@ -23,6 +23,16 @@ const WaterList = ({ waterData, onEdit, onDelete, dateForCalendar }) => {
     [waterData]
   );
 
+  // The empty message is not part of the horizontal scroller, so it wraps to
+  // the card width instead of being cut off on narrow phones.
+  if (filteredWaterData.length === 0) {
+    return (
+      <div className={css.empty}>
+        <p className={css.no_water_text}>{t('chooseDate.noWaterConsumed')}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <ScrollMenu
@@ -32,21 +42,15 @@ const WaterList = ({ waterData, onEdit, onDelete, dateForCalendar }) => {
         wheel={true}
       >
         <div className={css.water_list}>
-          {filteredWaterData.length === 0 ? (
-            <p className={css.no_water_text}>
-              {t('chooseDate.noWaterConsumed')}
-            </p>
-          ) : (
-            filteredWaterData.map(item => (
-              <WaterItem
-                key={item._id}
-                item={item}
-                onEdit={onEdit}
-                onDelete={onDelete}
-                dateForCalendar={dateForCalendar}
-              />
-            ))
-          )}
+          {filteredWaterData.map(item => (
+            <WaterItem
+              key={item._id}
+              item={item}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              dateForCalendar={dateForCalendar}
+            />
+          ))}
         </div>
       </ScrollMenu>
     </div>
