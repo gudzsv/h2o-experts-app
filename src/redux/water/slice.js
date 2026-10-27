@@ -23,6 +23,10 @@ const initialState = {
   monthKey: null,
   weekWater: [],
   isLoading: false,
+  // The read in flight for each list, as { requestId, arg }. On a slow server
+  // a response can arrive after a newer read or after a write, so only the
+  // latest read may replace a list (see refreshReadsInFlight in operations).
+  reads: { day: null, month: null, week: null },
   // The stats page shows its error inline, so it does not share `isLoading`
   // and the toasts with the tracker. Loading is `stats === null`.
   stats: null,
@@ -39,6 +43,23 @@ const handleMessage = message => {
 
 const handleError = message => {
   toast.error(i18n.t(message), { id: message });
+};
+
+const startRead = key => (state, { meta }) => {
+  state.isLoading = true;
+  state.reads[key] = { requestId: meta.requestId, arg: meta.arg };
+};
+
+// True, and the read is cleared, when this response belongs to the latest
+// read of the list; an older response must not overwrite newer data.
+const finishRead = (state, key, meta) => {
+  if (state.reads[key]?.requestId !== meta.requestId) {
+    return false;
+  }
+
+  state.reads[key] = null;
+  state.isLoading = false;
+  return true;
 };
 
 const removeEntry = (state, id) => {
@@ -101,34 +122,40 @@ const waterSlice = createSlice({
         state.isLoading = false;
         handleError(ERROR.DELETE_WATER);
       })
-      .addCase(getDayWater.pending, handlePending)
+      .addCase(getDayWater.pending, startRead('day'))
       .addCase(getDayWater.fulfilled, (state, { payload, meta }) => {
-        state.isLoading = false;
-        state.dayWater = payload.date ?? [];
-        state.dayKey = meta.arg;
+        if (finishRead(state, 'day', meta)) {
+          state.dayWater = payload.date ?? [];
+          state.dayKey = meta.arg;
+        }
       })
-      .addCase(getDayWater.rejected, state => {
-        state.isLoading = false;
-        handleError(ERROR.GET_DAY_WATER);
+      .addCase(getDayWater.rejected, (state, { meta }) => {
+        if (finishRead(state, 'day', meta)) {
+          handleError(ERROR.GET_DAY_WATER);
+        }
       })
-      .addCase(getMonthWater.pending, handlePending)
+      .addCase(getMonthWater.pending, startRead('month'))
       .addCase(getMonthWater.fulfilled, (state, { payload, meta }) => {
-        state.isLoading = false;
-        state.monthWater = payload.date ?? [];
-        state.monthKey = meta.arg;
+        if (finishRead(state, 'month', meta)) {
+          state.monthWater = payload.date ?? [];
+          state.monthKey = meta.arg;
+        }
       })
-      .addCase(getMonthWater.rejected, state => {
-        state.isLoading = false;
-        handleError(ERROR.GET_MONTH_WATER);
+      .addCase(getMonthWater.rejected, (state, { meta }) => {
+        if (finishRead(state, 'month', meta)) {
+          handleError(ERROR.GET_MONTH_WATER);
+        }
       })
-      .addCase(getWeekWater.pending, handlePending)
-      .addCase(getWeekWater.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.weekWater = payload;
+      .addCase(getWeekWater.pending, startRead('week'))
+      .addCase(getWeekWater.fulfilled, (state, { payload, meta }) => {
+        if (finishRead(state, 'week', meta)) {
+          state.weekWater = payload;
+        }
       })
-      .addCase(getWeekWater.rejected, state => {
-        state.isLoading = false;
-        handleError(ERROR.GET_WEEK_WATER);
+      .addCase(getWeekWater.rejected, (state, { meta }) => {
+        if (finishRead(state, 'week', meta)) {
+          handleError(ERROR.GET_WEEK_WATER);
+        }
       })
       .addCase(getStats.pending, state => {
         state.isStatsFailed = false;

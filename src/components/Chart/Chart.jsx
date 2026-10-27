@@ -75,7 +75,11 @@ const Chart = () => {
     <div>
       <div className={css.wrapperStatistics}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={groupedData}>
+          {/* Room for the dots of the last day and of the highest value. */}
+          <AreaChart
+            data={groupedData}
+            margin={{ top: 10, right: 10, bottom: 5, left: 5 }}
+          >
             <CartesianGrid horizontal="" vertical="" />
             <Tooltip cursor={false} content={<CustomTooltip />} />
             <XAxis

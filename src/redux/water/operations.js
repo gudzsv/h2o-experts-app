@@ -3,11 +3,28 @@ import { API } from '../../helpers/axios';
 import { toRejectValue } from '../../helpers/errors';
 import { getWeekRange, toDateKey } from '../../helpers/date';
 
+// A read that started before a write finished returns data without that
+// write, so it is requested again; the slice ignores the older response.
+const refreshReadsInFlight = ({ dispatch, getState }) => {
+  const { reads } = getState().water;
+
+  if (reads.day) {
+    dispatch(getDayWater(reads.day.arg));
+  }
+  if (reads.month) {
+    dispatch(getMonthWater(reads.month.arg));
+  }
+  if (reads.week) {
+    dispatch(getWeekWater());
+  }
+};
+
 export const addWater = createAsyncThunk(
   'water/add',
   async (addData, thunkAPI) => {
     try {
       const { data } = await API.post('/water', addData);
+      refreshReadsInFlight(thunkAPI);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(toRejectValue(error));
@@ -20,6 +37,7 @@ export const editWater = createAsyncThunk(
   async ({ waterId, ...editData }, thunkAPI) => {
     try {
       const { data } = await API.patch(`/water/${waterId}`, { ...editData });
+      refreshReadsInFlight(thunkAPI);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(toRejectValue(error));
@@ -32,6 +50,7 @@ export const deleteWater = createAsyncThunk(
   async (waterId, thunkAPI) => {
     try {
       const { data } = await API.delete(`/water/${waterId}`);
+      refreshReadsInFlight(thunkAPI);
       return { data, waterId };
     } catch (error) {
       return thunkAPI.rejectWithValue(toRejectValue(error));
