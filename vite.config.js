@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import FullReload from 'vite-plugin-full-reload';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { VitePWA } from 'vite-plugin-pwa';
 
 const VENDOR_CHUNKS = [
   { name: 'react', pattern: /node_modules\/(react|react-dom|scheduler)\// },
@@ -18,6 +19,49 @@ const VENDOR_CHUNKS = [
       /node_modules\/(recharts|recharts-scale|victory-vendor|d3-[a-z-]+|internmap|decimal\.js-light|react-smooth|fast-equals)\//,
   },
 ];
+
+// Installable app with the shell cached for a fast start. The API lives on
+// another origin, so its responses are never cached by the service worker.
+const pwa = VitePWA({
+  registerType: 'autoUpdate',
+  manifest: {
+    name: 'AquaTrack',
+    short_name: 'AquaTrack',
+    description: 'Track your daily water intake and keep the habit.',
+    start_url: '/tracker',
+    scope: '/',
+    display: 'standalone',
+    background_color: '#f0eff4',
+    theme_color: '#f0eff4',
+    icons: [
+      { src: '/icons/pwa-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/pwa-512.png', sizes: '512x512', type: 'image/png' },
+      {
+        src: '/icons/maskable-512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable',
+      },
+    ],
+  },
+  workbox: {
+    // The shell is cached up front. Images come in several sizes for
+    // different screens, so each is cached only once the browser shows it.
+    globPatterns: ['**/*.{js,css,html,svg,ttf}', 'icons/*.png'],
+    navigateFallback: '/index.html',
+    runtimeCaching: [
+      {
+        urlPattern: ({ request, sameOrigin }) =>
+          sameOrigin && request.destination === 'image',
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'images',
+          expiration: { maxEntries: 60 },
+        },
+      },
+    ],
+  },
+});
 
 export default defineConfig(({ command }) => {
   return {
@@ -56,6 +100,7 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       react(),
+      pwa,
       FullReload(['./src/**/*.{js,jsx,tsx,css,json,svg,webp}']),
       ViteImageOptimizer({
         exclude: /^sprite.svg$/,
