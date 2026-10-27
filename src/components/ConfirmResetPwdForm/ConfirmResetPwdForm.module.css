@@ -38,7 +38,7 @@
 }
 
 .input {
-  border-radius: 15px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   background-color: transparent;
   padding: 16px;
@@ -81,7 +81,7 @@
   display: block;
   margin: 0 auto;
   cursor: pointer;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background-color: var(--light-green);
   border: none;
   color: var(--dark-blue);

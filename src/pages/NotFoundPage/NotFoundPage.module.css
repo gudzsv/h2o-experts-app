@@ -10,7 +10,7 @@
 .notFoundContent {
   animation: fadeIn 0.5s ease;
   text-align: center;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background: var(--light-gray);
   height: 192px;
   padding: 16px;
@@ -22,7 +22,7 @@
   min-height: 192px;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
 }
 
 .lottieAnimation {

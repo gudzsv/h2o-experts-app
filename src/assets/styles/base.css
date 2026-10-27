@@ -23,11 +23,6 @@ h1 {
   font-weight: 400;
 }
 
-/* Mobile/Main Text */
-.main-text-with-opacity {
-  color: var(--Opacity_60);
-}
-
 /* Mobile/Small Text */
 .small-text {
   font-size: 14px;

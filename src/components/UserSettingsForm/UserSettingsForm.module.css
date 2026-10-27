@@ -125,7 +125,7 @@
 .userInput {
   width: 100%;
   padding: 14px 16px;
-  border-radius: 15px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(47, 47, 47, 0.15);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
@@ -211,7 +211,7 @@
 }
 .textDescription {
   padding: 16px;
-  border-radius: 15px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--light-gray);
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
@@ -225,7 +225,7 @@
 }
 .textActiveTime {
   font-size: 14px;
-  color: #2f2f2f;
+  color: var(--black);
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -291,7 +291,7 @@
 }
 .subButton {
   background-color: var(--light-green);
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   display: flex;
   justify-content: center;
   align-items: center;

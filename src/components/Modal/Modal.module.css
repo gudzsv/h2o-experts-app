@@ -4,8 +4,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 15px;
-  background: #ffffff;
+  border-radius: var(--radius-sm);
+  background: var(--white);
   box-shadow: 0px 4px 50px 0px rgba(213, 204, 204, 0.1);
   overflow: auto;
   padding: 40px 20px;
@@ -36,7 +36,7 @@
   top: 20px;
   right: 16px;
   cursor: pointer;
-  stroke: #2f2f2f;
+  stroke: var(--black);
 }
 @media (min-width: 767.99px) {
   .icon {

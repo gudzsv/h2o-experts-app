@@ -1,9 +1,9 @@
 .container {
   position: absolute;
-  border-radius: 15px;
+  border-radius: var(--radius-sm);
   background-color: var(--white);
   padding: 12px;
-  box-shadow: 0px 4px 50px 0px var(--border-shadow);
+  box-shadow: var(--shadow-card);
   width: 102px;
   height: 54px;
   top: 122px;

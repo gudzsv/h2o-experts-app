@@ -6,7 +6,7 @@ h2 {
 
 .formSection {
   font-family: 'Poppins', sans-serif;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background: var(--light-gray);
   padding: 24px 16px;
   width: 100%;

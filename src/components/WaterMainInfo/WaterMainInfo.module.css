@@ -2,7 +2,7 @@
   position: relative;
   background-color: var(--light-green);
   min-height: 415px;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background-image: image-set(
     url(../../assets/img/bottle_for_water/bottle_for_water_mob_1x.webp) 1x,
     url(../../assets/img/bottle_for_water/bottle_for_water_mob_2x.webp) 2x

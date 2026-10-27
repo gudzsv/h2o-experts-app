@@ -24,11 +24,11 @@
   font-weight: 800;
 }
 .water_not_full {
-  background: #323f4733;
+  background: var(--dark-blue-a20);
 }
 
 .water_full {
-  background: #ffffff;
+  background: var(--white);
 }
 
 .proc_number {
@@ -43,12 +43,12 @@
 
   text-align: center;
 
-  color: #2f2f2f99;
+  color: var(--black-a60);
 }
 
 .today_day {
-  background: #323f47;
-  color: #9be1a0;
+  background: var(--dark-blue);
+  color: var(--light-green);
 }
 
 @media only screen and (min-width: 768px) {

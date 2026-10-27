@@ -12,7 +12,7 @@
   /* display: flex;
   align-items: center;
   gap: 8px;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background-color: var(--dark-blue);
   color: var(--white);
   padding: 6px 12px;
@@ -35,7 +35,7 @@
   padding: 6px 12px;
   align-items: center;
   gap: 8px;
-  border-radius: 30px;
+  border-radius: var(--radius-lg);
   background-color: var(--dark-blue);
   width: max-content;
 }

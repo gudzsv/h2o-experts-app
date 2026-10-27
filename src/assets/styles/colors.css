@@ -14,4 +14,13 @@
   --placeholder: rgba(47, 47, 47, 0.6);
   --text-span: rgba(47, 47, 47, 0.5);
   --gray-opacity: rgba(50, 63, 71, 0.4);
+  --gray-muted: #bcbcbc;
+  --gray-disabled-bg: #e6e6e6;
+  --gray-hover: #f4f4f6;
+  --dark-blue-a20: #323f4733;
+  --dark-blue-a30: #323f474d;
+  --black-a60: #2f2f2f99;
+  --radius-sm: 15px;
+  --radius-lg: 30px;
+  --shadow-card: 0px 4px 50px 0px var(--border-shadow);
 }
