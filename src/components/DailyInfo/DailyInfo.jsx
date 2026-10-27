@@ -10,7 +10,7 @@ import BallTriangleLoader from './Loader/LoaderForDailyInfo';
 import { useWaterModal } from 'components/WaterModal/waterModalContext.js';
 import { toDateKey } from '../../helpers/date.js';
 
-const DailyInfo = ({ dateForCalendar }) => {
+const DailyInfo = ({ dateForCalendar, setDateForCalendar }) => {
   const dispatch = useDispatch();
   const dayWater = useSelector(selectDayWater);
   const isLoading = useSelector(selectIsLoading);
@@ -42,7 +42,10 @@ const DailyInfo = ({ dateForCalendar }) => {
     <div className={styles.dailyInfo}>
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
-          <ChooseDate selectedDate={dateForCalendar || new Date()} />
+          <ChooseDate
+            selectedDate={dateForCalendar || new Date()}
+            onToday={() => setDateForCalendar(new Date())}
+          />
           <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
         </div>
 

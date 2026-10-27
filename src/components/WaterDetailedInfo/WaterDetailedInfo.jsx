@@ -12,7 +12,10 @@ export default function WaterDetailedInfo() {
   return (
     <section className={css.container}>
       <UserPanel />
-      <DailyInfo dateForCalendar={dateForCalendar} />
+      <DailyInfo
+        dateForCalendar={dateForCalendar}
+        setDateForCalendar={setDateForCalendar}
+      />
       <MonthInfo
         dateForCalendar={dateForCalendar}
         setDateForCalendar={setDateForCalendar}

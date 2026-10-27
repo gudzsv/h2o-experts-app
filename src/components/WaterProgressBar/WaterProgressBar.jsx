@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
 import { selectTodayWater } from '../../redux/water/selectors';
@@ -7,6 +8,7 @@ import css from './WaterProgressBar.module.css';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterProgressBar() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,11 +51,17 @@ export default function WaterProgressBar() {
 
   return (
     <div className={css.container}>
+      {/* The bottle always shows today, whatever day the list on the right
+          shows, so it says so. */}
+      <p className={css.text} id="progressTitle">
+        {t('chooseDate.today')}
+      </p>
       <div className={css.backBar}>
         <div
           className={css.frontBar}
           style={{ width: `${percentDaily}%` }}
           role="progressbar"
+          aria-labelledby="progressTitle"
           aria-valuenow={percentDaily}
           aria-valuemin="0"
           aria-valuemax="100"

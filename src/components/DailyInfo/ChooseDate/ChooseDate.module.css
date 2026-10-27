@@ -1,3 +1,11 @@
+/* Phones: the date and the "back to today" link are stacked, because the
+   row next to the add button has no room for both on one line. */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .daily_info {
   color: var(--dark-blue);
   font-family: 'Poppins', sans-serif;
@@ -8,9 +16,32 @@
   letter-spacing: -0.01rem;
 }
 
-@media only screen and (min-width: 768px) {
+.todayButton {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--dark-blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
   .daily_info {
     font-size: 28px;
     line-height: 1.14;
+  }
+
+  .wrapper {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .todayButton {
+    font-size: 16px;
   }
 }
