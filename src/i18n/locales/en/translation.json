@@ -283,6 +283,12 @@
     "toStats": "See statistics",
     "close": "Close"
   },
+  "theme": {
+    "label": "Theme",
+    "auto": "Auto",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "userBarPopover": {
     "setting": "Setting",
     "stats": "Statistics",

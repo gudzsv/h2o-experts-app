@@ -4,7 +4,7 @@
 }
 
 .customTooltip {
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
   border: 1px solid var(--surface);
   padding: 10px;
   border-radius: 10px;

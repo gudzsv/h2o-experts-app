@@ -295,6 +295,12 @@
     "toStats": "До статистики",
     "close": "Закрити"
   },
+  "theme": {
+    "label": "Тема",
+    "auto": "Авто",
+    "light": "Світла",
+    "dark": "Темна"
+  },
   "userBarPopover": {
     "setting": "Налаштування",
     "stats": "Статистика",

@@ -67,8 +67,11 @@ p {
   -webkit-appearance: none;
   appearance: none;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(47, 47, 47, 0.15);
+  border: 1px solid var(--border-subtle);
   padding: 14px 16px;
+  /* The time select would take the browser's field color, which is gray
+     in a dark color scheme. */
+  background-color: var(--surface);
 
   color: var(--text-body);
   font-size: 14px;

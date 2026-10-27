@@ -24,11 +24,11 @@
   font-weight: 800;
 }
 .water_not_full {
-  background: var(--text-a20);
+  background: var(--day-empty);
 }
 
 .water_full {
-  background: var(--surface);
+  background: var(--day-full);
 }
 
 .proc_number {
@@ -47,8 +47,8 @@
 }
 
 .today_day {
-  background: var(--fill-strong);
-  color: var(--light-green);
+  background: var(--day-today);
+  color: var(--on-day-today);
 }
 
 @media only screen and (min-width: 768px) {
