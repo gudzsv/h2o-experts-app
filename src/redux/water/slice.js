@@ -5,16 +5,21 @@ import {
   editWater,
   getDayWater,
   getMonthWater,
+  getWeekWater,
 } from './operations';
 import toast from 'react-hot-toast';
 import { MESSAGES } from '../../constants/constants.js';
 import { createDate } from '../../helpers/createDateMessage';
+import { getEntryDateKey, getWeekRange } from '../../helpers/date.js';
 
 const { SUCCESS, ERROR } = MESSAGES;
 
 const initialState = {
   dayWater: [],
+  dayKey: null,
   monthWater: [],
+  monthKey: null,
+  weekWater: [],
   isLoading: false,
 };
 
@@ -30,6 +35,29 @@ const handleError = message => {
   toast.error(message, { id: message });
 };
 
+const removeEntry = (state, id) => {
+  state.dayWater = state.dayWater.filter(entry => entry._id !== id);
+  state.monthWater = state.monthWater.filter(entry => entry._id !== id);
+  state.weekWater = state.weekWater.filter(entry => entry._id !== id);
+};
+
+const upsertEntry = (state, entry) => {
+  removeEntry(state, entry._id);
+
+  const dateKey = getEntryDateKey(entry);
+  const { startKey, endKey } = getWeekRange();
+
+  if (dateKey === state.dayKey) {
+    state.dayWater.push(entry);
+  }
+  if (dateKey.slice(0, 7) === state.monthKey) {
+    state.monthWater.push(entry);
+  }
+  if (dateKey >= startKey && dateKey <= endKey) {
+    state.weekWater.push(entry);
+  }
+};
+
 const waterSlice = createSlice({
   name: 'water',
   initialState,
@@ -37,7 +65,7 @@ const waterSlice = createSlice({
     builder
       .addCase(addWater.pending, handlePending)
       .addCase(addWater.fulfilled, (state, { payload }) => {
-        state.dayWater.push(payload.data);
+        upsertEntry(state, payload.data);
         state.isLoading = false;
         handleMessage(createDate(payload, SUCCESS.ADD_WATER));
       })
@@ -48,12 +76,7 @@ const waterSlice = createSlice({
       .addCase(editWater.pending, handlePending)
       .addCase(editWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        const index = state.dayWater.findIndex(
-          elem => elem._id === payload.data._id
-        );
-        if (index !== -1) {
-          state.dayWater.splice(index, 1, payload.data);
-        }
+        upsertEntry(state, payload.data);
         handleMessage(SUCCESS.EDIT_WATER);
       })
       .addCase(editWater.rejected, state => {
@@ -63,9 +86,7 @@ const waterSlice = createSlice({
       .addCase(deleteWater.pending, handlePending)
       .addCase(deleteWater.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.dayWater = state.dayWater.filter(
-          elem => elem._id !== payload.waterId
-        );
+        removeEntry(state, payload.waterId);
         handleMessage(SUCCESS.DELETE_WATER);
       })
       .addCase(deleteWater.rejected, state => {
@@ -73,24 +94,33 @@ const waterSlice = createSlice({
         handleError(ERROR.DELETE_WATER);
       })
       .addCase(getDayWater.pending, handlePending)
-      .addCase(getDayWater.fulfilled, (state, { payload }) => {
+      .addCase(getDayWater.fulfilled, (state, { payload, meta }) => {
         state.isLoading = false;
-        state.dayWater = payload.date;
-        // handleMessage(SUCCESS.GET_DAY_WATER);
+        state.dayWater = payload.date ?? [];
+        state.dayKey = meta.arg;
       })
       .addCase(getDayWater.rejected, state => {
         state.isLoading = false;
         handleError(ERROR.GET_DAY_WATER);
       })
       .addCase(getMonthWater.pending, handlePending)
-      .addCase(getMonthWater.fulfilled, (state, { payload }) => {
+      .addCase(getMonthWater.fulfilled, (state, { payload, meta }) => {
         state.isLoading = false;
-        state.monthWater = payload.date;
-        // handleMessage(SUCCESS.GET_MONTH_WATER);
+        state.monthWater = payload.date ?? [];
+        state.monthKey = meta.arg;
       })
       .addCase(getMonthWater.rejected, state => {
         state.isLoading = false;
         handleError(ERROR.GET_MONTH_WATER);
+      })
+      .addCase(getWeekWater.pending, handlePending)
+      .addCase(getWeekWater.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.weekWater = payload;
+      })
+      .addCase(getWeekWater.rejected, state => {
+        state.isLoading = false;
+        handleError(ERROR.GET_WEEK_WATER);
       });
   },
 });

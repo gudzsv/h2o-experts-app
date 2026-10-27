@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../helpers/axios';
 import { toRejectValue } from '../../helpers/errors';
+import { getWeekRange } from '../../helpers/date';
 
 export const addWater = createAsyncThunk(
   'water/add',
@@ -56,6 +57,21 @@ export const getMonthWater = createAsyncThunk(
     try {
       const { data } = await API.get(`/water/month/${yearMonth}`);
       return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(toRejectValue(error));
+    }
+  }
+);
+
+export const getWeekWater = createAsyncThunk(
+  'water/getWeek',
+  async (_, thunkAPI) => {
+    try {
+      const { monthKeys } = getWeekRange();
+      const responses = await Promise.all(
+        monthKeys.map(monthKey => API.get(`/water/month/${monthKey}`))
+      );
+      return responses.flatMap(({ data }) => data.date);
     } catch (error) {
       return thunkAPI.rejectWithValue(toRejectValue(error));
     }

@@ -1,28 +1,24 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
-import { selectDayWater } from '../../redux/water/selectors';
-import { getDayWater } from '../../redux/water/operations';
+import { selectTodayWater } from '../../redux/water/selectors';
+import { getWeekWater } from '../../redux/water/operations';
 import css from './WaterProgressBar.module.css';
 import { DEFAULT_DAILY_NORMA } from '../../constants/constants.js';
 
 export default function WaterProgressBar() {
   const dispatch = useDispatch();
-  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    dispatch(getDayWater(today));
-  }, [dispatch, today]);
+    dispatch(getWeekWater());
+  }, [dispatch]);
 
-  const dayWater = useSelector(selectDayWater);
+  const todayWater = useSelector(selectTodayWater);
   const user = useSelector(selectUser);
 
   const waterDailyNorma = user?.dailyRequirement || DEFAULT_DAILY_NORMA;
 
-  let amount = 0;
-  if (dayWater && dayWater.length > 0) {
-    amount = dayWater.reduce((total, item) => total + item.usedWater, 0);
-  }
+  const amount = todayWater.reduce((total, item) => total + item.usedWater, 0);
 
   const percentDaily = Math.min(
     Math.round((amount / waterDailyNorma) * 100),

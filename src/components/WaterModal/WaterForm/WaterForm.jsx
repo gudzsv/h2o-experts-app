@@ -5,15 +5,10 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
-import {
-  addWater,
-  editWater,
-  getMonthWater,
-} from '../../../redux/water/operations.js';
+import { addWater, editWater } from '../../../redux/water/operations.js';
 
 import sprite from '../../../assets/icons/sprite.svg';
 
-// Функція для генерації timeOptions
 const generateTimeOptions = () => {
   return Array.from({ length: 24 * 12 }, (_, i) => {
     const hours = String(Math.floor(i / 12)).padStart(2, '0');
@@ -22,14 +17,15 @@ const generateTimeOptions = () => {
   });
 };
 
+const timeOptions = generateTimeOptions();
+
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
-  const timeOptions = generateTimeOptions(); // Винесена за компонент
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const now = new Date();
-  const formattedTime = `${now.getHours()}:${String(
-    Math.round(now.getMinutes() / 5) * 5
+  const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(
+    Math.floor(now.getMinutes() / 5) * 5
   ).padStart(2, '0')}`;
 
   const defaultDrinkingTime =
@@ -106,16 +102,10 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
     closeModal();
 
-    try {
-      if (actionType === 'add') {
-        await dispatch(addWater(payload));
-      } else if (actionType === 'edit') {
-        await dispatch(editWater({ waterId: waterItem._id, ...payload }));
-      }
-
-      await dispatch(getMonthWater(currentDay.slice(0, -3)));
-    } catch (error) {
-      console.error(error);
+    if (actionType === 'add') {
+      await dispatch(addWater(payload));
+    } else if (actionType === 'edit') {
+      await dispatch(editWater({ waterId: waterItem._id, ...payload }));
     }
   };
 
