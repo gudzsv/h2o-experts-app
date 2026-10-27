@@ -97,6 +97,14 @@
     "add": "Add water"
   },
 
+  "onboarding": {
+    "title": "Let's set your daily norm",
+    "text": "Answer a few questions and we will suggest how much water you need per day. You can change it later in the settings.",
+    "yourNorm": "Your daily norm:",
+    "activityMin": "Active time cannot be negative",
+    "save": "Save and start",
+    "skip": "Skip for now"
+  },
   "settingsModal": {
     "titleModal": "Setting"
   },
