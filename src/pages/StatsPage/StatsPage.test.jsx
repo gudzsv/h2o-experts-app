@@ -53,15 +53,42 @@ describe('StatsPage', () => {
 
     await screen.findByText('Current streak');
     expect(screen.getByText('1 day')).toBeTruthy();
-    expect(screen.getByText('4 days')).toBeTruthy();
+    // The last day (today) has 2100 ml, above the 2000 ml goal.
+    expect(
+      screen.getByText("Today's goal is met, the streak goes on.")
+    ).toBeTruthy();
+    expect(screen.getByText('Record: 4 days. 3 days to go.')).toBeTruthy();
     expect(screen.getByText('70%')).toBeTruthy();
     expect(screen.getByText('1.7 L')).toBeTruthy();
+    // Days alternate 500 and 2100 ml: 9900 ml this week against 8300 ml.
+    expect(screen.getByText('+19%')).toBeTruthy();
+    expect(screen.getByText('vs the previous 7 days', { exact: false })).toBeTruthy();
     expect(screen.queryByText('No water recorded yet.', { exact: false })).toBeNull();
 
     // Six days with the goal and a best streak of 4.
     expect(screen.getByText('Unlocked')).toBeTruthy();
-    expect(screen.getAllByText('4 of 7').length).toBe(1);
+    expect(screen.getByText('4 of 7')).toBeTruthy();
     expect(screen.getByText('4 of 30')).toBeTruthy();
+    const bars = screen.getAllByRole('progressbar');
+    expect(bars.map(bar => bar.getAttribute('aria-valuenow'))).toEqual([
+      '4',
+      '4',
+    ]);
+  });
+
+  it('tells how much is left today to keep the streak', async () => {
+    const days = makeStats().days.map((item, index, all) =>
+      index === all.length - 1 ? { ...item, total: 500, goalMet: false } : item
+    );
+    vi.spyOn(API, 'get').mockResolvedValue({
+      data: { data: makeStats({ days, currentStreak: 2, bestStreak: 2 }) },
+    });
+    renderPage();
+
+    await screen.findByText(
+      'Drink 1.5 L more today to keep the streak.'
+    );
+    expect(screen.getByText('This is your best streak so far!')).toBeTruthy();
   });
 
   it('shows the averages in ounces', async () => {
