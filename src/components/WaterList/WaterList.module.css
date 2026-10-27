@@ -24,18 +24,6 @@
   margin-bottom: 40px;
 }
 
-.horizontal_scroll_container::-webkit-scrollbar {
-  height: 8px;
-  background-color: var(--light-gray);
-  width: 100%;
-  margin-bottom: 40px;
-}
-
-.horizontal_scroll_container::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: var(--dark-blue);
-}
-
 .no_water_text {
   margin-top: 40px;
   width: 300px;
