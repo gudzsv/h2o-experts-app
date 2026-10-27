@@ -1,25 +1,36 @@
 :root {
+  /* Palette: raw colors. Components use the semantic tokens below, so a
+     theme only has to change the semantic layer. */
   --white: #ffffff;
   --light-gray: #f0eff4;
   --light-green: #9be1a0;
   --light-green-hover: #87d28d;
   --dark-blue: #323f47;
-  --dark-blue-translucent: rgba(50, 63, 71, 0.4);
   --black: #2f2f2f;
-  --black-semi: #2f2f2f80;
   --error: #ef5050;
+
+  /* Semantic tokens. */
+  --bg: var(--white); /* page background */
+  --surface: var(--white); /* cards, modals, popovers, tiles */
+  --surface-alt: var(--light-gray); /* sections and insets one step apart */
+  --text: var(--dark-blue); /* headings, primary text, icons */
+  --text-body: var(--black); /* body text and inputs */
+  --text-inverse: var(--white); /* text and icons on --fill-strong */
+  --fill-strong: var(--dark-blue); /* dark buttons and badges */
+  --on-accent: var(--dark-blue); /* text and icons on --light-green */
+  --text-a20: #323f4733;
+  --text-a30: #323f474d;
+  --text-a40: rgba(50, 63, 71, 0.4);
+  --text-body-a60: #2f2f2f99;
+
   --border-color: rgba(47, 47, 47, 0.2);
   --border-shadow: rgba(0, 0, 0, 0.1);
   --border-color-active: rgba(47, 47, 47, 0.4);
   --placeholder: rgba(47, 47, 47, 0.6);
   --text-span: rgba(47, 47, 47, 0.5);
-  --gray-opacity: rgba(50, 63, 71, 0.4);
   --gray-muted: #bcbcbc;
   --gray-disabled-bg: #e6e6e6;
   --gray-hover: #f4f4f6;
-  --dark-blue-a20: #323f4733;
-  --dark-blue-a30: #323f474d;
-  --black-a60: #2f2f2f99;
   --radius-sm: 15px;
   --radius-lg: 30px;
   --shadow-card: 0px 4px 50px 0px var(--border-shadow);

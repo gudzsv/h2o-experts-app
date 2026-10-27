@@ -1,6 +1,6 @@
 .container {
   border-radius: var(--radius-lg);
-  background: var(--light-gray);
+  background: var(--surface-alt);
   padding: 40px 20px;
   margin-bottom: 16px;
 }

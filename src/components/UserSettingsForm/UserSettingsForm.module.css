@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--black);
+  color: var(--text-body);
   gap: 8px;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -49,7 +49,7 @@
 }
 
 .labelGender {
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -58,7 +58,7 @@
   line-height: 1.25;
 }
 .label {
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -112,7 +112,7 @@
   line-height: 1.2;
   font-size: 14px;
   letter-spacing: -0.14px;
-  color: var(--black);
+  color: var(--text-body);
 }
 
 .retreatBottom {
@@ -130,7 +130,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   align-items: stretch;
-  color: var(--black);
+  color: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -0.16px;
@@ -149,7 +149,7 @@
 .userInput::placeholder {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
-  color: var(--black);
+  color: var(--text-body);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.14px;
@@ -179,7 +179,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: var(--dark-blue);
+  color: var(--text);
   line-height: 1.25;
   letter-spacing: -0.016px;
   margin: 0 0 14px;
@@ -188,7 +188,7 @@
 
 .text {
   font-family: 'Poppins', sans-serif;
-  color: var(--black);
+  color: var(--text-body);
   font-size: 14px;
   letter-spacing: -0.14px;
   line-height: 1.2;
@@ -212,7 +212,7 @@
 .textDescription {
   padding: 16px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--surface-alt);
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
@@ -225,7 +225,7 @@
 }
 .textActiveTime {
   font-size: 14px;
-  color: var(--black);
+  color: var(--text-body);
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -247,7 +247,7 @@
 
 .labelRegularly {
   font-family: 'Poppins', sans-serif;
-  color: var(--black);
+  color: var(--text-body);
   font-size: 14px;
   letter-spacing: -0.14px;
   line-height: 1.2;
@@ -271,7 +271,7 @@
 }
 .labelRegularlyWaterAmount {
   font-family: 'Poppins', sans-serif;
-  color: var(--black);
+  color: var(--text-body);
   font-size: 14px;
   letter-spacing: -0.14px;
   line-height: 1.2;
@@ -281,7 +281,7 @@
   margin-top: 24px;
 }
 .labelWaterNorma {
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -304,7 +304,7 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.14px;
-  color: var(--dark-blue);
+  color: var(--on-accent);
   text-align: center;
   outline: none;
   cursor: pointer;
@@ -453,7 +453,7 @@ legend {
   border: 1px solid var(--light-green);
   border-radius: var(--radius-lg);
   background-color: transparent;
-  color: var(--dark-blue);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -467,6 +467,7 @@ legend {
 .recommendedButton:hover:not(:disabled),
 .recommendedButton:focus-visible {
   background-color: var(--light-green);
+  color: var(--on-accent);
 }
 
 .recommendedButton:disabled {

@@ -30,20 +30,29 @@ Defined in `src/assets/styles/colors.css` (colors, radii, shadow) and
 `src/assets/styles/base.css` (`--Animation_cubic`). Do not write hex colors or
 repeat radii in components; use a token, and add one first if none fits.
 
-| Token | Value | Use |
+Components use the semantic color tokens, not the palette (`--white`,
+`--light-gray`, `--dark-blue`, `--black`), so a theme only changes the
+semantic layer. Pick a token by meaning, not by today's color: a white card is
+`--surface`, white text on a dark button is `--text-inverse`.
+
+| Token | Light value | Use |
 | --- | --- | --- |
-| `--white` | `#ffffff` | surfaces, text on dark fills |
-| `--light-gray` | `#f0eff4` | card backgrounds |
+| `--bg` | `#ffffff` | page background |
+| `--surface` | `#ffffff` | cards, modals, popovers, tiles |
+| `--surface-alt` | `#f0eff4` | sections and insets one step apart from `--surface` |
+| `--text` | `#323f47` | headings, primary text, icons |
+| `--text-body` | `#2f2f2f` | body text, form text |
+| `--text-inverse` | `#ffffff` | text and icons on `--fill-strong` |
+| `--fill-strong` | `#323f47` | dark buttons and badges |
+| `--on-accent` | `#323f47` | text and icons on `--light-green`, in every theme |
 | `--light-green` | `#9be1a0` | accent, primary action |
 | `--light-green-hover` | `#87d28d` | accent hover |
-| `--dark-blue` | `#323f47` | primary text, dark buttons |
-| `--black` | `#2f2f2f` | icon strokes, form text |
 | `--error` | `#ef5050` | errors |
 | `--gray-muted` | `#bcbcbc` | muted text and borders |
 | `--gray-disabled-bg` | `#e6e6e6` | disabled button background |
 | `--gray-hover` | `#f4f4f6` | secondary button hover |
-| `--dark-blue-a20`, `--dark-blue-a30` | 20% / 30% of `--dark-blue` | borders, disabled text |
-| `--black-a60` | 60% of `--black` | secondary text |
+| `--text-a20`, `--text-a30`, `--text-a40` | 20% / 30% / 40% of `--text` | borders, disabled text, muted icons |
+| `--text-body-a60` | 60% of `--text-body` | secondary text |
 | `--border-color`, `--border-color-active` | black at 20% / 40% | input borders |
 | `--placeholder`, `--text-span` | black at 60% / 50% | placeholder, helper text |
 | `--radius-sm` | `15px` | inputs, popovers, modals, small cards |

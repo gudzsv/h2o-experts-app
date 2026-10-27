@@ -13,26 +13,26 @@ html {
 *:not(html, body)::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background-color: var(--light-gray);
+  background-color: var(--surface-alt);
 }
 
 *:not(html, body)::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: var(--dark-blue);
+  background-color: var(--fill-strong);
 }
 
 /* Browsers without ::-webkit-scrollbar (Firefox) get the closest equivalent. */
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--dark-blue) var(--light-gray);
+    scrollbar-color: var(--text) var(--surface-alt);
   }
 }
 
 body {
-  background-color: var(--white);
+  background-color: var(--bg);
   font-family: 'Poppins', sans-serif;
-  color: var(--black);
+  color: var(--text-body);
   margin: 0;
 
   text-rendering: optimizeLegibility;

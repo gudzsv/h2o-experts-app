@@ -5,7 +5,7 @@
   align-items: center;
   gap: 10px;
   border-radius: var(--radius-lg);
-  background: var(--dark-blue);
+  background: var(--fill-strong);
   min-width: 140px;
   height: 46px;
 }
@@ -16,7 +16,7 @@
   height: 16px;
   border-radius: 50px;
 
-  stroke: var(--white);
+  stroke: var(--text-inverse);
   transition: stroke var(--Animation_cubic);
 }
 
@@ -30,7 +30,7 @@
 }
 
 .primaryButtonText {
-  color: var(--white);
+  color: var(--text-inverse);
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -79,7 +79,7 @@
   width: 30px;
   height: 30px;
   background-color: var(--light-green);
-  stroke: var(--dark-blue);
+  stroke: var(--on-accent);
   border-radius: 50%;
   padding: 6px;
   transition: transform var(--Animation_cubic),
@@ -88,12 +88,12 @@
 
 .secondaryButton:active .secondaryButtonIcon,
 .secondaryButton:hover .secondaryButtonIcon {
-  background-color: var(--dark-blue);
-  stroke: var(--light-gray);
+  background-color: var(--fill-strong);
+  stroke: var(--surface-alt);
 }
 
 .secondaryButtonText {
-  color: var(--dark-blue);
+  color: var(--text);
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;

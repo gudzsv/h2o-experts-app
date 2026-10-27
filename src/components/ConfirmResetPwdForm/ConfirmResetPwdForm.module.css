@@ -22,7 +22,7 @@
 
 .label {
   margin-bottom: 8px;
-  color: var(--black);
+  color: var(--text-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.28;
@@ -54,11 +54,11 @@
 }
 
 .input:focus {
-  color: var(--black);
+  color: var(--text-body);
 }
 
 .input:active {
-  color: var(--black);
+  color: var(--text-body);
   border: 1px solid var(--border-color-active);
 }
 
@@ -84,7 +84,7 @@
   border-radius: var(--radius-lg);
   background-color: var(--light-green);
   border: none;
-  color: var(--dark-blue);
+  color: var(--on-accent);
   text-align: center;
   font-family: inherit;
   font-size: 14px;
