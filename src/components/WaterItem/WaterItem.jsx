@@ -3,6 +3,7 @@ import css from './WaterItem.module.css';
 import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
 import { useTranslation } from 'react-i18next';
+import { getEntryDateKey, toDateKey } from '../../helpers/date.js';
 
 const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
     return `${usedWater} ${t('chooseDate.ml')}`;
   };
 
-  if (dateForCalendar.getDate() == new Date(item.drinkingTime).getDate()) {
+  if (toDateKey(dateForCalendar) === getEntryDateKey(item)) {
     return (
       <div className={css.water_item}>
         <svg width="38" height="38" className={css.glass}>

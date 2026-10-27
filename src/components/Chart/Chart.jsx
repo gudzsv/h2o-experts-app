@@ -11,8 +11,9 @@ import {
 
 import css from './Chart.module.css';
 import { useSelector } from 'react-redux';
-import { selectIsLoading, selectMonthWater } from '../../redux/water/selectors';
-import { useEffect, useState } from 'react';
+import { selectIsLoading, selectWeekWater } from '../../redux/water/selectors';
+import { useMemo } from 'react';
+import { getEntryDateKey, getWeekDays, toDateKey } from '../../helpers/date.js';
 
 const CustomDot = props => {
   const { cx, cy } = props;
@@ -43,45 +44,23 @@ const CustomTooltip = ({ active, payload }) => {
 
 const Chart = () => {
   const isLoading = useSelector(selectIsLoading);
-  const monthWaterData = useSelector(selectMonthWater);
-  const [groupedData, setGroupedData] = useState([]);
+  const weekWaterData = useSelector(selectWeekWater);
 
-  useEffect(() => {
-    if (!isLoading) {
-      const today = new Date();
-      const pastWeekDays = Array.from({ length: 7 }, (_, i) => {
-        const date = new Date();
-        date.setDate(today.getDate() - (6 - i));
-        return date.getDate();
-      });
-      const data = monthWaterData.map(entry => ({
-        day: new Date(entry.drinkingTime).getDate(),
-        amount: entry.usedWater || 0,
-      }));
+  const groupedData = useMemo(() => {
+    const amountByDate = new Map();
+    weekWaterData.forEach(entry => {
+      const dateKey = getEntryDateKey(entry);
+      amountByDate.set(
+        dateKey,
+        (amountByDate.get(dateKey) ?? 0) + (entry.usedWater || 0)
+      );
+    });
 
-      const grouped = data
-        .reduce((acc, entry) => {
-          const existingDay = acc.find(item => item.day === entry.day);
-          if (existingDay) {
-            existingDay.amount += entry.amount;
-          } else {
-            acc.push({ day: entry.day, amount: entry.amount });
-          }
-          return acc;
-        }, [])
-        .sort((a, b) => a.day - b.day);
-
-      const completeData = pastWeekDays.map(day => {
-        const entry = grouped.find(item => item.day === day);
-        return {
-          day,
-          amount: entry ? entry.amount : 0,
-        };
-      });
-
-      setGroupedData(completeData);
-    }
-  }, [monthWaterData, isLoading]);
+    return getWeekDays().map(date => ({
+      day: date.getDate(),
+      amount: amountByDate.get(toDateKey(date)) ?? 0,
+    }));
+  }, [weekWaterData]);
 
   if (isLoading) {
     return <p className={css.loadingMessage}>Loading...</p>;

@@ -3,13 +3,14 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import css from './AddWaterBtn.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { toDateKey } from '../../helpers/date.js';
 
 const getClassName = (prefixClass, element, css) =>
   css[`${prefixClass}${element}`];
 
 const getValidDate = date => {
   const validDate = date instanceof Date && !isNaN(date) ? date : new Date();
-  return validDate.toISOString().split('T')[0];
+  return toDateKey(validDate);
 };
 
 const AddWaterBtn = memo(function AddWaterBtn({

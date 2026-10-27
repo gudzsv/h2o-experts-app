@@ -1,9 +1,8 @@
 import { useCallback, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import css from './CalendarPagination.module.css';
 import sprite from '../../assets/icons/sprite.svg';
-import { getMonthWater } from '../../redux/water/operations.js';
+import { addMonths, subMonths } from 'date-fns';
 
 const CalendarPagination = ({
   toggleChart,
@@ -12,7 +11,6 @@ const CalendarPagination = ({
   setDateForCalendar,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const formattedMonth = useMemo(() => {
     const month = new Date(dateForCalendar).toLocaleString('en-US', {
@@ -29,36 +27,12 @@ const CalendarPagination = ({
   );
 
   const handlePreviousMonth = useCallback(() => {
-    setDateForCalendar(prevDate => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() - 1);
-
-      const YEAR = newDate.getFullYear();
-      let MONTH = newDate.getMonth() + 1;
-      if (MONTH < 10) {
-        MONTH = `0${MONTH}`;
-      }
-
-      dispatch(getMonthWater(`${YEAR}-${MONTH}`));
-      return newDate;
-    });
-  }, [dispatch, setDateForCalendar]);
+    setDateForCalendar(prevDate => subMonths(prevDate, 1));
+  }, [setDateForCalendar]);
 
   const handleNextMonth = useCallback(() => {
-    setDateForCalendar(prevDate => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() + 1);
-
-      const YEAR = newDate.getFullYear();
-      let MONTH = newDate.getMonth() + 1;
-      if (MONTH < 10) {
-        MONTH = `0${MONTH}`;
-      }
-
-      dispatch(getMonthWater(`${YEAR}-${MONTH}`));
-      return newDate;
-    });
-  }, [dispatch, setDateForCalendar]);
+    setDateForCalendar(prevDate => addMonths(prevDate, 1));
+  }, [setDateForCalendar]);
 
   return (
     <div className={css.calender_pag_div}>

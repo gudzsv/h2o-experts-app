@@ -31,6 +31,7 @@ export const MESSAGES = {
     DELETE_WATER: 'Error to delete water data',
     GET_DAY_WATER: 'Error to load daily water data',
     GET_MONTH_WATER: 'Error to load monthly water data',
+    GET_WEEK_WATER: 'Error to load weekly water data',
     SEND_RESET_EMAIL:
       'Error send reset email. Chech your email or try again later.',
     RESET_PWD: 'Error. Password not changed',
