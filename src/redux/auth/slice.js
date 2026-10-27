@@ -62,27 +62,35 @@ const authSlice = createSlice({
         handleMessage(SUCCESS.REGISTER);
       })
       .addCase(register.rejected, (state, { payload }) => {
+        state.isLoading = false;
         state.isLoggedIn = false;
-        payload === 'Request failed with status code 409' &&
-          handleError(ERROR.EMAIL_EXIST);
-        payload !== 'Request failed with status code 409' &&
-          handleError(ERROR.REGISTER);
+        handleError(
+          payload?.status === 409 ? ERROR.EMAIL_EXIST : ERROR.REGISTER
+        );
       })
 
       .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
         state.user = payload.data.user;
         state.token = payload.data.accessToken;
         state.isLoggedIn = true;
         handleMessage(SUCCESS.LOGIN);
       })
       .addCase(login.rejected, (state, { payload }) => {
-        payload === 'Request failed with status code 401' &&
-          handleError(ERROR.LOGIN);
-        payload === 'Request failed with status code 404' &&
-          handleError(ERROR.USER_NOT_FOUND);
-
+        state.isLoading = false;
         state.isLoggedIn = false;
+
+        switch (payload?.status) {
+          case 401:
+            handleError(ERROR.LOGIN);
+            break;
+          case 404:
+            handleError(ERROR.USER_NOT_FOUND);
+            break;
+          default:
+            handleError(ERROR.UNKNOWN);
+        }
       })
       .addCase(logOut.fulfilled, state => {
         state.user = initialState.user;
@@ -91,6 +99,8 @@ const authSlice = createSlice({
         handleMessage(SUCCESS.LOGOUT);
       })
       .addCase(logOut.rejected, state => {
+        state.user = initialState.user;
+        state.token = null;
         state.isLoggedIn = false;
         handleError(ERROR.LOGOUT);
       })
@@ -109,6 +119,7 @@ const authSlice = createSlice({
       })
       .addCase(editUser.pending, handlePending)
       .addCase(editUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload.data;
         handleMessage(SUCCESS.EDIT_USER);
       })

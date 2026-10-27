@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../helpers/axios';
-import { persistor } from '../store';
+import { toRejectValue } from '../../helpers/errors';
 
 const setAuthHeader = token => {
   API.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -19,7 +19,7 @@ export const register = createAsyncThunk(
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -33,7 +33,7 @@ export const login = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -41,12 +41,12 @@ export const login = createAsyncThunk(
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     const { data } = await API.post('/auth/logout');
-    await persistor.purge();
     clearAuthHeader();
 
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    clearAuthHeader();
+    return thunkAPI.rejectWithValue(toRejectValue(error));
   }
 });
 
@@ -59,7 +59,7 @@ export const refreshUser = createAsyncThunk(
       return data;
     } catch (error) {
       clearAuthHeader();
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   },
   {
@@ -79,7 +79,7 @@ export const editUser = createAsyncThunk(
       const { data } = await API.patch('/users', editData);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -94,7 +94,7 @@ export const currentUser = createAsyncThunk(
       const response = await API.get('/users');
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(toRejectValue(error));
     }
   },
   {
@@ -113,7 +113,7 @@ export const getCounter = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -125,7 +125,7 @@ export const getOAuthURL = createAsyncThunk(
       const { data } = await API.get('/auth/get-oauth-url');
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -140,7 +140,7 @@ export const loginOAuth = createAsyncThunk(
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -152,7 +152,7 @@ export const sendResetEmail = createAsyncThunk(
       const { data } = await API.post('/auth/send-reset-email', email);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -164,7 +164,7 @@ export const resetPwd = createAsyncThunk(
       const { data } = await API.post('/auth/reset-pwd', token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );

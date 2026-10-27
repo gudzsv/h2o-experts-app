@@ -1,26 +1,44 @@
 import axios from 'axios';
-import { refreshUser } from '../redux/auth/operations';
-import { store } from '../redux/store.js';
 
 export const API = axios.create({
-  baseURL: 'https://h2o-experts-server.onrender.com',
+  baseURL:
+    import.meta.env.VITE_API_URL || 'https://h2o-experts-server.onrender.com',
   withCredentials: true,
 });
 
-API.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config; // can use directly error.config._retry
-    if (error.response.status === 401 && !originalRequest._retry) {
+const AUTH_URLS = ['/auth/login', '/auth/register', '/auth/refresh'];
+
+let refreshPromise = null;
+
+export const setupInterceptors = ({ refresh, onAuthFailure }) => {
+  API.interceptors.response.use(
+    response => response,
+    async error => {
+      const originalRequest = error.config;
+      const status = error.response?.status;
+
+      if (
+        status !== 401 ||
+        !originalRequest ||
+        originalRequest._retry ||
+        AUTH_URLS.some(url => originalRequest.url?.includes(url))
+      ) {
+        return Promise.reject(error);
+      }
+
       originalRequest._retry = true;
+
       try {
-        await store.dispatch(refreshUser());
-      } catch (refreshError) {
-        API.defaults.headers.common.Authorization = '';
-        window.location.href = '/signin';
-        return Promise.reject(refreshError);
+        refreshPromise ??= refresh().finally(() => {
+          refreshPromise = null;
+        });
+        const token = await refreshPromise;
+        originalRequest.headers.Authorization = `Bearer ${token}`;
+        return API(originalRequest);
+      } catch {
+        onAuthFailure?.();
+        return Promise.reject(error);
       }
     }
-    return Promise.reject(error);
-  }
-);
+  );
+};
