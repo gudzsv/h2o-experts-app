@@ -87,12 +87,9 @@
     "titleAdd": "Choose a value",
     "secondTitle": "Amount of water",
     "time": "Recording time",
-    "waterUsed": "Enter the value of the water used",
+    "waterUsed": "Enter the value of the water used ({{unit}})",
     "button": "Save",
-    "minusWater": "Decrease water amount",
-    "plusWater": "Increase water amount",
-    "quickAmounts": "Quick amounts",
-    "repeatLast": "Same as last time: {{amount}}"
+    "quickAmounts": "Quick amounts"
   },
 
   "waterModal": {

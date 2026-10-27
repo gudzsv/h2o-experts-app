@@ -6,7 +6,6 @@ import {
   getDefaultAmount,
   getMaxAmount,
   getQuickAmounts,
-  getStep,
   normalizeUnits,
   toDisplayAmount,
   toDisplayDecimal,
@@ -56,10 +55,11 @@ describe('units', () => {
   });
 
   it('has sensible form limits for both units', () => {
-    expect(getStep('ml')).toBe(50);
-    expect(getStep('oz')).toBe(1);
-    expect(getDefaultAmount('ml')).toBe(50);
-    expect(getDefaultAmount('oz')).toBe(2);
+    // A glass by default, which is also one of the quick amounts.
+    expect(getDefaultAmount('ml')).toBe(250);
+    expect(getDefaultAmount('oz')).toBe(8);
+    expect(getQuickAmounts('ml')).toContain(getDefaultAmount('ml'));
+    expect(getQuickAmounts('oz')).toContain(getDefaultAmount('oz'));
     expect(getMaxAmount('ml')).toBe(9999);
     expect(getMaxAmount('oz')).toBe(338);
     // The largest ounce value must still fit the 9999 ml limit.
