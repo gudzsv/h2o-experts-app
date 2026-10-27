@@ -7,13 +7,7 @@ import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 
-import sprite from '../../../assets/icons/sprite.svg';
-import { onActivate } from '../../../helpers/a11y';
-import {
-  getDefaultAmount,
-  getMaxAmount,
-  getStep,
-} from '../../../helpers/units.js';
+import { getDefaultAmount, getMaxAmount } from '../../../helpers/units.js';
 import { useVolume } from '../../../hooks/useVolume.js';
 import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
 
@@ -31,7 +25,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { units, unitLabel, toDisplay, fromDisplay } = useVolume();
-  const step = getStep(units);
   const maxAmount = getMaxAmount(units);
 
   const now = new Date();
@@ -69,8 +62,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     register,
     handleSubmit,
     setValue,
-    getValues,
-    trigger,
     watch,
     formState: { errors, isValid },
   } = useForm({
@@ -90,10 +81,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     }
   }, [actionType, waterItem, setValue, toDisplay]);
 
-  const amount = Number(watch('usedWater'));
-  const canDecrease = amount >= step;
-  const canIncrease = amount + step <= maxAmount;
-
   const selectAmount = useCallback(
     amount => {
       setValue('usedWater', amount, {
@@ -103,21 +90,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     },
     [setValue]
   );
-
-  // Мемоїзовані функції
-  const plusWater = useCallback(() => {
-    const currentWater = Number(getValues('usedWater'));
-    const newWater = currentWater + step;
-    setValue('usedWater', newWater);
-    trigger('usedWater');
-  }, [getValues, setValue, trigger, step]);
-
-  const minusWater = useCallback(() => {
-    const currentWater = Number(getValues('usedWater'));
-    const newWater = currentWater - step;
-    setValue('usedWater', newWater);
-    trigger('usedWater');
-  }, [getValues, setValue, trigger, step]);
 
   const formatDateTime = (date, time) => {
     const formattedDate = date.toString().split('T')[0];
@@ -162,42 +134,13 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
         :
       </h2>
 
-      <h2 className={styles.secondTitleRegular}>
-        {t('waterForm.secondTitle')}:
-      </h2>
-
-      <div className={styles.container}>
-        <svg
-          onClick={canDecrease ? minusWater : null}
-          onKeyDown={canDecrease ? onActivate(minusWater) : undefined}
-          className={`${styles.icon} ${!canDecrease ? styles.disabled : ''}`}
-          width="43"
-          height="43"
-          aria-label={t('waterForm.minusWater')}
-          role="button"
-          tabIndex={canDecrease ? 0 : -1}
-        >
-          <use href={`${sprite}#icon-minus-btn`}></use>
-        </svg>
-        <p className={styles.ml} aria-live="polite" aria-atomic="true">
-          {watch('usedWater')} {unitLabel}
-        </p>
-        <svg
-          onClick={canIncrease ? plusWater : null}
-          onKeyDown={canIncrease ? onActivate(plusWater) : undefined}
-          className={`${styles.icon} ${!canIncrease ? styles.disabled : ''}`}
-          width="43"
-          height="43"
-          aria-label={t('waterForm.plusWater')}
-          role="button"
-          tabIndex={canIncrease ? 0 : -1}
-        >
-          <use href={`${sprite}#icon-plus-btn`}></use>
-        </svg>
-      </div>
-
       {actionType === 'add' && (
-        <QuickAmounts value={watch('usedWater')} onSelect={selectAmount} />
+        <>
+          <h2 className={styles.secondTitleRegular}>
+            {t('waterForm.secondTitle')}:
+          </h2>
+          <QuickAmounts value={watch('usedWater')} onSelect={selectAmount} />
+        </>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} aria-labelledby="formTitle">
@@ -233,7 +176,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
         <div className={styles.wrapperNumber}>
           <label htmlFor="usedWater" className={styles.secondTitle}>
-            {t('waterForm.waterUsed')}:
+            {t('waterForm.waterUsed', { unit: unitLabel })}:
           </label>
           <input
             type="number"

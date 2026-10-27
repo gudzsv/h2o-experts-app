@@ -71,8 +71,8 @@ Circles use `border-radius: 50%`.
 ## Reuse before building
 
 - Modals: `ModalTemplate` (`components/Modal`).
-- Buttons: `AddWaterBtn` (`primary` / `secondary`), the `.ml` pill in
-  `WaterForm.module.css`.
+- Buttons: `AddWaterBtn` (`primary` / `secondary`), the chips in
+  `QuickAmounts`.
 - Small menus: the `UserBarPopover` pattern.
 - Feedback: `react-hot-toast`. Loading: `Loader`.
 - Icons: add a `<symbol id="icon-...">` to `src/assets/icons/sprite.svg` and

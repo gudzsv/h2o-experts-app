@@ -55,6 +55,20 @@ describe('WaterModalProvider', () => {
     expect(screen.getByRole('group', { name: 'Quick amounts' })).toBeTruthy();
   });
 
+  it('starts an added amount at a glass, with its unit in the label', () => {
+    renderApp();
+
+    fireEvent.click(screen.getByText('add today'));
+
+    expect(
+      screen.getByLabelText('Enter the value of the water used (ml):').value
+    ).toBe('250');
+    expect(screen.getByRole('button', { name: '250 ml' })).toHaveProperty(
+      'ariaPressed',
+      'true'
+    );
+  });
+
   it('opens the edit dialog for an entry without quick amounts', () => {
     renderApp();
 
@@ -81,7 +95,9 @@ describe('WaterModalProvider', () => {
       renderApp({ units: 'oz' });
 
       fireEvent.click(screen.getByText('add today'));
-      expect(screen.getByText('2 oz')).toBeTruthy();
+      expect(
+        screen.getByLabelText('Enter the value of the water used (oz):').value
+      ).toBe('8');
       fireEvent.click(screen.getByRole('button', { name: '8 oz' }));
       await save();
 
@@ -97,8 +113,9 @@ describe('WaterModalProvider', () => {
 
       fireEvent.click(screen.getByText('edit item'));
       // 400 ml is shown as 14 oz, but must not be rewritten as 414 ml.
-      expect(screen.getByLabelText('Enter the value of the water used:').value)
-        .toBe('14');
+      expect(
+        screen.getByLabelText('Enter the value of the water used (oz):').value
+      ).toBe('14');
       await save();
 
       await waitFor(() => expect(patch).toHaveBeenCalledTimes(1));
@@ -113,8 +130,9 @@ describe('WaterModalProvider', () => {
       renderApp({ units: 'oz' });
 
       fireEvent.click(screen.getByText('edit item'));
-      fireEvent.click(
-        document.querySelector('svg[aria-label="Increase water amount"]')
+      fireEvent.change(
+        screen.getByLabelText('Enter the value of the water used (oz):'),
+        { target: { value: '15' } }
       );
       await save();
 

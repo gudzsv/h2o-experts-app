@@ -4,16 +4,9 @@ import { describe, expect, it, vi } from 'vitest';
 import { createTestStore } from '../../../test/store.js';
 import QuickAmounts from './QuickAmounts.jsx';
 
-const renderChips = ({
-  weekWater = [],
-  value = 50,
-  units,
-  onSelect = vi.fn(),
-}) => {
-  const store = createTestStore({ units, weekWater });
-
+const renderChips = ({ value = 250, units, onSelect = vi.fn() }) => {
   render(
-    <Provider store={store}>
+    <Provider store={createTestStore({ units })}>
       <QuickAmounts value={value} onSelect={onSelect} />
     </Provider>
   );
@@ -21,25 +14,21 @@ const renderChips = ({
   return onSelect;
 };
 
-const entry = usedWater => ({
-  _id: `w${usedWater}`,
-  usedWater,
-  drinkingTime: '2026-10-27T10:00:00',
-});
+const labelsOf = () =>
+  Array.from(
+    screen
+      .getByRole('group', { name: 'Quick amounts' })
+      .querySelectorAll('button')
+  ).map(button => button.textContent);
 
 describe('QuickAmounts', () => {
   it('offers the preset amounts in a labelled group', () => {
     renderChips({});
 
-    const group = screen.getByRole('group', { name: 'Quick amounts' });
-    const labels = Array.from(group.querySelectorAll('button')).map(
-      button => button.textContent
-    );
-
-    expect(labels).toEqual(['150 ml', '250 ml', '330 ml', '500 ml']);
+    expect(labelsOf()).toEqual(['150 ml', '250 ml', '330 ml', '500 ml']);
   });
 
-  it('reports the chosen amount in milliliters', () => {
+  it('reports the chosen amount', () => {
     const onSelect = renderChips({});
 
     fireEvent.click(screen.getByRole('button', { name: '330 ml' }));
@@ -60,34 +49,19 @@ describe('QuickAmounts', () => {
     );
   });
 
-  it('repeats the last entry when it is not already a preset', () => {
-    const onSelect = renderChips({ weekWater: [entry(270)] });
+  it('has no pressed chip for a custom amount', () => {
+    renderChips({ value: '300' });
 
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Same as last time: 270 ml' })
+    const pressed = Array.from(
+      screen.getByRole('group').querySelectorAll('[aria-pressed=true]')
     );
-
-    expect(onSelect).toHaveBeenCalledWith(270);
+    expect(pressed).toHaveLength(0);
   });
 
-  it('shows ounce presets and converts the repeat chip for oz users', () => {
-    const onSelect = renderChips({
-      units: 'oz',
-      weekWater: [entry(500)],
-      value: 8,
-    });
+  it('shows ounce presets for oz users', () => {
+    const onSelect = renderChips({ units: 'oz', value: 8 });
 
-    const group = screen.getByRole('group', { name: 'Quick amounts' });
-    const labels = Array.from(group.querySelectorAll('button')).map(
-      button => button.textContent
-    );
-    expect(labels).toEqual([
-      '4 oz',
-      '8 oz',
-      '12 oz',
-      '16 oz',
-      'Same as last time: 17 oz',
-    ]);
+    expect(labelsOf()).toEqual(['4 oz', '8 oz', '12 oz', '16 oz']);
     expect(screen.getByRole('button', { name: '8 oz' })).toHaveProperty(
       'ariaPressed',
       'true'
@@ -95,11 +69,5 @@ describe('QuickAmounts', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '12 oz' }));
     expect(onSelect).toHaveBeenCalledWith(12);
-  });
-
-  it('does not duplicate a preset with a repeat chip', () => {
-    renderChips({ weekWater: [entry(250)] });
-
-    expect(screen.queryByText(/Same as last time/)).toBeNull();
   });
 });

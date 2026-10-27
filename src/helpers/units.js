@@ -27,9 +27,8 @@ export const fromDisplayAmount = (value, units) =>
 export const toDisplayDecimal = (ml, units) =>
   isOz(units) ? Number(mlToOz(ml).toFixed(1)) : ml;
 
-export const getStep = units => (isOz(units) ? 1 : 50);
-
-export const getDefaultAmount = units => (isOz(units) ? 2 : 50);
+// A typical glass, so a drink can be added with two taps.
+export const getDefaultAmount = units => (isOz(units) ? 8 : 250);
 
 export const getMaxAmount = units =>
   isOz(units) ? Math.floor(mlToOz(MAX_AMOUNT_ML)) : MAX_AMOUNT_ML;
