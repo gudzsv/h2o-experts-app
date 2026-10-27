@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../helpers/axios';
+import { toRejectValue } from '../../helpers/errors';
 
 export const addWater = createAsyncThunk(
   'water/add',
@@ -8,7 +9,7 @@ export const addWater = createAsyncThunk(
       const { data } = await API.post('/water', addData);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -20,13 +21,7 @@ export const editWater = createAsyncThunk(
       const { data } = await API.patch(`/water/${waterId}`, { ...editData });
       return data;
     } catch (error) {
-      console.error(
-        'Error in editWater:',
-        error.response ? error.response.data : error
-      );
-      return thunkAPI.rejectWithValue(
-        error.response?.data || 'Something went wrong'
-      );
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -38,7 +33,7 @@ export const deleteWater = createAsyncThunk(
       const { data } = await API.delete(`/water/${waterId}`);
       return { data, waterId };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -50,7 +45,7 @@ export const getDayWater = createAsyncThunk(
       const { data } = await API.get(`/water/day/${date}`);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );
@@ -62,7 +57,7 @@ export const getMonthWater = createAsyncThunk(
       const { data } = await API.get(`/water/month/${yearMonth}`);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(toRejectValue(error));
     }
   }
 );

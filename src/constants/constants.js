@@ -15,6 +15,7 @@ export const MESSAGES = {
     RESET_PWD: 'Password changed successfully',
   },
   ERROR: {
+    UNKNOWN: 'Something went wrong. Try again later.',
     REGISTER: 'Register error. Try again later.',
     EMAIL_EXIST: 'Email already in use. Try another.',
     LOGIN: 'Login error. Check your email or password!',
