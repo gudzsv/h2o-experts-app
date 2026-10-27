@@ -8,6 +8,8 @@
   background: var(--white);
   box-shadow: 0px 4px 50px 0px rgba(213, 204, 204, 0.1);
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-green) transparent;
   padding: 40px 20px;
 }
 .content:focus {
