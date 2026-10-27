@@ -6,6 +6,7 @@ import LogOutModal from '../../components/LogOutModal/LogOutModal.jsx';
 import UserSettingsModal from '../../components/UserSettingsModal/UserSettingsModal.jsx';
 import RemindersModal from '../../components/RemindersModal/RemindersModal.jsx';
 import { FiBell } from 'react-icons/fi';
+import ThemeSwitcher from '../../components/ThemeSwitcher/ThemeSwitcher.jsx';
 import sprite from '../../assets/icons/sprite.svg'; // Імпорт спрайту
 
 const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
@@ -80,6 +81,7 @@ const UserBarPopover = React.forwardRef(({ onClose }, popoverRef) => {
           </svg>
           <span className={css.btnText}>{t('userBarPopover.logout')}</span>
         </button>
+        <ThemeSwitcher />
       </div>
       {isOpenSettings && (
         <UserSettingsModal

@@ -126,7 +126,7 @@
   width: 100%;
   padding: 14px 16px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(47, 47, 47, 0.15);
+  border: 1px solid var(--border-subtle);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   align-items: stretch;
@@ -219,7 +219,7 @@
   line-height: 1.2;
   letter-spacing: -0.14px;
   margin: 0;
-  color: rgba(47, 47, 47, 0.6);
+  color: var(--text-body-a60);
   display: flex;
   align-self: stretch;
 }

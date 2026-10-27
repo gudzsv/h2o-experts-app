@@ -62,6 +62,20 @@ semantic layer. Pick a token by meaning, not by today's color: a white card is
 
 Circles use `border-radius: 50%`.
 
+### Themes
+
+The dark theme only redefines the semantic tokens (`colors.css`), so a
+component that uses them gets both themes for free. The user picks Auto, Light
+or Dark in the user menu; Auto follows the system.
+
+- Never use the palette (`--white`, `--dark-blue`...) or a hex color in a
+  component: it will not change with the theme.
+- Text on `--light-green` is `--on-accent`, also on hover states that turn the
+  background green.
+- A block on a fixed background (the green bottle card, badges over a photo)
+  sets `data-theme="light"` and keeps the light look in every theme.
+- Check new UI in both themes before a PR.
+
 ## Typography
 
 - Body: Poppins 400 and 700. Display text (greeting, `h1`): Gilroy 400 and 700.

@@ -9,7 +9,7 @@ export default function WaterMainInfo() {
   const { openAdd } = useWaterModal();
 
   return (
-    <section className={css.trackerSection}>
+    <section className={css.trackerSection} data-theme="light">
       <Logo />
 
       <WaterDailyNorma />

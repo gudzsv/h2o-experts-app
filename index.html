@@ -8,7 +8,27 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f0eff4" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#f0eff4"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#12181c"
+    />
+    <script>
+      // The saved theme (src/helpers/theme.js) before the first paint.
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch (error) {
+        // Without storage the system theme is used.
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AquaTrack</title>
   </head>

@@ -26,7 +26,7 @@ const CustomDot = props => {
         cx={cx}
         cy={cy}
         r={6}
-        fill="white"
+        style={{ fill: 'var(--surface)' }}
         stroke="#9BE1A0"
         strokeWidth={2}
       />

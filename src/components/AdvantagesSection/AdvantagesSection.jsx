@@ -13,8 +13,9 @@ const AdvantagesSection = () => {
     dispatch(getCounter());
   }, [dispatch]);
 
+  // The badges sit on a photo, so they keep the light look in every theme.
   return (
-    <section className={styles.advantagesSection}>
+    <section className={styles.advantagesSection} data-theme="light">
       <button className={styles.customersButton}>
         <div className={styles.customerContainer}>
           <ul className={styles.customerIcons}>

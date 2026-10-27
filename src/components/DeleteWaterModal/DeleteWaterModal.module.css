@@ -30,6 +30,7 @@
 }
 
 .deleteButtonModal {
+  color: var(--on-accent);
   display: flex;
   padding: 14px 129px;
   justify-content: center;

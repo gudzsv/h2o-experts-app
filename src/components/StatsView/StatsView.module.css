@@ -137,6 +137,7 @@
 
 .changeUp {
   background-color: var(--light-green);
+  color: var(--on-accent);
 }
 
 .note {

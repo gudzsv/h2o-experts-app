@@ -7,8 +7,9 @@ html {
 }
 
 /*
- * One scrollbar for every scrollable block (lists, modals): a dark-blue pill
- * on a light-gray rail. The page's own scrollbar stays native.
+ * One scrollbar for every scrollable block (lists, modals): a pill
+ * (--scrollbar-thumb) on a rail (--surface-alt). The page's own scrollbar
+ * stays native.
  */
 *:not(html, body)::-webkit-scrollbar {
   width: 8px;
@@ -18,14 +19,14 @@ html {
 
 *:not(html, body)::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: var(--fill-strong);
+  background-color: var(--scrollbar-thumb);
 }
 
 /* Browsers without ::-webkit-scrollbar (Firefox) get the closest equivalent. */
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--text) var(--surface-alt);
+    scrollbar-color: var(--scrollbar-thumb) var(--surface-alt);
   }
 }
 

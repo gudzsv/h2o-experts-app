@@ -8,8 +8,15 @@
   --dark-blue: #323f47;
   --black: #2f2f2f;
   --error: #ef5050;
+  --radius-sm: 15px;
+  --radius-lg: 30px;
+}
 
-  /* Semantic tokens. */
+/* Semantic tokens, light theme. Blocks on a fixed background (the green
+   bottle card, badges over the home photo) set data-theme="light" to keep
+   these in every theme. */
+:root,
+[data-theme='light'] {
   --bg: var(--white); /* page background */
   --surface: var(--white); /* cards, modals, popovers, tiles */
   --surface-alt: var(--light-gray); /* sections and insets one step apart */
@@ -24,6 +31,7 @@
   --text-body-a60: #2f2f2f99;
 
   --border-color: rgba(47, 47, 47, 0.2);
+  --border-subtle: rgba(47, 47, 47, 0.15);
   --border-shadow: rgba(0, 0, 0, 0.1);
   --border-color-active: rgba(47, 47, 47, 0.4);
   --placeholder: rgba(47, 47, 47, 0.6);
@@ -31,7 +39,77 @@
   --gray-muted: #bcbcbc;
   --gray-disabled-bg: #e6e6e6;
   --gray-hover: #f4f4f6;
-  --radius-sm: 15px;
-  --radius-lg: 30px;
   --shadow-card: 0px 4px 50px 0px var(--border-shadow);
+  /* Calendar days: below the goal, goal met, today. */
+  --day-empty: var(--text-a20);
+  --day-full: var(--white);
+  --day-today: var(--dark-blue);
+  --on-day-today: var(--light-green);
+  --scrollbar-thumb: var(--dark-blue);
+
+  color-scheme: light;
+}
+
+/* Dark theme: chosen in the settings (data-theme="dark") or, with "Auto",
+   taken from the system. The two blocks must stay the same. */
+:root[data-theme='dark'] {
+  --bg: #12181c;
+  --surface: #26313a;
+  --surface-alt: #1b2328;
+  --text: #e6ebee;
+  --text-body: #d9dee2;
+  --text-inverse: #1b2328;
+  --fill-strong: #e6ebee;
+  --text-a20: rgba(230, 235, 238, 0.2);
+  --text-a30: rgba(230, 235, 238, 0.3);
+  --text-a40: rgba(230, 235, 238, 0.4);
+  --text-body-a60: rgba(217, 222, 226, 0.6);
+  --border-color: rgba(230, 235, 238, 0.2);
+  --border-subtle: rgba(230, 235, 238, 0.15);
+  --border-shadow: rgba(0, 0, 0, 0.4);
+  --border-color-active: rgba(230, 235, 238, 0.4);
+  --placeholder: rgba(217, 222, 226, 0.6);
+  --text-span: rgba(217, 222, 226, 0.5);
+  --gray-muted: #6b767d;
+  --gray-disabled-bg: #2c363d;
+  --gray-hover: #2a343b;
+  --day-empty: rgba(230, 235, 238, 0.08);
+  --day-full: #3a4750;
+  --day-today: var(--light-green);
+  --on-day-today: var(--dark-blue);
+  --scrollbar-thumb: #6b767d;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #12181c;
+    --surface: #26313a;
+    --surface-alt: #1b2328;
+    --text: #e6ebee;
+    --text-body: #d9dee2;
+    --text-inverse: #1b2328;
+    --fill-strong: #e6ebee;
+    --text-a20: rgba(230, 235, 238, 0.2);
+    --text-a30: rgba(230, 235, 238, 0.3);
+    --text-a40: rgba(230, 235, 238, 0.4);
+    --text-body-a60: rgba(217, 222, 226, 0.6);
+    --border-color: rgba(230, 235, 238, 0.2);
+    --border-subtle: rgba(230, 235, 238, 0.15);
+    --border-shadow: rgba(0, 0, 0, 0.4);
+    --border-color-active: rgba(230, 235, 238, 0.4);
+    --placeholder: rgba(217, 222, 226, 0.6);
+    --text-span: rgba(217, 222, 226, 0.5);
+    --gray-muted: #6b767d;
+    --gray-disabled-bg: #2c363d;
+    --gray-hover: #2a343b;
+    --day-empty: rgba(230, 235, 238, 0.08);
+    --day-full: #3a4750;
+    --day-today: var(--light-green);
+    --on-day-today: var(--dark-blue);
+    --scrollbar-thumb: #6b767d;
+
+    color-scheme: dark;
+  }
 }
