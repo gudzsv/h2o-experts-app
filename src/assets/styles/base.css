@@ -6,6 +6,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * One scrollbar for every scrollable block (lists, modals): a dark-blue pill
+ * on a light-gray rail. The page's own scrollbar stays native.
+ */
+*:not(html, body)::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: var(--light-gray);
+}
+
+*:not(html, body)::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--dark-blue);
+}
+
+/* Browsers without ::-webkit-scrollbar (Firefox) get the closest equivalent. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dark-blue) var(--light-gray);
+  }
+}
+
 body {
   background-color: var(--white);
   font-family: 'Poppins', sans-serif;
