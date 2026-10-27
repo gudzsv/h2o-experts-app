@@ -219,6 +219,16 @@
     },
     "unlocked": "Unlocked",
     "progress": "{{progress}} of {{target}}",
+    "timeOfDay": {
+      "title": "When you drink",
+      "top": "Over 30 days, you drink the most {{part}}.",
+      "tipLate": "Try to drink more before the evening, so water does not wake you up at night.",
+      "tipMorning": "Start the day with a glass of water.",
+      "morning": { "name": "Morning", "inPart": "in the morning", "hours": "05:00–12:00" },
+      "afternoon": { "name": "Afternoon", "inPart": "in the afternoon", "hours": "12:00–17:00" },
+      "evening": { "name": "Evening", "inPart": "in the evening", "hours": "17:00–22:00" },
+      "night": { "name": "Night", "inPart": "at night", "hours": "22:00–05:00" }
+    },
     "error": "Could not load the statistics.",
     "retry": "Try again"
   },

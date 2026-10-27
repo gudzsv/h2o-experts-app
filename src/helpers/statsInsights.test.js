@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { getStreakStatus, getWeekChange } from './statsInsights.js';
+import {
+  getStreakStatus,
+  getTimeOfDay,
+  getWeekChange,
+} from './statsInsights.js';
 
 const days = totals => totals.map((total, index) => ({ date: `d${index}`, total }));
 
@@ -63,5 +67,37 @@ describe('getWeekChange', () => {
 
   it('gives no comparison with less than two weeks of days', () => {
     expect(getWeekChange({ days: days([1000, 1000]) })).toBeNull();
+  });
+});
+
+describe('getTimeOfDay', () => {
+  const timeOfDay = (morning, afternoon, evening, night) => ({
+    timeOfDay: { morning, afternoon, evening, night },
+  });
+
+  it('returns null without water or without the field', () => {
+    expect(getTimeOfDay(timeOfDay(0, 0, 0, 0))).toBeNull();
+    expect(getTimeOfDay({})).toBeNull();
+  });
+
+  it('gives the share of each part and the top one', () => {
+    expect(getTimeOfDay(timeOfDay(500, 1000, 400, 100))).toEqual({
+      parts: [
+        { id: 'morning', share: 25 },
+        { id: 'afternoon', share: 50 },
+        { id: 'evening', share: 20 },
+        { id: 'night', share: 5 },
+      ],
+      top: 'afternoon',
+      tip: null,
+    });
+  });
+
+  it('suggests drinking earlier when half the water is late', () => {
+    expect(getTimeOfDay(timeOfDay(500, 500, 800, 200)).tip).toBe('tipLate');
+  });
+
+  it('suggests a morning glass when mornings are almost dry', () => {
+    expect(getTimeOfDay(timeOfDay(100, 1200, 700, 0)).tip).toBe('tipMorning');
   });
 });
