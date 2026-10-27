@@ -99,7 +99,7 @@ const UserSettingsForm = ({ onClose }) => {
   const unitsValue = normalizeUnits(watch('units'));
   const isOz = unitsValue === UNITS.OZ;
 
-  const { normMl, handleNormChange } = useDailyNorm({
+  const { normMl, handleNormChange, applyNormMl } = useDailyNorm({
     dailyRequirement,
     initialUnits,
     unitsValue,
@@ -110,6 +110,7 @@ const UserSettingsForm = ({ onClose }) => {
     weightValue,
     timeValue
   );
+  const canUseRecommended = recommendedLiters !== null && recommendedLiters > 0;
 
   const onSubmitForm = useCallback(
     async data => {
@@ -328,6 +329,14 @@ const UserSettingsForm = ({ onClose }) => {
               {isOz ? ` ${t('units.oz')}` : 'L'}
             </p>
           </div>
+          <button
+            type="button"
+            className={css.recommendedButton}
+            disabled={!canUseRecommended}
+            onClick={() => applyNormMl(Math.round(recommendedLiters * 1000))}
+          >
+            {t('settingsForm.useRecommended')}
+          </button>
           <fieldset aria-labelledby="units" className={css.unitsFieldset}>
             <legend id="units" className={css.labelGender}>
               {t('units.legend')}

@@ -136,6 +136,7 @@
     "userWeight": "Your weight in kilograms:",
     "userTime": "The time of active participation in sports (hours):",
     "WaterAmount": " The required amount of water in liters per day:",
+    "useRecommended": "Use the recommended norm",
     "labelWaterNorma": "Write down how much water you will drink ({{unit}}):",
     "subButton": "Save",
     "ValidationGender": "Please select your gender",
