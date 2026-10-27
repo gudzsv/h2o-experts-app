@@ -35,5 +35,17 @@ export const useDailyNorm = ({
     [unitsValue]
   );
 
-  return { normMl, handleNormChange };
+  // Takes an exact ml value, e.g. the recommended norm, into the field.
+  const applyNormMl = useCallback(
+    ml => {
+      setNormMl(ml);
+      setValue('dailyRequirement', toDisplayAmount(ml, unitsValue), {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    },
+    [unitsValue, setValue]
+  );
+
+  return { normMl, handleNormChange, applyNormMl };
 };

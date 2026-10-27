@@ -72,6 +72,58 @@ describe('UserSettingsForm units', () => {
     expect(body.get('dailyRequirement')).toBe('2000');
   });
 
+  it('takes the recommended norm into the field and saves it in ml', async () => {
+    const { norm, save } = renderForm();
+
+    // 60 kg and 2 h of sport for a woman: 60 * 0.03 + 2 * 0.4 = 2.6 L
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Use the recommended norm' })
+    );
+    expect(norm().value).toBe('2600');
+
+    const body = await save();
+    expect(body.get('dailyRequirement')).toBe('2600');
+  });
+
+  it('shows the recommended norm in ounces but saves the exact ml', async () => {
+    const { norm, save } = renderForm({ units: 'oz' });
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Use the recommended norm' })
+    );
+    expect(norm().value).toBe('88');
+
+    const body = await save();
+    expect(body.get('dailyRequirement')).toBe('2600');
+  });
+
+  it('follows the weight and gender when taking the recommended norm', () => {
+    const { norm } = renderForm();
+
+    fireEvent.click(screen.getByLabelText('Man'));
+    fireEvent.change(document.querySelector('#userWeight'), {
+      target: { value: '80' },
+    });
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Use the recommended norm' })
+    );
+
+    // 80 * 0.04 + 2 * 0.6 = 4.4 L
+    expect(norm().value).toBe('4400');
+  });
+
+  it('disables the button until the weight and activity are valid', () => {
+    renderForm();
+
+    fireEvent.change(document.querySelector('#userWeight'), {
+      target: { value: 'abc' },
+    });
+
+    expect(
+      screen.getByRole('button', { name: 'Use the recommended norm' }).disabled
+    ).toBe(true);
+  });
+
   it('converts a norm typed in ounces to milliliters', async () => {
     const { norm, save } = renderForm();
 
