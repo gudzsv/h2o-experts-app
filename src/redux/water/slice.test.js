@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { configureStore } from '@reduxjs/toolkit';
 import { subDays } from 'date-fns';
 
 vi.mock('react-hot-toast', () => ({
@@ -32,6 +33,9 @@ const entry = (id, dateKey, usedWater = 250) => ({
 });
 
 const run = (state, action) => waterReducer(state, action);
+// A read as the app makes it: the request starts, then its response lands.
+const load = (state, thunk, payload, arg, requestId = 'req') =>
+  run(run(state, thunk.pending(requestId, arg)), thunk.fulfilled(payload, requestId, arg));
 const todayIds = state =>
   selectTodayWater({ water: state })
     .map(item => item._id)
@@ -43,13 +47,10 @@ describe('water reducer', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     state = waterReducer(undefined, { type: 'init' });
-    state = run(
-      state,
-      getWeekWater.fulfilled(
-        [entry('a', todayKey), entry('b', yesterdayKey)],
-        'req'
-      )
-    );
+    state = load(state, getWeekWater, [
+      entry('a', todayKey),
+      entry('b', yesterdayKey),
+    ]);
   });
 
   it('derives today entries from the week list only', () => {
@@ -57,13 +58,11 @@ describe('water reducer', () => {
   });
 
   it('keeps today progress when another day is selected', () => {
-    state = run(
+    state = load(
       state,
-      getDayWater.fulfilled(
-        { date: [entry('b', yesterdayKey)] },
-        'req',
-        yesterdayKey
-      )
+      getDayWater,
+      { date: [entry('b', yesterdayKey)] },
+      yesterdayKey
     );
 
     expect(state.dayKey).toBe(yesterdayKey);
@@ -71,10 +70,7 @@ describe('water reducer', () => {
   });
 
   it('adds an entry only to the lists that show its date', () => {
-    state = run(
-      state,
-      getDayWater.fulfilled({ date: [] }, 'req', yesterdayKey)
-    );
+    state = load(state, getDayWater, { date: [] }, yesterdayKey);
 
     state = run(
       state,
@@ -113,17 +109,14 @@ describe('water reducer', () => {
   });
 
   it('updates the month list only for the loaded month', () => {
-    state = run(
-      state,
-      getMonthWater.fulfilled({ date: [] }, 'req', toMonthKey(now))
-    );
+    state = load(state, getMonthWater, { date: [] }, toMonthKey(now));
     state = run(
       state,
       addWater.fulfilled({ data: entry('m1', todayKey) }, 'req', {})
     );
     expect(state.monthWater).toHaveLength(1);
 
-    state = run(state, getMonthWater.fulfilled({ date: [] }, 'req', '2000-01'));
+    state = load(state, getMonthWater, { date: [] }, '2000-01');
     state = run(
       state,
       addWater.fulfilled({ data: entry('m2', todayKey) }, 'req', {})
@@ -132,10 +125,7 @@ describe('water reducer', () => {
   });
 
   it('removes a deleted entry from every list', () => {
-    state = run(
-      state,
-      getDayWater.fulfilled({ date: [entry('a', todayKey)] }, 'req', todayKey)
-    );
+    state = load(state, getDayWater, { date: [entry('a', todayKey)] }, todayKey);
     state = run(
       state,
       deleteWater.fulfilled({ data: {}, waterId: 'a' }, 'req', 'a')
@@ -152,6 +142,37 @@ describe('water reducer', () => {
     state = run(state, getDayWater.rejected(null, 'req', todayKey));
     expect(state.isLoading).toBe(false);
     expect(toast.error).toHaveBeenCalledTimes(1);
+  });
+
+  it('ignores a slow response when a newer read of the list started', () => {
+    // Day A is requested, then day B; A's answer arrives last.
+    state = run(state, getDayWater.pending('a', yesterdayKey));
+    state = run(state, getDayWater.pending('b', todayKey));
+    state = run(
+      state,
+      getDayWater.fulfilled({ date: [entry('t', todayKey)] }, 'b', todayKey)
+    );
+    state = run(
+      state,
+      getDayWater.fulfilled(
+        { date: [entry('y', yesterdayKey)] },
+        'a',
+        yesterdayKey
+      )
+    );
+
+    expect(state.dayKey).toBe(todayKey);
+    expect(state.dayWater.map(item => item._id)).toEqual(['t']);
+    expect(state.isLoading).toBe(false);
+  });
+
+  it('does not show an error for a read that was replaced', () => {
+    state = run(state, getWeekWater.pending('old'));
+    state = run(state, getWeekWater.pending('new'));
+    state = run(state, getWeekWater.rejected(null, 'old'));
+
+    expect(toast.error).not.toHaveBeenCalled();
+    expect(state.isLoading).toBe(true);
   });
 });
 
@@ -208,5 +229,93 @@ describe('getStats', () => {
 
     state = run(state, getStats.fulfilled(stats, 'req'));
     expect(state.stats).toEqual(stats);
+  });
+});
+
+describe('writes during a slow read', () => {
+  // Resolvers for each GET, in call order, so a test decides when (and in
+  // which order) the server answers.
+  const deferGets = () => {
+    const pending = [];
+    const get = vi.spyOn(API, 'get').mockImplementation(
+      url =>
+        new Promise(resolve => {
+          pending.push({ url, resolve });
+        })
+    );
+    return { get, pending };
+  };
+
+  const makeStore = () =>
+    configureStore({
+      reducer: { water: waterReducer },
+      middleware: getDefault => getDefault({ serializableCheck: false }),
+    });
+
+  afterEach(() => vi.restoreAllMocks());
+
+  it('keeps an added entry when an older week read answers after it', async () => {
+    const store = makeStore();
+    const { get, pending } = deferGets();
+    vi.spyOn(API, 'post').mockResolvedValue({
+      data: { data: entry('new', todayKey, 400) },
+    });
+
+    store.dispatch(getWeekWater());
+    await store.dispatch(addWater({}));
+
+    // The write asked for the week again.
+    const monthCalls = get.mock.calls.filter(([url]) =>
+      url.startsWith('/water/month/')
+    );
+    const { monthKeys } = getWeekRange();
+    expect(monthCalls).toHaveLength(monthKeys.length * 2);
+
+    // The old read (made before the write) answers last but is ignored...
+    const [oldReads, newReads] = [
+      pending.slice(0, monthKeys.length),
+      pending.slice(monthKeys.length),
+    ];
+    newReads.forEach(({ resolve }, index) =>
+      resolve({
+        data: { date: index === 0 ? [entry('new', todayKey, 400)] : [] },
+      })
+    );
+    await vi.waitFor(() =>
+      expect(store.getState().water.reads.week).toBeNull()
+    );
+    oldReads.forEach(({ resolve }) => resolve({ data: { date: [] } }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // ...so today still has the new entry.
+    expect(selectTodayWater(store.getState()).map(item => item._id)).toEqual([
+      'new',
+    ]);
+  });
+
+  it('asks again for the day list that was loading during a delete', async () => {
+    const store = makeStore();
+    const { get } = deferGets();
+    vi.spyOn(API, 'delete').mockResolvedValue({ data: {} });
+
+    store.dispatch(getDayWater(todayKey));
+    await store.dispatch(deleteWater('a'));
+
+    expect(get.mock.calls.map(([url]) => url)).toEqual([
+      `/water/day/${todayKey}`,
+      `/water/day/${todayKey}`,
+    ]);
+  });
+
+  it('does not read again when nothing was loading', async () => {
+    const store = makeStore();
+    const get = vi.spyOn(API, 'get');
+    vi.spyOn(API, 'post').mockResolvedValue({
+      data: { data: entry('new', todayKey) },
+    });
+
+    await store.dispatch(addWater({}));
+
+    expect(get).not.toHaveBeenCalled();
   });
 });
