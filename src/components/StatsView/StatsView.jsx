@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useVolume } from '../../hooks/useVolume.js';
 import Achievements from './Achievements.jsx';
-import StatsChart from './StatsChart.jsx';
 import css from './StatsView.module.css';
 
 const StatTile = ({ label, value }) => (
@@ -12,6 +11,8 @@ const StatTile = ({ label, value }) => (
   </div>
 );
 
+// The daily water chart already lives on the tracker (Month card), so this
+// page only has what it does not show: streaks, averages and achievements.
 const StatsView = ({ stats }) => {
   const { t } = useTranslation();
   const { format } = useVolume();
@@ -19,6 +20,15 @@ const StatsView = ({ stats }) => {
 
   return (
     <>
+      {!hasWater && (
+        <p className={css.empty}>
+          {t('stats.empty')}{' '}
+          <Link to="/tracker" className={css.link}>
+            {t('stats.toTracker')}
+          </Link>
+        </p>
+      )}
+
       <div className={css.tiles}>
         <StatTile
           label={t('stats.currentStreak')}
@@ -41,25 +51,6 @@ const StatsView = ({ stats }) => {
           value={format(stats.monthAverage)}
         />
       </div>
-
-      <section aria-labelledby="chartTitle">
-        <h2 className={css.subtitle} id="chartTitle">
-          {t('stats.last30Days')}
-        </h2>
-        {hasWater ? (
-          <StatsChart
-            days={stats.days}
-            dailyRequirement={stats.dailyRequirement}
-          />
-        ) : (
-          <p className={css.empty}>
-            {t('stats.empty')}{' '}
-            <Link to="/tracker" className={css.link}>
-              {t('stats.toTracker')}
-            </Link>
-          </p>
-        )}
-      </section>
 
       <Achievements stats={stats} />
     </>

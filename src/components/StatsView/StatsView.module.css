@@ -14,27 +14,27 @@
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.2;
+  letter-spacing: -0.01em;
   text-decoration: underline;
 }
 
 .title {
   margin: 0;
   color: var(--dark-blue);
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
+  font-family: 'Gilroy', sans-serif;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.24px;
 }
 
 .subtitle {
   margin: 0 0 12px;
   color: var(--dark-blue);
   font-family: 'Poppins', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.3;
-  letter-spacing: -0.18px;
+  letter-spacing: -0.01em;
 }
 
 .tiles {
@@ -43,14 +43,14 @@
   gap: 12px;
 }
 
-.tile:last-child {
-  grid-column: span 2;
-}
-
 .tile {
   padding: 16px;
   border-radius: var(--radius-sm);
   background-color: var(--white);
+}
+
+.tile:last-child {
+  grid-column: span 2;
 }
 
 .tileValue {
@@ -60,41 +60,16 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .tileLabel {
   margin: 0;
-  color: var(--gray-opacity);
+  color: var(--black-a60);
   font-family: 'Poppins', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.3;
-}
-
-.chart {
-  height: 220px;
-  padding: 16px 8px 8px;
-  border-radius: var(--radius-sm);
-  background-color: var(--white);
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-}
-
-.tooltip {
-  padding: 8px 10px;
-  border-radius: 10px;
-  background-color: var(--white);
-  box-shadow: var(--shadow-card);
-  color: var(--dark-blue);
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-}
-
-.tooltip p {
-  margin: 0;
-}
-
-.tooltipDate {
-  color: var(--gray-opacity);
+  letter-spacing: -0.01em;
 }
 
 .achievements {
@@ -114,12 +89,11 @@
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   background-color: var(--white);
-  color: var(--dark-blue);
-  /* Locked ones are dimmed, but the progress stays readable. */
-  opacity: 0.6;
+  color: var(--black-a60);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .achievementName {
@@ -128,12 +102,7 @@
 
 .unlocked {
   border-color: var(--light-green);
-  opacity: 1;
-}
-
-.unlocked .achievementState {
   color: var(--dark-blue);
-  font-weight: 700;
 }
 
 .empty {
@@ -145,6 +114,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .link {
@@ -161,6 +131,8 @@
   color: var(--dark-blue);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   cursor: pointer;
   transition: background-color var(--Animation_cubic);
 }
@@ -170,15 +142,18 @@
   background-color: var(--light-green);
 }
 
-/* Tablet */
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .page {
     gap: 32px;
     margin: 32px 0;
     padding: 32px;
   }
 
-  .back {
+  .back,
+  .tileLabel,
+  .achievement,
+  .empty,
+  .retry {
     font-size: 16px;
   }
 
@@ -187,7 +162,11 @@
   }
 
   .subtitle {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .tileValue {
+    font-size: 24px;
   }
 
   /* Three tiles in the first row and two wider ones in the second. */
@@ -204,19 +183,6 @@
     grid-column: span 3;
   }
 
-  .tileValue {
-    font-size: 24px;
-  }
-
-  .tileLabel {
-    font-size: 14px;
-  }
-
-  .chart {
-    height: 280px;
-    padding: 24px 16px 12px;
-  }
-
   .achievements {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -226,8 +192,7 @@
   }
 }
 
-/* Desktop */
-@media only screen and (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
   .page {
     max-width: 1100px;
     margin: 48px auto;

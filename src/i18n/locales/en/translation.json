@@ -198,8 +198,6 @@
     "monthAverage": "Average per day, 30 days",
     "days_one": "{{count}} day",
     "days_other": "{{count}} days",
-    "last30Days": "Last 30 days",
-    "chartLabel": "Water per day over the last 30 days, {{unit}}",
     "empty": "No water recorded yet.",
     "toTracker": "Add your first drink",
     "achievements": "Achievements",
