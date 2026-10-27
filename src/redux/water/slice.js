@@ -8,6 +8,7 @@ import {
   getWeekWater,
 } from './operations';
 import toast from 'react-hot-toast';
+import i18n from '../../i18n/i18n.js';
 import { MESSAGES } from '../../constants/constants.js';
 import { createDate } from '../../helpers/createDateMessage';
 import { getEntryDateKey, getWeekRange } from '../../helpers/date.js';
@@ -28,11 +29,11 @@ const handlePending = state => {
 };
 
 const handleMessage = message => {
-  toast.success(message, { id: message });
+  toast.success(i18n.t(message), { id: message });
 };
 
 const handleError = message => {
-  toast.error(message, { id: message });
+  toast.error(i18n.t(message), { id: message });
 };
 
 const removeEntry = (state, id) => {
@@ -67,7 +68,9 @@ const waterSlice = createSlice({
       .addCase(addWater.fulfilled, (state, { payload }) => {
         upsertEntry(state, payload.data);
         state.isLoading = false;
-        handleMessage(createDate(payload, SUCCESS.ADD_WATER));
+        toast.success(createDate(payload, i18n.t(SUCCESS.ADD_WATER)), {
+          id: SUCCESS.ADD_WATER,
+        });
       })
       .addCase(addWater.rejected, state => {
         state.isLoading = false;

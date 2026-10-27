@@ -14,7 +14,7 @@ const UserBar = () => {
 
   const userName =
     userInfo?.name === 'User'
-      ? userInfo?.email.split('@')[0]
+      ? userInfo?.email?.split('@')[0]
       : userInfo?.name || 'unknown user';
 
   const toggleMenu = e => {

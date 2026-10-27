@@ -13,6 +13,7 @@ import {
   resetPwd,
 } from './operations.js';
 import toast from 'react-hot-toast';
+import i18n from '../../i18n/i18n.js';
 import { MESSAGES } from '../../constants/constants.js';
 
 const { SUCCESS, ERROR } = MESSAGES;
@@ -41,11 +42,11 @@ const handlePending = state => {
 };
 
 const handleMessage = message => {
-  toast.success(message, { id: message });
+  toast.success(i18n.t(message), { id: message });
 };
 
 const handleError = message => {
-  toast.error(message, { id: message });
+  toast.error(i18n.t(message), { id: message });
 };
 
 const authSlice = createSlice({

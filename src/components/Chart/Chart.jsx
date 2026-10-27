@@ -11,6 +11,7 @@ import {
 
 import css from './Chart.module.css';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectIsLoading, selectWeekWater } from '../../redux/water/selectors';
 import { useMemo } from 'react';
 import { getEntryDateKey, getWeekDays, toDateKey } from '../../helpers/date.js';
@@ -43,6 +44,7 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 const Chart = () => {
+  const { t } = useTranslation();
   const isLoading = useSelector(selectIsLoading);
   const weekWaterData = useSelector(selectWeekWater);
 
@@ -63,12 +65,11 @@ const Chart = () => {
   }, [weekWaterData]);
 
   if (isLoading) {
-    return <p className={css.loadingMessage}>Loading...</p>;
+    return <p className={css.loadingMessage}>{t('a11y.loading')}</p>;
   }
 
   return (
     <div>
-      {/* <h2 className={css.title}>Statistics</h2> */}
       <div className={css.wrapperStatistics}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={groupedData}>

@@ -56,7 +56,7 @@ const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
           <button
             className={css.delete_btn}
             onClick={handleOpenModel}
-            aria-label="Delete water entry"
+            aria-label={t('a11y.deleteEntry')}
           >
             <svg width="14" height="14" className={css.trash}>
               <use href={`${sprite}#icon-trash`}></use>

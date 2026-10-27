@@ -3,25 +3,17 @@ import css from './ResetPwdForm.module.css';
 import { useEffect, useId, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import sprite from '../../assets/icons/sprite.svg';
+import { onActivate } from '../../helpers/a11y';
 
 import { resetPwd } from '../../redux/auth/operations';
 
 import { resetPwdValidationSchema } from '../../helpers/validation';
-
-// const validationSchema = Yup.object().shape({
-//   password: Yup.string()
-//     .min(6, 'Password must contain at least 6 characters')
-//     .required('Required'),
-//   repeatPassword: Yup.string()
-//     .oneOf([Yup.ref('password')], 'Passwords must match')
-//     .required('Required'),
-// });
 
 const ResetPwdForm = () => {
   const dispatch = useDispatch();
@@ -57,12 +49,19 @@ const ResetPwdForm = () => {
     reset();
   }, [t, reset]);
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     const { password } = data;
-    dispatch(resetPwd({ password, token }));
-    reset();
-    navigate('/signin');
+    const result = await dispatch(resetPwd({ password, token }));
+
+    if (result.meta.requestStatus === 'fulfilled') {
+      reset();
+      navigate('/signin');
+    }
   };
+
+  if (!token) {
+    return <Navigate to={'/confirm-reset-password'} />;
+  }
 
   return (
     <>
@@ -85,8 +84,12 @@ const ResetPwdForm = () => {
               <svg
                 className={css.icon}
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                onKeyDown={onActivate(() => setShowPassword(!showPassword))}
+                aria-label={
+                  showPassword ? t('a11y.hidePassword') : t('a11y.showPassword')
+                }
                 role="button"
+                tabIndex={0}
               >
                 <use
                   width={20}
@@ -118,10 +121,16 @@ const ResetPwdForm = () => {
               <svg
                 className={css.icon}
                 onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                onKeyDown={onActivate(() =>
+                  setShowRepeatPassword(!showRepeatPassword)
+                )}
                 aria-label={
-                  showRepeatPassword ? 'Hide password' : 'Show password'
+                  showRepeatPassword
+                    ? t('a11y.hidePassword')
+                    : t('a11y.showPassword')
                 }
                 role="button"
+                tabIndex={0}
               >
                 <use
                   width={20}
@@ -137,11 +146,7 @@ const ResetPwdForm = () => {
             )}
           </div>
         </div>
-        <button
-          type="submit"
-          className={css.btn}
-          aria-label="Sign up button for an account"
-        >
+        <button type="submit" className={css.btn}>
           {t('resetPwd.title')}
         </button>
       </form>
