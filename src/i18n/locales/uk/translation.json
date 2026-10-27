@@ -86,6 +86,8 @@
   },
 
   "waterForm": {
+    "drink": "Напій",
+    "counted": "Зараховується до норми: {{amount}} ({{percent}}%)",
     "titleEdit": "Виправити введені дані",
     "titleAdd": "Виберіть значення",
     "secondTitle": "Кількість води",
@@ -300,6 +302,14 @@
     "auto": "Авто",
     "light": "Світла",
     "dark": "Темна"
+  },
+  "drinks": {
+    "water": "Вода",
+    "tea": "Чай",
+    "milk": "Молоко",
+    "coffee": "Кава",
+    "juice": "Сік",
+    "soda": "Газоване"
   },
   "userBarPopover": {
     "setting": "Налаштування",

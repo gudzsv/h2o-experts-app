@@ -24,12 +24,19 @@ import {
 import { getDefaultAmount, getMaxAmount } from '../../../helpers/units.js';
 import { useVolume } from '../../../hooks/useVolume.js';
 import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
+import DrinkPicker from '../DrinkPicker/DrinkPicker.jsx';
+import {
+  countHydration,
+  DEFAULT_DRINK,
+  DRINK_COEFFICIENTS,
+  getDrinkType,
+} from '../../../helpers/drinks.js';
 
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const store = useStore();
-  const { units, unitLabel, toDisplay, fromDisplay } = useVolume();
+  const { units, unitLabel, format, toDisplay, fromDisplay } = useVolume();
   const maxAmount = getMaxAmount(units);
 
   const isEdit = actionType === 'edit';
@@ -39,6 +46,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const defaultUsedWater = isEdit
     ? toDisplay(waterItem.usedWater)
     : getDefaultAmount(units);
+  const savedDrinkType = isEdit ? getDrinkType(waterItem) : DEFAULT_DRINK;
 
   const validationSchema = Yup.object().shape({
     drinkingTime: Yup.string().required(
@@ -67,6 +75,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     defaultValues: {
       drinkingTime: defaultDrinkingTime,
       usedWater: defaultUsedWater,
+      drinkType: savedDrinkType,
     },
     resolver: yupResolver(validationSchema),
   });
@@ -81,6 +90,23 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     [setValue]
   );
 
+  const selectDrink = useCallback(
+    drinkType => {
+      setValue('drinkType', drinkType, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    },
+    [setValue]
+  );
+
+  const drinkType = watch('drinkType');
+  const amount = Number(watch('usedWater'));
+  const countedMl =
+    drinkType !== DEFAULT_DRINK && amount > 0
+      ? countHydration(fromDisplay(amount), drinkType)
+      : null;
+
   const onSubmit = async data => {
     // Keep the stored amount when an entry is saved without touching it:
     // converting to ounces and back would round it.
@@ -90,10 +116,14 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
       ? waterItem.usedWater
       : fromDisplay(Number(data.usedWater));
     const payload = {
-      ...data,
       usedWater,
       drinkingTime: toDrinkingTime(currentDay, data.drinkingTime),
     };
+    // Water is the server's default, so it is only sent when an entry changes
+    // to it; a server without drink types then still accepts plain water.
+    if (data.drinkType !== savedDrinkType || data.drinkType !== DEFAULT_DRINK) {
+      payload.drinkType = data.drinkType;
+    }
 
     closeModal();
 
@@ -124,6 +154,11 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
         {isEdit ? t('waterForm.titleEdit') : t('waterForm.titleAdd')}
         :
       </h2>
+
+      <p className={styles.secondTitleRegular}>
+        {t('waterForm.drink')}:
+      </p>
+      <DrinkPicker value={drinkType} onSelect={selectDrink} />
 
       {!isEdit && (
         <>
@@ -187,6 +222,14 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
             >
               {errors.usedWater.message}
             </span>
+          )}
+          {countedMl !== null && !errors.usedWater && (
+            <p className={styles.counted} aria-live="polite">
+              {t('waterForm.counted', {
+                amount: format(countedMl),
+                percent: Math.round(DRINK_COEFFICIENTS[drinkType] * 100),
+              })}
+            </p>
           )}
         </div>
 
