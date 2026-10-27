@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "vite": "^5.4.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-image-optimizer": "^1.1.8",
-    "vite-plugin-svg-sprite": "^0.5.2"
+    "vite-plugin-svg-sprite": "^0.5.2",
+    "vitest": "^2.1.9"
   }
 }
