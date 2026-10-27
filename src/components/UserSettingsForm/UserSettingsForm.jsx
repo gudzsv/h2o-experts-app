@@ -2,11 +2,18 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import css from './UserSettingsForm.module.css';
 import * as Yup from 'yup';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
 import { useTranslation } from 'react-i18next';
+import {
+  fromDisplayAmount,
+  mlToOz,
+  normalizeUnits,
+  toDisplayAmount,
+  UNITS,
+} from '../../helpers/units.js';
 
 import avatarMobile1x from '../../assets/img/settings_avatar/settings_avatar_mob_1x.webp';
 import avatarMobile2x from '../../assets/img/settings_avatar/settings_avatar_mob_2x.webp';
@@ -23,11 +30,16 @@ const UserSettingsForm = ({ onClose }) => {
     activityLevel,
     dailyRequirement,
     photo,
+    units: savedUnits,
   } = useSelector(selectUser);
+  const initialUnits = normalizeUnits(savedUnits);
   const userName = !name || name === 'User' ? email?.split('@')[0] : name;
 
   const [imagePreview, setImagePreview] = useState(photo);
   const [waterRequirement, setWaterRequirement] = useState('1.8');
+  // The daily norm is stored in ml; the field shows it in the chosen units.
+  const [normMl, setNormMl] = useState(dailyRequirement);
+  const previousUnits = useRef(initialUnits);
 
   const userSettingsValidationSchema = Yup.object().shape({
     userImage: Yup.mixed(),
@@ -69,7 +81,11 @@ const UserSettingsForm = ({ onClose }) => {
       userName: userName,
       userWeight: weight,
       userTime: activityLevel,
-      dailyRequirement: dailyRequirement,
+      units: initialUnits,
+      dailyRequirement:
+        dailyRequirement === undefined
+          ? dailyRequirement
+          : toDisplayAmount(dailyRequirement, initialUnits),
     },
   });
 
@@ -91,6 +107,19 @@ const UserSettingsForm = ({ onClose }) => {
   const genderValue = watch('gender');
   const weightValue = watch('userWeight');
   const timeValue = watch('userTime');
+  const unitsValue = normalizeUnits(watch('units'));
+  const isOz = unitsValue === UNITS.OZ;
+
+  useEffect(() => {
+    if (previousUnits.current === unitsValue) {
+      return;
+    }
+
+    previousUnits.current = unitsValue;
+    if (normMl) {
+      setValue('dailyRequirement', toDisplayAmount(normMl, unitsValue));
+    }
+  }, [unitsValue, normMl, setValue]);
 
   useEffect(() => {
     if (genderValue === 'female') {
@@ -108,14 +137,15 @@ const UserSettingsForm = ({ onClose }) => {
       formData.append('email', data.userEmail || '');
       formData.append('weight', data.userWeight || 0);
       formData.append('activityLevel', data.userTime || 0);
-      formData.append('dailyRequirement', data.dailyRequirement || 0);
+      formData.append('dailyRequirement', normMl || 0);
+      formData.append('units', data.units);
       if (data.userImage && data.userImage instanceof File) {
         formData.append('photo', data.userImage);
       }
       dispatch(editUser(formData));
       onClose(false);
     },
-    [dispatch, onClose]
+    [dispatch, onClose, normMl]
   );
 
   return (
@@ -303,18 +333,55 @@ const UserSettingsForm = ({ onClose }) => {
           </div>
           <div className={css.wrapperWaterAmount}>
             <p className={css.labelRegularlyWaterAmount}>
-              {t('settingsForm.WaterAmount')}
+              {isOz
+                ? t('settingsForm.WaterAmountOz')
+                : t('settingsForm.WaterAmount')}
             </p>
             <p className={css.accent}>
               {typeof waterRequirement === 'number' && !isNaN(waterRequirement)
-                ? waterRequirement.toFixed(1)
+                ? isOz
+                  ? Math.round(mlToOz(waterRequirement * 1000))
+                  : waterRequirement.toFixed(1)
                 : '0.00'}
-              L
+              {isOz ? ` ${t('units.oz')}` : 'L'}
             </p>
           </div>
+          <fieldset aria-labelledby="units" className={css.unitsFieldset}>
+            <legend id="units" className={css.labelGender}>
+              {t('units.legend')}
+            </legend>
+            <div className={css.radioWrapper}>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioMl"
+                  value="ml"
+                  className={css.radio}
+                  {...register('units')}
+                />
+                <label htmlFor="radioMl" className={css.hiddenLabel}>
+                  {t('units.ml')}
+                </label>
+              </div>
+              <div className={css.radioContainer}>
+                <input
+                  type="radio"
+                  id="radioOz"
+                  value="oz"
+                  className={css.radio}
+                  {...register('units')}
+                />
+                <label htmlFor="radioOz" className={css.hiddenLabel}>
+                  {t('units.oz')}
+                </label>
+              </div>
+            </div>
+          </fieldset>
           <div className={css.wrapperInput}>
             <label htmlFor="dailyRequirement" className={css.labelWaterNorma}>
-              {t('settingsForm.labelWaterNorma')}
+              {t('settingsForm.labelWaterNorma', {
+                unit: isOz ? t('units.oz') : t('units.ml'),
+              })}
             </label>
             <input
               type="text"
@@ -324,7 +391,12 @@ const UserSettingsForm = ({ onClose }) => {
               className={`${css.userInput} ${
                 errors.dailyRequirement ? css.errorInput : ''
               }`}
-              {...register('dailyRequirement')}
+              {...register('dailyRequirement', {
+                onChange: event =>
+                  setNormMl(
+                    fromDisplayAmount(Number(event.target.value), unitsValue)
+                  ),
+              })}
             />
             {errors.dailyRequirement && (
               <p className={css.error} aria-live="assertive">

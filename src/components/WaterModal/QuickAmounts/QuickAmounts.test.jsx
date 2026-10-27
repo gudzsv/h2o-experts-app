@@ -1,24 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { describe, expect, it, vi } from 'vitest';
-import { waterReducer } from '../../../redux/water/slice.js';
+import { createTestStore } from '../../../test/store.js';
 import QuickAmounts from './QuickAmounts.jsx';
 
-const renderChips = ({ weekWater = [], value = 50, onSelect = vi.fn() }) => {
-  const store = configureStore({
-    reducer: { water: waterReducer },
-    preloadedState: {
-      water: {
-        dayWater: [],
-        dayKey: null,
-        monthWater: [],
-        monthKey: null,
-        weekWater,
-        isLoading: false,
-      },
-    },
-  });
+const renderChips = ({
+  weekWater = [],
+  value = 50,
+  units,
+  onSelect = vi.fn(),
+}) => {
+  const store = createTestStore({ units, weekWater });
 
   render(
     <Provider store={store}>
@@ -76,6 +68,33 @@ describe('QuickAmounts', () => {
     );
 
     expect(onSelect).toHaveBeenCalledWith(270);
+  });
+
+  it('shows ounce presets and converts the repeat chip for oz users', () => {
+    const onSelect = renderChips({
+      units: 'oz',
+      weekWater: [entry(500)],
+      value: 8,
+    });
+
+    const group = screen.getByRole('group', { name: 'Quick amounts' });
+    const labels = Array.from(group.querySelectorAll('button')).map(
+      button => button.textContent
+    );
+    expect(labels).toEqual([
+      '4 oz',
+      '8 oz',
+      '12 oz',
+      '16 oz',
+      'Same as last time: 17 oz',
+    ]);
+    expect(screen.getByRole('button', { name: '8 oz' })).toHaveProperty(
+      'ariaPressed',
+      'true'
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '12 oz' }));
+    expect(onSelect).toHaveBeenCalledWith(12);
   });
 
   it('does not duplicate a preset with a repeat chip', () => {

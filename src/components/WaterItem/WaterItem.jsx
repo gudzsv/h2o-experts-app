@@ -4,9 +4,11 @@ import sprite from '../../assets/icons/sprite.svg';
 import DeleteWaterModal from 'components/DeleteWaterModal/DeleteWaterModal.jsx';
 import { useTranslation } from 'react-i18next';
 import { getEntryDateKey, toDateKey } from '../../helpers/date.js';
+import { useVolume } from '../../hooks/useVolume.js';
 
 const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
   const { t } = useTranslation();
+  const { format } = useVolume();
 
   const formattedTime = new Date(item.drinkingTime).toLocaleTimeString([], {
     hour: '2-digit',
@@ -23,13 +25,6 @@ const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
     onDelete(item._id);
   };
 
-  const formatWaterAmount = usedWater => {
-    if (usedWater >= 1000) {
-      return `${(usedWater / 1000).toFixed(1)} ${t('chooseDate.l')}`;
-    }
-    return `${usedWater} ${t('chooseDate.ml')}`;
-  };
-
   if (toDateKey(dateForCalendar) === getEntryDateKey(item)) {
     return (
       <div className={css.water_item}>
@@ -38,7 +33,7 @@ const WaterItem = ({ item, onEdit, onDelete, dateForCalendar }) => {
         </svg>
         <div className={css.water_item_content}>
           <span className={css.water_amount}>
-            {formatWaterAmount(item.usedWater)}
+            {format(item.usedWater)}
           </span>
           <span className={css.water_time}>{formattedTime}</span>
         </div>
