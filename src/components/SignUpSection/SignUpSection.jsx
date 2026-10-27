@@ -10,17 +10,13 @@ const SignUpSection = () => {
     <section className={styles.formSection}>
       <Logo />
       <div className={styles.formWrapper}>
-        <h2 className={styles.title} aria-label="Sign Up for an account">
+        <h2 className={styles.title}>
           {t('signUp.title')}
         </h2>
         <SignUpForm />
         <p className={styles.wrapperText}>
           <span className={styles.text}>{t('signUp.account')}</span>
-          <Link
-            to="/signin"
-            className={styles.link}
-            aria-label="Go to sign in page"
-          >
+          <Link to="/signin" className={styles.link}>
             {t('signUp.signIn')}
           </Link>
         </p>

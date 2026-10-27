@@ -60,11 +60,7 @@ const DailyInfo = ({ dateForCalendar }) => {
       <div className={styles.wrapper}>
         <div className={styles.today_and_addBtn_container}>
           <ChooseDate selectedDate={dateForCalendar || new Date()} />
-          <AddWaterBtn
-            btnType="secondary"
-            onClick={handleIsAddWater}
-            aria-label="Add water record"
-          />
+          <AddWaterBtn btnType="secondary" onClick={handleIsAddWater} />
         </div>
 
         <ModalTemplate

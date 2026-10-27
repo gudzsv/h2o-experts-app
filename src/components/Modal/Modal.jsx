@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
+import { onActivate } from '../../helpers/a11y';
 import styles from '../Modal/Modal.module.css';
 
 Modal.setAppElement('#root');
@@ -10,6 +12,8 @@ export const ModalTemplate = ({
   isSettings,
   children,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (modalIsOpen) {
       document.body.style.overflow = 'hidden';
@@ -34,6 +38,10 @@ export const ModalTemplate = ({
           width="28"
           height="28"
           onClick={closeModal}
+          onKeyDown={onActivate(closeModal)}
+          role="button"
+          tabIndex={0}
+          aria-label={t('a11y.closeModal')}
         >
           <use
             href={`${

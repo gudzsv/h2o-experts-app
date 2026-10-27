@@ -137,7 +137,6 @@ const UserSettingsForm = ({ onClose }) => {
               : `${avatarMobile1x} 1x, ${avatarMobile2x} 2x`
           }
           alt={t('settingsForm.userPhotoAlt')}
-          aria-label="Upload a photo"
           className={css.userPhoto}
           loading="lazy"
           width="75"
