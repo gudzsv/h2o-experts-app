@@ -2,7 +2,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('react-hot-toast', () => ({
+  default: { success: vi.fn(), error: vi.fn() },
+}));
+
+import toast from 'react-hot-toast';
 import { API } from '../../helpers/axios.js';
 import { createTestStore } from '../../test/store.js';
 import StatsPage from './StatsPage.jsx';
@@ -25,10 +31,10 @@ const makeStats = (overrides = {}) => ({
   ...overrides,
 });
 
-const renderPage = ({ units = 'ml' } = {}) =>
+const renderPage = ({ units = 'ml', email } = {}) =>
   render(
     <HelmetProvider>
-      <Provider store={createTestStore({ units })}>
+      <Provider store={createTestStore({ units, user: { email } })}>
         <MemoryRouter>
           <StatsPage />
         </MemoryRouter>
@@ -37,6 +43,10 @@ const renderPage = ({ units = 'ml' } = {}) =>
   );
 
 describe('StatsPage', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    localStorage.clear();
+  });
   afterEach(() => vi.restoreAllMocks());
 
   it('shows the loader until the stats arrive', async () => {
@@ -131,5 +141,24 @@ describe('StatsPage', () => {
     await waitFor(() => expect(get).toHaveBeenCalledTimes(2));
     await screen.findByText('Current streak');
     expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('announces each unlocked achievement once', async () => {
+    vi.spyOn(API, 'get').mockResolvedValue({ data: { data: makeStats() } });
+    const { unmount } = renderPage({ email: 'a@b.c' });
+
+    await screen.findByText('Current streak');
+    await waitFor(() =>
+      expect(toast.success).toHaveBeenCalledWith(
+        'New achievement: First day with the goal met',
+        expect.objectContaining({ id: 'achievement-firstGoal' })
+      )
+    );
+    expect(toast.success).toHaveBeenCalledTimes(1);
+
+    unmount();
+    renderPage({ email: 'a@b.c' });
+    await screen.findByText('Current streak');
+    expect(toast.success).toHaveBeenCalledTimes(1);
   });
 });

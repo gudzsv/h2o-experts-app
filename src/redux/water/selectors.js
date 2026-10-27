@@ -12,3 +12,7 @@ export const selectTodayWater = createSelector([selectWeekWater], weekWater => {
   const todayKey = toDateKey(new Date());
   return weekWater.filter(entry => getEntryDateKey(entry) === todayKey);
 });
+
+export const selectTodayTotal = createSelector([selectTodayWater], todayWater =>
+  todayWater.reduce((total, entry) => total + (entry.usedWater || 0), 0)
+);

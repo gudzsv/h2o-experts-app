@@ -4,8 +4,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import styles from './WaterForm.module.css';
-import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
+import { useDispatch, useStore } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
+import { selectTodayTotal } from '../../../redux/water/selectors.js';
+import { selectUser } from '../../../redux/auth/selectors.js';
+import {
+  DEFAULT_DAILY_NORMA,
+  MESSAGES,
+} from '../../../constants/constants.js';
+import { didReachGoal } from '../../../helpers/celebrations.js';
 
 import {
   getEntryTime,
@@ -20,6 +28,7 @@ import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const store = useStore();
   const { units, unitLabel, toDisplay, fromDisplay } = useVolume();
   const maxAmount = getMaxAmount(units);
 
@@ -88,10 +97,21 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
 
     closeModal();
 
+    const before = selectTodayTotal(store.getState());
+
     if (isEdit) {
       await dispatch(editWater({ waterId: waterItem._id, ...payload }));
     } else {
       await dispatch(addWater(payload));
+    }
+
+    const state = store.getState();
+    const goal = selectUser(state)?.dailyRequirement || DEFAULT_DAILY_NORMA;
+    if (didReachGoal(before, selectTodayTotal(state), goal)) {
+      // One message instead of two: the celebration replaces "added".
+      toast.dismiss(MESSAGES.SUCCESS.ADD_WATER);
+      toast.dismiss(MESSAGES.SUCCESS.EDIT_WATER);
+      toast.success(t('celebrate.goalMet'), { id: 'goal-met', icon: '🎉' });
     }
   };
 

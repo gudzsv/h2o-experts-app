@@ -188,6 +188,10 @@
     "greeting": "Hello"
   },
 
+  "celebrate": {
+    "goalMet": "Daily goal reached! Come back tomorrow to keep the streak.",
+    "achievement": "New achievement: {{name}}"
+  },
   "stats": {
     "title": "Statistics",
     "back": "← Back to the tracker",
