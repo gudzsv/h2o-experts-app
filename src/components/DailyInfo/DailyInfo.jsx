@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import ChooseDate from './ChooseDate/ChooseDate';
 import WaterList from 'components/WaterList/WaterList';
 import styles from './DailyInfo.module.css';
@@ -16,7 +16,6 @@ const DailyInfo = ({ dateForCalendar }) => {
   const isLoading = useSelector(selectIsLoading);
 
   const { openAdd, openEdit } = useWaterModal();
-  const [isCurrentDay, setIsCurrentDay] = useState('');
 
   const formattedDate = useMemo(
     () => toDateKey(dateForCalendar || new Date()),
@@ -24,11 +23,8 @@ const DailyInfo = ({ dateForCalendar }) => {
   );
 
   useEffect(() => {
-    if (formattedDate !== isCurrentDay) {
-      setIsCurrentDay(formattedDate);
-      dispatch(getDayWater(formattedDate));
-    }
-  }, [dispatch, formattedDate, isCurrentDay]);
+    dispatch(getDayWater(formattedDate));
+  }, [dispatch, formattedDate]);
 
   const handleIsAddWater = useCallback(
     () => openAdd(formattedDate),

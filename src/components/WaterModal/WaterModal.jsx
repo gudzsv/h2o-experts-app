@@ -7,13 +7,7 @@ const WaterModal = ({ actionType, closeModal, waterItem, currentDay }) => {
   const { t } = useTranslation();
   return (
     <div className={styles.wrapper}>
-      {actionType === 'edit' ? (
-        <h1 className={styles.title}> {t('waterModal.edit')}</h1>
-      ) : actionType === 'add' ? (
-        <h1 className={styles.title}> {t('waterModal.add')}</h1>
-      ) : (
-        <h1 className={styles.title}>...</h1>
-      )}
+      <h1 className={styles.title}>{t(`waterModal.${actionType}`)}</h1>
 
       <WaterForm
         actionType={actionType}

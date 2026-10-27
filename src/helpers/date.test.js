@@ -1,10 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
   getEntryDateKey,
+  getEntryTime,
   getWeekDays,
   getWeekRange,
+  TIME_OPTIONS,
   toDateKey,
+  toDrinkingTime,
   toMonthKey,
+  toTimeOption,
 } from './date.js';
 
 describe('date helpers', () => {
@@ -56,5 +60,28 @@ describe('date helpers', () => {
 
     expect(range.startKey).toBe('2025-12-28');
     expect(range.monthKeys).toEqual(['2025-12', '2026-01']);
+  });
+
+  it('offers a time every five minutes for the whole day', () => {
+    expect(TIME_OPTIONS).toHaveLength(288);
+    expect(TIME_OPTIONS[0]).toBe('00:00');
+    expect(TIME_OPTIONS[1]).toBe('00:05');
+    expect(TIME_OPTIONS[287]).toBe('23:55');
+  });
+
+  it('rounds the current time down to an option', () => {
+    expect(toTimeOption(new Date(2026, 9, 27, 14, 37))).toBe('14:35');
+    expect(toTimeOption(new Date(2026, 9, 27, 9, 4))).toBe('09:00');
+    expect(toTimeOption(new Date(2026, 9, 27, 23, 59))).toBe('23:55');
+    expect(TIME_OPTIONS).toContain(toTimeOption(new Date(2026, 9, 27, 14, 37)));
+  });
+
+  it('reads and builds drinking times', () => {
+    expect(getEntryTime({ drinkingTime: '2026-10-27T08:05:00' })).toBe('08:05');
+    expect(toDrinkingTime('2026-10-27', '08:05')).toBe('2026-10-27T08:05:00');
+    // An ISO string for the day is tolerated.
+    expect(toDrinkingTime('2026-10-27T00:00:00', '08:05')).toBe(
+      '2026-10-27T08:05:00'
+    );
   });
 });

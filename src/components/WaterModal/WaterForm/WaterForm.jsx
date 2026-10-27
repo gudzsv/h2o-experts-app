@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -7,19 +7,15 @@ import styles from './WaterForm.module.css';
 import { useDispatch } from 'react-redux';
 import { addWater, editWater } from '../../../redux/water/operations.js';
 
+import {
+  getEntryTime,
+  TIME_OPTIONS,
+  toDrinkingTime,
+  toTimeOption,
+} from '../../../helpers/date.js';
 import { getDefaultAmount, getMaxAmount } from '../../../helpers/units.js';
 import { useVolume } from '../../../hooks/useVolume.js';
 import QuickAmounts from '../QuickAmounts/QuickAmounts.jsx';
-
-const generateTimeOptions = () => {
-  return Array.from({ length: 24 * 12 }, (_, i) => {
-    const hours = String(Math.floor(i / 12)).padStart(2, '0');
-    const minutes = String((i % 12) * 5).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  });
-};
-
-const timeOptions = generateTimeOptions();
 
 const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { t } = useTranslation();
@@ -27,20 +23,13 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
   const { units, unitLabel, toDisplay, fromDisplay } = useVolume();
   const maxAmount = getMaxAmount(units);
 
-  const now = new Date();
-  const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(
-    Math.floor(now.getMinutes() / 5) * 5
-  ).padStart(2, '0')}`;
-
-  const defaultDrinkingTime =
-    actionType === 'edit'
-      ? waterItem.drinkingTime.split('T')[1].slice(0, 5)
-      : formattedTime;
-
-  const defaultUsedWater =
-    actionType === 'edit'
-      ? toDisplay(waterItem.usedWater)
-      : getDefaultAmount(units);
+  const isEdit = actionType === 'edit';
+  const defaultDrinkingTime = isEdit
+    ? getEntryTime(waterItem)
+    : toTimeOption(new Date());
+  const defaultUsedWater = isEdit
+    ? toDisplay(waterItem.usedWater)
+    : getDefaultAmount(units);
 
   const validationSchema = Yup.object().shape({
     drinkingTime: Yup.string().required(
@@ -73,14 +62,6 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     resolver: yupResolver(validationSchema),
   });
 
-  useEffect(() => {
-    if (actionType === 'edit' && waterItem) {
-      const initialTime = waterItem.drinkingTime.split('T')[1].slice(0, 5);
-      setValue('drinkingTime', initialTime);
-      setValue('usedWater', toDisplay(waterItem.usedWater));
-    }
-  }, [actionType, waterItem, setValue, toDisplay]);
-
   const selectAmount = useCallback(
     amount => {
       setValue('usedWater', amount, {
@@ -91,34 +72,26 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
     [setValue]
   );
 
-  const formatDateTime = (date, time) => {
-    const formattedDate = date.toString().split('T')[0];
-    return `${formattedDate}T${time}:00`;
-  };
-
   const onSubmit = async data => {
-    const formattedDateTime = formatDateTime(currentDay, data.drinkingTime);
-
     // Keep the stored amount when an entry is saved without touching it:
     // converting to ounces and back would round it.
     const isAmountUntouched =
-      actionType === 'edit' &&
-      Number(data.usedWater) === toDisplay(waterItem.usedWater);
+      isEdit && Number(data.usedWater) === toDisplay(waterItem.usedWater);
     const usedWater = isAmountUntouched
       ? waterItem.usedWater
       : fromDisplay(Number(data.usedWater));
     const payload = {
       ...data,
       usedWater,
-      drinkingTime: formattedDateTime,
+      drinkingTime: toDrinkingTime(currentDay, data.drinkingTime),
     };
 
     closeModal();
 
-    if (actionType === 'add') {
-      await dispatch(addWater(payload));
-    } else if (actionType === 'edit') {
+    if (isEdit) {
       await dispatch(editWater({ waterId: waterItem._id, ...payload }));
+    } else {
+      await dispatch(addWater(payload));
     }
   };
 
@@ -128,13 +101,11 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
         className={`${styles.secondTitle} ${styles.secondTitleMargin}`}
         id="formTitle"
       >
-        {actionType === 'edit'
-          ? t('waterForm.titleEdit')
-          : t('waterForm.titleAdd')}
+        {isEdit ? t('waterForm.titleEdit') : t('waterForm.titleAdd')}
         :
       </h2>
 
-      {actionType === 'add' && (
+      {!isEdit && (
         <>
           <h2 className={styles.secondTitleRegular}>
             {t('waterForm.secondTitle')}:
@@ -157,7 +128,7 @@ const WaterForm = ({ actionType, waterItem, currentDay, closeModal }) => {
             aria-invalid={errors.drinkingTime ? 'true' : 'false'}
             aria-describedby="drinkingTimeError"
           >
-            {timeOptions.map(time => (
+            {TIME_OPTIONS.map(time => (
               <option key={time} value={time}>
                 {time}
               </option>
