@@ -1,10 +1,11 @@
 import Calendar from 'components/Calendar/Calendar.jsx';
 import CalendarPagination from 'components/CalendarPagination/CalendarPagination.jsx';
-import Chart from 'components/Chart/Chart.jsx';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getMonthWater } from '../../redux/water/operations.js';
 import { toMonthKey } from '../../helpers/date.js';
+
+const Chart = lazy(() => import('components/Chart/Chart.jsx'));
 
 const MonthInfo = ({ dateForCalendar, setDateForCalendar }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,9 @@ const MonthInfo = ({ dateForCalendar, setDateForCalendar }) => {
         setDateForCalendar={setDateForCalendar}
       />
       {isChart ? (
-        <Chart />
+        <Suspense fallback={null}>
+          <Chart />
+        </Suspense>
       ) : (
         <Calendar
           dateForCalendar={dateForCalendar}
