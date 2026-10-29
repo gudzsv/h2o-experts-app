@@ -134,4 +134,21 @@ describe('UserSettingsForm units', () => {
     expect(body.get('units')).toBe('oz');
     expect(body.get('dailyRequirement')).toBe('2070');
   });
+
+  // The onboarding allows 0 hours of activity, so the settings must too.
+  it('saves zero hours of activity and rejects a negative value', async () => {
+    const { save } = renderForm();
+    const activity = document.querySelector('#userTime');
+
+    // The form validates a field once it has been left.
+    fireEvent.change(activity, { target: { value: '-1' } });
+    fireEvent.blur(activity);
+    await screen.findByText('Active time cannot be negative');
+
+    fireEvent.change(activity, { target: { value: '0' } });
+    const body = await save();
+
+    expect(body.get('activityLevel')).toBe('0');
+    expect(screen.queryByText('Active time cannot be negative')).toBeNull();
+  });
 });

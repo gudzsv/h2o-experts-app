@@ -49,7 +49,7 @@ const UserSettingsForm = ({ onClose }) => {
       .required(t('settingsForm.ValidationWeightRequired')),
     userTime: Yup.number()
       .typeError(t('settingsForm.ValidationTimeTypeError'))
-      .min(1, t('settingsForm.ValidationTimeMin'))
+      .min(0, t('settingsForm.ValidationTimeMin'))
       .required(t('settingsForm.ValidationTimeRequired')),
     dailyRequirement: Yup.number()
       .typeError(t('settingsForm.ValidationDailyRequirementTypeError'))

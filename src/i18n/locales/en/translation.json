@@ -162,7 +162,7 @@
     "ValidationWeightMin": "Weight must be greater than 0",
     "ValidationWeightRequired": "Weight is required",
     "ValidationTimeTypeError": "Active time should be a numeric value.",
-    "ValidationTimeMin": "Active time must be greater than 0",
+    "ValidationTimeMin": "Active time cannot be negative",
     "ValidationTimeRequired": "Active time is required",
     "ValidationDailyRequirementTypeError": "Daily water should be a numeric value",
     "ValidationDailyRequirementMin": "Daily water requirement must be greater than 0",
