@@ -93,7 +93,7 @@
     "secondTitle": "Кількість води",
     "time": "Час запису",
     "waterUsed": "Введіть кількість використаної води ({{unit}})",
-    "button": "Зберігти",
+    "button": "Зберегти",
     "quickAmounts": "Швидкі кількості"
   },
 
@@ -162,7 +162,7 @@
     "ValidationWeightMin": "Вага має бути більше 0",
     "ValidationWeightRequired": "Необхідно вказати вагу",
     "ValidationTimeTypeError": "Необхідно вказати активний час у числовому значені",
-    "ValidationTimeMin": "Активний час має бути більше ніж 0",
+    "ValidationTimeMin": "Час активності не може бути від'ємним",
     "ValidationTimeRequired": "Необхідно вказати актиний час",
     "ValidationDailyRequirementTypeError": "Необхідно вказати добову норму води у числовому значені",
     "ValidationDailyRequirementMin": "Добова норма води має бути більше 0",
